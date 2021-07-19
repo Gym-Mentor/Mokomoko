@@ -1,4 +1,5 @@
 SUB_PJT 2
+<br/>
 
 Command line instructions
 
@@ -7,8 +8,8 @@ You can also upload existing files from your computer using the instructions bel
 
 Git global setup
 
-git config --global user.name "이재민"
-git config --global user.email "yaron_e5@naver.com"
+git config --global user.name "이름"
+git config --global user.email "계정(메일주소)"
 
 Create a new repository
 
