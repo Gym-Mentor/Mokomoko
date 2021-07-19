@@ -28,3 +28,20 @@ git branch
 git checkout frontend
 git checkout blowfish
 ```
+
+
+
+- 생성한 파일 commit 후 push 
+
+```
+git add .
+git commit -m "DOCS : 브랜치 정리"
+
+git push origin <사용자 이름>
+
+//나는
+git push origin blowfish
+```
+
+
+
