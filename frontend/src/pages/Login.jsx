@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/Login.css";
 import KakaoLogin from "react-kakao-login";
+import NaverLogin from "../components/NaverLogin";
 
 const Login = ({ history }) => {
   // state 선언
@@ -85,6 +86,7 @@ const Login = ({ history }) => {
           //     <div onClick={props.onClick}/>
           // )}
         />
+        <NaverLogin />
       </div>
       <hr></hr>
       {/* 로그인 푸터 */}
