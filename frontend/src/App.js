@@ -9,6 +9,8 @@ import Login from "./pages/Login";
 import Forgot from "./components/Forgot";
 import Join from "./components/Join";
 import Error404 from "./components/errors/Error404";
+import Test from "./pages/Test";
+
 function App() {
   return (
     <div className="App">
@@ -16,6 +18,7 @@ function App() {
         <Route path="/login" component={Login} exact />
         <Route path="/forgot" component={Forgot} />
         <Route path="/join" component={Join} />
+        <Route path="/kakaoLogin" component={Test}/>
 
         <Route component={Error404} />
       </Switch>
