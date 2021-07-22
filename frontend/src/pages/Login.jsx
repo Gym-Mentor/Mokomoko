@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../css/Login.css";
-import KakaoLogin from "react-kakao-login";
+import KakaoLogin from "../components/KakaoLogin";
 import NaverLogin from "../components/NaverLogin";
 
 const Login = ({ history }) => {
@@ -36,6 +36,8 @@ const Login = ({ history }) => {
     isEmail(email) && password.length >= 5 ? setBtnColorState(true) : setBtnColorState(false);
     console.log(btnColorState);
   };
+
+
   return (
     <div>
       로그인 메인
@@ -78,14 +80,7 @@ const Login = ({ history }) => {
       {/* SNS 로그인 푸터 */}
       <div className="social-login">
         <h3>토큰 받아오기</h3>
-        <KakaoLogin
-          jsKey="4bab42a7ba1fe3ae39ed221ece6993f6"
-          // onSuccess={result => onLoginKakao(result)}
-          // onFailure = {result => console.log(result)}
-          // render={(props : any) =>(
-          //     <div onClick={props.onClick}/>
-          // )}
-        />
+        <KakaoLogin />
         <NaverLogin />
       </div>
       <hr></hr>
