@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../css/user/Join.css";
+import "../css/Join.css";
 
 const Join = () => {
   //state 선언
@@ -29,6 +29,10 @@ const Join = () => {
     emailValidation && passwordValidation && passwordChkValidation
       ? setBtnColorState(true)
       : setBtnColorState(false);
+    console.log("email", emailValidation);
+    console.log("pwd", passwordValidation);
+    console.log("pwdchk", passwordChkValidation);
+    console.log(btnColorState);
   };
 
   const onClickJoin = (e) => {
@@ -132,7 +136,7 @@ const Join = () => {
         </div>
         <div>
           <button
-            className={"join-btn-" + (btnColorState ? "active" : "unactive")}
+            className={btnColorState ? "join-btn-active" : "join-btn-unactive"}
             type="button"
             onClick={onClickJoin}
           >
