@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import "../css/Join.css";
+import React, { useState, useEffect } from "react";
+import "../css/user/Join.css";
 
 const Join = () => {
   //state 선언
@@ -11,6 +11,10 @@ const Join = () => {
   const [emailValidation, setEmailValidation] = useState(false);
   const [passwordValidation, setPasswordValidation] = useState(false);
   const [passwordChkValidation, setPasswordChkValidation] = useState(false);
+
+  useEffect(() => {
+    console.log(password);
+  }, [password]);
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);

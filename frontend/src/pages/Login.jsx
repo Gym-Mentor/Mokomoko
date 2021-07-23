@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import "../css/Login.css";
+import "../css/user/Login.css";
 import KakaoLogin from "../components/KakaoLogin";
 import NaverLogin from "../components/NaverLogin";
 
@@ -38,59 +38,65 @@ const Login = ({ history }) => {
   };
 
   return (
-    <div className="login-body">
-      {/* <img className="logo" src={namelogo} alt="Img not found :(" /> */}
-      <div id="logo-name">mokomoko</div>
-      {/* 로그인 입력 창 */}
-      <div className="login-form">
-        <div>
-          <input
-            className="input-login"
-            type="text"
-            name="email"
-            value={email}
-            placeholder="이메일을 입력하세요"
-            onChange={onChangeEmail}
-            onKeyUp={btnChangeColor}
-          />
+    <div className="wrap">
+      <div className="login-body">
+        {/* <img className="logo" src={namelogo} alt="Img not found :(" /> */}
+        <div id="logo-name">
+          <h2>mokomoko</h2>
         </div>
-        <div>
-          <input
-            className="input-password"
-            type="password"
-            name="password"
-            value={password}
-            placeholder="비밀번호를 입력하세요"
-            onChange={onChangePassword}
-            onKeyUp={btnChangeColor}
-          ></input>
+        {/* SNS 로그인 헤더 */}
+        <div className="social-login">
+          <li>
+            <KakaoLogin />
+          </li>
+          <li>
+            <NaverLogin />
+          </li>
         </div>
-        <div>
-          <button
-            id="btn-login"
-            className={"login-btn-" + (btnColorState ? "onColor" : "offColor")}
-            type="button"
-            onClick={onClickLogin}
-          >
-            Login
-          </button>
+        {/* 로그인 입력 창 */}
+        <div className="login-form">
+          <div className="login-id">
+            <input
+              className="input-login"
+              type="text"
+              name="email"
+              value={email}
+              placeholder="이메일을 입력하세요"
+              onChange={onChangeEmail}
+              onKeyUp={btnChangeColor}
+            />
+          </div>
+          <div className="login-pw">
+            <input
+              className="input-password"
+              type="password"
+              name="password"
+              value={password}
+              placeholder="비밀번호를 입력하세요"
+              onChange={onChangePassword}
+              onKeyUp={btnChangeColor}
+            ></input>
+          </div>
+          {/* 로그인 푸터 */}
+          <div className="login-footer">
+            <div className="join">
+              <Link to="/join">Join</Link>
+            </div>
+            <div className="forgot-pw">
+              <Link to="/forgot">Forgot Password ?</Link>
+            </div>
+          </div>
+          <div className="submit">
+            <button
+              id="btn-login"
+              className={"login-btn-" + (btnColorState ? "onColor" : "offColor")}
+              type="button"
+              onClick={onClickLogin}
+            >
+              Login
+            </button>
+          </div>
         </div>
-      </div>
-      <hr className="bound-1"></hr>
-      <div className="bound-2">또는</div>
-      <hr className="bound-3"></hr>
-      {/* SNS 로그인 푸터 */}
-      <div className="social-login">
-        <h3>토큰 받아오기</h3>
-        <KakaoLogin />
-        <NaverLogin />
-      </div>
-      <hr></hr>
-      {/* 로그인 푸터 */}
-      <div className="login-footer">
-        <Link to="/forgot">비밀번호를 잊으셨습니까?</Link>
-        <br />
-        <Link to="/join">회원가입</Link>
       </div>
     </div>
   );

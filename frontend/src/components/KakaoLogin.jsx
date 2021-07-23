@@ -1,22 +1,20 @@
-import React from 'react';
+import React from "react";
+import "../css/user/KakaoLogin.css";
+import kakao from "../img/kakao.png";
 
-
-const {Kakao} = window;
-const loginWithKakao = () =>{
+const { Kakao } = window;
+const loginWithKakao = () => {
   console.log("hello");
   Kakao.Auth.authorize({
-    redirectUri: 'http://localhost:3000/kakaoLogin'
-  })
-}
+    redirectUri: "http://localhost:3000/kakaoLogin",
+  });
+};
 
 const KakaoLogin = () => {
   return (
     <div>
       <a id="custom-login-btn" onClick={loginWithKakao}>
-        <img
-          src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
-          width="222"
-        />
+        <img src={kakao} width="50" />
       </a>
     </div>
   );
