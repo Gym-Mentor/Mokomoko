@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import '../css/Join.css'
 
 
@@ -13,27 +13,37 @@ const Join = () => {
     const [passwordValidation,setPasswordValidation] = useState(false);
     const [passwordChkValidation, setPasswordChkValidation] = useState(false);
 
+    useEffect(() => {
+        console.log(password);
+        console.log(passwordChk);
+      }, [password,passwordChk,passwordChkValidation]);
+
     const onChangeEmail = (e) => {
         setEmail(e.target.value);
     };
       // 비밀번호 이벤트
     const onChangePassword = (e) => {
         setPassword(e.target.value);
+        console.log("pwd",password)
     };
     
     const onChangePasswordChk = (e) => {
         setPasswordChk(e.target.value);
+        console.log("pwdchk",passwordChk)
     };
 
     const btnChangeColor = () =>{
         //회원가입 유효성 검사 후 btnColorState값 변경
-        (emailValidation && passwordValidation && passwordChkValidation)? setBtnColorState(true) : setBtnColorState(false);
-        console.log(btnColorState);
+        (emailValidation && passwordValidation && (password === passwordChk))? setBtnColorState(true) : setBtnColorState(false);
     };
 
     const onClickJoin = (e) =>{
-        (emailValidation && passwordValidation && passwordChkValidation)? setBtnColorState(true) : setBtnColorState(false);
-        console.log(btnColorState);
+        if(setBtnColorState){
+            console.log(true);
+        }
+        else{
+            console.log(false);
+        }
     };
 
       //이메일 유효성 검사
@@ -43,10 +53,13 @@ const Join = () => {
         
         if(emailRegex.test(email)){
             setEmailValidation(true);
+            btnChangeColor();
         }
         else{
             setEmailValidation(false);
+            btnChangeColor();
         }
+
     };
 
     const isPassword = () =>{
@@ -57,19 +70,23 @@ const Join = () => {
 
         if(passwordRegex.test(password)){
             setPasswordValidation(true);
+            btnChangeColor();
         }
         else{
             setPasswordValidation(false);
+            btnChangeColor();
         }
     }
 
     const isPasswordChk = () =>{
-        if(password.length == passwordChk.length){
+        if(password === passwordChk){
             setPasswordChkValidation(true);
         }
         else{
-            setPasswordChkValidation(false);
+            setPasswordChkValidation(false); 
         }
+        btnChangeColor();
+        
     }
 
     return (
@@ -96,13 +113,13 @@ const Join = () => {
                     <input
                         type="password"
                         name="password"
-                        vale={password}
+                        value={password}
                         placeholder="비밀번호를 입력하세요"
                         onChange={onChangePassword}
                         onKeyUp={isPassword}
                     />
                     <div className={"password-validation-"+(passwordValidation?"onColor":"offColor")}>
-                        {passwordValidation?"OK":"비밀번호 형식이 잘못되었습니다."}
+                        {passwordValidation?"OK":"6-20자 사이로 최소 1개의 숫자 혹은 특수 문자를 포함해야 합니다."}
                     </div>
                 </div>
                 <div>
@@ -110,7 +127,7 @@ const Join = () => {
                     <input
                         type="password"
                         name="passwordChk"
-                        vale={passwordChk}
+                        value={passwordChk}
                         placeholder="확인 비밀번호를 입력하세요"
                         onChange={onChangePasswordChk}
                         onKeyUp={isPasswordChk}
@@ -121,9 +138,9 @@ const Join = () => {
                 </div>
                 <div>
                     <button 
-                        className={"join-btn-"+(btnColorState? "onColor":"offColor")}
+                        className={btnColorState?"join-btn-active":"join-btn-unactive"}
                         type="button"
-                        onChange={btnChangeColor}
+                    
                         onClick={onClickJoin}
                     >
                         회원가입
