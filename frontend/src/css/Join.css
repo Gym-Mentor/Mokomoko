@@ -21,10 +21,12 @@
       color : red;
   }
 
-  .join-btn-onColor {
+  .join-btn-active {
+    pointer-events: auto;
     background-color: blue;
   }
-  .join-btn-offColor {
+  .join-btn-unactive {
+    pointer-events: none;
     background-color: red;
   }
   

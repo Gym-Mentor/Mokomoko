@@ -7,7 +7,7 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Login from "./pages/Login";
 import Forgot from "./components/Forgot";
-import Join from "./components/Join";
+import Join from "./pages/Join";
 import Error404 from "./components/errors/Error404";
 import Test from "./pages/Test";
 
