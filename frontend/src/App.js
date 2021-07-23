@@ -1,13 +1,9 @@
-// import Login from "./pages/Login"
-// import './App.css';
-// import { Route} from 'react-router-dom';
-// import Forgot from './components/Forgot';
-// import Join from './components/Join';
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
+import "./css/common.css";
 import Login from "./pages/Login";
 import Forgot from "./components/Forgot";
-import Join from "./components/Join";
+import Join from "./pages/Join";
 import Error404 from "./components/errors/Error404";
 function App() {
   return (

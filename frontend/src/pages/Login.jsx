@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../css/Login.css";
+import "../css/user/Login.css";
+import "../css/common.css";
 import KakaoLogin from "react-kakao-login";
 import NaverLogin from "../components/NaverLogin";
 
@@ -37,14 +38,14 @@ const Login = ({ history }) => {
     console.log(btnColorState);
   };
   return (
-    <div>
-      로그인 메인
-      <h1>로그인을 하세요.</h1>
+    <div className="login-body">
+      {/* <img className="logo" src={namelogo} alt="Img not found :(" /> */}
+      <div id="logo-name">mokomoko</div>
       {/* 로그인 입력 창 */}
       <div className="login-form">
         <div>
-          <label htmlFor="email"> email :</label>
           <input
+            className="input-login"
             type="text"
             name="email"
             value={email}
@@ -54,8 +55,8 @@ const Login = ({ history }) => {
           />
         </div>
         <div>
-          <label htmlFor="password">password :</label>
           <input
+            className="input-password"
             type="password"
             name="password"
             value={password}
@@ -66,6 +67,7 @@ const Login = ({ history }) => {
         </div>
         <div>
           <button
+            id="btn-login"
             className={"login-btn-" + (btnColorState ? "onColor" : "offColor")}
             type="button"
             onClick={onClickLogin}
@@ -74,10 +76,11 @@ const Login = ({ history }) => {
           </button>
         </div>
       </div>
-      <hr></hr>
+      <hr className="bound-1"></hr>
+      <div className="bound-2">또는</div>
+      <hr className="bound-3"></hr>
       {/* SNS 로그인 푸터 */}
       <div className="social-login">
-        <h3>토큰 받아오기</h3>
         <KakaoLogin
           jsKey="4bab42a7ba1fe3ae39ed221ece6993f6"
           // onSuccess={result => onLoginKakao(result)}
