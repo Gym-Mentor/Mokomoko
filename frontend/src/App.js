@@ -4,9 +4,11 @@ import "./css/common.css";
 import Login from "./pages/user/Login";
 import Forgot from "./components/user/Forgot";
 import Join from "./pages/user/Join";
-import Error404 from "./components/errors/Error404";
+import Error404 from "./pages/errors/Error404";
 import NaverTest from "./pages/user/NaverTest";
 import Test from "./pages/user/Test";
+import JoinConfirm from "./pages/user/JoinConfirm";
+// import Profile from "./pages/user/";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/account/join" component={Join} />
         <Route path="/account/naverLogin" component={NaverTest} />
         <Route path="/account/kakaoLogin" component={Test} />
+        <Route path="/account/joinConfirm" component={JoinConfirm} />
+        {/* <Route path="/account/profile" component={Profile} /> */}
 
         <Route component={Error404} />
       </Switch>
