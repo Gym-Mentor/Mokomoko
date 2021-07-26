@@ -4,10 +4,14 @@ import "../css/BottomNav.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const BottomNav = () => {
+  const changeColor = (e) => {
+    alert(e.target.className);
+    // e.target.className = "nav-item";
+  };
   return (
     <div className="nav-wrap">
       <nav className="nav-bottom">
-        <div className="nav-item">
+        <div className="nav-item active" onClick={changeColor}>
           <Link to="/login">
             <FontAwesomeIcon icon="home" />
           </Link>

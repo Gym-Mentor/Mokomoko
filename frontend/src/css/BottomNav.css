@@ -14,3 +14,11 @@
   text-align: center;
   color: white;
 }
+
+/* 마우스를 올렸을 때 색상 변경*/
+.nav-item > :hover {
+  color: aqua !important;
+}
+.active {
+  background-color: black;
+}
