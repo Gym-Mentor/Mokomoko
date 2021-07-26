@@ -8,7 +8,7 @@ import Error404 from "./pages/errors/Error404";
 import NaverTest from "./pages/user/NaverTest";
 import Test from "./pages/user/Test";
 import JoinConfirm from "./pages/user/JoinConfirm";
-// import Profile from "./pages/user/";
+import Profile from "./components/main/profile/Profile"
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         <Route path="/account/naverLogin" component={NaverTest} />
         <Route path="/account/kakaoLogin" component={Test} />
         <Route path="/account/joinConfirm" component={JoinConfirm} />
-        {/* <Route path="/account/profile" component={Profile} /> */}
+        <Route path="/profile" component={Profile} />
 
         <Route component={Error404} />
       </Switch>

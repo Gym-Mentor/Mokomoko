@@ -2,41 +2,41 @@
   color: rgb(105, 130, 211);
   float: left;
   margin-bottom: 12px;
-  font-size: small;
+  font-size: 10px;
 }
 .email-validation-offColor {
   color: red;
   float: left;
   margin-bottom: 12px;
-  font-size: small;
+  font-size: 10px;
 }
 
 .password-validation-onColor {
   color: rgb(105, 130, 211);
   float: left;
   margin-bottom: 12px;
-  font-size: small;
+  font-size: 10px;
 }
 
 .password-validation-offColor {
   color: red;
   float: left;
   margin-bottom: 12px;
-  font-size: 11px;
+  font-size: 10px;
 }
 
 .passwordChk-validation-onColor {
   color: rgb(105, 130, 211);
   float: left;
   margin-bottom: 12px;
-  font-size: small;
+  font-size: 10px;
 }
 
 .passwordChk-validation-offColor {
   color: red;
   float: left;
   margin-bottom: 12px;
-  font-size: small;
+  font-size: 10px;
 }
 
 /* .join-btn-active {
@@ -63,6 +63,7 @@ input {
   border-radius: 3px;
   font-size: 14px;
 }
+
 #btn-join:focus {
   outline: none;
 }
@@ -84,7 +85,7 @@ input {
 }
 
 .toLogin {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 .toLogin a {
   color: inherit;
