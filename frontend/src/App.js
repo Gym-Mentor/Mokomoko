@@ -11,6 +11,8 @@ import Join from "./pages/Join";
 import Error404 from "./components/errors/Error404";
 import NaverTest from "./pages/NaverTest";
 import Test from "./pages/Test";
+import JoinConfirm from "./pages/JoinConfirm";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -21,6 +23,9 @@ function App() {
         <Route path="/join" component={Join} />
         <Route path="/naverLogin" component={NaverTest} />
         <Route path="/kakaoLogin" component={Test} />
+        <Route path="/joinConfirm" component={JoinConfirm}/>
+        <Route path="/profile" component={Profile}/>
+        
 
         <Route component={Error404} />
       </Switch>
