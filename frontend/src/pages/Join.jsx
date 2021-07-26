@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from "react";
 import '../css/Join.css'
+import JoinConfirm from "./JoinConfirm";
 
 
 const Join = () => {
@@ -38,12 +39,7 @@ const Join = () => {
     };
 
     const onClickJoin = (e) =>{
-        if(setBtnColorState){
-            console.log(true);
-        }
-        else{
-            console.log(false);
-        }
+        window.location.replace("/joinConfirm")
     };
 
       //이메일 유효성 검사
