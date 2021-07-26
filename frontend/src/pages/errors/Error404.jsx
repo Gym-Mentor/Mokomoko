@@ -1,14 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../css/Error.css";
+import image404 from "../../img/404.png";
+
 const Error404 = () => {
   return (
     <div>
       <div className="error-icon">
-        <img src="404.png" alt="404 icon" />
+        <img src={image404} alt="404 icon" />
       </div>
       <div className="home-icon">
-        <Link to="/login">
+        <Link to="/account/login">
           <h2>홈으로 가기</h2>
         </Link>
       </div>
