@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    // Email과 Nickname의 중복검사
-    Optional<User> findUserByEmailAndNickname(String email, String nickname);
+    Optional<User> FindByEmailAndPassword(String email, String password);
 
+    Optional<User> FindByEmail(String email);
 }
