@@ -11,6 +11,7 @@ import Join from "./pages/Join";
 import Error404 from "./components/errors/Error404";
 import NaverTest from "./pages/NaverTest";
 import Test from "./pages/Test";
+import BottomNav from "./pages/BottomNav";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/join" component={Join} />
         <Route path="/naverLogin" component={NaverTest} />
         <Route path="/kakaoLogin" component={Test} />
+        <Route path="/bottomNav" component={BottomNav} />
 
         <Route component={Error404} />
       </Switch>

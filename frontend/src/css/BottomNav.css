@@ -1,0 +1,16 @@
+.nav-bottom {
+  overflow: hidden;
+  border-bottom: 1px solid black;
+  background: #ffffff;
+}
+.nav-bottom > div {
+  /* 수평 정렬*/
+  float: left;
+  width: 20%;
+
+  /* 크기 및 색상, 정렬 */
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  color: white;
+}
