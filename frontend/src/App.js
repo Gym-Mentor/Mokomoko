@@ -20,7 +20,7 @@ function App() {
         <Route path="/account/naverLogin" component={NaverTest} />
         <Route path="/account/kakaoLogin" component={Test} />
         <Route path="/account/joinConfirm" component={JoinConfirm} />
-        {/* <Route path="/account/profile" component={Profile} /> */}
+        {/* <Route path="/profile" component={Profile} /> */}
 
         <Route component={Error404} />
       </Switch>

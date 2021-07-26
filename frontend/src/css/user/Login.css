@@ -148,21 +148,19 @@ input:placeholder {
   font-size: small;
   color: #003768;
 }
-.toJoin {
-  float: left;
-}
+
 .toJoin a {
   color: inherit;
   text-decoration: none;
 }
 .toJoin span {
-  font-size: 14px;
+  font-size: 12px;
 }
 .toJoin #jointo {
   color: #ff5a6093;
   font-style: inherit;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
 }
 .login-or {
   margin-top: 8px;
