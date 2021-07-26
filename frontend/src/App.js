@@ -1,31 +1,26 @@
-// import Login from "./pages/Login"
-// import './App.css';
-// import { Route} from 'react-router-dom';
-// import Forgot from './components/Forgot';
-// import Join from './components/Join';
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
-import Login from "./pages/Login";
-import Forgot from "./components/Forgot";
-import Join from "./pages/Join";
-import Error404 from "./components/errors/Error404";
-import NaverTest from "./pages/NaverTest";
-import Test from "./pages/Test";
-import JoinConfirm from "./pages/JoinConfirm";
-import Profile from "./pages/Profile";
+import "./css/common.css";
+import Login from "./pages/user/Login";
+import Forgot from "./components/user/Forgot";
+import Join from "./pages/user/Join";
+import Error404 from "./pages/errors/Error404";
+import NaverTest from "./pages/user/NaverTest";
+import Test from "./pages/user/Test";
+import JoinConfirm from "./pages/user/JoinConfirm";
+// import Profile from "./pages/user/";
 
 function App() {
   return (
     <div className="App">
       <Switch>
-        <Route path="/login" component={Login} exact />
-        <Route path="/forgot" component={Forgot} />
-        <Route path="/join" component={Join} />
-        <Route path="/naverLogin" component={NaverTest} />
-        <Route path="/kakaoLogin" component={Test} />
-        <Route path="/joinConfirm" component={JoinConfirm}/>
-        <Route path="/profile" component={Profile}/>
-        
+        <Route path="/account/login" component={Login} exact />
+        <Route path="/account/forgot" component={Forgot} />
+        <Route path="/account/join" component={Join} />
+        <Route path="/account/naverLogin" component={NaverTest} />
+        <Route path="/account/kakaoLogin" component={Test} />
+        <Route path="/account/joinConfirm" component={JoinConfirm} />
+        {/* <Route path="/account/profile" component={Profile} /> */}
 
         <Route component={Error404} />
       </Switch>
