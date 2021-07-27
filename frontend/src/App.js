@@ -8,6 +8,8 @@ import Error404 from "./pages/errors/Error404";
 import NaverTest from "./pages/user/NaverTest";
 import Test from "./pages/user/Test";
 import JoinConfirm from "./pages/user/JoinConfirm";
+import Feed from "./components/main/Feed";
+import Post from "./components/main/Post";
 // import Profile from "./pages/user/";
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
         <Route path="/account/kakaoLogin" component={Test} />
         <Route path="/account/joinConfirm" component={JoinConfirm} />
         {/* <Route path="/profile" component={Profile} /> */}
+        <Route path="/feed" component={Feed} />
+        <Route path="/post" component={Post} />
 
         <Route component={Error404} />
       </Switch>

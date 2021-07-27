@@ -52,6 +52,7 @@ const Login = ({ history }) => {
               <input
                 className="input-login"
                 type="text"
+                autoCapitalize="off"
                 name="email"
                 value={email}
                 placeholder="이메일"

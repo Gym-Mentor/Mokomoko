@@ -95,6 +95,7 @@ const Join = () => {
               <input
                 className="input-joinid"
                 type="text"
+                autoCapitalize="off"
                 name="email"
                 value={email}
                 placeholder="이메일 주소"
