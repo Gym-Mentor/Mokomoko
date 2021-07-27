@@ -2,13 +2,13 @@ package com.web.webcuration.repository;
 
 import java.util.Optional;
 
-import com.web.webcuration.model.User;
+import com.web.webcuration.Entity.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>{
+    
+    Optional<User> findByEmail(String email);
 
-    Optional<User> FindByEmailAndPassword(String email, String password);
-
-    Optional<User> FindByEmail(String email);
+    // Optional<User> existByEmail(String email);
 }
