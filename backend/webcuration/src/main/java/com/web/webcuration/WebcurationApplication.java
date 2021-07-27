@@ -1,4 +1,4 @@
-package com.web.webcuration.webcuration;
+package com.web.webcuration;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
