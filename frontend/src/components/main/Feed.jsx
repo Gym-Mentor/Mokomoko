@@ -10,10 +10,10 @@ const Feed = () => {
   //   useEffect(() => {}); db연결시 활용
 
   return (
-    <Container>
+    <div className="feed-wrapper">
       <Row>
         <Col></Col>
-        <Col>
+        <Col className="main-col">
           <div className="feed">
             <Post
               profilePhoto=""
@@ -26,7 +26,7 @@ const Feed = () => {
         </Col>
         <Col></Col>
       </Row>
-    </Container>
+    </div>
 
     /* {posts.map((post) => ( */
 

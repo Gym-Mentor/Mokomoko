@@ -10,6 +10,7 @@ import Test from "./pages/user/Test";
 import JoinConfirm from "./pages/user/JoinConfirm";
 import Feed from "./components/main/Feed";
 import Post from "./components/main/Post";
+import NicknameSetting from "./pages/user/NicknameSetting";
 // import Profile from "./pages/user/";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         {/* <Route path="/profile" component={Profile} /> */}
         <Route path="/feed" component={Feed} />
         <Route path="/post" component={Post} />
+        <Route path="/settingNick" component={NicknameSetting} />
 
         <Route component={Error404} />
       </Switch>

@@ -1,0 +1,87 @@
+import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import "../../css/user/NicknameSetting.css";
+
+const NicknameSetting = () => {
+  const [nickname, setNickname] = useState("");
+
+  const [nicknameValidation, setNicknameValidation] = useState(false);
+  const [btnColorState, setBtnColorState] = useState(false);
+
+  useEffect(() => {
+    console.log(nickname);
+  }, [nickname]);
+
+  const btnChangeColor = () => {
+    nicknameValidation ? setBtnColorState(true) : setBtnColorState(false);
+  };
+
+  const onChangeNickname = (e) => {
+    setNickname(e.target.value);
+    // console.log("nicknamecng ok");
+  };
+  const onClickProgress = () => {
+    window.location.replace("/feed");
+  };
+  const isNicknameOk = () => {
+    // 숫자, 알파벳 대소문자, . , _ 이외 문자일 경우 false
+    console.log("ok");
+
+    const nicknameRegex = /^[a-zA-Z0-9._]{3,15}$/;
+
+    console.log(nicknameRegex.test(nickname));
+
+    if (nicknameRegex.test(nickname)) {
+      setNicknameValidation(true);
+      btnChangeColor();
+    } else {
+      setNicknameValidation(false);
+    }
+  };
+  return (
+    <div className="wrap">
+      <div className="container">
+        <div className="inner">
+          <div id="logo-name">
+            <h2>처음이신가요 ?</h2>
+          </div>
+          <div className="setting-form">
+            <div className="nickname-desc">
+              <p>개성있는 나만의 닉네임을 설정해보세요 !</p>
+            </div>
+            <div className="nickname">
+              <input
+                className="input-nickname"
+                type="text"
+                autoCapitalize="off"
+                name="nickname"
+                value={nickname}
+                placeholder="닉네임"
+                onChange={onChangeNickname}
+                onKeyUp={isNicknameOk}
+              />
+              <div
+                className={"nickname-validation-" + (nicknameValidation ? "onColor" : "offColor")}
+              >
+                {nicknameValidation ? "사용 가능한 닉네임입니다." : "사용할 수 없는 닉네임입니다."}
+              </div>
+            </div>
+            <div className="submit">
+              <button
+                id="btn-setNickname"
+                className={btnColorState ? "set-btn-active" : "set-btn-unactive"}
+                type="button"
+                onClick={onClickProgress}
+              >
+                닉네임 설정
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default NicknameSetting;

@@ -1,13 +1,26 @@
-@media screen and (max-width: 990px) {
-  .post {
+@media screen and (max-width: 768px) {
+  .row {
+    width: 100%;
+  }
+  .main-col {
   }
 }
 @media screen and (min-width: 768px) {
+  .row {
+    width: 768px;
+  }
+}
+.feed-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* @media screen and (min-width: 768px) {
   .post {
     padding-left: 20%;
     padding-right: 20%;
   }
-}
+} */
 
 .post-content {
   /* width: 100%; */

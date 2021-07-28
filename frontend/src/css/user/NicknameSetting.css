@@ -1,0 +1,16 @@
+.nickname {
+  margin-top: 50px;
+}
+.submit {
+  margin-top: 50px;
+}
+.submit #btn-setNickname {
+  width: 270px;
+  height: 30px;
+  margin: 10px auto;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
