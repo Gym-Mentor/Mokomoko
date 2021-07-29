@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Container } from "react-bootstrap";
 import { VscBell } from "react-icons/vsc";
-import ProfileHambar from "./ProfileHambar";
+import ProfileNavbar from "./ProfileNavbar";
 import "../../css/header/Header.css";
 import logoImg from "../../img/logo-back.png";
 
@@ -12,11 +12,11 @@ const Header = () => {
         <Navbar bg="light">
           <Container className="logo">
             <Navbar.Brand href="/account/login">
-              <img id="logoimg" src={logoImg} />
+              <img id="logo-img" src={logoImg} />
             </Navbar.Brand>
           </Container>
           <VscBell className="VscBell" />
-          <ProfileHambar />
+          <ProfileNavbar />
         </Navbar>
       </div>
     </>

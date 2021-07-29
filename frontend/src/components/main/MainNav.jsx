@@ -11,31 +11,31 @@ const MainNav = () => {
     <div className="wrapper">
       <div className="Navs">
         {/*첫 번째 아이콘을 클릭하면 activeNav가 1로 바뀐다. activeNav와 각 아이콘의 숫자가 같으면 classname이 바뀌고 적용된 css가 바뀜 */}
-        <Link to="/first" className="nav-link" onClick={() => setActiveNav(1)}>
+        <Link to="/main/feed" className="nav-link" onClick={() => setActiveNav(1)}>
           <FontAwesomeIcon
             icon="home"
             className={activeNav === 1 ? "nav-item active" : "nav-item"}
           />
         </Link>
-        <Link to="/compass" className="nav-link" onClick={() => setActiveNav(2)}>
+        <Link to="/main/compass" className="nav-link" onClick={() => setActiveNav(2)}>
           <FontAwesomeIcon
             icon="compass"
             className={activeNav === 2 ? "nav-item active" : "nav-item"}
           />
         </Link>
-        <Link to="/third" className="nav-link" onClick={() => setActiveNav(3)}>
+        <Link to="/main/write" className="nav-link" onClick={() => setActiveNav(3)}>
           <FontAwesomeIcon
             icon="plus"
             className={activeNav === 3 ? "nav-item active" : "nav-item"}
           />
         </Link>
-        <Link to="/fourth" className="nav-link" onClick={() => setActiveNav(4)}>
+        <Link to="/account/login" className="nav-link" onClick={() => setActiveNav(4)}>
           <FontAwesomeIcon
             icon="medal"
             className={activeNav === 4 ? "nav-item active" : "nav-item"}
           />
         </Link>
-        <Link to="/fifth" className="nav-link" onClick={() => setActiveNav(5)}>
+        <Link to="/main/profile" className="nav-link" onClick={() => setActiveNav(5)}>
           <FontAwesomeIcon
             icon="user"
             className={activeNav === 5 ? "nav-item active" : "nav-item"}
