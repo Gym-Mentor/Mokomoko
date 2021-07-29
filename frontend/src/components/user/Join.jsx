@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import JoinConfirm from "./JoinConfirm";
+
 
 import "../../css/user/Join.css";
 

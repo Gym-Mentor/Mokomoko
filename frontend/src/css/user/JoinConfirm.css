@@ -1,8 +1,4 @@
-p{
-    color : red;
-}
-
-button{
+.btn-resend-email{
     background-color: #EC6664;
     color: white;
     width: 150px;
