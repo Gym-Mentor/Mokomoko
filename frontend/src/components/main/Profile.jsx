@@ -3,7 +3,7 @@ import Header from "../../components/header/Header";
 import UserInfo from "../../components/main/profile/UserInfo";
 import Post from "../../components/main/profile/Post";
 
-import "../../../css/main/profile/Profile.css";
+import "../../css/main/profile/Profile.css";
 
 const Profile = () => {
   return (
