@@ -20,6 +20,7 @@
   /* 수평 정렬*/
   float: left;
   width: 20%;
+  height: 45px;
 
   /*중앙정렬 */
   text-align: center;

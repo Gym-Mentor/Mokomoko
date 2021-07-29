@@ -39,9 +39,9 @@ const Login = ({ history }) => {
 
   return (
     <div className="wrap">
-      <div className="container">
+      <div className="user-container">
         <div className="inner">
-          <div id="logo-name">
+          <div className="logo-name">
             <h2>mokomoko</h2>
           </div>
 
@@ -76,9 +76,9 @@ const Login = ({ history }) => {
               </Link>
             </div>
 
-            <div className="submit">
+            <div className="user-submit">
               <button
-                id="btn-login"
+                id="login-btn"
                 className={"login-btn-" + (btnColorState ? "onColor" : "offColor")}
                 type="button"
                 onClick={onClickLogin}
@@ -99,10 +99,10 @@ const Login = ({ history }) => {
             <KakaoLogin />
           </div>
 
-          <div className="toJoin">
+          <div className="to-join">
             <span>mokomoko 회원이 아닌가요? </span>
             <Link to="/account/Join">
-              <span id="jointo"> 지금 가입하세요.</span>
+              <span className="to-join-name"> 지금 가입하세요.</span>
             </Link>
           </div>
         </div>
