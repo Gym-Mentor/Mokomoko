@@ -40,14 +40,14 @@ const NicknameSetting = () => {
   };
   return (
     <div className="wrap">
-      <div className="container">
+      <div className="user-container">
         <div className="inner">
-          <div id="logo-name">
+          <div className="logo-name">
             <h2>처음이신가요 ?</h2>
           </div>
           <div className="setting-form">
             <div className="nickname-desc">
-              <p>개성있는 나만의 닉네임을 설정해보세요 !</p>
+              <p className="nickname-desc-msg">개성있는 나만의 닉네임을 설정해보세요 !</p>
             </div>
             <div className="nickname">
               <input
@@ -66,9 +66,9 @@ const NicknameSetting = () => {
                 {nicknameValidation ? "사용 가능한 닉네임입니다." : "사용할 수 없는 닉네임입니다."}
               </div>
             </div>
-            <div className="submit">
+            <div className="nickname-submit">
               <button
-                id="btn-setNickname"
+                id="nickname-set-btn"
                 className={btnColorState ? "set-btn-active" : "set-btn-unactive"}
                 type="button"
                 onClick={onClickProgress}

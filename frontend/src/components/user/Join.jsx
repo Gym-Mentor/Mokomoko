@@ -84,16 +84,16 @@ const Join = () => {
 
   return (
     <div className="wrap">
-      <div className="container">
+      <div className="user-container">
         <div className="inner">
-          <div id="logo-name">
+          <div className="logo-name">
             <h2>mokomoko</h2>
           </div>
           {/* 회원가입 입력 창 */}
           <div className="join-form">
             <div className="join-id">
               <input
-                className="input-joinid"
+                className="user-input"
                 type="text"
                 autoCapitalize="off"
                 name="email"
@@ -108,7 +108,7 @@ const Join = () => {
             </div>
             <div>
               <input
-                className="input-joinpw"
+                className="user-input"
                 type="password"
                 name="password"
                 value={password}
@@ -127,7 +127,7 @@ const Join = () => {
             </div>
             <div>
               <input
-                className="input-pwvali"
+                className="user-input"
                 type="password"
                 name="passwordChk"
                 value={passwordChk}
@@ -147,7 +147,7 @@ const Join = () => {
             </div>
             <div className="submit">
               <button
-                id="btn-join"
+                id="join-btn"
                 className={btnColorState ? "join-btn-active" : "join-btn-unactive"}
                 type="button"
                 onClick={onClickJoin}
@@ -155,10 +155,10 @@ const Join = () => {
                 회원가입
               </button>
             </div>
-            <div className="toLogin">
-              <span>이미 계정이 있나요 ? </span>
+            <div className="to-login">
+              <span className="have-account-msg">이미 계정이 있나요 ? </span>
               <Link to="/account/Login">
-                <span id="loginto"> 로그인하기.</span>
+                <span className="to-login-name"> 로그인하기.</span>
               </Link>
             </div>
           </div>
