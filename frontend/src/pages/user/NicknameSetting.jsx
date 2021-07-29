@@ -1,6 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../css/user/NicknameSetting.css";
 
 const NicknameSetting = () => {
@@ -11,7 +10,7 @@ const NicknameSetting = () => {
 
   useEffect(() => {
     console.log(nickname);
-  }, [nickname]);
+  }, [nickname, nicknameValidation]);
 
   const btnChangeColor = () => {
     nicknameValidation ? setBtnColorState(true) : setBtnColorState(false);
@@ -75,6 +74,9 @@ const NicknameSetting = () => {
                 onClick={onClickProgress}
               >
                 닉네임 설정
+                {/* <div>
+                  <FontAwesomeIcon icon="fa-solid fa-circle-arrow-right" />
+                </div> */}
               </button>
             </div>
           </div>
