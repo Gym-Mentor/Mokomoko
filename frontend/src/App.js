@@ -15,7 +15,6 @@ import Compass from "./pages/main/Compass";
 import Third from "./pages/main/Third";
 import Fourth from "./pages/main/Fourth";
 import Fifth from "./pages/main/Fifth";
-import Main from './pages/main/Main';
 import Profile from "./components/main/profile/Profile";
 import Write from "./components/main/write/Write";
 
@@ -38,7 +37,6 @@ function App() {
 
         {/* <Route path="/account/profile" component={Profile} /> */}
 
-        <Route path="/main/home" component={Main}/>
         <Route path="/main/profile" component={Profile} />
         <Route path="/main/write" component={Write}/>
 
