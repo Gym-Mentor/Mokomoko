@@ -1,5 +1,4 @@
 import React from 'react';
-import * as BsIcons from 'react-icons/bs';
 import {AiOutlineUser} from  'react-icons/ai'
 import {FiLogOut} from 'react-icons/fi';
 import {FaConnectdevelop} from 'react-icons/fa';
