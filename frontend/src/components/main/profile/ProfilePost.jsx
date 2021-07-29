@@ -1,7 +1,7 @@
 import React ,{useState} from 'react';
-import Detail from '../profile/Detail';
+import Detail from './Detail';
 
-import '../../../css/main/profile/Post.css';
+import '../../../css/main/profile/ProfilePost.css';
 
 
 
