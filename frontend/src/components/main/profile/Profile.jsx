@@ -3,7 +3,7 @@ import Header from '../../header/Header';
 import UserInfo from '../profile/UserInfo';
 import Post from '../profile/Post';
 
-import '../../../css/main/Profile.css';
+import '../../../css/main/profile/Profile.css';
 
 const Profile = () => {
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../css/main/FollowModal.css';
+import '../../../css/main/profile/FollowModal.css'
 
 const FollowerModal = ({showFollowerModal}) => {
     return (

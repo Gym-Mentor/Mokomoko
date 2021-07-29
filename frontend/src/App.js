@@ -11,6 +11,7 @@ import JoinConfirm from "./pages/user/JoinConfirm";
 
 import Main from './pages/main/Main';
 import Profile from "./components/main/profile/Profile";
+import Write from "./components/main/write/Write";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
 
         <Route path="/main/home" component={Main}/>
         <Route path="/main/profile" component={Profile} />
+        <Route path="/main/write" component={Write}/>
 
         <Route component={Error404} />
       </Switch>

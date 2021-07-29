@@ -1,6 +1,6 @@
 import React ,{useState}from 'react';
 import userImg from '../../../img/user.jpg';
-import '../../../css/main/UserInfo.css';
+import '../../../css/main/profile/UserInfo.css'
 import FollowModal from './FollowModal';
 import FollowerModal from './FollowerModal';
 
