@@ -1,24 +1,23 @@
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import "./css/common.css";
-import Login from "./pages/user/Login";
-import Forgot from "./components/user/Forgot";
+import Login from "./components/user/Login";
 import Join from "./components/user/Join";
 import Error404 from "./components/errors/Error404";
-import NaverTest from "./pages/user/NaverTest";
-import Test from "./pages/user/Test";
-import JoinConfirm from "./pages/user/JoinConfirm";
-import Feed from "./pages/main/Feed";
+import NaverTest from "./components/user/NaverTest";
+import Test from "./components/user/Test";
+import JoinConfirm from "./components/user/JoinConfirm";
+import Feed from "./components/main/Feed";
 import Post from "./components/main/Post";
-import NicknameSetting from "./pages/user/NicknameSetting";
+import NicknameSetting from "./components/user/NicknameSetting";
 
 // 네비바와 연결되는 컴포넌트 -> 본문 컴포넌트로 수정하세요
-import First from "./pages/main/First";
+import First from "./components/main/First";
 import Compass from "./components/main/Compass";
-import Third from "./pages/main/Third";
-import Fourth from "./pages/main/Fourth";
-import Fifth from "./pages/main/Fifth";
-import Profile from "./pages/main/Profile";
+import Third from "./components/main/Third";
+import Fourth from "./components/main/Fourth";
+import Fifth from "./components/main/Fifth";
+import Profile from "./components/main/Profile";
 import Write from "./components/main/write/Write";
 
 function App() {
@@ -26,7 +25,6 @@ function App() {
     <div className="App">
       <Switch>
         <Route path="/account/login" component={Login} exact />
-        <Route path="/account/forgot" component={Forgot} />
         <Route path="/account/join" component={Join} />
         <Route path="/account/naverLogin" component={NaverTest} />
         <Route path="/account/kakaoLogin" component={Test} />
