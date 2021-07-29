@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import Post from "./Post";
+import Post from "../../components/main/Post";
 import { Container, Row, Col } from "react-bootstrap";
 
 const Feed = () => {

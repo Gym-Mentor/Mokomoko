@@ -3,23 +3,22 @@ import "./App.css";
 import "./css/common.css";
 import Login from "./pages/user/Login";
 import Forgot from "./components/user/Forgot";
-import Join from "./pages/user/Join";
-import Error404 from "./pages/errors/Error404";
+import Join from "./components/user/Join";
+import Error404 from "./components/errors/Error404";
 import NaverTest from "./pages/user/NaverTest";
 import Test from "./pages/user/Test";
 import JoinConfirm from "./pages/user/JoinConfirm";
-import Feed from "./components/main/Feed";
+import Feed from "./pages/main/Feed";
 import Post from "./components/main/Post";
 import NicknameSetting from "./pages/user/NicknameSetting";
-// import Profile from "./pages/user/";
 
 // 네비바와 연결되는 컴포넌트 -> 본문 컴포넌트로 수정하세요
 import First from "./pages/main/First";
-import Compass from "./pages/main/Compass";
+import Compass from "./components/main/Compass";
 import Third from "./pages/main/Third";
 import Fourth from "./pages/main/Fourth";
 import Fifth from "./pages/main/Fifth";
-import Profile from "./components/main/profile/Profile";
+import Profile from "./pages/main/Profile";
 import Write from "./components/main/write/Write";
 
 function App() {
@@ -32,7 +31,7 @@ function App() {
         <Route path="/account/naverLogin" component={NaverTest} />
         <Route path="/account/kakaoLogin" component={Test} />
         <Route path="/account/joinConfirm" component={JoinConfirm} />
-        {/* <Route path="/profile" component={Profile} /> */}
+
         <Route path="/feed" component={Feed} />
         <Route path="/post" component={Post} />
         <Route path="/settingNick" component={NicknameSetting} />
@@ -42,8 +41,6 @@ function App() {
         <Route path="/third" component={Third} />
         <Route path="/fourth" component={Fourth} />
         <Route path="/fifth" component={Fifth} />
-
-        {/* <Route path="/account/profile" component={Profile} /> */}
 
         <Route path="/main/profile" component={Profile} />
         <Route path="/main/write" component={Write} />

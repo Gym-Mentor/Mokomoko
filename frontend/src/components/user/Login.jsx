@@ -41,7 +41,6 @@ const Login = ({ history }) => {
     <div className="wrap">
       <div className="container">
         <div className="inner">
-          {/* <img className="logo" src={namelogo} alt="Img not found :(" /> */}
           <div id="logo-name">
             <h2>mokomoko</h2>
           </div>
@@ -98,24 +97,7 @@ const Login = ({ history }) => {
           <div className="login-footer">
             <NaverLogin />
             <KakaoLogin />
-            {/* <button className="naver_Login" aria-label="네이버로 로그인하기" type="submit">
-              <div className="inputContent">
-                <span className="naverLogo">
-                  <img src={naver_logo} alt="naver_logo" />
-                </span>
-                <span>네이버로 로그인하기</span>
-              </div>
-            </button> */}
-            {/* <div className="social-login">
-              <li>
-                <NaverLogin />
-              </li>
-              <li>
-                <KakaoLogin />
-              </li>
-            </div> */}
           </div>
-          {/*  */}
 
           <div className="toJoin">
             <span>mokomoko 회원이 아닌가요? </span>
