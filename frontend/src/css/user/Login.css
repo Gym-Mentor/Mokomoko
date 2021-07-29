@@ -1,21 +1,8 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-li {
-  list-style: none;
-}
-.wrap {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+*{ margin: 0; padding: 0; box-sizing: border-box; } li { list-style: none; } .wrap { height: 100vh; display: flex; align-items: center; justify-content: center; }
 
 .social-login li {
-  /* padding: 0px 15px; */
-  /* float: right; */
+  /* padding: 0px 15px; /
+  / float: right; */
 }
 
 .wrap .container {
