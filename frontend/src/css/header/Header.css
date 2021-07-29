@@ -1,0 +1,21 @@
+.header {
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    top:0;
+    height: 90px;
+}
+img{
+    /*상위의 로고 크기와 위치 설정*/
+    display: block;
+    margin: auto;
+    width: 120px;
+    height: 95px;
+    margin-left: -10px;
+    float: left;
+}
+
+.VscBell{
+    width: 30px;
+    height: 30px;
+}

@@ -1,0 +1,38 @@
+.userInfo{
+    align-content: center;
+    margin-top: 150px;
+    margin-bottom: 50px;
+    height: 100%;
+}
+
+.userImg {
+    width: 150px;
+    height: 150px; 
+    border-radius: 70%; /*div 가 원이 됨*/
+    overflow: hidden; /*넘치는 부분 지워줌*/
+    margin : 0 auto; /*userImg div 중앙 위치*/
+}
+.userImg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-left: 1px;
+}
+
+.userFriend{
+    width: 100%;
+    margin-top: 30px;
+    display: inline-block;
+}
+
+.userFriend.follow{
+    width: 50%;
+}
+.userFriend.follower{
+    width: 50%;
+}
+
+p{
+    color: #848383;
+    font-size: large;
+}

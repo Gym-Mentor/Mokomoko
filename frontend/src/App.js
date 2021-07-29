@@ -15,8 +15,9 @@ import Compass from "./pages/main/Compass";
 import Third from "./pages/main/Third";
 import Fourth from "./pages/main/Fourth";
 import Fifth from "./pages/main/Fifth";
-
-// import Profile from "./pages/user/";
+import Main from './pages/main/Main';
+import Profile from "./components/main/profile/Profile";
+import Write from "./components/main/write/Write";
 
 function App() {
   return (
@@ -28,7 +29,6 @@ function App() {
         <Route path="/account/naverLogin" component={NaverTest} />
         <Route path="/account/kakaoLogin" component={Test} />
         <Route path="/account/joinConfirm" component={JoinConfirm} />
-
         {/* 하단바에 연결되는 컴포넌트 --> 이 아래에 각 컴포넌트 수정 바람 */}
         <Route path="/first" component={First} />
         <Route path="/compass" component={Compass} />
@@ -37,6 +37,10 @@ function App() {
         <Route path="/fifth" component={Fifth} />
 
         {/* <Route path="/account/profile" component={Profile} /> */}
+
+        <Route path="/main/home" component={Main}/>
+        <Route path="/main/profile" component={Profile} />
+        <Route path="/main/write" component={Write}/>
 
         <Route component={Error404} />
       </Switch>

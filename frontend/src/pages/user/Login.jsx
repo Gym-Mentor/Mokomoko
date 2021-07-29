@@ -21,7 +21,7 @@ const Login = ({ history }) => {
   // 로그인 버튼 이벤트
   const onClickLogin = (e) => {
     // 백엔드와 통신
-    history.push("/account/forgot");
+    history.push("/main/home");
   };
 
   //이메일 유효성 검사
