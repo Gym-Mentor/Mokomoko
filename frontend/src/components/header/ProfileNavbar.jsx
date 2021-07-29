@@ -32,7 +32,7 @@ const ProfileHambar = () => {
                 <li key={index} className={item.cName}>
                   <Link to={item.path}>
                     {item.icons}
-                    <span>{item.title}</span>
+                    <span className="navbar-item-title">{item.title}</span>
                   </Link>
                 </li>
               );

@@ -59,6 +59,6 @@
     justify-content: flex-start;
     align-items: center;
   }
-  span {
+  .navbar-item-title {
     margin-left:16px;
   }
