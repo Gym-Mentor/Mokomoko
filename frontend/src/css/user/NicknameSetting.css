@@ -1,13 +1,14 @@
 .nickname {
   margin-top: 50px;
 }
-.submit {
-  margin-top: 50px;
+.nickname-submit {
+  margin-top: 40px;
+  width: 80%;
 }
-.submit #btn-setNickname {
+.nickname-submit #nickname-set-btn {
   width: 270px;
   height: 30px;
-  margin: 10px auto;
+  margin: 90px auto;
   border: none;
   border-radius: 3px;
   color: white;
@@ -33,4 +34,18 @@
 }
 .set-btn-unactive {
   background-color: #ff5a6073;
+}
+.input-nickname {
+  width: 270px;
+  height: 40px;
+  margin: 3px auto;
+  padding: 0 10px;
+  display: block;
+  background-color: #fafafa;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  font-size: 14px;
+}
+.nickname-desc-msg {
+  font-size: 15px;
 }
