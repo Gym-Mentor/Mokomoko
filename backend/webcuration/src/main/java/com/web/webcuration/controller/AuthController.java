@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    
+
     @Autowired
     private AuthService authService;
 
@@ -35,9 +36,22 @@ public class AuthController {
     public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequest tokenRequest) {
         return ResponseEntity.ok(authService.reissue(tokenRequest));
     }
-    
+
     @GetMapping("/")
-    public ResponseEntity<String> auth(){
+    public ResponseEntity<String> auth() {
         return ResponseEntity.ok("성공");
+    }
+
+    @GetMapping("/mails")
+    public ResponseEntity<String> confirmEmail(@RequestParam String email) {
+        System.out.println("메일 : " + email);
+        authService.confirmEmail(email);
+        return ResponseEntity.ok("전송완료");
+    }
+
+    @GetMapping("/oauth")
+    public ResponseEntity<String> kakaoLogin() {
+
+        return ResponseEntity.ok("카카오 성공");
     }
 }

@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRequest {
-    
+
     @NotNull
     private String email;
 
@@ -28,11 +28,8 @@ public class UserRequest {
     private String password;
 
     public User toUser(PasswordEncoder passwordEncoder) {
-        return User.builder()
-                    .email(this.email)
-                    .password(passwordEncoder.encode(this.password))
-                    .authority(Authority.ROLE_USER)
-                    .build();
+        return User.builder().email(this.email).password(passwordEncoder.encode(this.password))
+                .authority(Authority.ROLE_USER).build();
     }
 
     public UsernamePasswordAuthenticationToken toAuthentication() {
