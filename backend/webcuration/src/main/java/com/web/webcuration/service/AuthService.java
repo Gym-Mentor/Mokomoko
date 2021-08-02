@@ -13,5 +13,4 @@ public interface AuthService {
 
     TokenDto reissue(TokenRequest tokenReuqest);
 
-    void confirmEmail(String email);
 }

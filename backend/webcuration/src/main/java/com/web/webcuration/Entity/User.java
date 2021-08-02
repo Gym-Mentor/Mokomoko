@@ -76,4 +76,8 @@ public class User {
         return this.authority.name();
     }
 
+    public boolean getConfrim() {
+        return this.confirm;
+    }
+
 }

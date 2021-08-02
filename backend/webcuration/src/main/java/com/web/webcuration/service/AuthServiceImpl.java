@@ -39,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         User user = userRequest.toUser(passwordEncoder);
-
+        confirmationTokenService.createEmailConfirmationToken(user.getEmail());
         return UserResponse.of(userRepository.save(user));
     }
 
@@ -47,25 +47,29 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public TokenDto login(UserRequest userRequest) {
 
-        // 1. Login ID/PW를 기반으로 AuthenticationToken 생성
-        UsernamePasswordAuthenticationToken authenticationToken = userRequest.toAuthentication();
+        if (userRepository.findByEmail(userRequest.getEmail()).get().getConfrim()) {
 
-        // 2. 실제로 검증 (사용자 비밀번호 체크)가 이루어지는 부분
-        // authenticate 메서드가 실행이 될 때 CustomUserDeatailService에서 만들었던 loadUserByUsername
-        // 메서드 실행
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+            // 1. Login ID/PW를 기반으로 AuthenticationToken 생성
+            UsernamePasswordAuthenticationToken authenticationToken = userRequest.toAuthentication();
 
-        // 3. 인증 정보를 기반으로 JWT 토큰 생성
-        TokenDto tokenDto = tokenProvider.createToken(authentication);
+            // 2. 실제로 검증 (사용자 비밀번호 체크)가 이루어지는 부분
+            // authenticate 메서드가 실행이 될 때 CustomUserDeatailService에서 만들었던 loadUserByUsername
+            // 메서드 실행
+            Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-        // 4. RefreshToken 저장
-        RefreshToken refreshToken = RefreshToken.builder().tokenKey(authentication.getName())
-                .tokenValue(tokenDto.getRefreshToken()).build();
+            // 3. 인증 정보를 기반으로 JWT 토큰 생성
+            TokenDto tokenDto = tokenProvider.createToken(authentication);
 
-        refreshTokenRepository.save(refreshToken);
+            // 4. RefreshToken 저장
+            RefreshToken refreshToken = RefreshToken.builder().tokenKey(authentication.getName())
+                    .tokenValue(tokenDto.getRefreshToken()).build();
 
+            refreshTokenRepository.save(refreshToken);
+            return tokenDto;
+        } else {
+            throw new RuntimeException("회원 인증이 되어 있지 않습니다.");
+        }
         // 5. 토큰 발급
-        return tokenDto;
     }
 
     @Override
@@ -98,14 +102,6 @@ public class AuthServiceImpl implements AuthService {
 
         // 토큰 발급
         return tokenDto;
-    }
-
-    @Override
-    public void confirmEmail(String email) {
-        // ConfirmationToken findConfirmationTokenService = confirmationTokenService
-        // .findByIdAndExpirationDateAfterAndExpired(email);
-        confirmationTokenService.createEmailConfirmationToken(email);
-
     }
 
 }
