@@ -21,7 +21,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name= "user")
+@Table(name = "user")
 @Getter
 @Setter
 @Builder
@@ -30,11 +30,11 @@ import lombok.ToString;
 @ToString
 @DynamicInsert
 public class User {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String email;
 
     private String password;
@@ -50,7 +50,9 @@ public class User {
 
     private String image;
 
-    private String desc;
+    private String introduce;
+
+    private boolean confirm;
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
@@ -60,6 +62,18 @@ public class User {
         this.email = email;
         this.password = password;
         this.authority = authority;
+    }
+
+    @Builder
+    public User(String email, String nickname, String image, String password, Authority authority) {
+        this.email = email;
+        this.nickname = nickname;
+        this.image = image;
+        this.password = password;
+    }
+
+    public String getAuthority() {
+        return this.authority.name();
     }
 
 }

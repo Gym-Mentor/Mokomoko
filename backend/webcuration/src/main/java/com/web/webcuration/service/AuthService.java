@@ -6,10 +6,12 @@ import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.UserResponse;
 
 public interface AuthService {
-    
+
     UserResponse signup(UserRequest userRequest);
 
     TokenDto login(UserRequest userRequest);
 
     TokenDto reissue(TokenRequest tokenReuqest);
+
+    void confirmEmail(String email);
 }
