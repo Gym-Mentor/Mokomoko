@@ -1,9 +1,9 @@
 import React from "react";
 import Header from "../../../components/header/Header";
 import UserInfo from "./UserInfo";
-import Post from "../Post";
 
 import "../../../css/main/profile/Profile.css";
+import ProfilePost from "./ProfilePost";
 
 const Profile = () => {
   return (
@@ -12,7 +12,7 @@ const Profile = () => {
       <div className="profile">
         <UserInfo />
       </div>
-      <Post />
+      <ProfilePost />
     </div>
   );
 };
