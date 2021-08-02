@@ -44,14 +44,7 @@ public class AuthController {
 
     @GetMapping("/mails")
     public ResponseEntity<String> confirmEmail(@RequestParam String email) {
-        System.out.println("메일 : " + email);
         authService.confirmEmail(email);
         return ResponseEntity.ok("전송완료");
-    }
-
-    @GetMapping("/oauth")
-    public ResponseEntity<String> kakaoLogin() {
-
-        return ResponseEntity.ok("카카오 성공");
     }
 }

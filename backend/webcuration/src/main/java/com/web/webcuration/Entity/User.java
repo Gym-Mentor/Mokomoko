@@ -50,7 +50,7 @@ public class User {
 
     private String image;
 
-    private String desc;
+    private String introduce;
 
     private boolean confirm;
 
