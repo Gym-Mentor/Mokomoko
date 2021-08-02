@@ -11,7 +11,7 @@ import Feed from "./components/main/Feed";
 import Post from "./components/main/Post";
 import NicknameSetting from "./components/user/NicknameSetting";
 import Compass from "./components/main/Compass";
-import Profile from "./components/main/Profile";
+import Profile from "./components/main/profile/Profile";
 import Write from "./components/main/write/Write";
 
 function App() {
