@@ -12,9 +12,11 @@ import org.springframework.data.annotation.CreatedDate;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Getter
+@ToString
 @NoArgsConstructor
 public class ConfirmationToken {
 
@@ -52,12 +54,11 @@ public class ConfirmationToken {
     }
 
     public String CreateCode() {
-        int code = 0;
+        StringBuilder code = new StringBuilder();
         for (int i = 0; i < 5; i++) {
-            code *= 10;
-            code += (int) (Math.random() * 10);
+            code.append((int) (Math.random() * 10));
         }
-        return Integer.toString(code);
+        return code.toString();
     }
 
     // 토큰 사용으로 인한 만료

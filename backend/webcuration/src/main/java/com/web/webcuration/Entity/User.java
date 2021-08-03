@@ -52,8 +52,6 @@ public class User {
 
     private String introduce;
 
-    private boolean confirm;
-
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
@@ -75,9 +73,4 @@ public class User {
     public String getAuthority() {
         return this.authority.name();
     }
-
-    public boolean getConfrim() {
-        return this.confirm;
-    }
-
 }

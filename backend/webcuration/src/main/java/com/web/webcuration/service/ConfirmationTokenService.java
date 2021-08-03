@@ -1,8 +1,5 @@
 package com.web.webcuration.service;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-
 import com.web.webcuration.Entity.ConfirmationToken;
 import com.web.webcuration.mails.EmailSenderService;
 import com.web.webcuration.repository.ConfirmationTokenRepository;
@@ -29,12 +26,7 @@ public class ConfirmationTokenService {
         return emailConfirmationToken.getEmail();
     }
 
-    public ConfirmationToken findByIdAndExpirationDateAfterAndExpired(String confirmationTokenEmail) {
-        Optional<ConfirmationToken> confimationToken = confirmationTokenRepository
-                .findByIdAndExpirationDateAfterAndExpired(confirmationTokenEmail, LocalDateTime.now(), false);
-
-        return confimationToken.get();
-        // return confimationToken.orElseThrow(() -> new
-        // BadRequestException(ValidationConstant.TOKEN_NOT_FOUND));
+    public void deleteAuthMail(Long id) {
+        confirmationTokenRepository.deleteById(id);
     }
 }

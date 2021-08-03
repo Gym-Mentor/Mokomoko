@@ -16,7 +16,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name= "refreshToken")
+@Table(name = "refreshToken")
 @Getter
 @Setter
 @Builder
@@ -25,13 +25,13 @@ import lombok.ToString;
 @ToString
 @DynamicInsert
 public class RefreshToken {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String tokenKey;
-    
+
     private String tokenValue;
 
     public RefreshToken updateValue(String token) {
