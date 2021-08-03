@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import "../../css/user/Join.css";
+import { Button } from "react-bootstrap";
+import EmailBtnModal from "./EmailBtnModal";
+import LoadingButton from "./LoadingButton";
 
 const Join = ({ history }) => {
   //state 선언
@@ -14,6 +17,7 @@ const Join = ({ history }) => {
   const [emailValidation, setEmailValidation] = useState(false);
   const [passwordValidation, setPasswordValidation] = useState(false);
   const [passwordChkValidation, setPasswordChkValidation] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
     console.log(password);
@@ -41,14 +45,20 @@ const Join = ({ history }) => {
 
   const onClickJoin = () => {
     axios({
-      url: "http://i5d104p.ssafy.io:8080/auth/signUp",
+      url: "auth/signUp",
       method: "post",
       data: {
-        email: { email },
-        password: { password },
+        email: email,
+        password: password,
       },
-    }).then((res) => {});
-    window.location.replace("/account/joinConfirm");
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    history.push("/account/login");
   };
 
   //이메일 유효성 검사
@@ -101,7 +111,7 @@ const Join = ({ history }) => {
           <div className="join-form">
             <div className="join-id">
               <input
-                className="user-input"
+                className="user-email-input"
                 type="text"
                 autoCapitalize="off"
                 name="email"
@@ -110,6 +120,17 @@ const Join = ({ history }) => {
                 onChange={onChangeEmail}
                 onKeyUp={isEmail}
               />
+              {/* <LoadingButton /> */}
+              <button
+                id="mail-check-btn"
+                className={"email-btn-validation-" + (emailValidation ? "onColor" : "offColor")}
+                onClick={() => setModalShow(true)}
+                disabled={!emailValidation}
+              >
+                인증
+              </button>
+
+              <EmailBtnModal show={modalShow} onHide={() => setModalShow(false)} />
               <div className={"email-validation-" + (emailValidation ? "onColor" : "offColor")}>
                 {emailValidation ? "사용 가능한 아이디입니다." : "이메일 형식이 잘못되었습니다."}
               </div>
@@ -159,6 +180,7 @@ const Join = ({ history }) => {
                 className={btnColorState ? "join-btn-active" : "join-btn-unactive"}
                 type="button"
                 onClick={onClickJoin}
+                disabled={!btnColorState}
               >
                 회원가입
               </button>
