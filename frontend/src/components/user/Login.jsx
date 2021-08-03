@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../../css/user/Login.css";
 import KakaoLogin from "../../components/user/KakaoLogin";
 import NaverLogin from "../../components/user/NaverLogin";
-
+import axios from "axios";
 const Login = ({ history }) => {
   // state 선언
   const [email, setEmail] = useState("");
@@ -22,6 +22,20 @@ const Login = ({ history }) => {
   const onClickLogin = (e) => {
     // 백엔드와 통신
     history.push("/main/home");
+    axios({
+      method: "post",
+      url: "/auth/login",
+      data: {
+        email: email,
+        password: password,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   //이메일 유효성 검사
