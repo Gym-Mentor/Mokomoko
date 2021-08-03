@@ -3,7 +3,7 @@ import Detail from "./Detail";
 
 import "../../../css/main/profile/ProfilePost.css";
 
-const Post = () => {
+const ProfilePost = () => {
   const PostList = [
     {
       img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
@@ -67,4 +67,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default ProfilePost;
