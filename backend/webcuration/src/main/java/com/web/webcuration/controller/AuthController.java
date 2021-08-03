@@ -1,5 +1,7 @@
 package com.web.webcuration.controller;
 
+import java.util.Map;
+
 import com.web.webcuration.dto.TokenDto;
 import com.web.webcuration.dto.request.AuthMailCode;
 import com.web.webcuration.dto.request.TokenRequest;
@@ -24,7 +26,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/signUp")
+    @PostMapping("/signup")
     public ResponseEntity<UserResponse> signup(@RequestBody UserRequest userRequest) {
         return ResponseEntity.ok(authService.signup(userRequest));
     }
@@ -32,6 +34,11 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<TokenDto> login(@RequestBody UserRequest userRequest) {
         return ResponseEntity.ok(authService.login(userRequest));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<BaseResponse> logout(@RequestBody Map<String, String> logoutRequest) {
+        return ResponseEntity.ok(authService.logout(logoutRequest.get("email")));
     }
 
     @PostMapping("/reissue")

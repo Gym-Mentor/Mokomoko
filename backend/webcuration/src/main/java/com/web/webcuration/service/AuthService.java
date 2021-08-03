@@ -11,6 +11,8 @@ public interface AuthService {
 
     UserResponse signup(UserRequest userRequest);
 
+    BaseResponse logout(String email);
+
     TokenDto login(UserRequest userRequest);
 
     TokenDto reissue(TokenRequest tokenReuqest);

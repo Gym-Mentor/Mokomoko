@@ -14,6 +14,7 @@ import com.web.webcuration.dto.response.UserResponse;
 import com.web.webcuration.jwt.TokenProvider;
 import com.web.webcuration.repository.ConfirmationTokenQueryRepository;
 import com.web.webcuration.repository.RefreshTokenRepository;
+import com.web.webcuration.repository.UserQueryRepository;
 import com.web.webcuration.repository.UserRepository;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,6 +37,7 @@ public class AuthServiceImpl implements AuthService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final ConfirmationTokenService confirmationTokenService;
     private final ConfirmationTokenQueryRepository confirmationTokenQueryRepository;
+    private final UserQueryRepository userQueryRepository;
 
     @Override
     @Transactional
@@ -76,6 +78,20 @@ public class AuthServiceImpl implements AuthService {
         // 5. 토큰 발급
         return tokenDto;
 
+    }
+
+    @Override
+    @Transactional
+    public BaseResponse logout(String email) {
+        Long tokenKey = userQueryRepository.findIdByEmail(email);
+        Long effectRaw = refreshTokenRepository.deleteBytokenKey(Long.toString(tokenKey));
+        System.out.println("effectRaw : " + effectRaw);
+        if (effectRaw > 0) {
+            BaseResponse res = new BaseResponse("200", "성공");
+            return res;
+        } else {
+            throw new RuntimeException("로그아웃을 실패하였습니다.");
+        }
     }
 
     @Override
