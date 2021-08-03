@@ -21,7 +21,6 @@ const Login = ({ history }) => {
   // 로그인 버튼 이벤트
   const onClickLogin = (e) => {
     // 백엔드와 통신
-    history.push("/main/home");
     axios({
       method: "post",
       url: "/auth/login",
@@ -32,9 +31,12 @@ const Login = ({ history }) => {
     })
       .then((res) => {
         console.log(res);
+        history.push("/main/feed");
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
+        console.error(error);
+        alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
       });
   };
 
