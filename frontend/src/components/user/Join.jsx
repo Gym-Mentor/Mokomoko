@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 
 import "../../css/user/Join.css";
 
-const Join = () => {
+const Join = ({ history }) => {
   //state 선언
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,6 +40,14 @@ const Join = () => {
   };
 
   const onClickJoin = () => {
+    axios({
+      url: "http://i5d104p.ssafy.io:8080/auth/signUp",
+      method: "post",
+      data: {
+        email: { email },
+        password: { password },
+      },
+    }).then((res) => {});
     window.location.replace("/account/joinConfirm");
   };
 
