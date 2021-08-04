@@ -102,7 +102,7 @@ const Join = ({ history }) => {
 
   const mailValidation = () => {
     axios({
-      url: "/mails/" + email,
+      url: "http://localhost:8080/mails/" + email,
       method: "get",
     }).then((res) => {
       console.log(res);
