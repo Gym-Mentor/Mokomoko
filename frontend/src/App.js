@@ -13,6 +13,7 @@ import NicknameSetting from "./components/user/NicknameSetting";
 import Compass from "./components/main/Compass";
 import Profile from "./components/main/profile/Profile";
 import Write from "./components/main/write/Write";
+import Detail from "./components/main/profile/Detail";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/main/settingNick" component={NicknameSetting} />
         <Route path="/main/compass" component={Compass} />
         <Route path="/main/profile" component={Profile} />
+        <Route path="/main/detail/:index" component={Detail}/>
         <Route path="/main/write" component={Write} />
 
         <Route component={Error404} />
