@@ -100,6 +100,16 @@ const Join = ({ history }) => {
     btnChangeColor();
   };
 
+  const mailValidation = () => {
+    axios({
+      url: "/mails/" + email,
+      method: "get",
+    }).then((res) => {
+      console.log(res);
+    });
+    setModalShow(true);
+  };
+
   return (
     <div className="wrap">
       <div className="user-container">
@@ -124,7 +134,7 @@ const Join = ({ history }) => {
               <button
                 id="mail-check-btn"
                 className={"email-btn-validation-" + (emailValidation ? "onColor" : "offColor")}
-                onClick={() => setModalShow(true)}
+                onClick={mailValidation}
                 disabled={!emailValidation}
               >
                 인증
