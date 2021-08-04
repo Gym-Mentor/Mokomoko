@@ -16,7 +16,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name= "refreshToken")
+@Table(name = "refreshToken")
 @Getter
 @Setter
 @Builder

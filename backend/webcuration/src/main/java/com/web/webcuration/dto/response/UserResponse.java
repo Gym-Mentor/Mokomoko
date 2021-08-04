@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 public class UserResponse {
     
     private String email;
+    private BaseResponse res;
 
     public static UserResponse of(User user) {
-        return new UserResponse(user.getEmail());
+        return new UserResponse(user.getEmail(), new BaseResponse("200", "성공"));
     }
 }
