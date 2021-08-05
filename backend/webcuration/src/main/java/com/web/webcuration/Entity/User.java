@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
@@ -55,22 +56,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-    @Builder
-    public User(String email, String password, Authority authority) {
-        this.email = email;
-        this.password = password;
-        this.authority = authority;
-    }
-
-    @Builder
-    public User(String email, String nickname, String image, String password, Authority authority) {
-        this.email = email;
-        this.nickname = nickname;
-        this.image = image;
-        this.password = password;
-    }
-
     public String getAuthority() {
         return this.authority.name();
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.createdate = LocalDateTime.now();
+        this.prelikecnt = this.prelikecnt == null ? 0 : this.prelikecnt;
     }
 }

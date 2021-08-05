@@ -30,7 +30,7 @@ public class EmailSenderService {
 
             mailHandler.send();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("이메일 전송을 실패하였습니다.");
         }
     }
 }

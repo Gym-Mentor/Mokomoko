@@ -42,6 +42,9 @@ public class ConfirmationToken {
     @Column
     private String virifyCode;
 
+    @Column
+    private boolean type;
+
     // 이메일 인증 토큰 생성
     public static ConfirmationToken createEmailConfirmationToken(String email) {
         ConfirmationToken confirmationToken = new ConfirmationToken();
@@ -55,7 +58,7 @@ public class ConfirmationToken {
 
     public String CreateCode() {
         StringBuilder code = new StringBuilder();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             code.append((int) (Math.random() * 10));
         }
         return code.toString();
