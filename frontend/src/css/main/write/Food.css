@@ -156,7 +156,7 @@
   width: 75%;
   height: 0;
   padding-bottom: 25%;
-  border: solid 1px #1e90ff;
+  border: solid 1px #ebebeb;
   border-radius: 5px;
   font-size: 16px;
   resize: none;
@@ -169,5 +169,23 @@
   width: 100%;
   font-size: 12px;
 }
+
+/* 태그 관련 css */
+.food-tag-wrap {
+  border-bottom: solid 1px #ebebeb;
+}
+.food-tag {
+  float: left;
+  width: fit-content;
+}
 .food-tag-btn {
+  border-radius: 10px;
+  background-color: #ef5c89;
+  color: #ffffff;
+}
+.food-tag-create {
+  display: inline-block;
+  border-radius: 10px;
+  background-color: #ef5c89;
+  color: #ffffff;
 }

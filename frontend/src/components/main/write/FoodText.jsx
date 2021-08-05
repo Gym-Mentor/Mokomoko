@@ -42,7 +42,12 @@ const FoodText = (props) => {
                 <img className="food-top-image" src={props.location.state.images[0]}></img>
                 <div className="food-top-info">{props.location.state.images.length}장</div>
               </div>
-              <textarea className="food-desc" value={desc} onChange={onDescChange}></textarea>
+              <textarea
+                className="food-desc"
+                value={desc}
+                onChange={onDescChange}
+                placeholder="내용을 입력해주세요"
+              ></textarea>
             </div>
             <FoodTag tag={tag} onTagChange={onTagChange}></FoodTag>
           </div>
