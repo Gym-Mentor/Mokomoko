@@ -65,4 +65,5 @@ public class User {
         this.createdate = LocalDateTime.now();
         this.prelikecnt = this.prelikecnt == null ? 0 : this.prelikecnt;
     }
+
 }

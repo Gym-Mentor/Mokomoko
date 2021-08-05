@@ -15,7 +15,7 @@ public class EmailSenderService {
     public void sendEmail(String receiveAddress, String code, boolean type) {
         try {
             MailHandler mailHandler = new MailHandler(javaMailSender);
-
+            System.out.println(receiveAddress);
             // 받는 사람
             mailHandler.setTo(receiveAddress);
             // 보내는 사람
