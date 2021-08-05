@@ -1,5 +1,7 @@
 package com.web.webcuration.dto;
 
+import com.web.webcuration.Entity.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,9 +16,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class TokenDto {
-    
+
     private String grantType;
     private String accessToken;
     private String refreshToken;
     private Long accessTokenExpiresIn;
+    private User user;
 }
