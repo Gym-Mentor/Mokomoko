@@ -5,6 +5,7 @@
   left: 0;
   right: 0;
   height: 45px;
+  z-index: 10;
 }
 
 /* 네비게이션 바 설정 */
