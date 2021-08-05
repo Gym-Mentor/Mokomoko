@@ -13,7 +13,12 @@ import rootReducer from './modules';
 import {Provider} from 'react-redux';
 import { composeWithDevTools } from "redux-devtools-extension";// 리덕스 개발자 도구
 
-const store = createStore(rootReducer,composeWithDevTools); //스토어 만들기
+//composeWithDevTools 사용 시 에러 나길래 아래 코드로 수정하였습니다.
+// const store = createStore(rootReducer,composeWithDevTools, window.__REDUX_DEVTOOLS_EXTENSION__ &&
+//     window.__REDUX_DEVTOOLS_EXTENSION__()); //스토어 만들기
+    
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()); //스토어 만들기
 console.log(store.getState());
 
 ReactDOM.render(

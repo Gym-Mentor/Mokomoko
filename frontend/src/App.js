@@ -12,7 +12,6 @@ import Post from "./components/main/Post";
 import NicknameSetting from "./components/user/NicknameSetting";
 import Compass from "./components/main/Compass";
 import Profile from "./components/main/profile/Profile";
-import Write from "./components/main/write/Write";
 import Detail from "./components/main/profile/Detail";
 import Select from "./components/main/write/Select";
 import Food from "./components/main/write/Food";
@@ -35,15 +34,11 @@ function App() {
         <Route path="/main/settingNick" component={NicknameSetting} />
         <Route path="/main/compass" component={Compass} />
         <Route path="/main/profile" component={Profile} />
-<<<<<<< HEAD
         <Route path="/main/detail/:index" component={Detail}/>
-        <Route path="/main/write" component={Write} />
-=======
         <Route path="/main/select" component={Select} />
         <Route path="/main/writeFood" component={Food} />
         <Route path="/main/writeFoodText" component={FoodText} />
         <Route path="/main/writeRecipe" component={Recipe} />
->>>>>>> f17fdd8ca11215d3deb981d1a2c115f16f36f3d8
 
         <Route component={Error404} />
       </Switch>
