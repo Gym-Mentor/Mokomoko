@@ -3,7 +3,8 @@ import Header from "../../../components/header/Header";
 import UserInfo from "./UserInfo";
 
 import "../../../css/main/profile/Profile.css";
-import ProfilePost from "./ProfilePost";
+// import ProfilePost from "./ProfilePost";
+import ProfilePostContainer from "../../../container/ProfilePostContainer";
 
 const Profile = () => {
   return (
@@ -12,7 +13,7 @@ const Profile = () => {
       <div className="profile">
         <UserInfo />
       </div>
-      <ProfilePost />
+      <ProfilePostContainer />
     </div>
   );
 };

@@ -12,6 +12,7 @@ import Post from "./components/main/Post";
 import NicknameSetting from "./components/user/NicknameSetting";
 import Compass from "./components/main/Compass";
 import Profile from "./components/main/profile/Profile";
+import Detail from "./components/main/profile/Detail";
 import Select from "./components/main/write/Select";
 import Food from "./components/main/write/Food";
 import FoodText from "./components/main/write/FoodText";
@@ -33,6 +34,7 @@ function App() {
         <Route path="/main/settingNick" component={NicknameSetting} />
         <Route path="/main/compass" component={Compass} />
         <Route path="/main/profile" component={Profile} />
+        <Route path="/main/detail/:index" component={Detail}/>
         <Route path="/main/select" component={Select} />
         <Route path="/main/writeFood" component={Food} />
         <Route path="/main/writeFoodText" component={FoodText} />

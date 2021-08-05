@@ -13,5 +13,9 @@ export default createStore(function(state,action){
     if(action.type === 'FOLLOWER_MODAL '){
         return{...state, word : !action.isFollower}
     }
+
+    if(action.type === 'SHOW_PROFILE_DETAIL'){
+        return{...state, item : item.detail}
+    }
     return state;
 },window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
