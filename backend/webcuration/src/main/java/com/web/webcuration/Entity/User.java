@@ -59,13 +59,11 @@ public class User {
     public String getAuthority() {
         return this.authority.name();
     }
-<<<<<<< HEAD
 
     @PrePersist
     public void prePersist() {
         this.createdate = LocalDateTime.now();
         this.prelikecnt = this.prelikecnt == null ? 0 : this.prelikecnt;
     }
-=======
->>>>>>> a87330989ab44897a86196bd6946760fa68b383a
+
 }
