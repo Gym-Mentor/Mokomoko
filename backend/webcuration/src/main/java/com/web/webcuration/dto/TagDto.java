@@ -1,19 +1,17 @@
-package com.web.webcuration.dto.response;
+package com.web.webcuration.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseResponse {
+public class TagDto {
 
-    String status;
-    String msg;
-    Object data;
+    private String name;
+
+    private String url;
 }

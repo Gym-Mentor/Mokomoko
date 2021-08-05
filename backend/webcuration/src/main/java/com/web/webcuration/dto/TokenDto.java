@@ -1,7 +1,6 @@
 package com.web.webcuration.dto;
 
 import com.web.webcuration.Entity.User;
-import com.web.webcuration.dto.response.BaseResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +18,6 @@ import lombok.ToString;
 public class TokenDto {
     
 
-    private BaseResponse res;
     private String grantType;
     private String accessToken;
     private String refreshToken;
