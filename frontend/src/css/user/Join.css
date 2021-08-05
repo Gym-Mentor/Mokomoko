@@ -63,6 +63,18 @@
   border-radius: 3px;
   font-size: 14px;
 }
+.user-email-input {
+  float: left;
+  width: 200px;
+  height: 40px;
+  margin: 3px auto;
+  padding: 0 10px;
+  display: block;
+  background-color: #fafafa;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  font-size: 14px;
+}
 
 #join-btn:focus {
   outline: none;
@@ -102,4 +114,22 @@
 }
 .have-account-msg {
   font-size: 12px;
+}
+#mail-check-btn {
+  width: 65px;
+  height: 40px;
+  margin-top: 3px;
+  margin-left: 3px;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.email-btn-validation-onColor {
+  background-color: #ff5a5f;
+}
+.email-btn-validation-offColor {
+  background-color: gainsboro;
 }

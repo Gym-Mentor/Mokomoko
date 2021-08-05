@@ -1,5 +1,8 @@
 package com.web.webcuration.dto;
 
+import com.web.webcuration.Entity.User;
+import com.web.webcuration.dto.response.BaseResponse;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,8 +18,11 @@ import lombok.ToString;
 @ToString
 public class TokenDto {
     
+
+    private BaseResponse res;
     private String grantType;
     private String accessToken;
     private String refreshToken;
     private Long accessTokenExpiresIn;
+    private User user;
 }
