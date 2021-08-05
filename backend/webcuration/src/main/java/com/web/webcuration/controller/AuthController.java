@@ -55,8 +55,6 @@ public class AuthController {
         return ResponseEntity.ok(authService.authMail(authMailCode));
     }
 
-    // SNS 로그인
-
     @GetMapping("/passwords/{email}") // 패스워드 찾기 코드 전송
     public ResponseEntity<BaseResponse> findPassword(@PathVariable("email") String email) {
         return ResponseEntity.ok(authService.findPassword(email));
@@ -67,7 +65,7 @@ public class AuthController {
         return ResponseEntity.ok(authService.authFindPassword(authMailCode));
     }
 
-    @PostMapping("/sns")
+    @PostMapping("/sns") // SNS 로그인
     public ResponseEntity<BaseResponse> authSNSLogin(@RequestBody SNSRequest snsRequest) {
         return ResponseEntity.ok(authService.authSNSLogin(snsRequest));
     }
