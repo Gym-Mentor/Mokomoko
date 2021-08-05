@@ -8,7 +8,7 @@ import "../../../css/main/write/Food.css";
 const FoodTag = (props) => {
   const onTagChange = () => {
     let newTag = Object.assign([], props.tag);
-    newTag.push({ title: "title", url: "www.naver.com" });
+    newTag.push({ title: "titleasdfasdf", url: "www.naver.com" });
     props.onTagChange(newTag);
     console.log(props.tag);
   };
