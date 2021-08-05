@@ -6,5 +6,16 @@ import { faCompass } from "@fortawesome/free-solid-svg-icons";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-
-library.add(faPlus, faUser, faMedal, faCompass, faHome, faSearch, faSpinner);
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faImages } from "@fortawesome/free-solid-svg-icons";
+library.add(
+  faPlus,
+  faUser,
+  faMedal,
+  faCompass,
+  faHome,
+  faSearch,
+  faChevronLeft,
+  faImages,
+  faSpinner
+);
