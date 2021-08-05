@@ -28,7 +28,7 @@ function App() {
         <Route path="/account/kakaoLogin" component={Test} />
         <Route path="/account/joinConfirm" component={JoinConfirm} />
         <Route path="/account/forgot" component={ForgotPassword} />
-        <Route path="/account/forgot/code" component={EnterCode} />
+        <Route path="/account/enterCode" component={EnterCode} />
 
         {/* main */}
         <Route path="/main/feed" component={Feed} />

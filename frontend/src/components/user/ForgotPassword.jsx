@@ -33,7 +33,7 @@ const ForgotPassword = ({ history }) => {
 
   const sendMail = () => {
     axios({
-      url: "auth/passwords/" + email,
+      url: "http://localhost:8080/auth/passwords/" + email,
       method: "get",
     }).then((res) => {
       console.log(res);

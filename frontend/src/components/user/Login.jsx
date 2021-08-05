@@ -24,7 +24,7 @@ const Login = ({ history }) => {
     history.push("/main/feed");
     axios({
       method: "post",
-      url: "/auth/login",
+      url: "http://localhost:8080/auth/login",
       data: {
         email: email,
         password: password,
