@@ -49,22 +49,22 @@ public class AuthController {
 
     @GetMapping("/mails/{email}")
     public ResponseEntity<BaseResponse> sendAuthMail(@PathVariable("email") String email) {
-        return ResponseEntity.ok(authService.sendAuthMail(email));
+        return ResponseEntity.ok(authService.sendAuthMail(email, true));
     }
 
     @PostMapping("/mails") // 인증 코드 확인
     public ResponseEntity<BaseResponse> authCodeMails(@RequestBody AuthMailCode authMailCode) {
-        return ResponseEntity.ok(authService.authMail(authMailCode));
+        return ResponseEntity.ok(authService.authMail(authMailCode, true));
     }
 
     @GetMapping("/passwords/{email}") // 패스워드 찾기 코드 전송
     public ResponseEntity<BaseResponse> findPassword(@PathVariable("email") String email) {
-        return ResponseEntity.ok(authService.findPassword(email));
+        return ResponseEntity.ok(authService.sendAuthMail(email, false));
     }
 
     @PostMapping("/passwords") // 패스워드 찾기 코드 확인
     public ResponseEntity<BaseResponse> authFindPassword(@RequestBody AuthMailCode authMailCode) {
-        return ResponseEntity.ok(authService.authFindPassword(authMailCode));
+        return ResponseEntity.ok(authService.authMail(authMailCode, false));
     }
 
     @PostMapping("/sns") // SNS 로그인

@@ -18,11 +18,11 @@ public class ConfirmationTokenQueryRepository {
     private final JPAQueryFactory jpaQueryFactory;
     private QConfirmationToken qConfirmationToken = QConfirmationToken.confirmationToken;
 
-    public ConfirmationToken AuthMailCodeAndTime(AuthMailCode authMailCode, LocalDateTime time) {
+    public ConfirmationToken AuthMailCodeAndTime(AuthMailCode authMailCode, LocalDateTime time, boolean type) {
         ConfirmationToken confirmToken = jpaQueryFactory.select(qConfirmationToken).from(qConfirmationToken)
                 .where(qConfirmationToken.virifyCode.eq(authMailCode.getCode())
                         .and(qConfirmationToken.email.eq(authMailCode.getEmail()))
-                        .and(qConfirmationToken.expirationDate.goe(time)))
+                        .and(qConfirmationToken.expirationDate.goe(time)).and(qConfirmationToken.type.eq(type)))
                 .fetchOne();
         return confirmToken;
     }
