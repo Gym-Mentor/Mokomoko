@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "../../css/user/ForgotPassword.css";
 
 const ForgotPassword = ({ history }) => {
@@ -42,7 +43,6 @@ const ForgotPassword = ({ history }) => {
 
   const onClickNext = () => {
     sendMail();
-    history.push("/account/enterCode");
   };
   return (
     <div className="wrap">
@@ -71,16 +71,18 @@ const ForgotPassword = ({ history }) => {
                 {emailValidation ? "" : "이메일 형식이 잘못되었습니다."}
               </div>
               <div className="forgot-submit">
-                <button
-                  id="forgot-next-btn"
-                  className={"forgot-next-btn-" + (btnColorState ? "onColor" : "offColor")}
-                  type="button"
-                  onClick={onClickNext}
-                  disabled={!btnColorState}
-                  email={email}
-                >
-                  다음
-                </button>
+                <Link to={`/account/enterCode/${email}`}>
+                  <button
+                    id="forgot-next-btn"
+                    className={"forgot-next-btn-" + (btnColorState ? "onColor" : "offColor")}
+                    type="button"
+                    onClick={onClickNext}
+                    disabled={!btnColorState}
+                    // email={email}
+                  >
+                    다음
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

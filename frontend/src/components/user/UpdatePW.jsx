@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import "../../css/user/UpdatePW.css";
 
 const UpdatePW = (props, { history }) => {
-  const [email, setEmail] = useState("");
+  // console.log(match.params.email);
+  // const [email, setEmail] = useState("");
+  const email = props.match.params.email;
   const [password, setPassword] = useState("");
   const [passwordChk, setPasswordChk] = useState("");
   const [passwordValidation, setPasswordValidation] = useState(false);
@@ -11,9 +13,10 @@ const UpdatePW = (props, { history }) => {
   const [btnColorState, setBtnColorState] = useState(false);
 
   useEffect(() => {
-    setEmail(props.email);
+    // setEmail(props.email);
     console.log(password);
     console.log(passwordChk);
+    console.log(email);
   }, [password, passwordChk, passwordChkValidation, email]);
 
   const onChangePassword = (e) => {
@@ -57,8 +60,8 @@ const UpdatePW = (props, { history }) => {
 
   const onClickUpdate = () => {
     axios({
-      url: "",
-      method: "post",
+      url: "http://localhost:8080/user",
+      method: "put",
       data: {
         email: email,
         password: password,

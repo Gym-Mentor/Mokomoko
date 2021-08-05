@@ -1,21 +1,26 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "../../css/user/EnterCode.css";
 
-const EnterCode = (props, { history }) => {
+const EnterCode = (props) => {
+  const email = props.match.params.email;
+  console.log(email);
+  // console.log(match.params);
   const [code, setCode] = useState("");
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
   const [codeValidation, setCodevalidation] = useState(false);
   const [btnColorState, setBtnColorState] = useState(false);
   const [isChecked, setChecked] = useState(false);
 
   useEffect(() => {
-    console.log(code);
-    setEmail(props.email);
+    console.log(email);
+    // setEmail(props.email);
   }, [code, btnColorState, codeValidation, isChecked, email]);
 
   const onChangeCode = (e) => {
     setCode(e.target.value);
+    console.log(email);
   };
 
   const codeBtnChangeColor = () => {
@@ -40,12 +45,12 @@ const EnterCode = (props, { history }) => {
       url: "http://localhost:8080/auth/passwords",
       method: "post",
       data: {
-        email: props.email,
+        email: email,
         code: code,
       },
     }).then((res) => {
       console.log(res);
-      history.push("/account/updatepw");
+      // history.push("/account/updatepw");
     });
   };
   return (
@@ -75,16 +80,17 @@ const EnterCode = (props, { history }) => {
                 {codeValidation ? "" : "숫자 6글자를 입력해주세요."}
               </div>
               <div className="code-submit">
-                <button
-                  id="code-next-btn"
-                  className={"code-next-btn-" + (btnColorState ? "onColor" : "offColor")}
-                  type="button"
-                  onClick={onClickNextTo}
-                  disabled={!btnColorState}
-                  email={email}
-                >
-                  다음
-                </button>
+                <Link to={`/account/updatepw/${email}`}>
+                  <button
+                    id="code-next-btn"
+                    className={"code-next-btn-" + (btnColorState ? "onColor" : "offColor")}
+                    type="button"
+                    onClick={onClickNextTo}
+                    disabled={!btnColorState}
+                  >
+                    다음
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
