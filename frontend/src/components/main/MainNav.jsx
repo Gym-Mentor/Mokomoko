@@ -23,7 +23,7 @@ const MainNav = () => {
             className={activeNav === 2 ? "nav-item active" : "nav-item"}
           />
         </Link>
-        <Link to="/main/write" className="nav-link" onClick={() => setActiveNav(3)}>
+        <Link to="/main/select" className="nav-link" onClick={() => setActiveNav(3)}>
           <FontAwesomeIcon
             icon="plus"
             className={activeNav === 3 ? "nav-item active" : "nav-item"}
