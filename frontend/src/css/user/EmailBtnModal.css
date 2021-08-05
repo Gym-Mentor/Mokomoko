@@ -2,8 +2,8 @@ Modal.Body {
 }
 .error-msg {
   color: red;
-  font-size: 10px;
-  float: right;
+  font-size: 13px;
+  margin-left: 6px;
 }
 .mail-auth-msg {
   font-size: 15px;
@@ -31,7 +31,6 @@ Modal.Body {
 #email-check-validation {
   width: 270px;
   height: 30px;
-  margin: 10px auto;
   border: none;
   border-radius: 3px;
   color: white;

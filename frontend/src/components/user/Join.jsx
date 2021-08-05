@@ -3,17 +3,15 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import "../../css/user/Join.css";
-import { Button } from "react-bootstrap";
 import EmailBtnModal from "./EmailBtnModal";
-import LoadingButton from "./LoadingButton";
 
-const Join = ({ history }) => {
+const Join = ({ props, history }) => {
   //state 선언
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordChk, setPasswordChk] = useState("");
   const [btnColorState, setBtnColorState] = useState(false); // 기본값 false
-
+  const [isCheck, setCheck] = useState(false);
   const [emailValidation, setEmailValidation] = useState(false);
   const [passwordValidation, setPasswordValidation] = useState(false);
   const [passwordChkValidation, setPasswordChkValidation] = useState(false);
@@ -22,7 +20,7 @@ const Join = ({ history }) => {
   useEffect(() => {
     console.log(password);
     console.log(passwordChk);
-  }, [password, passwordChk, passwordChkValidation]);
+  }, [password, passwordChk, passwordChkValidation, isCheck]);
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -45,7 +43,7 @@ const Join = ({ history }) => {
 
   const onClickJoin = () => {
     axios({
-      url: "auth/signUp",
+      url: "/auth/signup",
       method: "post",
       data: {
         email: email,
@@ -101,12 +99,15 @@ const Join = ({ history }) => {
   };
 
   const mailValidation = () => {
-    axios({
-      url: "http://localhost:8080/mails/" + email,
-      method: "get",
-    }).then((res) => {
-      console.log(res);
-    });
+    if (!isCheck) {
+      axios({
+        url: "/auth/mails/" + email,
+        method: "get",
+      }).then((res) => {
+        console.log(res);
+      });
+    }
+
     setModalShow(true);
   };
 
@@ -129,18 +130,24 @@ const Join = ({ history }) => {
                 placeholder="이메일 주소"
                 onChange={onChangeEmail}
                 onKeyUp={isEmail}
+                disabled={isCheck}
               />
               {/* <LoadingButton /> */}
               <button
                 id="mail-check-btn"
                 className={"email-btn-validation-" + (emailValidation ? "onColor" : "offColor")}
                 onClick={mailValidation}
-                disabled={!emailValidation}
+                disabled={!emailValidation || isCheck}
               >
-                인증
+                {isCheck ? "인증완료" : "인증"}
               </button>
 
-              <EmailBtnModal show={modalShow} onHide={() => setModalShow(false)} />
+              <EmailBtnModal
+                email={email}
+                setCheck={setCheck}
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+              />
               <div className={"email-validation-" + (emailValidation ? "onColor" : "offColor")}>
                 {emailValidation ? "사용 가능한 아이디입니다." : "이메일 형식이 잘못되었습니다."}
               </div>

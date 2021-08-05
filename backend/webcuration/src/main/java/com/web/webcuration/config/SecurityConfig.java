@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable() // 토큰 방식이라서 사용한다고 함
+        http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable() // 토큰 방식이라서 사용한다고 함
 
                 // exception을 만든 것으로 추가
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)

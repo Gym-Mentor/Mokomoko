@@ -21,7 +21,7 @@ const Login = ({ history }) => {
   // 로그인 버튼 이벤트
   const onClickLogin = (e) => {
     // 백엔드와 통신
-    history.push("/main/home");
+    history.push("/main/feed");
     axios({
       method: "post",
       url: "/auth/login",
