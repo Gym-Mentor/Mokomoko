@@ -17,6 +17,8 @@ import Select from "./components/main/write/Select";
 import Food from "./components/main/write/Food";
 import FoodText from "./components/main/write/FoodText";
 import Recipe from "./components/main/write/Recipe";
+import ForgotPassword from "./components/user/ForgotPassword";
+import EnterCode from "./components/user/EnterCode";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
         <Route path="/account/naverLogin" component={NaverTest} />
         <Route path="/account/kakaoLogin" component={Test} />
         <Route path="/account/joinConfirm" component={JoinConfirm} />
+        <Route path="/account/forgot" component={ForgotPassword} />
+        <Route path="/account/forgot/code" component={EnterCode} />
 
         {/* main */}
         <Route path="/main/feed" component={Feed} />
@@ -34,7 +38,7 @@ function App() {
         <Route path="/main/settingNick" component={NicknameSetting} />
         <Route path="/main/compass" component={Compass} />
         <Route path="/main/profile" component={Profile} />
-        <Route path="/main/detail/:index" component={Detail}/>
+        <Route path="/main/detail/:index" component={Detail} />
         <Route path="/main/select" component={Select} />
         <Route path="/main/writeFood" component={Food} />
         <Route path="/main/writeFoodText" component={FoodText} />
