@@ -96,6 +96,7 @@ const Login = ({ history }) => {
                 className={"login-btn-" + (btnColorState ? "onColor" : "offColor")}
                 type="button"
                 onClick={onClickLogin}
+                disabled={!btnColorState}
               >
                 로그인
               </button>
