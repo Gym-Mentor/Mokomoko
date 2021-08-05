@@ -4,7 +4,6 @@ import "./css/common.css";
 import Login from "./components/user/Login";
 import Join from "./components/user/Join";
 import Error404 from "./components/errors/Error404";
-import NaverTest from "./components/user/NaverTest";
 import Test from "./components/user/Test";
 import JoinConfirm from "./components/user/JoinConfirm";
 import Feed from "./components/main/Feed";
@@ -26,7 +25,6 @@ function App() {
       <Switch>
         <Route path="/account/login" component={Login} exact />
         <Route path="/account/join" component={Join} />
-        <Route path="/account/naverLogin" component={NaverTest} />
         <Route path="/account/kakaoLogin" component={Test} />
         <Route path="/account/joinConfirm" component={JoinConfirm} />
         <Route path="/account/forgot" component={ForgotPassword} />

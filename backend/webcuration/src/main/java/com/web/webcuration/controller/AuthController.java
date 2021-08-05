@@ -2,12 +2,11 @@ package com.web.webcuration.controller;
 
 import java.util.Map;
 
-import com.web.webcuration.dto.TokenDto;
 import com.web.webcuration.dto.request.AuthMailCode;
+import com.web.webcuration.dto.request.SNSRequest;
 import com.web.webcuration.dto.request.TokenRequest;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
-import com.web.webcuration.dto.response.UserResponse;
 import com.web.webcuration.service.AuthService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +28,12 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserResponse> signup(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<BaseResponse> signup(@RequestBody UserRequest userRequest) {
         return ResponseEntity.ok(authService.signup(userRequest));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<BaseResponse> login(@RequestBody UserRequest userRequest) {
         return ResponseEntity.ok(authService.login(userRequest));
     }
 
@@ -44,21 +43,33 @@ public class AuthController {
     }
 
     @PostMapping("/reissue")
-    public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequest tokenRequest) {
+    public ResponseEntity<BaseResponse> reissue(@RequestBody TokenRequest tokenRequest) {
         return ResponseEntity.ok(authService.reissue(tokenRequest));
     }
 
     @GetMapping("/mails/{email}")
     public ResponseEntity<BaseResponse> sendAuthMail(@PathVariable("email") String email) {
-        BaseResponse res = authService.sendAuthMail(email);
-        return ResponseEntity.ok(res);
-
+        return ResponseEntity.ok(authService.sendAuthMail(email, true));
     }
 
-    @PostMapping("/mails")
+    @PostMapping("/mails") // 인증 코드 확인
     public ResponseEntity<BaseResponse> authCodeMails(@RequestBody AuthMailCode authMailCode) {
-        System.out.println(authMailCode);
-        BaseResponse res = authService.authMail(authMailCode);
-        return ResponseEntity.ok(res);
+        return ResponseEntity.ok(authService.authMail(authMailCode, true));
     }
+
+    @GetMapping("/passwords/{email}") // 패스워드 찾기 코드 전송
+    public ResponseEntity<BaseResponse> findPassword(@PathVariable("email") String email) {
+        return ResponseEntity.ok(authService.sendAuthMail(email, false));
+    }
+
+    @PostMapping("/passwords") // 패스워드 찾기 코드 확인
+    public ResponseEntity<BaseResponse> authFindPassword(@RequestBody AuthMailCode authMailCode) {
+        return ResponseEntity.ok(authService.authMail(authMailCode, false));
+    }
+
+    @PostMapping("/sns") // SNS 로그인
+    public ResponseEntity<BaseResponse> authSNSLogin(@RequestBody SNSRequest snsRequest) {
+        return ResponseEntity.ok(authService.authSNSLogin(snsRequest));
+    }
+
 }
