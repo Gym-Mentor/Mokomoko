@@ -16,6 +16,7 @@ import Select from "./components/main/write/Select";
 import Food from "./components/main/write/Food";
 import FoodText from "./components/main/write/FoodText";
 import Recipe from "./components/main/write/Recipe";
+import NaverCallBack from "./components/user/NaverCallBack";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/account/login" component={Login} exact />
         <Route path="/account/join" component={Join} />
         <Route path="/account/kakaoLogin" component={Test} />
+        <Route path="/account/naverLogin" component={NaverCallBack} />
         <Route path="/account/joinConfirm" component={JoinConfirm} />
 
         {/* main */}
