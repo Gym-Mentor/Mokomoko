@@ -126,40 +126,34 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public BaseResponse sendAuthMail(String email) {
+    public BaseResponse sendAuthMail(String email, boolean type) {
         if (userRepository.findByEmail(email).isPresent()) {
             ConfirmationToken confirmationToken = confirmationTokenQueryRepository.existAuthMail(email,
                     LocalDateTime.now());
             if (confirmationToken != null) {
                 confirmationTokenService.deleteAuthMail(confirmationToken.getId());
             }
-            confirmationTokenService.createEmailConfirmationToken(email);
+            confirmationTokenService.createEmailConfirmationToken(email, type);
             return new BaseResponse("200", "success", null);
         } else {
-            throw new RuntimeException("이미 가입된 이메일이 존재합니다.");
+            if (type) {
+                throw new RuntimeException("이미 가입된 이메일이 존재합니다.");
+            } else {
+                throw new RuntimeException("가입된 이메일이 없습니다.");
+            }
         }
     }
 
     @Override
-    public BaseResponse authMail(AuthMailCode authMailCode) {
+    public BaseResponse authMail(AuthMailCode authMailCode, boolean type) {
         ConfirmationToken confirmationToken = confirmationTokenQueryRepository.AuthMailCodeAndTime(authMailCode,
-                LocalDateTime.now());
+                LocalDateTime.now(), type);
         if (confirmationToken == null) {
             throw new RuntimeException("인증 가능한 이메일 또는 코드가 없습니다.");
         } else {
             confirmationTokenService.deleteAuthMail(confirmationToken.getId());
             return new BaseResponse("200", "success", null);
         }
-    }
-
-    @Override
-    public BaseResponse findPassword(String email) {
-        return null;
-    }
-
-    @Override
-    public BaseResponse authFindPassword(AuthMailCode authMailCode) {
-        return null;
     }
 
     @Override

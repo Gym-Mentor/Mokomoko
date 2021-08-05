@@ -16,13 +16,9 @@ public interface AuthService {
 
     BaseResponse reissue(TokenRequest tokenReuqest);
 
-    BaseResponse sendAuthMail(String email);
+    BaseResponse sendAuthMail(String email, boolean type);
 
-    BaseResponse authMail(AuthMailCode authMailCode);
-
-    BaseResponse findPassword(String email);
-
-    BaseResponse authFindPassword(AuthMailCode authMailCode);
+    BaseResponse authMail(AuthMailCode authMailCode, boolean type);
 
     BaseResponse authSNSLogin(SNSRequest snsRequest);
 }

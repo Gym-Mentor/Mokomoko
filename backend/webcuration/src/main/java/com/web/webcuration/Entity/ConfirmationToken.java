@@ -43,16 +43,17 @@ public class ConfirmationToken {
     private String virifyCode;
 
     @Column
-    private boolean type;
+    private boolean type; // true면 회원가입, false면 비밀번호 찾기
 
     // 이메일 인증 토큰 생성
-    public static ConfirmationToken createEmailConfirmationToken(String email) {
+    public static ConfirmationToken createEmailConfirmationToken(String email, boolean type) {
         ConfirmationToken confirmationToken = new ConfirmationToken();
         confirmationToken.createDate = LocalDateTime.now();
         confirmationToken.expirationDate = LocalDateTime.now().plusMinutes(EMAIL_TOKEN_EXPIRATION_TIME_VALUE);
         confirmationToken.email = email;
         confirmationToken.expired = false;
         confirmationToken.virifyCode = confirmationToken.CreateCode();
+        confirmationToken.type = type;
         return confirmationToken;
     }
 
