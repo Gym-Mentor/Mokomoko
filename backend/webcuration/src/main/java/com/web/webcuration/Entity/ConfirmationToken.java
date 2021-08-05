@@ -41,9 +41,12 @@ public class ConfirmationToken {
 
     @Column
     private String virifyCode;
+<<<<<<< HEAD
 
     @Column
     private boolean type;
+=======
+>>>>>>> a87330989ab44897a86196bd6946760fa68b383a
 
     // 이메일 인증 토큰 생성
     public static ConfirmationToken createEmailConfirmationToken(String email) {

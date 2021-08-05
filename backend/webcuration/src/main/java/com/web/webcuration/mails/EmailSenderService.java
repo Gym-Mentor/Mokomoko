@@ -15,7 +15,7 @@ public class EmailSenderService {
     public void sendEmail(String receiveAddress, String code) {
         try {
             MailHandler mailHandler = new MailHandler(javaMailSender);
-
+            System.out.println(receiveAddress);
             // 받는 사람
             mailHandler.setTo(receiveAddress);
             // 보내는 사람
@@ -27,6 +27,7 @@ public class EmailSenderService {
                     + code
                     + "</div><hr style='background-color: #ff5a5f; height: 1px' /></div><div class='col-2'></div></div></body></html>";
             mailHandler.setTest(htmlContent.toString(), true);
+            System.out.println("메일 전송띠");
 
             mailHandler.send();
         } catch (Exception e) {

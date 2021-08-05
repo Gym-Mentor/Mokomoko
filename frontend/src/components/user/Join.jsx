@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 
 import "../../css/user/Join.css";
+import EmailBtnModal from "./EmailBtnModal";
 
-const Join = () => {
+const Join = ({ props, history }) => {
   //state 선언
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordChk, setPasswordChk] = useState("");
   const [btnColorState, setBtnColorState] = useState(false); // 기본값 false
-
+  const [isCheck, setCheck] = useState(false);
   const [emailValidation, setEmailValidation] = useState(false);
   const [passwordValidation, setPasswordValidation] = useState(false);
   const [passwordChkValidation, setPasswordChkValidation] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
     console.log(password);
     console.log(passwordChk);
-  }, [password, passwordChk, passwordChkValidation]);
+  }, [password, passwordChk, passwordChkValidation, isCheck]);
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -40,7 +42,21 @@ const Join = () => {
   };
 
   const onClickJoin = () => {
-    window.location.replace("/account/joinConfirm");
+    axios({
+      url: "/auth/signup",
+      method: "post",
+      data: {
+        email: email,
+        password: password,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    history.push("/account/login");
   };
 
   //이메일 유효성 검사
@@ -82,6 +98,19 @@ const Join = () => {
     btnChangeColor();
   };
 
+  const mailValidation = () => {
+    if (!isCheck) {
+      axios({
+        url: "/auth/mails/" + email,
+        method: "get",
+      }).then((res) => {
+        console.log(res);
+      });
+    }
+
+    setModalShow(true);
+  };
+
   return (
     <div className="wrap">
       <div className="user-container">
@@ -93,7 +122,7 @@ const Join = () => {
           <div className="join-form">
             <div className="join-id">
               <input
-                className="user-input"
+                className="user-email-input"
                 type="text"
                 autoCapitalize="off"
                 name="email"
@@ -101,6 +130,23 @@ const Join = () => {
                 placeholder="이메일 주소"
                 onChange={onChangeEmail}
                 onKeyUp={isEmail}
+                disabled={isCheck}
+              />
+              {/* <LoadingButton /> */}
+              <button
+                id="mail-check-btn"
+                className={"email-btn-validation-" + (emailValidation ? "onColor" : "offColor")}
+                onClick={mailValidation}
+                disabled={!emailValidation || isCheck}
+              >
+                {isCheck ? "인증완료" : "인증"}
+              </button>
+
+              <EmailBtnModal
+                email={email}
+                setCheck={setCheck}
+                show={modalShow}
+                onHide={() => setModalShow(false)}
               />
               <div className={"email-validation-" + (emailValidation ? "onColor" : "offColor")}>
                 {emailValidation ? "사용 가능한 아이디입니다." : "이메일 형식이 잘못되었습니다."}
@@ -151,6 +197,7 @@ const Join = () => {
                 className={btnColorState ? "join-btn-active" : "join-btn-unactive"}
                 type="button"
                 onClick={onClickJoin}
+                disabled={!btnColorState}
               >
                 회원가입
               </button>

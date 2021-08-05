@@ -25,13 +25,13 @@ import lombok.ToString;
 @ToString
 @DynamicInsert
 public class RefreshToken {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String tokenKey;
-
+    
     private String tokenValue;
 
     public RefreshToken updateValue(String token) {

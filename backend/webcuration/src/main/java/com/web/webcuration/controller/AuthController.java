@@ -11,6 +11,7 @@ import com.web.webcuration.service.AuthService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin("*")
 public class AuthController {
 
     @Autowired
@@ -45,7 +47,7 @@ public class AuthController {
         return ResponseEntity.ok(authService.reissue(tokenRequest));
     }
 
-    @GetMapping("/mails/{email}") // 인증 이메일 전송
+    @GetMapping("/mails/{email}")
     public ResponseEntity<BaseResponse> sendAuthMail(@PathVariable("email") String email) {
         return ResponseEntity.ok(authService.sendAuthMail(email));
     }
