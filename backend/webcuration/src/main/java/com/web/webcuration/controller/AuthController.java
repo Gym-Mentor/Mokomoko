@@ -64,6 +64,7 @@ public class AuthController {
 
     @PostMapping("/passwords") // 패스워드 찾기 코드 확인
     public ResponseEntity<BaseResponse> authFindPassword(@RequestBody AuthMailCode authMailCode) {
+        System.out.println(authMailCode);
         return ResponseEntity.ok(authService.authMail(authMailCode, false));
     }
 

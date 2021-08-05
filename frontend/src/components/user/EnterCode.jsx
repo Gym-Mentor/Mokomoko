@@ -1,14 +1,18 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import "../../css/user/EnterCode.css";
 
-const EnterCode = (props) => {
+const EnterCode = (props, { history }) => {
   const [code, setCode] = useState("");
+  const [email, setEmail] = useState("");
   const [codeValidation, setCodevalidation] = useState(false);
   const [btnColorState, setBtnColorState] = useState(false);
   const [isChecked, setChecked] = useState(false);
 
   useEffect(() => {
     console.log(code);
-  }, [code, btnColorState, codeValidation, isChecked]);
+    setEmail(props.email);
+  }, [code, btnColorState, codeValidation, isChecked, email]);
 
   const onChangeCode = (e) => {
     setCode(e.target.value);
@@ -31,7 +35,19 @@ const EnterCode = (props) => {
     console.log(codeValidation);
   };
 
-  const onClickNextTo = () => {};
+  const onClickNextTo = () => {
+    axios({
+      url: "http://localhost:8080/auth/passwords",
+      method: "post",
+      data: {
+        email: props.email,
+        code: code,
+      },
+    }).then((res) => {
+      console.log(res);
+      history.push("/account/updatepw");
+    });
+  };
   return (
     <div className="wrap">
       <div className="content-container">
@@ -55,6 +71,9 @@ const EnterCode = (props) => {
                 onChange={onChangeCode}
                 onKeyUp={isCode}
               />
+              <div className={"email-validation-" + (codeValidation ? "onColor" : "offColor")}>
+                {codeValidation ? "" : "숫자 6글자를 입력해주세요."}
+              </div>
               <div className="code-submit">
                 <button
                   id="code-next-btn"
@@ -62,6 +81,7 @@ const EnterCode = (props) => {
                   type="button"
                   onClick={onClickNextTo}
                   disabled={!btnColorState}
+                  email={email}
                 >
                   다음
                 </button>

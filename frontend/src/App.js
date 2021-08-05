@@ -18,6 +18,7 @@ import FoodText from "./components/main/write/FoodText";
 import Recipe from "./components/main/write/Recipe";
 import ForgotPassword from "./components/user/ForgotPassword";
 import EnterCode from "./components/user/EnterCode";
+import UpdatePW from "./components/user/UpdatePW";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/account/joinConfirm" component={JoinConfirm} />
         <Route path="/account/forgot" component={ForgotPassword} />
         <Route path="/account/enterCode" component={EnterCode} />
+        <Route path="/account/updatepw" component={UpdatePW} />
 
         {/* main */}
         <Route path="/main/feed" component={Feed} />
