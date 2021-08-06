@@ -24,7 +24,7 @@ const Login = ({ history }) => {
     history.push("/main/feed");
     axios({
       method: "post",
-      url: "/auth/login",
+      url: "http://localhost:8080/auth/login",
       data: {
         email: email,
         password: password,
@@ -32,9 +32,12 @@ const Login = ({ history }) => {
     })
       .then((res) => {
         console.log(res);
+        history.push("/main/feed");
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
+        console.error(error);
+        alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
       });
   };
 
@@ -96,6 +99,7 @@ const Login = ({ history }) => {
                 className={"login-btn-" + (btnColorState ? "onColor" : "offColor")}
                 type="button"
                 onClick={onClickLogin}
+                disabled={!btnColorState}
               >
                 로그인
               </button>

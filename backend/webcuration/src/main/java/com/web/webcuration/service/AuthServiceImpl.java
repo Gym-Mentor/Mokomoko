@@ -7,10 +7,10 @@ import com.web.webcuration.Entity.RefreshToken;
 import com.web.webcuration.Entity.User;
 import com.web.webcuration.dto.TokenDto;
 import com.web.webcuration.dto.request.AuthMailCode;
+import com.web.webcuration.dto.request.SNSRequest;
 import com.web.webcuration.dto.request.TokenRequest;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
-import com.web.webcuration.dto.response.UserResponse;
 import com.web.webcuration.jwt.TokenProvider;
 import com.web.webcuration.repository.ConfirmationTokenQueryRepository;
 import com.web.webcuration.repository.RefreshTokenRepository;
@@ -34,26 +34,26 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
     private final UserRepository userRepository;
+    private final UserQueryRepository userQueryRepository;
     private final RefreshTokenRepository refreshTokenRepository;
     private final ConfirmationTokenService confirmationTokenService;
     private final ConfirmationTokenQueryRepository confirmationTokenQueryRepository;
-    private final UserQueryRepository userQueryRepository;
 
     @Override
     @Transactional
-    public UserResponse signup(UserRequest userRequest) {
+    public BaseResponse signup(UserRequest userRequest) {
 
         if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다.");
         }
 
         User user = userRequest.toUser(passwordEncoder);
-        return UserResponse.of(userRepository.save(user));
+        return new BaseResponse("200", "success", userRepository.save(user));
     }
 
     @Override
     @Transactional
-    public TokenDto login(UserRequest userRequest) {
+    public BaseResponse login(UserRequest userRequest) {
 
         User loginUser = userRepository.findByEmail(userRequest.getEmail()).get();
         // userRepository
@@ -74,9 +74,8 @@ public class AuthServiceImpl implements AuthService {
 
         refreshTokenRepository.save(refreshToken);
         tokenDto.setUser(loginUser);
-        tokenDto.setRes(new BaseResponse("200", "성공"));
         // 5. 토큰 발급
-        return tokenDto;
+        return new BaseResponse("200", "success", tokenDto);
 
     }
 
@@ -87,8 +86,7 @@ public class AuthServiceImpl implements AuthService {
         Long effectRaw = refreshTokenRepository.deleteBytokenKey(Long.toString(tokenKey));
         System.out.println("effectRaw : " + effectRaw);
         if (effectRaw > 0) {
-            BaseResponse res = new BaseResponse("200", "성공");
-            return res;
+            return new BaseResponse("200", "success", null);
         } else {
             throw new RuntimeException("로그아웃을 실패하였습니다.");
         }
@@ -96,7 +94,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public TokenDto reissue(TokenRequest tokenRequest) {
+    public BaseResponse reissue(TokenRequest tokenRequest) {
 
         // 1. RefreshToken 검증
         if (!tokenProvider.validateToken(tokenRequest.getRefreshToken())) {
@@ -121,36 +119,61 @@ public class AuthServiceImpl implements AuthService {
         // 6. 저장소 정보 업데이트
         RefreshToken newRefreshToken = refreshToken.updateValue(tokenDto.getRefreshToken());
         refreshTokenRepository.save(newRefreshToken);
-        tokenDto.setRes(new BaseResponse("200", "성공"));
 
         // 토큰 발급
-        return tokenDto;
+        return new BaseResponse("200", "success", tokenDto);
     }
 
     @Override
-    public BaseResponse sendAuthMail(String email) {
-        BaseResponse res;
-        ConfirmationToken confirmationToken = confirmationTokenQueryRepository.existAuthMail(email,
-                LocalDateTime.now());
-        if (confirmationToken != null) {
-            confirmationTokenService.deleteAuthMail(confirmationToken.getId());
+    @Transactional
+    public BaseResponse sendAuthMail(String email, boolean type) {
+        if (type) { // 회원 가입
+            if (userRepository.findByEmail(email).isEmpty()) {
+                ConfirmationToken confirmationToken = confirmationTokenQueryRepository.existAuthMail(email,
+                        LocalDateTime.now());
+                if (confirmationToken != null) {
+                    confirmationTokenService.deleteAuthMail(confirmationToken.getId());
+                }
+                confirmationTokenService.createEmailConfirmationToken(email, type);
+                return new BaseResponse("200", "success", null);
+            } else {
+                throw new RuntimeException("이미 가입된 이메일이 존재합니다.");
+            }
+        } else { // 비밀번호 찾기
+            if (userRepository.findByEmail(email).isPresent()) {
+                ConfirmationToken confirmationToken = confirmationTokenQueryRepository.existAuthMail(email,
+                        LocalDateTime.now());
+                if (confirmationToken != null) {
+                    confirmationTokenService.deleteAuthMail(confirmationToken.getId());
+                }
+                confirmationTokenService.createEmailConfirmationToken(email, type);
+                return new BaseResponse("200", "success", null);
+            } else {
+                throw new RuntimeException("가입된 이메일이 없습니다.");
+            }
         }
-        confirmationTokenService.createEmailConfirmationToken(email);
-        res = new BaseResponse("200", "성공");
-        return res;
     }
 
     @Override
-    public BaseResponse authMail(AuthMailCode authMailCode) {
+    @Transactional
+    public BaseResponse authMail(AuthMailCode authMailCode, boolean type) {
         ConfirmationToken confirmationToken = confirmationTokenQueryRepository.AuthMailCodeAndTime(authMailCode,
-                LocalDateTime.now());
+                LocalDateTime.now(), type);
         if (confirmationToken == null) {
             throw new RuntimeException("인증 가능한 이메일 또는 코드가 없습니다.");
         } else {
             confirmationTokenService.deleteAuthMail(confirmationToken.getId());
-            BaseResponse res = new BaseResponse("200", "성공");
-            return res;
+            return new BaseResponse("200", "success", null);
         }
+    }
+
+    @Override
+    public BaseResponse authSNSLogin(SNSRequest snsRequest) {
+        User snsUser = snsRequest.SNStoUser(passwordEncoder);
+        if (userRepository.findByEmail(snsUser.getEmail()).isEmpty()) {
+            userRepository.save(snsUser);
+        }
+        return login(new UserRequest(snsUser.getEmail(), snsUser.getEmail()));
     }
 
 }

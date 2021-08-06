@@ -15,4 +15,5 @@ public class BaseResponse {
 
     String status;
     String msg;
+    Object data;
 }

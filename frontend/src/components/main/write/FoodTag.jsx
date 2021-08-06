@@ -8,7 +8,7 @@ import "../../../css/main/write/Food.css";
 const FoodTag = (props) => {
   const onTagChange = () => {
     let newTag = Object.assign([], props.tag);
-    newTag.push({ title: "title", url: "www.naver.com" });
+    newTag.push({ title: "titleasdfasdf", url: "www.naver.com" });
     props.onTagChange(newTag);
     console.log(props.tag);
   };
@@ -18,19 +18,30 @@ const FoodTag = (props) => {
         <div className="food-tag" key={index}>
           <a href={"https://" + item.url} target="_blank" rel="noopener noreferrer">
             {/* Tabnabbing 피싱 공격을 예방하기 위해 rel 속성 부여 */}
-            <button type="button" className="btn btn-primary btn-xs food-tag-btn">
+            <button type="button" className="food-tag-btn">
+              {"\u00A0"}
+              {"\u00A0"}
+              {"\u00A0"}
               {item.title}
+              {"\u00A0"}
+              {"\u00A0"}
+              {"\u00A0"}
             </button>
           </a>
         </div>
       ))}
-      <div className="food-tag-create">
-        <FontAwesomeIcon
-          icon="plus"
-          className="food-create-icon"
-          onClick={onTagChange}
-        ></FontAwesomeIcon>
-      </div>
+      {/* 피드는 최대 5개 */}
+      {props.tag.length < 5 ? (
+        <div className="food-tag-create" onClick={onTagChange}>
+          {"\u00A0"}
+          {"\u00A0"}
+          <FontAwesomeIcon icon="plus" className="food-create-icon"></FontAwesomeIcon>
+          {"\u00A0"}태그 추가하기{"\u00A0"}
+          {"\u00A0"}
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

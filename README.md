@@ -1,4 +1,4 @@
-## **SUB_PJT 2**
+## **SUB_PJT 3**
 <br/>
 
 Command line instructions<br/>
@@ -13,7 +13,7 @@ git config --global user.email "계정(메일주소)"<br/>
 
 Create a new repository<br/>
 
-git clone https://lab.ssafy.com/s05-webmobile2-sub2/S05P12D104.git<br/>
+git clone https://lab.ssafy.com/s05-webmobile2-sub3/S05P13D104<br/>
 cd S05P12D104<br/>
 touch README.md<br/>
 git add README.md<br/>
@@ -24,7 +24,7 @@ Push an existing folder<br/>
 
 cd existing_folder<br/>
 git init<br/>
-git remote add origin https://lab.ssafy.com/s05-webmobile2-sub2/S05P12D104.git<br/>
+git remote add origin https://lab.ssafy.com/s05-webmobile2-sub3/S05P13D104<br/>
 git add .<br/>
 git commit -m "Initial commit"<br/>
 git push -u origin master<br/>
@@ -33,6 +33,6 @@ Push an existing Git repository<br/>
 
 cd existing_repo<br/>
 git remote rename origin old-origin<br/>
-git remote add origin https://lab.ssafy.com/s05-webmobile2-sub2/S05P12D104.git<br/>
+git remote add origin https://lab.ssafy.com/s05-webmobile2-sub3/S05P13D104<br/>
 git push -u origin --all<br/>
 git push -u origin --tags<br/>

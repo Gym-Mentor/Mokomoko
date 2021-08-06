@@ -45,7 +45,7 @@ li {
   cursor: pointer;
 }
 .login-btn-offColor {
-  background-color: #ff5a6073;
+  background-color: #a8a7a780;
 }
 .login-btn-offColor:disabled:hover {
   cursor: default;

@@ -42,20 +42,24 @@ public class ConfirmationToken {
     @Column
     private String virifyCode;
 
+    @Column
+    private boolean type; // true면 회원가입, false면 비밀번호 찾기
+
     // 이메일 인증 토큰 생성
-    public static ConfirmationToken createEmailConfirmationToken(String email) {
+    public static ConfirmationToken createEmailConfirmationToken(String email, boolean type) {
         ConfirmationToken confirmationToken = new ConfirmationToken();
         confirmationToken.createDate = LocalDateTime.now();
         confirmationToken.expirationDate = LocalDateTime.now().plusMinutes(EMAIL_TOKEN_EXPIRATION_TIME_VALUE);
         confirmationToken.email = email;
         confirmationToken.expired = false;
         confirmationToken.virifyCode = confirmationToken.CreateCode();
+        confirmationToken.type = type;
         return confirmationToken;
     }
 
     public String CreateCode() {
         StringBuilder code = new StringBuilder();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             code.append((int) (Math.random() * 10));
         }
         return code.toString();
