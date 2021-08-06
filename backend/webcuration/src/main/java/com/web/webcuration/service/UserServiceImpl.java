@@ -2,7 +2,10 @@ package com.web.webcuration.service;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import com.web.webcuration.Entity.User;
+import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.repository.UserRepository;
 
@@ -36,8 +39,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public BaseResponse updateUser(User changeUser) {
-        changeUser.setPassword(passwordEncoder.encode(changeUser.getPassword()));
         return new BaseResponse("200", "success", userRepository.save(changeUser));
+    }
+
+    @Override
+    @Transactional
+    public BaseResponse updatePasswordUser(UserRequest changeUser) {
+        Optional<User> user = userRepository.findByEmail(changeUser.getEmail());
+        if (user.isPresent()) {
+            user.get().setPassword(passwordEncoder.encode(changeUser.getPassword()));
+            return new BaseResponse("200", "success", userRepository.save(user.get()));
+        } else {
+            throw new RuntimeException("패스워드 설정 실패");
+        }
     }
 
 }
