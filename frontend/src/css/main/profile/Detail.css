@@ -1,40 +1,43 @@
-.headerDiv{
-    float: left;
-    width: 100%;
-    height: 25%;
-    border-bottom: 1px solid grey;
+.headerDiv {
+  display: flex;
+  width: 100%;
+  height: 25%;
+  border-bottom: 1px solid grey;
 }
 
-.headerDiv.icon{
-    width: 30px;
-    height: 30px;
-    border-bottom: none;
+.headerDiv.icon {
+  margin-left: 10px;
+  margin-top: 10px;
+  width: 30px;
+  height: 30px;
+  border-bottom: none;
 }
-.headerDiv.title{
-    width: 90%;
-    font-size: large;
-    border-bottom: none;
+.headerDiv.title {
+  margin: auto;
+  margin-left: 40%;
+  font-size: large;
+  border-bottom: none;
 }
-h1{
-    z-index: 3;
-    color: black;
-}
-
-.imgDiv{
-    display: flex;
-    width: 100%;
-    height: 50%;
-    overflow: hidden;
-    margin: 0 auto;
+h1 {
+  z-index: 3;
+  color: black;
 }
 
-.imgDiv img{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+.imgDiv {
+  display: flex;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+  margin: 0 auto;
 }
 
-.contentDiv{
-    width: 100%;
-    height: 20%;
+.imgDiv img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.contentDiv {
+  width: 100%;
+  height: 20%;
 }
