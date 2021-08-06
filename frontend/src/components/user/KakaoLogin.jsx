@@ -19,22 +19,21 @@ const loginWithKakao = () => {
       
       window.Kakao.API.request({
       url: "/v2/user/me",
-      success: function ({ kakao_account }) {
+      success: function (response) {
         //어떤 정보 넘어오는지 확인
-        console.log(kakao_account);
-        const {  email,profile } = kakao_account;
-        
-        console.log(email);
-        console.log(`responsed img: ${profile.profile_image_url}`);
-        console.log(profile.nickname);
+        // console.log(response);
+        // console.log("정보확인");
 
+        // console.log(response.id);
+        // console.log(response.properties.nickname);
+        // console.log(response.properties.profile_image);
         axios({
           method: "post",
           url: "/auth/sns",
           data: {
-            "id": email,
-            "nickname": profile.nickname,
-            "image" :profile.profile_image_url,
+            "id": response.id,
+            "nickname": response.properties.nickname,
+            "image" :response.properties.profile_image,
           },
         })
           .then((res) => {
