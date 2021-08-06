@@ -155,6 +155,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public BaseResponse authMail(AuthMailCode authMailCode, boolean type) {
         ConfirmationToken confirmationToken = confirmationTokenQueryRepository.AuthMailCodeAndTime(authMailCode,
                 LocalDateTime.now(), type);

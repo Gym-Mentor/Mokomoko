@@ -48,8 +48,8 @@ const FoodText = (props) => {
                 onChange={onDescChange}
                 placeholder="내용을 입력해주세요"
               ></textarea>
+              <FoodTag tag={tag} onTagChange={onTagChange}></FoodTag>
             </div>
-            <FoodTag tag={tag} onTagChange={onTagChange}></FoodTag>
           </div>
         </div>
       </div>

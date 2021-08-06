@@ -1,6 +1,6 @@
 package com.web.webcuration.controller;
 
-import com.web.webcuration.Entity.User;
+import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.UserService;
 
@@ -19,9 +19,9 @@ public class UserController {
 
     private final UserService userService;
 
-    @PutMapping("")
-    public ResponseEntity<BaseResponse> updateUser(@RequestBody User updateUser) {
-        BaseResponse res = userService.updateUser(updateUser);
+    @PutMapping("/passwords")
+    public ResponseEntity<BaseResponse> updatePasswordUsEntity(@RequestBody UserRequest updateUser) {
+        BaseResponse res = userService.updatePasswordUser(updateUser);
         return ResponseEntity.ok(res);
 
     }

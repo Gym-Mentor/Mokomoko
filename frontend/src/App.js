@@ -20,6 +20,7 @@ import ForgotPassword from "./components/user/ForgotPassword";
 import EnterCode from "./components/user/EnterCode";
 import UpdatePW from "./components/user/UpdatePW";
 import Comment from "./components/main/Comment";
+import NaverCallBack from "./components/user/NaverCallBack";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/account/login" component={Login} exact />
         <Route path="/account/join" component={Join} />
         <Route path="/account/kakaoLogin" component={Test} />
+        <Route path="/account/naverLogin" component={NaverCallBack} />
         <Route path="/account/joinConfirm" component={JoinConfirm} />
         <Route path="/account/forgot" component={ForgotPassword} />
         <Route path="/account/enterCode/:email" component={EnterCode} />
