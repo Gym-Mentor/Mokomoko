@@ -4,7 +4,7 @@ import "./css/common.css";
 import Login from "./components/user/Login";
 import Join from "./components/user/Join";
 import Error404 from "./components/errors/Error404";
-import Test from "./components/user/Test";
+import KakaoTest from "./components/user/KakaoTest";
 import JoinConfirm from "./components/user/JoinConfirm";
 import Feed from "./components/main/Feed";
 import Post from "./components/main/Post";
@@ -28,8 +28,8 @@ function App() {
       <Switch>
         <Route path="/account/login" component={Login} exact />
         <Route path="/account/join" component={Join} />
-        <Route path="/account/kakaoLogin" component={Test} />
         <Route path="/account/naverLogin" component={NaverCallBack} />
+        <Route path="/account/kakaoLogin" component={KakaoTest} />
         <Route path="/account/joinConfirm" component={JoinConfirm} />
         <Route path="/account/forgot" component={ForgotPassword} />
         <Route path="/account/enterCode/:email" component={EnterCode} />
