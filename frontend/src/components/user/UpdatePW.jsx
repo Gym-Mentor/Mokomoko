@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "../../css/user/UpdatePW.css";
 
 const UpdatePW = (props, { history }) => {
@@ -60,7 +61,7 @@ const UpdatePW = (props, { history }) => {
 
   const onClickUpdate = () => {
     axios({
-      url: "http://localhost:8080/user",
+      url: "http://localhost:8080/user/passwords",
       method: "put",
       data: {
         email: email,
@@ -68,7 +69,7 @@ const UpdatePW = (props, { history }) => {
       },
     }).then((res) => {
       console.log(res);
-      history.push("/account/login");
+      // history.push("/account/login");
     });
   };
   return (
@@ -120,15 +121,17 @@ const UpdatePW = (props, { history }) => {
                   : "상위에 입력한 비밀번호와 일치하지 않습니다."}
               </div>
               <div className="update-pw-submit">
-                <button
-                  id="update-pw-btn"
-                  className={"update-pw-btn-" + (btnColorState ? "onColor" : "offColor")}
-                  type="button"
-                  onClick={onClickUpdate}
-                  disabled={!btnColorState}
-                >
-                  완 료
-                </button>
+                <Link to="/account/login">
+                  <button
+                    id="update-pw-btn"
+                    className={"update-pw-btn-" + (btnColorState ? "onColor" : "offColor")}
+                    type="button"
+                    onClick={onClickUpdate}
+                    disabled={!btnColorState}
+                  >
+                    완 료
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
