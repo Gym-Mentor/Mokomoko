@@ -7,7 +7,7 @@ import {BiCut} from 'react-icons/bi';
 export const ProfileSideBarData = [
     {
         title: '회원정보수정',
-        path: '/login',
+        path: '/account/userInfo/modify',
         icons: <AiOutlineUser/>,
         cName: 'nav-text'
     },
