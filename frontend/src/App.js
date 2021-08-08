@@ -17,6 +17,7 @@ import Select from "./components/main/write/Select";
 import Food from "./components/main/write/Food";
 import FoodText from "./components/main/write/FoodText";
 import Recipe from "./components/main/write/Recipe";
+import DeveloperInfo from "./components/header/profileSidebar/DeveloperInfo";
 
 function App() {
   return (
@@ -39,6 +40,9 @@ function App() {
         <Route path="/main/writeFood" component={Food} />
         <Route path="/main/writeFoodText" component={FoodText} />
         <Route path="/main/writeRecipe" component={Recipe} />
+
+        {/*profile side bar */}
+        <Route path="/developers/info" component={DeveloperInfo}></Route>
 
         <Route component={Error404} />
       </Switch>

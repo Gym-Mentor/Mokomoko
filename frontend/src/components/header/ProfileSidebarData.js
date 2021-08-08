@@ -19,13 +19,13 @@ export const ProfileSideBarData = [
     },
     {
         title: '개발자 정보',
-        path: '/login',
+        path: '/developers/info',
         icons: <FaConnectdevelop/>,
         cName: 'nav-text'
     },
     {
         title: '로그아웃',
-        path: '/login',
+        path: '/account/login',
         icons: <FiLogOut/>,
         cName: 'nav-text'
     }
