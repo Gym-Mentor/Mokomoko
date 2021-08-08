@@ -1,19 +1,17 @@
-package com.web.webcuration.dto.response;
+package com.web.webcuration.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseResponse {
+public class ContentDto {
 
-    String status;
-    String msg;
-    Object data;
+    private Long seq;
+    private String image;
+    private String description;
 }

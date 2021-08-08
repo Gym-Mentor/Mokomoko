@@ -8,6 +8,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faImages } from "@fortawesome/free-solid-svg-icons";
+import { faMinus } from "@fortawesome/free-solid-svg-icons";
 library.add(
   faPlus,
   faUser,
@@ -17,5 +18,6 @@ library.add(
   faSearch,
   faChevronLeft,
   faImages,
-  faSpinner
+  faSpinner,
+  faMinus
 );

@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
+
 import "../../css/user/NaverLogin.css";
 
 const { naver } = window;
 
 function NaverLogin() {
-  const initializeNaverLogin = () => {
+  const init = () => {
     const naverLogin = new naver.LoginWithNaverId({
       clientId: "nwk_DGz4Rg8qXKe4QUws",
       callbackUrl: "http://localhost:3000/account/naverLogin",
@@ -13,9 +14,8 @@ function NaverLogin() {
     });
     naverLogin.init();
   };
-
   useEffect(() => {
-    initializeNaverLogin();
+    init();
   }, []);
 
   return <div id="naverIdLogin" />;

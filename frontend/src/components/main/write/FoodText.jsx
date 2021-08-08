@@ -1,17 +1,28 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FoodTag from "./FoodTag";
+import FoodSetting from "./FoodSetting";
 import "../../../css/main/write/Food.css";
 
 // foodHeader에서 images 값 받아서 출력하기
 const FoodText = (props) => {
   const [desc, setDesc] = useState();
   const [tag, setTag] = useState([]);
+  const [setting, setSetting] = useState({
+    like: true,
+    comment: true,
+  });
   const goBack = () => {
     props.history.goBack();
   };
   const write = () => {
+    const data = {
+      images: [props.location.state.images],
+      desc: desc,
+      tag: [tag],
+      setting: setting,
+    };
+    console.log(data);
     //axios 통신
   };
   // text onchange event
@@ -20,6 +31,9 @@ const FoodText = (props) => {
   };
   const onTagChange = (value) => {
     setTag(value);
+  };
+  const onSettingChange = (value) => {
+    setSetting(value);
   };
   return (
     <div className="food-wrapper">
@@ -48,8 +62,11 @@ const FoodText = (props) => {
                 onChange={onDescChange}
                 placeholder="내용을 입력해주세요"
               ></textarea>
+              <FoodTag tag={tag} onTagChange={onTagChange}></FoodTag>
             </div>
-            <FoodTag tag={tag} onTagChange={onTagChange}></FoodTag>
+            <div className="food-setting">
+              <FoodSetting setting={setting} onSettingChange={onSettingChange}></FoodSetting>
+            </div>
           </div>
         </div>
       </div>
