@@ -13,7 +13,7 @@ export const ProfileSideBarData = [
     },
     {
         title: '차단된 계정',
-        path: '/login',
+        path: '/account/userInfo/block',
         icons: <BiCut/>,
         cName: 'nav-text'
     },

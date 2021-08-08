@@ -20,6 +20,7 @@ import FoodText from "./components/main/write/FoodText";
 import Recipe from "./components/main/write/Recipe";
 import DeveloperInfo from "./components/header/profileSidebar/DeveloperInfo";
 import UserInfoModify from "./components/header/profileSidebar/UserInfoModify";
+import UserBlock from "./components/header/profileSidebar/UserBlock";
 import ForgotPassword from "./components/user/ForgotPassword";
 import EnterCode from "./components/user/EnterCode";
 import UpdatePW from "./components/user/UpdatePW";
@@ -55,6 +56,7 @@ function App() {
         {/*profile side bar */}
         <Route path="/developers/info" component={DeveloperInfo}></Route>
         <Route path="/account/userInfo/modify" component={UserInfoModify}></Route>
+        <Route path="/account/userInfo/block" component={UserBlock}></Route>
 
         <Route component={Error404} />
       </Switch>
