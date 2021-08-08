@@ -21,7 +21,7 @@ const Login = ({ history }) => {
   // 로그인 버튼 이벤트
   const onClickLogin = (e) => {
     // 백엔드와 통신
-    history.push("/main/feed");
+    // history.push("/main/feed");
     axios({
       method: "post",
       url: "/auth/login",
@@ -38,6 +38,8 @@ const Login = ({ history }) => {
         // console.log(error);
         console.error(error);
         alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
+        setEmail("");
+        setPassword("");
       });
   };
 
