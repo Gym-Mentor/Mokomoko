@@ -6,13 +6,11 @@
 
 import { combineReducers } from "redux";
 import profileDetail from "./profileDetail";
-import todos from "./todos";
-import counter from "./counter";
+import userInfo from "./userInfo";
 
 const rootReducer = combineReducers({
     profileDetail,
-    todos,
-    counter
+    userInfo,
 });
 
 export default rootReducer;
