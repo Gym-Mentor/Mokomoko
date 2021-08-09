@@ -11,7 +11,7 @@
 // 이렇게 하면 다른 모듈과 액션 이름이 중복되는 것을 방지 할 수 있습니다.
 
 const SET_USERINFO = 'userInfo/SET_DETAIL';
-const GET_USERINFO = 'userInfo/GET_USERFINFO';
+const GET_USERINFO = 'userInfo/GET_USERINFO';
 /* 액션 생성함수 만들기 */
 // 액션 생성함수를 만들고 export 키워드를 사용해서 내보내주세요.
 
@@ -22,9 +22,8 @@ export const setUserInfo = user =>({
     user
 })
 
-export const getUserInfo = (user) =>({
+export const getUserInfo = () =>({
     type : GET_USERINFO,
-    user
 })
 
 
@@ -42,13 +41,10 @@ export default function userInfo(state=initialState, action){
         case SET_USERINFO:
             return{
                 ...state,
-                postList : action.postList
-            };
-        case  GET_USERINFO:
-            return{
-                ...state,
                 user : action.user
             };
+        case  GET_USERINFO:
+            return state.user;
 
         default:
             return state;

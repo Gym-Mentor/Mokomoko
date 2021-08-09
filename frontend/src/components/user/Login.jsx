@@ -15,7 +15,7 @@ const Login = ({ history }) => {
   const [btnColorState, setBtnColorState] = useState(false); // 기본값 false
 
   //userSelector로 리덕스 스토어의 상태 조회하기
-  const {userInfo} =  useSelector(state =>({
+  const {user} =  useSelector(state =>({
     user : state.userInfo.user,
   }));
 
