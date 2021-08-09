@@ -1,0 +1,13 @@
+.userInfo-header{
+    display: inline-block;
+    width: 100%;
+}
+
+.userInfo-header.back{
+    width: 10%;
+}
+
+.userInfo-header.title{
+    width: 90%;
+    font-size: 25px;
+}

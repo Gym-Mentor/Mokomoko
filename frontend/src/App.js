@@ -19,6 +19,10 @@ import Food from "./components/main/write/Food";
 import FoodText from "./components/main/write/FoodText";
 import Recipe from "./components/main/write/Recipe";
 import RecipeText from "./components/main/write/RecipeText";
+
+import DeveloperInfo from "./components/header/profileSidebar/DeveloperInfo";
+import UserInfoModify from "./components/header/profileSidebar/UserInfoModify";
+import UserBlock from "./components/header/profileSidebar/UserBlock";
 import ForgotPassword from "./components/user/ForgotPassword";
 import EnterCode from "./components/user/EnterCode";
 import UpdatePW from "./components/user/UpdatePW";
@@ -50,6 +54,11 @@ function App() {
         <Route path="/main/writeRecipe" component={Recipe} />
         <Route path="/main/writeRecipeText" component={RecipeText} />
         <Route path="/p/comment" component={Comment} />
+
+        {/*profile side bar */}
+        <Route path="/developers/info" component={DeveloperInfo}></Route>
+        <Route path="/account/userInfo/modify" component={UserInfoModify}></Route>
+        <Route path="/account/userInfo/block" component={UserBlock}></Route>
 
         <Route component={Error404} />
       </Switch>

@@ -1,11 +1,26 @@
 import React ,{useState}from 'react';
-import userImg from '../../../img/user.jpg';
-import '../../../css/main/profile/UserInfo.css'
+import { useSelector, useDispatch } from 'react-redux';
+import {getUserInfo} from '../../../modules/userInfo';
+
+import userImg from '../../../img/user_image.png';
 import FollowModal from './FollowModal';
 import FollowerModal from './FollowerModal';
+import '../../../css/main/profile/UserInfo.css'
+
 
 
 const UserInfo = () => {
+    // const [user,setUser] = useState("");
+    //userSelector로 리덕스 스토어의 상태 조회하기
+    const {user} =  useSelector(state =>({
+        user : state.userInfo.user,
+    }));
+
+    const dispatch = useDispatch();
+
+    const [userInfo,SetUesrInfo] = useState(user);
+    console.log("사용자정보");
+    console.log(userInfo);
 
     const [isFollow, setIsFollow] = useState(false);
     const [isFollower, setIsFollower] = useState(false);
@@ -24,7 +39,10 @@ const UserInfo = () => {
         <>
         <div className="userInfo">
             <div className="userImg">
-                <img className="userImg-img" alt="my-image" src={userImg} />
+                <img className="userImg-img" 
+                alt="my-image" 
+                src={(user.image != null)?user.image:`${userImg}`} 
+                />
             </div>
 
             <div className="userFriend">

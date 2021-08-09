@@ -34,9 +34,10 @@ const Post = (profilePhoto, image, username, description, timestamp) => {
           </div>
         </div>
         <div className="likecnt">
-          <p>좋아요 232,323개</p>
+          <p className="feed-user-likecnt">좋아요 232,323개</p>
         </div>
         <div className="post-bottom">
+          <h5 className="post-desc-username">admin </h5>
           <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
             has been the industry's standard dummy text ever since the 1500s, when an unknown
