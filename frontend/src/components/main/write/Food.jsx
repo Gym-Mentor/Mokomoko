@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FoodHeader from "./FoodHeader";
 import "../../../css/main/write/Food.css";
-
+import ReactPlayer from "react-player";
+import { Player } from "video-react";
 // 다음 버튼을 누르면 현재 이미지 정렬해서 state넘겨주기
 // 컴포넌트 바꾸기
 // 동영상 넣기
 const Food = ({ history }) => {
-  const [detailImgs, setDetailImgs] = useState([]); // 사용자가 선택한 이미지 배열 state
+  const [detailImgs, setDetailImgs] = useState([
+    {
+      file: "",
+      type: "image",
+    },
+  ]); // 사용자가 선택한 이미지 배열 state
   const [nowImage, setNowImage] = useState(0); // 현재 선택된 이미지 인덱스를 저장하는 state
   const [imgArr, setImgArr] = useState([]); // 이미지 순서를 저장할 배열 state
   const handleImageUpload = (e) => {
@@ -21,16 +26,21 @@ const Food = ({ history }) => {
     for (let i = 0; i < filesLength; i++) {
       file = fileArr[i];
       fileIdx[i] = i;
+      fileURLs[i] = {
+        file: file,
+        type: file.type.includes("video") ? "video" : "image",
+      };
       let reader = new FileReader();
       reader.onload = () => {
-        fileURLs[i] = reader.result;
-        setDetailImgs([...fileURLs]);
+        fileURLs[i].file = reader.result;
         setNowImage(i);
         setImgArr([...fileIdx]);
+        setDetailImgs([...fileURLs]);
       };
       reader.readAsDataURL(file);
     }
   };
+  // };
   // 3가지 기능 수행
   // 사진 클릭하면 메인화면 변환, 사진 두번 클릭하면 이미지 배열에서 삭제, 이미지 배열에 없는 사진 클릭하면 배열에 넣기
   const handleImageClick = (idx) => {
@@ -94,7 +104,11 @@ const Food = ({ history }) => {
           ></FoodHeader>
           <div className="food-content">
             <div className="food-image-border">
-              <img className="food-image" src={detailImgs[nowImage]}></img>
+              {detailImgs[nowImage].type === "image" ? (
+                <img className="food-image" src={detailImgs[nowImage].file}></img>
+              ) : (
+                <video className="food-video" src={detailImgs[nowImage].file} controls></video>
+              )}
             </div>
             <div className="food-filebox">
               <label htmlFor="food-file">
@@ -104,22 +118,32 @@ const Food = ({ history }) => {
                 type="file"
                 id="food-file"
                 multiple
-                accept="image/jpg,image/png,image/jpeg,image/gif"
+                accept="image/jpg,image/png,image/jpeg,image/gif,video/*"
                 onChange={handleImageUpload}
                 onClick={handleUploadClick}
               />
             </div>
-            {detailImgs.map((content, idx) => (
-              <div className="food-border" onClick={handleImageClick.bind(this, idx)} key={idx}>
-                <img
-                  className={idx === nowImage ? "food-images food-selected" : "food-images"}
-                  src={content}
-                ></img>
-                <div className={imgArr[idx] !== null ? "food-item-selected" : "food-item"}>
-                  {imgArr[idx] == null ? null : imgArr[idx] + 1}
+
+            {detailImgs[0].file !== "" &&
+              detailImgs.map((content, idx) => (
+                <div className="food-border" onClick={handleImageClick.bind(this, idx)} key={idx}>
+                  {content.type === "image" ? (
+                    <img
+                      className={idx === nowImage ? "food-images food-selected" : "food-images"}
+                      src={content.file}
+                    ></img>
+                  ) : (
+                    <video
+                      className={idx === nowImage ? "food-images food-selected" : "food-images"}
+                      src={content.file}
+                    ></video>
+                  )}
+
+                  <div className={imgArr[idx] !== null ? "food-item-selected" : "food-item"}>
+                    {imgArr[idx] == null ? null : imgArr[idx] + 1}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>

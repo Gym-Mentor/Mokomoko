@@ -16,11 +16,20 @@ const FoodText = (props) => {
     props.history.goBack();
   };
   const write = () => {
+    // 이메일 받아서 수정하기
+    let contents = [];
+    for (let i = 0; i < props.location.state.images.length; i++) {
+      contents.push({
+        images: props.location.state.images[i],
+        desc: desc,
+      });
+    }
     const data = {
-      images: [props.location.state.images],
-      desc: desc,
-      tag: [tag],
+      email: "임시이메일@naver.com",
+      contents: contents,
+      tag: tag,
       setting: setting,
+      type: 0,
     };
     console.log(data);
     //axios 통신
@@ -53,7 +62,7 @@ const FoodText = (props) => {
           <div className="food-content">
             <div className="food-top">
               <div className="food-top-border">
-                <img className="food-top-image" src={props.location.state.images[0]}></img>
+                <img className="food-top-image" src={props.location.state.images[0].file}></img>
                 <div className="food-top-info">{props.location.state.images.length}장</div>
               </div>
               <textarea

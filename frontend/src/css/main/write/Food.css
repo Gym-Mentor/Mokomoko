@@ -56,6 +56,14 @@
   top: 0;
   left: 0;
 }
+/* 현재 선택된 음식 비디오*/
+.food-video {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 /* 현재 선택된 음식 사진 담는 그리드*/
 .food-image-border {
   position: relative;
