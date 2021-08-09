@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FoodHeader from "./FoodHeader";
 import "../../../css/main/write/Food.css";
-import ReactPlayer from "react-player";
-import { Player } from "video-react";
 // 다음 버튼을 누르면 현재 이미지 정렬해서 state넘겨주기
 // 컴포넌트 바꾸기
 // 동영상 넣기

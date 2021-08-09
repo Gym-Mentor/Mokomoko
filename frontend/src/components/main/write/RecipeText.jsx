@@ -5,7 +5,7 @@ import FoodSetting from "./FoodSetting";
 import "../../../css/main/write/Food.css";
 
 // foodHeader에서 images 값 받아서 출력하기
-const FoodText = (props) => {
+const RecipeText = (props) => {
   const [desc, setDesc] = useState();
   const [tag, setTag] = useState([]);
   const [setting, setSetting] = useState({
@@ -91,4 +91,4 @@ const FoodText = (props) => {
   );
 };
 
-export default FoodText;
+export default RecipeText;

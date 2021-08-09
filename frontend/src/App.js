@@ -18,12 +18,12 @@ import Select from "./components/main/write/Select";
 import Food from "./components/main/write/Food";
 import FoodText from "./components/main/write/FoodText";
 import Recipe from "./components/main/write/Recipe";
+import RecipeText from "./components/main/write/RecipeText";
 import ForgotPassword from "./components/user/ForgotPassword";
 import EnterCode from "./components/user/EnterCode";
 import UpdatePW from "./components/user/UpdatePW";
 import Comment from "./components/main/Comment";
 import NaverCallBack from "./components/user/NaverCallBack";
-
 function App() {
   return (
     <div className="App">
@@ -48,6 +48,7 @@ function App() {
         <Route path="/main/writeFood" component={Food} />
         <Route path="/main/writeFoodText" component={FoodText} />
         <Route path="/main/writeRecipe" component={Recipe} />
+        <Route path="/main/writeRecipeText" component={RecipeText} />
         <Route path="/p/comment" component={Comment} />
 
         <Route component={Error404} />
