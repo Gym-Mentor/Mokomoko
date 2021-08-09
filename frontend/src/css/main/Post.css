@@ -2,8 +2,6 @@
   .row {
     width: 100%;
   }
-  .main-col {
-  }
 }
 @media screen and (min-width: 768px) {
   .row {
@@ -64,7 +62,7 @@
   padding-top: 10px;
   display: flex;
   font-size: medium;
-  color: gray;
+  color: rgb(10, 10, 10);
   cursor: pointer;
   padding: 15px;
 }
@@ -87,17 +85,22 @@
   border-radius: 10px;
 }
 .likecnt {
-  border-bottom: 1px solid lightgray;
+  /* border-bottom: 1px solid lightgray; */
 }
-.likecnt p {
+.feed-user-likecnt {
   display: flex;
   margin-left: 15px;
-  font-size: small;
+  font-size: medium;
   font-weight: bold;
+  color: black;
 }
 .post-bottom p {
   text-overflow: ellipsis;
   overflow: hidden;
-  width: 85%;
+  width: 70%;
   white-space: nowrap;
+}
+.post-desc-username {
+  margin-right: 10px;
+  margin-left: 5px;
 }
