@@ -40,6 +40,7 @@ public class PostsServiceImpl implements PostsService {
 
     @Override
     public BaseResponse createPosts(PostRequest newPost) {
+
         return new BaseResponse("200", "success", newPost);
     }
 
