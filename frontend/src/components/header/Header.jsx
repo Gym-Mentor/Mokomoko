@@ -6,6 +6,9 @@ import "../../css/header/Header.css";
 import logoImg from "../../img/logo-back.png";
 
 const Header = () => {
+  const showAlarm = () =>{
+    alert("알람 설정");
+  }
   return (
     <>
       <div className="header">
@@ -15,7 +18,7 @@ const Header = () => {
               <img id="logo-img" src={logoImg} />
             </Navbar.Brand>
           </Container>
-          <VscBell className="VscBell" />
+          <VscBell className="VscBell"  onClick={showAlarm}/>
           <ProfileNavbar />
         </Navbar>
       </div>

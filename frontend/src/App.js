@@ -16,14 +16,20 @@ import Profile from "./components/main/profile/Profile";
 import Detail from "./components/main/profile/Detail";
 import Select from "./components/main/write/Select";
 import Food from "./components/main/write/Food";
-import FoodText from "./components/main/write/FoodText";
+import FoodImageText from "./components/main/write/FoodImageText";
+import FoodRecipeText from "./components/main/write/FoodRecipeText";
 import Recipe from "./components/main/write/Recipe";
+import RecipeText from "./components/main/write/RecipeText";
+import FoodRecipeSubmit from "./components/main/write/FoodRecipeSubmit";
+
+import DeveloperInfo from "./components/header/profileSidebar/DeveloperInfo";
+import UserInfoModify from "./components/header/profileSidebar/UserInfoModify";
+import UserBlock from "./components/header/profileSidebar/UserBlock";
 import ForgotPassword from "./components/user/ForgotPassword";
 import EnterCode from "./components/user/EnterCode";
 import UpdatePW from "./components/user/UpdatePW";
 import Comment from "./components/main/Comment";
 import NaverCallBack from "./components/user/NaverCallBack";
-
 function App() {
   return (
     <div className="App">
@@ -46,9 +52,17 @@ function App() {
         <Route path="/main/detail/:index" component={Detail} />
         <Route path="/main/select" component={Select} />
         <Route path="/main/writeFood" component={Food} />
-        <Route path="/main/writeFoodText" component={FoodText} />
+        <Route path="/main/writeFoodImageText" component={FoodImageText} />
+        <Route path="/main/writeFoodRecipeText" component={FoodRecipeText} />
+        <Route path="/main/writeFoodRecipeSubmit" component={FoodRecipeSubmit} />
         <Route path="/main/writeRecipe" component={Recipe} />
+        <Route path="/main/writeRecipeText" component={RecipeText} />
         <Route path="/p/comment" component={Comment} />
+
+        {/*profile side bar */}
+        <Route path="/developers/info" component={DeveloperInfo}></Route>
+        <Route path="/account/userInfo/modify" component={UserInfoModify}></Route>
+        <Route path="/account/userInfo/block" component={UserBlock}></Route>
 
         <Route component={Error404} />
       </Switch>
