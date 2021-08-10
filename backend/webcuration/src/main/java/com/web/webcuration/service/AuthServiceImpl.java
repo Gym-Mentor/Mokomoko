@@ -127,17 +127,27 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public BaseResponse sendAuthMail(String email, boolean type) {
-        if (userRepository.findByEmail(email).isPresent()) {
-            ConfirmationToken confirmationToken = confirmationTokenQueryRepository.existAuthMail(email,
-                    LocalDateTime.now());
-            if (confirmationToken != null) {
-                confirmationTokenService.deleteAuthMail(confirmationToken.getId());
-            }
-            confirmationTokenService.createEmailConfirmationToken(email, type);
-            return new BaseResponse("200", "success", null);
-        } else {
-            if (type) {
+        if (type) { // 회원 가입
+            if (userRepository.findByEmail(email).isEmpty()) {
+                ConfirmationToken confirmationToken = confirmationTokenQueryRepository.existAuthMail(email,
+                        LocalDateTime.now());
+                if (confirmationToken != null) {
+                    confirmationTokenService.deleteAuthMail(confirmationToken.getId());
+                }
+                confirmationTokenService.createEmailConfirmationToken(email, type);
+                return new BaseResponse("200", "success", null);
+            } else {
                 throw new RuntimeException("이미 가입된 이메일이 존재합니다.");
+            }
+        } else { // 비밀번호 찾기
+            if (userRepository.findByEmail(email).isPresent()) {
+                ConfirmationToken confirmationToken = confirmationTokenQueryRepository.existAuthMail(email,
+                        LocalDateTime.now());
+                if (confirmationToken != null) {
+                    confirmationTokenService.deleteAuthMail(confirmationToken.getId());
+                }
+                confirmationTokenService.createEmailConfirmationToken(email, type);
+                return new BaseResponse("200", "success", null);
             } else {
                 throw new RuntimeException("가입된 이메일이 없습니다.");
             }
@@ -145,6 +155,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public BaseResponse authMail(AuthMailCode authMailCode, boolean type) {
         ConfirmationToken confirmationToken = confirmationTokenQueryRepository.AuthMailCodeAndTime(authMailCode,
                 LocalDateTime.now(), type);

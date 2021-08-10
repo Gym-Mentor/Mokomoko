@@ -1,6 +1,7 @@
 package com.web.webcuration.service;
 
 import com.web.webcuration.Entity.User;
+import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 
 public interface UserService {
@@ -11,4 +12,5 @@ public interface UserService {
 
     BaseResponse updateUser(User changeUser);
 
+    BaseResponse updatePasswordUser(UserRequest changeUser);
 }

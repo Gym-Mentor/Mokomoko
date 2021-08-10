@@ -43,7 +43,7 @@ const Join = ({ props, history }) => {
 
   const onClickJoin = () => {
     axios({
-      url: "/auth/signup",
+      url: "http://localhost:8080/auth/signup",
       method: "post",
       data: {
         email: email,
@@ -101,7 +101,7 @@ const Join = ({ props, history }) => {
   const mailValidation = () => {
     if (!isCheck) {
       axios({
-        url: "/auth/mails/" + email,
+        url: "http://localhost:8080/auth/mails/" + email,
         method: "get",
       }).then((res) => {
         console.log(res);

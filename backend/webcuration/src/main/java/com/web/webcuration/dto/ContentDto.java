@@ -1,5 +1,7 @@
 package com.web.webcuration.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ContentDto {
 
-    private Long seq;
-    private String image;
-    private String description;
+    private MultipartFile images;
+    private String desc;
 }
