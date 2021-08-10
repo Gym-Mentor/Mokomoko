@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import "../../../css/main/write/Select.css";
-import { setContent } from "../../../modules/Food";
+import { setContent, setInitValue } from "../../../modules/Food";
 // Select창이 뜨면 세션에 존재하는 write data 초기화
 const Select = () => {
   // 글을 쓰기위한 write 객체 가져오기
   const { write } = useSelector((state) => ({
     write: state.Food,
   }));
-
   // dispatch 생성
   const dispatch = useDispatch();
+  // 초기화
+  useEffect(() => {
+    dispatch(setInitValue());
+  }, [dispatch]);
 
   // 음식인지 레시피인지 받아서 state 변경
   const onClickIsRecipe = (data) => {
@@ -19,6 +22,7 @@ const Select = () => {
     newWrite.isRecipe = data;
     dispatch(setContent(newWrite));
   };
+
   return (
     <div className="select-wrapper">
       <div className="select-row">
@@ -36,7 +40,7 @@ const Select = () => {
             </div>
             <div className="select-btn">
               <Link
-                to="/main/writeRecipe"
+                to="/main/writeFood"
                 className="select-link"
                 onClick={() => onClickIsRecipe(true)}
               >

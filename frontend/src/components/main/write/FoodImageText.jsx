@@ -1,13 +1,13 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FoodTag from "./FoodTag";
 import FoodSetting from "./FoodSetting";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { setContent } from "../../../modules/Food";
+import FoodHeader from "./FoodHeader";
 import "../../../css/main/write/Food.css";
 
 // foodHeader에서 images 값 받아서 출력하기
-const FoodText = (props) => {
+const FoodImageText = (props) => {
   const { write } = useSelector(
     (state) => ({
       write: state.Food,
@@ -22,40 +22,32 @@ const FoodText = (props) => {
     props.history.goBack();
   };
 
-  // 백엔드와 통신
-  const submit = () => {
-    const data = {
-      email: "임시이메일@naver.com",
-      contents: write.contents,
-      tag: write.tag,
-      setting: write.setting,
-      isRecipe: write.isRecipe,
-    };
-    console.log(data);
-    //axios 통신
-  };
   // text onchange event
   const onDescChange = (e) => {
     let newWrite = Object.assign({}, write);
     newWrite.contents[0].desc = e.target.value;
     dispatch(setContent(newWrite));
   };
-
   return (
     <div className="food-wrapper">
       <div className="food-row">
         <div className="food-col">
-          <header className="food-header">
-            <span className="food-icon">
-              <div className="food-link" onClick={goBack}>
-                <FontAwesomeIcon icon="chevron-left" />
-              </div>
-            </span>
-            <span className="food-title">음식 피드 작성</span>
-            <span className="food-finish" onClick={submit}>
-              다음
-            </span>
-          </header>
+          <FoodHeader
+            navigation={{ goBack: () => goBack() }}
+            next={
+              write.isRecipe
+                ? write.recipeIndex + 1 === write.contents.length
+                  ? "/main/writeFoodRecipeSubmit"
+                  : "/main/writeFoodRecipeText"
+                : "/main/writeFoodImageText"
+            }
+            // 사용자가 지정한대로 이미지 순서 배열 만들기
+            makeArr={false}
+            // 음식 사진이거나, 레시피 사진의 설명을 모두 적으면 submit= true
+            submit={
+              write.isRecipe ? (write.recipeIndex + 1 > write.contents.length ? true : false) : true
+            }
+          ></FoodHeader>
           <div className="food-content">
             <div className="food-top">
               <div className="food-top-border">
@@ -85,4 +77,4 @@ const FoodText = (props) => {
   );
 };
 
-export default FoodText;
+export default FoodImageText;

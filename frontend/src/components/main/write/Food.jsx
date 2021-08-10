@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { setContent } from "../../../modules/Food";
 
 // 동영상 렉 이슈 있음(8/10)
+// food에서 isRecipe 값에 따라 header로 넘겨주는 next값을 다르게 준다.
+// 새로
 const Food = ({ history }) => {
   const { write } = useSelector((state) => ({
     write: state.Food,
@@ -41,6 +43,7 @@ const Food = ({ history }) => {
       let reader = new FileReader();
       reader.onload = () => {
         newWrite.temp[i].media = reader.result;
+        newWrite.contents[i] = newWrite.temp[i];
         dispatch(setContent(newWrite));
       };
       reader.readAsDataURL(file);
@@ -85,8 +88,19 @@ const Food = ({ history }) => {
         newWrite.imgArr[idx] = null;
       }
     }
+    let temp = [];
+    for (let i = 0; i < newWrite.temp.length; i++) {
+      for (let j = 0; j < newWrite.temp.length; j++) {
+        if (newWrite.imgArr[j] === i) {
+          temp.push(newWrite.temp[j]);
+          break;
+        }
+      }
+    }
+    newWrite.contents = temp;
     dispatch(setContent(newWrite));
   };
+
   // 똑같은 사진을 넣었을 때 onChange를 적용하기위해 input의 값을 초기화
   const handleUploadClick = (e) => {
     e.target.value = null;
@@ -100,7 +114,19 @@ const Food = ({ history }) => {
         <div className="food-col">
           <FoodHeader
             navigation={{ goBack: () => goBack() }}
-            next="/main/writeFoodText"
+            next={
+              write.isRecipe
+                ? write.recipeIndex === write.contents.length
+                  ? "/main/writeFoodRecipeSubmit"
+                  : "/main/writeFoodRecipeText"
+                : "/main/writeFoodImageText"
+            }
+            // 사용자가 지정한대로 이미지 순서 배열 만들기
+            first={true}
+            // 음식 사진이거나, 레시피 사진의 설명을 모두 적으면 submit= true
+            submit={
+              write.isRecipe ? (write.recipeIndex + 1 > write.contents.length ? true : false) : true
+            }
           ></FoodHeader>
           <div className="food-content">
             <div className="food-image-border">

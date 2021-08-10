@@ -8,6 +8,7 @@
 // 이렇게 하면 다른 모듈과 액션 이름이 중복되는 것을 방지 할 수 있습니다.
 
 const SET_CONTENT = "Food/SET_CONTENT";
+const SET_INITVALUE = "Food/SET_INITVALUE";
 const GET_CONTENT = "Food/GET_CONTENT";
 
 /* 액션 생성함수 만들기 */
@@ -19,6 +20,9 @@ const GET_CONTENT = "Food/GET_CONTENT";
 export const setContent = (data) => ({
   type: SET_CONTENT,
   write: data,
+});
+export const setInitValue = () => ({
+  type: SET_INITVALUE,
 });
 // 글 미디어, 내용, 타입 가져오기
 export const getContent = () => ({
@@ -62,6 +66,7 @@ const initialState = {
   // DB에는 안들어가지만 필요한 state
   nowImage: "", // Number, 현재 사용자가 선택한 이미지 저장
   imgArr: [], // 사용자가 선택한 이미지 순서 저장
+  recipeIndex: 0, // 레시피 작성 인덱스
 };
 
 /* 리듀서 선언 */
@@ -73,6 +78,8 @@ export default function Food(state = initialState, action) {
         ...state,
         ...action.write,
       };
+    case SET_INITVALUE:
+      return initialState;
     case GET_CONTENT:
       return state;
 
