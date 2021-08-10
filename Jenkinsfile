@@ -26,8 +26,8 @@ pipeline {
         stage('Docker build') {
             agent any
             steps {     
-                sh 'docker build -t frontend:latest ./backend'     
-                sh 'docker build -t backend:latest ./frontend'    
+                sh 'docker build -t backend:latest ./backend/webcuration'     
+                sh 'docker build -t frontend:latest ./frontend'    
             }  
         }   
         stage('Docker run') {
