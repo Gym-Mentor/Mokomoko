@@ -1,7 +1,7 @@
 // 젠킨스 파이프라인 플러그인을 호출하기 위한 블록 
 pipeline {  
     // 파이프라인을 실행하고 싶은 위치 정의  
-    agent none  
+    agent none
     // gitlab의 소스를 jenkins 디렉토리로 내려받을 시  
     // skipDefaultCheckout(true)일 경우 내려받는 프로세스 skip  
     // skipDefaultCheckout(false)일 경우 gitlab 소스 체크 
@@ -13,11 +13,11 @@ pipeline {
         stage('Build and Test') {    
             // docker image에 명시된 image를 활용하여 steps 수행    
             agent {     
-                docker {      
-                    image 'maven:3-alpine'      
-                    args '-v /root/.m2:/root/.m2'     
-                } 
-            }    
+                docker {
+                    image 'maven:3-alpine'
+                    args '-v /root/.m2:/root/.m2'
+                }
+            }
             options { skipDefaultCheckout(false) }    
             steps {     
                 sh 'mvn -B -DskipTests -f ./backend clean package'    
