@@ -20,7 +20,7 @@ pipeline {
             }
             options { skipDefaultCheckout(false) }    
             steps {     
-                sh 'mvn -B -DskipTests -f ./backend clean package'    
+                sh 'mvn -B -DskipTests -f ./backend/webcuration clean package'    
             }   
         }   
         stage('Docker build') {
