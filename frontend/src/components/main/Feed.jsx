@@ -22,6 +22,10 @@ const Feed = () => {
               username="jay"
               description="is it works ?"
             />
+            <Post />
+            <Post />
+            <Post />
+            <Post />
           </div>
         </Col>
         <Col></Col>
