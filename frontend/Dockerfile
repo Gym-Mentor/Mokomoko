@@ -16,7 +16,8 @@ RUN npm run build
 ### build-stage(=상위 node 이미지)에서 빌드한 결과물을 nginx로 옮긴 후, 
 ### 80번 포트 개방과 "nginx -g daemon off;" 명령을 실행 
 FROM nginx:stable-alpine as production-stage 
-
+RUN rm /etc/nginx/conf.d/default.conf
+COPY ./app.conf /etc/nginx/cof.d/app.conf
 COPY --from=build-stage ./app/build /usr/share/nginx/html/app
 EXPOSE 80 
 CMD ["nginx", "-g", "daemon off;"]
