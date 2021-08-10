@@ -46,11 +46,7 @@ const Login = ({ history }) => {
       },
     })
       .then((res) => {
-        console.log(res);
-        console.log("data",res.data);
-        console.log("data,data",res.data.data);
         const user = res.data.data.user;
-        console.log("유저정보 ",user);
         onSetUserInfo(user);
         history.push("/main/feed");
       })
