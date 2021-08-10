@@ -3,8 +3,7 @@ pipeline {
     // 파이프라인을 실행하고 싶은 위치 정의  
     agent none  
     // gitlab의 소스를 jenkins 디렉토리로 내려받을 시  
-    // skipDefaultCheckout(true)일 경우 내려받는 프로세스 
-    skip  
+    // skipDefaultCheckout(true)일 경우 내려받는 프로세스 skip  
     // skipDefaultCheckout(false)일 경우 gitlab 소스 체크 
     options { skipDefaultCheckout(true) }  
     // stage의 모음  
