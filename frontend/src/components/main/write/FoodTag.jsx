@@ -2,23 +2,35 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../../css/main/write/Food.css";
 import FoodModal from "./FoodModal";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { getContent, setContent } from "../../../modules/Food";
 const FoodTag = (props) => {
+  const { write } = useSelector(
+    (state) => ({
+      write: state.Food,
+    }),
+    shallowEqual
+  );
+  // dispatch 생성
+  const dispatch = useDispatch();
   // FoodModal로부터 title과 url을 받아서 tag로 전달
   const onTagChange = (title, url) => {
-    let newTag = Object.assign([], props.tag);
-    newTag.push({ title: title, url: url });
-    props.onTagChange(newTag);
+    console.log(title);
+    let newWrite = Object.assign([], write);
+    newWrite.tag.push({ title: title, url: url });
+    console.log(newWrite);
+    dispatch(setContent(newWrite));
   };
   // 태그를 지우는 메서드
   const onTagRemove = (value) => {
-    let newTag = Object.assign([], props.tag);
-    newTag.splice(value, 1);
-    props.onTagChange(newTag);
+    let newWrite = Object.assign([], write);
+    newWrite.tag.splice(value, 1);
+    dispatch(setContent(newWrite));
   };
   return (
     <div className="food-tag-wrap">
       <ul className="food-tag-ul">
-        {props.tag.map((item, index) => (
+        {write.tag.map((item, index) => (
           <li className="food-tag" key={index}>
             <button type="button" className="food-tag-btn">
               {/* url 주소가 있는 것만 링크로 연결 */}
@@ -52,7 +64,7 @@ const FoodTag = (props) => {
         ))}
       </ul>
       {/* 피드는 최대 5개 */}
-      {props.tag.length < 5 ? <FoodModal onTagChange={onTagChange}></FoodModal> : ""}
+      {write.tag.length < 5 ? <FoodModal onTagChange={onTagChange}></FoodModal> : ""}
     </div>
   );
 };

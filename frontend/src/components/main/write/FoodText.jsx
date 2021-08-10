@@ -1,49 +1,46 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FoodTag from "./FoodTag";
 import FoodSetting from "./FoodSetting";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { setContent } from "../../../modules/Food";
 import "../../../css/main/write/Food.css";
 
 // foodHeader에서 images 값 받아서 출력하기
 const FoodText = (props) => {
-  const [desc, setDesc] = useState();
-  const [tag, setTag] = useState([]);
-  const [setting, setSetting] = useState({
-    like: true,
-    comment: true,
-  });
+  const { write } = useSelector(
+    (state) => ({
+      write: state.Food,
+    }),
+    shallowEqual
+  );
+  // dispatch 생성
+  const dispatch = useDispatch();
+
+  // 뒤로가기 이벤트
   const goBack = () => {
     props.history.goBack();
   };
-  const write = () => {
-    // 이메일 받아서 수정하기
-    let contents = [];
-    for (let i = 0; i < props.location.state.images.length; i++) {
-      contents.push({
-        images: props.location.state.images[i],
-        desc: desc,
-      });
-    }
+
+  // 백엔드와 통신
+  const submit = () => {
     const data = {
       email: "임시이메일@naver.com",
-      contents: contents,
-      tag: tag,
-      setting: setting,
-      type: 0,
+      contents: write.contents,
+      tag: write.tag,
+      setting: write.setting,
+      isRecipe: write.isRecipe,
     };
     console.log(data);
     //axios 통신
   };
   // text onchange event
   const onDescChange = (e) => {
-    setDesc(e.target.value);
+    let newWrite = Object.assign({}, write);
+    newWrite.contents[0].desc = e.target.value;
+    dispatch(setContent(newWrite));
   };
-  const onTagChange = (value) => {
-    setTag(value);
-  };
-  const onSettingChange = (value) => {
-    setSetting(value);
-  };
+
   return (
     <div className="food-wrapper">
       <div className="food-row">
@@ -55,34 +52,31 @@ const FoodText = (props) => {
               </div>
             </span>
             <span className="food-title">음식 피드 작성</span>
-            <span className="food-finish" onClick={write}>
+            <span className="food-finish" onClick={submit}>
               다음
             </span>
           </header>
           <div className="food-content">
             <div className="food-top">
               <div className="food-top-border">
-                {props.location.state.images[0].type === "image" ? (
-                  <img className="food-top-image" src={props.location.state.images[0].file}></img>
+                {write.contents[0].isImage ? (
+                  <img className="food-top-image" src={write.contents[0].media}></img>
                 ) : (
-                  <video
-                    className="food-top-image"
-                    src={props.location.state.images[0].file}
-                  ></video>
+                  <video className="food-top-image" src={write.contents[0].media}></video>
                 )}
 
-                <div className="food-top-info">{props.location.state.images.length}장</div>
+                <div className="food-top-info">{write.contents.length}장</div>
               </div>
               <textarea
                 className="food-desc"
-                value={desc}
+                value={write.contents[0].desc}
                 onChange={onDescChange}
                 placeholder="내용을 입력해주세요"
               ></textarea>
-              <FoodTag tag={tag} onTagChange={onTagChange}></FoodTag>
+              <FoodTag></FoodTag>
             </div>
             <div className="food-setting">
-              <FoodSetting setting={setting} onSettingChange={onSettingChange}></FoodSetting>
+              <FoodSetting></FoodSetting>
             </div>
           </div>
         </div>
