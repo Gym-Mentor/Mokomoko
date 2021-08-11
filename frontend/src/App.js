@@ -1,4 +1,4 @@
-import {Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Router,Switch,withRouter} from "react-router-dom";
 import "./App.css";
 import "./css/common.css";
 import Test from "./components/main/Test";
@@ -31,29 +31,29 @@ import UpdatePW from "./components/user/UpdatePW";
 import NaverCallBack from "./components/user/NaverCallBack";
 // import DetailPresenter from "./components/main/DetailPresenter";
 
-// import MainNav from "./components/main/MainNav";
 import Main from "./components/main/Main";
+import PrivateRoute from "./lib/PrivateRoute";
 
 function App() {
     return (
         <div className="App">
-            <div className="로그인화면">
-                <Switch>
-                    <Route path="/" component={Test} exact="exact"/>
-                    <Route path="/account/login" component={Login} exact="exact"/>
-                    <Route path="/account/join" component={Join}/>
-                    <Route path="/account/naverLogin" component={NaverCallBack}/>
-                    <Route path="/account/kakaoLogin" component={KakaoTest}/>
-                    <Route path="/account/joinConfirm" component={JoinConfirm}/>
-                    <Route path="/account/forgot" component={ForgotPassword}/>
-                    <Route path="/account/enterCode/:email" component={EnterCode}/>
-                    <Route path="/account/updatepw/:email" component={UpdatePW}/>
+                <BrowserRouter>
+                    <Switch>
+                    <Route path="/" component={Test} exact/>
+                    <Route path="/account/login"component={Login} />
+                    <Route path="/account/join" component={Join} />
+                    <Route path="/account/naverLogin" component={NaverCallBack} />
+                    <Route path="/account/kakaoLogin" component={KakaoTest} />
+                    <Route path="/account/joinConfirm" component={JoinConfirm} />
+                    <Route path="/account/forgot" component={ForgotPassword} />
+                    <Route path="/account/enterCode/:email" component={EnterCode} />
+                    <Route path="/account/updatepw/:email" component={UpdatePW} />
                     <Route path="/main" component={Main}/>
                     <Route component={Error404}/>
-                </Switch>
-            </div>
+                    </Switch>
+                    {/* <Route path="/" component={Test} exact="exact"/> */}
 
-
+                </BrowserRouter>
         </div>
     );
 }

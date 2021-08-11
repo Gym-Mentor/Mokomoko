@@ -60,6 +60,7 @@ const KakaoLogin = () => {
                 }
   
                 onSetUserInfo(user);
+                localStorage.setItem("accessToken",user);
                 history.push("/main/feed");
               })
               .catch((error) => {
