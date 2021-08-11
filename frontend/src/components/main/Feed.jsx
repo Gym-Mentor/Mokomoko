@@ -1,13 +1,26 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React ,{useState,useEffect}from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setIndex } from "../../modules/MainNav";
 import Post from "../../components/main/Post";
 import { Container, Row, Col } from "react-bootstrap";
 
 const Feed = () => {
+  const { activeNav } = useSelector((state) => ({
+    activeNav: state.activeNav,
+  }));
+
+  const dispatch = useDispatch();
+
+  const onSetIndex = (activeNav) => dispatch(setIndex(activeNav));
+
   const [posts, setPosts] = useState([]);
 
-  //   useEffect(() => {}); db연결시 활용
+  useEffect(() => {
+    onSetIndex(1);
+    return () => {
+      
+    }
+  }, [])
 
   return (
     <div className="feed-wrapper">
