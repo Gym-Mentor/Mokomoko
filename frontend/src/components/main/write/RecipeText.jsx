@@ -5,7 +5,7 @@ import FoodSetting from "./FoodSetting";
 import "../../../css/main/write/Food.css";
 
 // foodHeader에서 images 값 받아서 출력하기
-const FoodText = (props) => {
+const RecipeText = (props) => {
   const [desc, setDesc] = useState();
   const [tag, setTag] = useState([]);
   const [setting, setSetting] = useState({
@@ -16,11 +16,20 @@ const FoodText = (props) => {
     props.history.goBack();
   };
   const write = () => {
+    // 이메일 받아서 수정하기
+    let contents = [];
+    for (let i = 0; i < props.location.state.images.length; i++) {
+      contents.push({
+        images: props.location.state.images[i],
+        desc: desc,
+      });
+    }
     const data = {
-      images: [props.location.state.images],
-      desc: desc,
-      tag: [tag],
+      email: "임시이메일@naver.com",
+      contents: contents,
+      tag: tag,
       setting: setting,
+      type: 0,
     };
     console.log(data);
     //axios 통신
@@ -53,7 +62,15 @@ const FoodText = (props) => {
           <div className="food-content">
             <div className="food-top">
               <div className="food-top-border">
-                <img className="food-top-image" src={props.location.state.images[0]}></img>
+                {props.location.state.images[0].type === "image" ? (
+                  <img className="food-top-image" src={props.location.state.images[0].file}></img>
+                ) : (
+                  <video
+                    className="food-top-image"
+                    src={props.location.state.images[0].file}
+                  ></video>
+                )}
+
                 <div className="food-top-info">{props.location.state.images.length}장</div>
               </div>
               <textarea
@@ -74,4 +91,4 @@ const FoodText = (props) => {
   );
 };
 
-export default FoodText;
+export default RecipeText;

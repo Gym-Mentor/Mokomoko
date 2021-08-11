@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
-import {setUserInfo} from '../../modules/userInfo';
+import { useSelector, useDispatch } from "react-redux";
+import { setUserInfo } from "../../modules/userInfo";
 import KakaoLogin from "../../components/user/KakaoLogin";
 import NaverLogin from "../../components/user/NaverLogin";
 import axios from "axios";
 import "../../css/user/Login.css";
-
 
 const Login = ({ history }) => {
   // state 선언
@@ -15,14 +14,14 @@ const Login = ({ history }) => {
   const [btnColorState, setBtnColorState] = useState(false); // 기본값 false
 
   //userSelector로 리덕스 스토어의 상태 조회하기
-  const {user} =  useSelector(state =>({
-    user : state.userInfo.user,
+  const { user } = useSelector((state) => ({
+    user: state.userInfo.user,
   }));
 
   //useDispatch 사용해서 리덕스 스토어의 dispatch를 함수에서 사용할 수 있도록 해준다.
   const dispatch = useDispatch();
 
-  const onSetUserInfo = userInfo => dispatch(setUserInfo(userInfo));
+  const onSetUserInfo = (userInfo) => dispatch(setUserInfo(userInfo));
 
   // 이메일 이벤트
   const onChangeEmail = (e) => {
@@ -39,7 +38,7 @@ const Login = ({ history }) => {
     // history.push("/main/feed");
     axios({
       method: "post",
-      url: "http://localhost:8080/auth/login",
+      url: "http://i5d104.p.ssafy.io:8080/auth/login",
       data: {
         email: email,
         password: password,
@@ -47,10 +46,10 @@ const Login = ({ history }) => {
     })
       .then((res) => {
         console.log(res);
-        console.log("data",res.data);
-        console.log("data,data",res.data.data);
+        console.log("data", res.data);
+        console.log("data,data", res.data.data);
         const user = res.data.data.user;
-        console.log("유저정보 ",user);
+        console.log("유저정보 ", user);
         onSetUserInfo(user);
         history.push("/main/feed");
       })
