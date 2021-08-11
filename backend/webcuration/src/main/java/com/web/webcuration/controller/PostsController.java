@@ -21,7 +21,7 @@ public class PostsController {
     private final PostsService postsService;
 
     @PostMapping("/")
-    public ResponseEntity<BaseResponse> createPosts(@RequestBody HashMap<String, String> newPosts) {
+    public ResponseEntity<BaseResponse> createPosts(@RequestBody Object newPosts) {
         // postsService.createPosts(newPosts);
 
         return ResponseEntity.ok(new BaseResponse("200", "success", newPosts));
