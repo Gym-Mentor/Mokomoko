@@ -19,8 +19,9 @@ import DetailPresenter from './DetailPresenter';
 import DeveloperInfo from '../header/profileSidebar/DeveloperInfo';
 import UserInfoModify from '../header/profileSidebar/UserInfoModify';
 import UserBlock from '../header/profileSidebar/UserBlock';
+import Logout from '../header/profileSidebar/Logout';
 import {Route} from 'react-router-dom';
-// import Route from '../../lib/Route';
+
 
 const Main = () => {
     return (
@@ -45,6 +46,7 @@ const Main = () => {
                     <Route path="/main/developers/info" component={DeveloperInfo}></Route>
                     <Route path="/main/account/userInfo/modify" component={UserInfoModify}></Route>
                     <Route path="/main/account/userInfo/block" component={UserBlock}></Route>
+                    <Route path="/main/logout" component={Logout}/>
 
                 <MainNav/>
             </div>

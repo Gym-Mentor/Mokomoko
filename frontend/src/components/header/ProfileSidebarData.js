@@ -25,7 +25,7 @@ export const ProfileSideBarData = [
     },
     {
         title: '로그아웃',
-        path: '/account/login',
+        path: '/main/logout',
         icons: <FiLogOut/>,
         cName: 'nav-text'
     }
