@@ -1,5 +1,7 @@
 package com.web.webcuration.controller;
 
+import java.util.HashMap;
+
 import com.web.webcuration.dto.request.PostRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.PostsService;
@@ -20,8 +22,9 @@ public class PostsController {
     private final PostsService postsService;
 
     @PostMapping("/")
-    public ResponseEntity<BaseResponse> createPosts(@RequestBody PostRequest newPosts) {
-        postsService.createPosts(newPosts);
-        return ResponseEntity.ok(null);
+    public ResponseEntity<BaseResponse> createPosts(@RequestBody HashMap<t, t> newPosts) {
+        // postsService.createPosts(newPosts);
+        
+        return ResponseEntity.ok(new BaseResponse("200", "success", newPosts));
     }
 }
