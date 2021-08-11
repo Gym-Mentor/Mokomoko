@@ -10,8 +10,7 @@ import '../../../css/main/profile/UserInfo.css'
 
 
 const UserInfo = () => {
-    // const [user,setUser] = useState("");
-    //userSelector로 리덕스 스토어의 상태 조회하기
+    
     const {user} =  useSelector(state =>({
         user : state.userInfo.user,
     }));
@@ -19,8 +18,6 @@ const UserInfo = () => {
     const dispatch = useDispatch();
 
     const [userInfo,SetUesrInfo] = useState(user);
-    console.log("사용자정보");
-    console.log(userInfo);
 
     const [isFollow, setIsFollow] = useState(false);
     const [isFollower, setIsFollower] = useState(false);
