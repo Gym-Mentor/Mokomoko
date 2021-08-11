@@ -55,7 +55,7 @@ const KakaoLogin = () => {
                 console.log(res);
                 let user = {
                   "id" : response.id,
-                  "nickname" : response.properties.nickname,
+                  "nickname" : null,
                   "image" : response.properties.profile_image
                 }
   

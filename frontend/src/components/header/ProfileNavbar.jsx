@@ -10,6 +10,12 @@ const ProfileHambar = () => {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
+
+  const logout = (e) =>{
+    console.log("로그아웃");
+    localStorage.removeItem("accessToken");
+  }
+
   return (
     <>
       {/*네비게이션 토글 코드 */}
@@ -29,7 +35,7 @@ const ProfileHambar = () => {
           {ProfileSideBarData &&
             ProfileSideBarData.map((item, index) => {
               return (
-                <li key={index} className={item.cName}>
+                <li key={index} className={item.cName} onClick={(item.title =='로그아웃'?logout:'')}>
                   <Link to={item.path}>
                     {item.icons}
                     <span className="navbar-item-title">{item.title}</span>
