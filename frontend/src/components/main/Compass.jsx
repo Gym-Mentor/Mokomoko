@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setIndex } from "../../modules/MainNav";
 import "../../css/main/Compass.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+
+
 const Compass = () => {
+
+  const { activeNav } = useSelector((state) => ({
+    activeNav: state.activeNav,
+  }));
+
+  const dispatch = useDispatch();
+
+  const onSetIndex = (activeNav) => dispatch(setIndex(activeNav));
+
   // 탐색 피드 state 선언
   const [lists, setLists] = useState([]);
 
   // 탐색 피드 받아오기
   useEffect(() => {
+    onSetIndex(2);
     lists[lists.length] = {
       id: 0,
       name: 0,
