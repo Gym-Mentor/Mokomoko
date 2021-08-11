@@ -2,7 +2,6 @@ package com.web.webcuration.controller;
 
 import java.util.HashMap;
 
-import com.web.webcuration.dto.request.PostRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.PostsService;
 
