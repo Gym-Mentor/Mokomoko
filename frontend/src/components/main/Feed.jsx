@@ -15,16 +15,14 @@ const Feed = () => {
         <Col></Col>
         <Col className="main-col">
           <div className="feed">
-            <Post
+            {/* <Post
               profilePhoto=""
               timestamp="2021.07.27(tue)"
               image=""
               username="jay"
               description="is it works ?"
-            />
-            <Post />
-            <Post />
-            <Post />
+            /> */}
+
             <Post />
           </div>
         </Col>

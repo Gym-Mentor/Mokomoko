@@ -26,6 +26,7 @@ import EnterCode from "./components/user/EnterCode";
 import UpdatePW from "./components/user/UpdatePW";
 import Comment from "./components/main/Comment";
 import NaverCallBack from "./components/user/NaverCallBack";
+import DetailPresenter from "./components/main/DetailPresenter";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
         <Route path="/main/writeFoodText" component={FoodText} />
         <Route path="/main/writeRecipe" component={Recipe} />
         <Route path="/p/comment" component={Comment} />
+        <Route path="/main/testt/:index" component={DetailPresenter} />
 
         {/*profile side bar */}
         <Route path="/developers/info" component={DeveloperInfo}></Route>
