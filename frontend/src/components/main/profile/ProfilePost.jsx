@@ -1,4 +1,4 @@
-import React, { useState ,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Detail from "./Detail";
 // import store from '../../../store/store';
 
@@ -33,10 +33,7 @@ const PostList = [
   },
 ];
 
-
-const ProfilePost = ({postList,post,number,onSetDetail,onGetDetailNumber,onGetDetail}) => {
-
-
+const ProfilePost = ({ postList, post, number, onSetDetail, onGetDetailNumber, onGetDetail }) => {
   const [isDetail, setIsDetail] = useState(false);
 
   useEffect(() => {
@@ -45,22 +42,20 @@ const ProfilePost = ({postList,post,number,onSetDetail,onGetDetailNumber,onGetDe
     onSetDetail(PostList);
     console.log(postList);
 
-    console.log("useEffect",number);
+    console.log("useEffect", number);
     console.log(number);
 
     //한박자 씩 늦게 찍힘
     return () => {
       console.log("값이 바뀌거나 컴포넌트 이동되었을 시 ");
       console.log(post);
-
-    }
-  }, [number,post]);
-
+    };
+  }, [number, post]);
 
   const showDetail = (e, index) => {
     e.preventDefault();
 
-    setIsDetail(prev => !prev);
+    setIsDetail((prev) => !prev);
     console.log(isDetail);
 
     onGetDetailNumber(index.index);
@@ -71,7 +66,6 @@ const ProfilePost = ({postList,post,number,onSetDetail,onGetDetailNumber,onGetDe
     // }
 
     // location.href(`/mian/detail/${index}`);
-
   };
 
   return (
@@ -80,23 +74,21 @@ const ProfilePost = ({postList,post,number,onSetDetail,onGetDetailNumber,onGetDe
         {PostList &&
           PostList.map((item, index) => {
             return (
-                <div key={index} className="postGrid" onClick={(e) =>showDetail(e,{index})}>
-                  <Link to={
-                    {
-                      pathname : `/main/detail/${index}`,
-                      state : {
-                        idx : index,
-                        item : postList[index],
-                      }
-                    }
-                  }>
-                    <img className="postImg" src={item.img}/>
-                  </Link>
+              <div key={index} className="postGrid" onClick={(e) => showDetail(e, { index })}>
+                <Link
+                  to={{
+                    pathname: `/main/testt/${index}`,
+                    state: {
+                      idx: index,
+                      item: postList[index],
+                    },
+                  }}
+                >
+                  <img className="postImg" src={item.img} />
+                </Link>
               </div>
             );
           })}
-
-
       </div>
     </div>
   );
