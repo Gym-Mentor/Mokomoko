@@ -3,6 +3,7 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { ProfileSideBarData } from "./ProfileSidebarData";
+import axios from "axios";
 
 import "../../css/header/ProfileHambar.css";
 
@@ -12,8 +13,18 @@ const ProfileHambar = () => {
   const showSidebar = () => setSidebar(!sidebar);
 
   const logout = (e) =>{
-    console.log("로그아웃");
+    e.preventDefault();
+
+    //localStorage 지워주기
     localStorage.removeItem("accessToken");
+
+    //백엔드 통신
+    // axois({
+    //   method : "post",
+    //   url :"http://localhost:8080/auth/logout",
+
+    // })
+
   }
 
   return (
