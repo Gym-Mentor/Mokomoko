@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useSelector} from "react-redux";
 import { ProfileSideBarData } from "./ProfileSidebarData";
 import axios from "axios";
 
 import "../../css/header/ProfileHambar.css";
 
 const ProfileHambar = () => {
+
+  const {user} = useSelector(state => ({user: state.userInfo.user}));
+
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
@@ -19,11 +23,19 @@ const ProfileHambar = () => {
     localStorage.removeItem("accessToken");
 
     //백엔드 통신
-    // axois({
-    //   method : "post",
-    //   url :"http://localhost:8080/auth/logout",
-
-    // })
+    axios({
+      method : "post",
+      url :"http://localhost:8080/auth/logout",
+      data :{
+        email : user.email,
+      },
+    })
+    .then((res) =>{
+      console.log(res);
+    })
+    .catch((error) =>{
+      console.error(error.response.data);
+    })
 
   }
 
