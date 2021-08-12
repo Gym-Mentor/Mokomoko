@@ -26,7 +26,7 @@ const MainNav = () => {
             className={activeNav === 1 ? "nav-item active" : "nav-item"}
           />
         </Link>
-        <Link to="/main/compass" className="nav-link" onClick={() => onClickNavItem(2)}>
+        <Link to="/main/explore" className="nav-link" onClick={() => onClickNavItem(2)}>
           <FontAwesomeIcon
             icon="compass"
             className={activeNav === 2 ? "nav-item active" : "nav-item"}
@@ -38,7 +38,7 @@ const MainNav = () => {
             className={activeNav === 3 ? "nav-item active" : "nav-item"}
           />
         </Link>
-        <Link to="/account/login" className="nav-link" onClick={() => onClickNavItem(4)}>
+        <Link to="/account/test" className="nav-link" onClick={() => onClickNavItem(4)}>
           <FontAwesomeIcon
             icon="medal"
             className={activeNav === 4 ? "nav-item active" : "nav-item"}

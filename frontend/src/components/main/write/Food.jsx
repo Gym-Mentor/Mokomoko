@@ -34,6 +34,7 @@ const Food = ({ history }) => {
       newWrite.imgArr[i] = i;
       // i번째 객체 삽입
       newWrite.temp.push({
+        file: file,
         media: "",
         desc: "",
         isImage: "",

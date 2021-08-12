@@ -11,15 +11,13 @@ import JoinConfirm from "./components/user/JoinConfirm";
 import Feed from "./components/main/Feed";
 import Post from "./components/main/Post";
 import NicknameSetting from "./components/user/NicknameSetting";
-import Compass from "./components/main/Compass";
+import Explore from "./components/main/explore/Explore";
 import Profile from "./components/main/profile/Profile";
 import Detail from "./components/main/profile/Detail";
 import Select from "./components/main/write/Select";
 import Food from "./components/main/write/Food";
 import FoodImageText from "./components/main/write/FoodImageText";
 import FoodRecipeText from "./components/main/write/FoodRecipeText";
-import Recipe from "./components/main/write/Recipe";
-import RecipeText from "./components/main/write/RecipeText";
 import FoodRecipeSubmit from "./components/main/write/FoodRecipeSubmit";
 
 import DeveloperInfo from "./components/header/profileSidebar/DeveloperInfo";
@@ -31,7 +29,6 @@ import UpdatePW from "./components/user/UpdatePW";
 import Comment from "./components/main/Comment";
 import NaverCallBack from "./components/user/NaverCallBack";
 import DetailPresenter from "./components/main/DetailPresenter";
-
 function App() {
   return (
     <div className="App">
@@ -49,7 +46,7 @@ function App() {
         <Route path="/main/feed" component={Feed} />
         <Route path="/main/post" component={Post} />
         <Route path="/main/settingNick" component={NicknameSetting} />
-        <Route path="/main/compass" component={Compass} />
+        <Route path="/main/explore" component={Explore} />
         <Route path="/main/profile" component={Profile} />
         <Route path="/main/detail/:index" component={Detail} />
         <Route path="/main/select" component={Select} />
@@ -57,8 +54,6 @@ function App() {
         <Route path="/main/writeFoodImageText" component={FoodImageText} />
         <Route path="/main/writeFoodRecipeText" component={FoodRecipeText} />
         <Route path="/main/writeFoodRecipeSubmit" component={FoodRecipeSubmit} />
-        <Route path="/main/writeRecipe" component={Recipe} />
-        <Route path="/main/writeRecipeText" component={RecipeText} />
         <Route path="/p/comment" component={Comment} />
         <Route path="/main/testt/:index" component={DetailPresenter} />
 
