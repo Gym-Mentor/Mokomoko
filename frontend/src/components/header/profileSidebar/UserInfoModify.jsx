@@ -60,6 +60,12 @@ const UserInfoModify = () => {
     const removeUser = (e) =>{
         e.preventDefault();
         console.log("탈퇴");
+        if(!confirm("탈퇴하시겠습니까?")){
+
+        }
+        else{
+            alert("탈퇴되었습니다.")
+        }
     }
 
     return (
@@ -84,6 +90,7 @@ const UserInfoModify = () => {
                         <div className="userImg input">
                             <label htmlFor="img-file">
                                 <FontAwesomeIcon icon="images"/>
+                                <span>프로필 편집</span>
                             </label>
                             <input
                                 type="file"
@@ -109,7 +116,7 @@ const UserInfoModify = () => {
                             <span>탈퇴하시겠습니까?</span>
                         </div>
 
-                        <div className="">
+                        <div className="apply-button">
                             <button onClick={saveUserInfo}>저장</button>
                         </div>
 
