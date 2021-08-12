@@ -79,6 +79,29 @@
   border: 0;
 }
 
+
+.user-nickname-input{
+    float: left;
+  width: 200px;
+  height: 40px;
+  margin: 3px auto;
+  padding: 0 10px;
+  display: block;
+  background-color: #fafafa;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.remove-user{
+  float : right;
+}
+
+.remove-user span{
+  font-size: small;
+  color : #003768
+}
+
 button{
     color: white;
     background-color: #ff5a5f;
