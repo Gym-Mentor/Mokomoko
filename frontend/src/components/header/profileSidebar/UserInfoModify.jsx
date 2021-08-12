@@ -57,6 +57,11 @@ const UserInfoModify = () => {
         onSetUserInfo(userInfo);
     }
 
+    const removeUser = (e) =>{
+        e.preventDefault();
+        console.log("탈퇴");
+    }
+
     return (
         <div className="userModify-wrapper">
             <div className="userModify-row">
@@ -88,20 +93,20 @@ const UserInfoModify = () => {
                                 onChange={handleImageUpload}/>
                         </div>
 
-                        <div className="userId">
-                            <input
-                                className="user-email-input"
-                                type="text"
-                                value={userInfo.email}
-                                disabled
-                            />
+                        <div className="userModify-title">
+                            사용자 닉네임 설정
                         </div>
                         <div className="userName">
                             <input
-                                className="user-email-input"
+                                className="user-nickname-input"
                                 type="text"
-                                value={(userInfo.nickname!=null)?userInfo.nickname:"설정x"}
+                                value={userInfo.nickname}
                             />
+                        </div>
+
+
+                        <div className="remove-user" onClick={removeUser}>
+                            <span>탈퇴하시겠습니까?</span>
                         </div>
 
                         <div className="">

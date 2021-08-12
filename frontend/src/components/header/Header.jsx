@@ -10,8 +10,9 @@ const Header = () => {
     alert("알람 설정");
   }
   return (
-    <>
-      <div className="header">
+    <div className="header-wrapper">
+      <div className="header-row">
+        <div className="header-col">
         <Navbar bg="light">
           <Container className="logo">
             <Navbar.Brand href="/account/login">
@@ -21,8 +22,10 @@ const Header = () => {
           <VscBell className="VscBell"  onClick={showAlarm}/>
           <ProfileNavbar />
         </Navbar>
+        </div>
       </div>
-    </>
+
+    </div>
   );
 };
 
