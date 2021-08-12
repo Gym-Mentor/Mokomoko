@@ -20,6 +20,8 @@ import DeveloperInfo from '../header/profileSidebar/DeveloperInfo';
 import UserInfoModify from '../header/profileSidebar/UserInfoModify';
 import UserBlock from '../header/profileSidebar/UserBlock';
 import {Route} from 'react-router-dom';
+import Dictaphone from './DictaPhone';
+import AwardMain from './award/AwardMain';
 
 
 const Main = () => {
@@ -41,10 +43,14 @@ const Main = () => {
                     <Route path="/main/writeRecipeText" component={RecipeText}/>
                     <Route path="/p/comment" component={Comment}/>
                     <Route path="/main/testt/:index" component={DetailPresenter}/> 
+                    <Route path="/main/award" component={AwardMain}/>
+
+
                     {/*profile side bar */}
                     <Route path="/main/developers/info" component={DeveloperInfo}></Route>
                     <Route path="/main/account/userInfo/modify" component={UserInfoModify}></Route>
                     <Route path="/main/account/userInfo/block" component={UserBlock}></Route>
+                    <Route path="/main/test/speech" component={Dictaphone}/>
 
                 <MainNav/>
             </div>

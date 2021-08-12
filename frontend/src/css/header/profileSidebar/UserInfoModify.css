@@ -25,18 +25,19 @@
   }
 
 .userModify-header{
-    display: inline-block;
-    width: 100%;
+    /* display: inline-block; */
+    width: max-content;
     margin-bottom: 20px;
+    float: left;
 }
 
 .userModify-header.back{
-    width: 10%;
+    float: left;
 }
 
 .userModify-header.title{
-    width: 90%;
-    font-size: 25px;
+    margin-left: 10px;
+    font-size: 20px;
 }
 
 .userModify.userImg{
@@ -95,6 +96,7 @@
 
 .remove-user{
   float : right;
+  margin-top: 10px;
 }
 
 .remove-user span{
@@ -102,7 +104,15 @@
   color : #003768
 }
 
-button{
-    color: white;
-    background-color: #ff5a5f;
+.apply-button{
+  margin-top: 10px;
+    float: right;
+    width: 100%;
 }
+
+.apply-button button{
+  background-color: #ff5a5f;
+  color: white;
+  width: 100%;
+}
+
