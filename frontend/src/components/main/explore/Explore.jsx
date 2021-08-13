@@ -15,7 +15,6 @@ export default function App() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (loading) return;
     setLoading(true);
     let list = [
       { url: image1, isImage: true },
