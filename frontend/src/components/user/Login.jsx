@@ -38,7 +38,7 @@ const Login = ({ history }) => {
     // history.push("/main/feed");
     axios({
       method: "post",
-      url: "http://localhost:8080/auth/login",
+      url: "http://i5d104.p.ssafy.io:8080/auth/login",
       data: {
         email: email,
         password: password,
@@ -76,7 +76,7 @@ const Login = ({ history }) => {
 
   useEffect(() => {
     if (localStorage.getItem("accessToken") != null) {
-      window.location.replace("http://localhost:3000/main/feed");
+      window.location.replace("http://i5d104.p.ssafy.io:80/main/feed");
     }
     return () => {};
   }, []);
