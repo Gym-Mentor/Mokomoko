@@ -4,13 +4,13 @@ server:
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/SSAFY_PJT2?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
+    url: jdbc:mysql://i5d104.p.ssafy.io:3306/SSAFY_PJT2?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
     username: root
     password: ssafy
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
