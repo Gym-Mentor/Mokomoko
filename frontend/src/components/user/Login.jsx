@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserInfo } from "../../modules/userInfo";
@@ -49,7 +49,7 @@ const Login = ({ history }) => {
         console.log("유저정보 ", user);
         onSetUserInfo(user);
         //로그인 하고 localStorage 저장
-        localStorage.setItem('accessToken',user);
+        localStorage.setItem("accessToken", user);
         history.push("/main/feed");
       })
       .catch((error) => {
@@ -75,13 +75,11 @@ const Login = ({ history }) => {
   };
 
   useEffect(() => {
-    if(localStorage.getItem("accessToken") != null){
-      location.replace("http://localhost:3000/main/feed");
+    if (localStorage.getItem("accessToken") != null) {
+      window.location.replace("http://localhost:3000/main/feed");
     }
-    return () => {
-      
-    }
-  }, [])
+    return () => {};
+  }, []);
   return (
     <div className="wrap">
       <div className="user-container">

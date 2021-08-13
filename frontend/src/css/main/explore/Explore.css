@@ -95,3 +95,83 @@
   position: absolute;
   width: 100%;
 }
+
+/* 헤더 */
+/* 돋보기 아이콘 검은색으로 설정 */
+/* .search {
+  color: black;
+} */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300);
+
+.search-form {
+  /* position: relative; */
+
+  position: fixed;
+  left: 50%;
+  /* top: 50%; */
+  top: 3%;
+  transform: translate(-50%);
+}
+
+.search-box #search-ipt {
+  border: none;
+  background: none;
+  z-index: 1;
+  width: 25px;
+  height: 15px;
+  transition: all 0.25s ease-in 0.25s;
+  color: transparent;
+  font-size: 0.75rem;
+  line-height: 25px;
+}
+.search-box #search-ipt:hover {
+  cursor: pointer;
+}
+.search-box #search-ipt:hover:focus {
+  cursor: text;
+}
+.search-box #search-ipt:hover + #ospan {
+  background: rgba(255, 255, 255, 0.2);
+}
+.search-box #search-ipt:focus {
+  width: 250px;
+  padding: 0 15px;
+  outline: none;
+  color: black;
+  background: none;
+}
+.search-box #search-ipt:focus + #ospan {
+  width: 250px;
+  height: 25px;
+  border: none;
+  background: #ebeff1;
+}
+.search-box #search-ipt:focus + #ospan::before {
+  width: 2px;
+  opacity: 0;
+  transition: all 0.25s ease-in;
+}
+.search-box #search-ipt + #ospan {
+  z-index: -1;
+  position: absolute;
+  border: 2px solid #948c8c;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  transition: all 0.25s ease-in 0.25s;
+  border-radius: 25px;
+  left: 0px;
+}
+.search-box #search-ipt + #ospan::before {
+  transition: all 0.25s ease-in 0.5s;
+  transform-origin: left top;
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 4px;
+  border-radius: 5px;
+  background: #948c8c;
+  transform: rotate(45deg) translate(26px, -2px);
+  top: -9px;
+  left: -9px;
+}

@@ -61,7 +61,7 @@ const FoodHeader = (props) => {
     //axios 통신 후 상세페이지로 이동하게 수정하기!
     axios({
       method: "post",
-      url: "http://localhost:8080/posts/",
+      url: "http://localhost:8080/post",
       data: formData,
       contentType: false,
       processData: false,

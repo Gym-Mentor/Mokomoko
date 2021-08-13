@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "../../css/main/CompassHeader.css";
-const CompassHeader = () => {
+import "../../../css/main/explore/ExploreHeader.css";
+const ExploreHeader = () => {
   const [results, setResults] = useState("");
   const [updateField, setUpdateField] = useState("");
   const [keyword, setKeyword] = useState("");
@@ -24,4 +24,4 @@ const CompassHeader = () => {
   );
 };
 
-export default CompassHeader;
+export default ExploreHeader;
