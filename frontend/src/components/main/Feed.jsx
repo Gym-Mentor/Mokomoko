@@ -4,9 +4,10 @@ import { setIndex } from "../../modules/MainNav";
 import Post from "../../components/main/Post";
 import { Container, Row, Col } from "react-bootstrap";
 
-const Feed = () => {
-  const { activeNav } = useSelector((state) => ({
+const Feed = ({history}) => {
+  const { activeNav ,user} = useSelector((state) => ({
     activeNav: state.activeNav,
+    user : state.userInfo.user,
   }));
 
   const dispatch = useDispatch();
@@ -17,6 +18,10 @@ const Feed = () => {
 
   useEffect(() => {
     onSetIndex(1);
+    if(user.nickname == null){
+      console.log("닉네임 설정해야함");
+      history.push("/main/settingNick");
+    }
     return () => {
       
     }

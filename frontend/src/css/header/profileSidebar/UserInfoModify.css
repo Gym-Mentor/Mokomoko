@@ -25,18 +25,19 @@
   }
 
 .userModify-header{
-    display: inline-block;
-    width: 100%;
+    /* display: inline-block; */
+    width: max-content;
     margin-bottom: 20px;
+    float: left;
 }
 
 .userModify-header.back{
-    width: 10%;
+    float: left;
 }
 
 .userModify-header.title{
-    width: 90%;
-    font-size: 25px;
+    margin-left: 10px;
+    font-size: 20px;
 }
 
 .userModify.userImg{
@@ -79,7 +80,39 @@
   border: 0;
 }
 
-button{
-    color: white;
-    background-color: #ff5a5f;
+
+.user-nickname-input{
+    float: left;
+  width: 200px;
+  height: 40px;
+  margin: 3px auto;
+  padding: 0 10px;
+  display: block;
+  background-color: #fafafa;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  font-size: 14px;
 }
+
+.remove-user{
+  float : right;
+  margin-top: 10px;
+}
+
+.remove-user span{
+  font-size: small;
+  color : #003768
+}
+
+.apply-button{
+  margin-top: 10px;
+    float: right;
+    width: 100%;
+}
+
+.apply-button button{
+  background-color: #ff5a5f;
+  color: white;
+  width: 100%;
+}
+

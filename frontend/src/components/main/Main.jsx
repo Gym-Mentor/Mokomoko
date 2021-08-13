@@ -1,5 +1,4 @@
 import React from 'react';
-import {Route, Switch} from "react-router-dom";
 
 import MainNav from './MainNav';
 
@@ -20,13 +19,15 @@ import DetailPresenter from './DetailPresenter';
 import DeveloperInfo from '../header/profileSidebar/DeveloperInfo';
 import UserInfoModify from '../header/profileSidebar/UserInfoModify';
 import UserBlock from '../header/profileSidebar/UserBlock';
+import {Route} from 'react-router-dom';
+import Dictaphone from './DictaPhone';
+import AwardMain from './award/AwardMain';
 
 
 const Main = () => {
     return (
         <div>
             <div className="mainSection">
-                <Switch>
                     <Route path="/main/feed" component={Feed}/>
                     <Route path="/main/post" component={Post}/>
                     <Route path="/main/settingNick" component={NicknameSetting}/>
@@ -41,11 +42,15 @@ const Main = () => {
                     <Route path="/main/writeRecipe" component={Recipe}/>
                     <Route path="/main/writeRecipeText" component={RecipeText}/>
                     <Route path="/p/comment" component={Comment}/>
-                    <Route path="/main/testt/:index" component={DetailPresenter}/> {/*profile side bar */}
+                    <Route path="/main/testt/:index" component={DetailPresenter}/> 
+                    <Route path="/main/award" component={AwardMain}/>
+
+
+                    {/*profile side bar */}
                     <Route path="/main/developers/info" component={DeveloperInfo}></Route>
                     <Route path="/main/account/userInfo/modify" component={UserInfoModify}></Route>
                     <Route path="/main/account/userInfo/block" component={UserBlock}></Route>
-                </Switch>
+                    <Route path="/main/test/speech" component={Dictaphone}/>
 
                 <MainNav/>
             </div>

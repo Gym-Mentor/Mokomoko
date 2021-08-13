@@ -9,6 +9,10 @@ import "./FontAwesome";
 import { createStore } from "redux";
 import rootReducer from "./modules";
 
+//slider 디자인 사용하기 위해 import
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension"; // 리덕스 개발자 도구
 
@@ -33,9 +37,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <BrowserRouter>
+        {/* <BrowserRouter> */}
           <App />
-        </BrowserRouter>
+        {/* </BrowserRouter> */}
       </PersistGate>
     </Provider>
   </React.StrictMode>,
