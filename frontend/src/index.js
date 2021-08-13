@@ -1,14 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter} from "react-router-dom";
 import "./index.css";
 import App from "./App";
-import MainNav from "./components/main/MainNav";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./FontAwesome";
 import { createStore } from "redux";
 import rootReducer from "./modules";
+
+//slider 디자인 사용하기 위해 import
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension"; // 리덕스 개발자 도구
@@ -34,11 +37,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <BrowserRouter>
-          {/* 하단 네비게이션 컴포넌트 */}
-          <MainNav />
+        {/* <BrowserRouter> */}
           <App />
-        </BrowserRouter>
+        {/* </BrowserRouter> */}
       </PersistGate>
     </Provider>
   </React.StrictMode>,
