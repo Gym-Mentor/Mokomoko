@@ -1,10 +1,14 @@
 package com.web.webcuration.controller;
 
+import com.web.webcuration.Entity.User;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.UserService;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +25,23 @@ public class UserController {
 
     @PutMapping("/passwords")
     public ResponseEntity<BaseResponse> updatePasswordUsEntity(@RequestBody UserRequest updateUser) {
-        BaseResponse res = userService.updatePasswordUser(updateUser);
-        return ResponseEntity.ok(res);
+        return ResponseEntity.ok(userService.updatePasswordUser(updateUser));
 
     }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<BaseResponse> getUserInfo(@PathVariable("email") String email) {
+        return ResponseEntity.ok(userService.getUserInfo(email));
+    }
+
+    @PutMapping("")
+    public ResponseEntity<BaseResponse> updateUser(@RequestBody User chagneUser) {
+        return ResponseEntity.ok(userService.updateUser(chagneUser));
+    }
+
+    @DeleteMapping("/{userid}")
+    public ResponseEntity<BaseResponse> deleteUser(@PathVariable("userid") Long userid) {
+        return ResponseEntity.ok(userService.deleteUser(userid));
+    }
+
 }

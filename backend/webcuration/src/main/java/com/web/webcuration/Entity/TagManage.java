@@ -18,21 +18,16 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Contents {
+public class TagManage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "tagid")
+    private Long tagId;
+
     @Column(name = "postid")
-    private Long postid;
+    private Long postId;
 
-    @Column(name = "image")
-    private String image;
-
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "seq")
-    private Integer seq;
 }
