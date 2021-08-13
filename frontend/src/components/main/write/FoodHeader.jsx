@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../../../css/main/write/Recipe.css";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { setContent, setInitValue } from "../../../modules/Food";
+import axios from "axios";
 // 헤더 컴포넌트
 const FoodHeader = (props) => {
   const { navigation } = props;
@@ -39,17 +39,40 @@ const FoodHeader = (props) => {
       }
       return;
     }
-    const data = {
-      email: "임시이메일@naver.com",
-      contents: write.contents,
-      tag: write.tag,
-      setting: write.setting,
-      isRecipe: write.isRecipe,
-    };
-    console.log(data);
+    // formData로 변환
+    const formData = new FormData();
+    write.contents.forEach((element, i) => {
+      formData.append("contents[" + i + "].media", element.file);
+      formData.append("contents[" + i + "].desc", element.desc);
+      formData.append("contents[" + i + "].is", element.isImage);
+    });
+    write.tag.forEach((element, i) => {
+      formData.append("tags[" + i + "].title", element.title);
+      formData.append("tags[" + i + "].url", element.url);
+    });
+    formData.append("type", write.isRecipe);
+    formData.append("comment", write.setting.comment);
+    formData.append("like", write.setting.like);
+    // 유저이메일 넣기
+    formData.append("email", "email.com");
+
     // 초기화
     dispatch(setInitValue());
     //axios 통신 후 상세페이지로 이동하게 수정하기!
+    axios({
+      method: "post",
+      url: "http://localhost:8080/posts/",
+      data: formData,
+      contentType: false,
+      processData: false,
+      enctype: "multipart/form-data",
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
     props.history.push("/main/feed");
     e.preventDefault();
   };

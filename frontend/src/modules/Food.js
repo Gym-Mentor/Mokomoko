@@ -34,6 +34,7 @@ const initialState = {
   // 글 내용 (수정한 부분 images->media, type -> isRecipe / 추가한 부분 isImage)
   temp: [
     {
+      file: "",
       media: "", // 미디어 파일(이미지 또는 비디오)(파일 형태 그대로)
       desc: "", // 글 내용(string)
       isImage: "", // 미디어 파일이 비디오인지 이미지인지(boolean)

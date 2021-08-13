@@ -26,7 +26,7 @@ const MainNav = () => {
             className={activeNav === 1 ? "nav-item active" : "nav-item"}
           />
         </Link>
-        <Link to="/main/compass" className="nav-link" onClick={() => onClickNavItem(2)}>
+        <Link to="/main/explore" className="nav-link" onClick={() => onClickNavItem(2)}>
           <FontAwesomeIcon
             icon="compass"
             className={activeNav === 2 ? "nav-item active" : "nav-item"}
