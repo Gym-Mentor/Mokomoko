@@ -8,6 +8,8 @@ import ChatBubbleOutlinedIcon from "@material-ui/icons/ChatBubbleOutlined";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import testImg from "../../../img/user.jpg";
 import { Col, Form, Row } from "react-bootstrap";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+
 const Detail = (profilePhoto) => {
   //Link to 로 이동할 때 state로 넘겨준 값 받기 위해 사용
   // const { idx, item } = state;
