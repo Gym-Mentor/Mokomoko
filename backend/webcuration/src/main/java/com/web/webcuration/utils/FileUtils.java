@@ -31,7 +31,7 @@ public class FileUtils {
             } else if (contentType.equals("image/png")) {
                 originalFileExtension = ".png";
             } else if (contentType.equals("image/gif")) {
-                originalFileExtension = "gif";
+                originalFileExtension = ".gif";
             } else {
                 throw new RuntimeException("이미지가 아닙니다");
             }
