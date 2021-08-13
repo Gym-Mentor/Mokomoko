@@ -9,22 +9,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
 @Builder
 @Entity
-public class Posts {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "description")
-    private String description;
 
     @Column(name = "likeCnt")
     private Long likeCnt;
@@ -43,9 +44,6 @@ public class Posts {
 
     @Column(name = "prelike")
     private Long prelike;
-
-    @Column(name = "image")
-    private String image;
 
     @Column(name = "likeType")
     private boolean likeType;

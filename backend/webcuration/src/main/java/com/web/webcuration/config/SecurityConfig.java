@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and().authorizeRequests() // HttpServletReuqest를 사용하는 요청에 대한 접근 제한 설정하겠다.
-                .antMatchers("/auth/**", "/user/**").permitAll() // 특정 path 요청은 인증이 필요하지 않다.
+                .antMatchers("/**").permitAll() // 특정 path 요청은 인증이 필요하지 않다.
                 .anyRequest().authenticated()
                 // 나머지 요청은 모두 인증이 필요하다.
 
