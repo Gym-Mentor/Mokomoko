@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../../css/main/Compass.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import CompassHeader from "./CompassHeader";
+// import jQuery from "jquery";
 const Compass = () => {
   // 탐색 피드 state 선언
   const [lists, setLists] = useState([]);
@@ -21,10 +23,18 @@ const Compass = () => {
       <div className="compass-row">
         <div className="compass-col">
           <header className="compass-header">
-            {"\u00A0"}
+            <CompassHeader />
+
+            {/* <div className="search-form">
+              <div className="search-box">
+                <input id="search-ipt" type="text" />
+                <span id="ospan"></span>
+              </div>
+            </div> */}
+            {/* {"\u00A0"}
             <Link to="/search">
               <FontAwesomeIcon icon="search" className="search fa-2x" />
-            </Link>
+            </Link> */}
           </header>
           <div></div>
         </div>
