@@ -16,9 +16,10 @@ public class FileUtils {
     public static List<Contents> fileUpload(List<ContentDto> reqContents, Long postid)
             throws IllegalStateException, IOException {
         List<Contents> resContents = new ArrayList<>();
-        // String rootPath =
-        // FileSystemView.getFileSystemView().getHomeDirectory().toString();
+        String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+        // local환경
         // String basePath = rootPath + "/" + "img";
+        // 서버 환경
         String basePath = "/home/img";
         Integer index = 1;
         for (ContentDto content : reqContents) {
