@@ -1,18 +1,29 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { setIndex } from "../../../modules/MainNav";
 import { Link } from "react-router-dom";
 import "../../../css/main/write/Select.css";
 import { setContent, setInitValue } from "../../../modules/Food";
+
 // Select창이 뜨면 세션에 존재하는 write data 초기화
 const Select = () => {
+
+  const { activeNav } = useSelector((state) => ({
+    activeNav: state.activeNav,
+  }));
+
   // 글을 쓰기위한 write 객체 가져오기
   const { write } = useSelector((state) => ({
     write: state.Food,
   }));
+
   // dispatch 생성
   const dispatch = useDispatch();
+
+  const onSetIndex = (activeNav) => dispatch(setIndex(activeNav));
   // 초기화
   useEffect(() => {
+    onSetIndex(3);
     dispatch(setInitValue());
   }, [dispatch]);
 

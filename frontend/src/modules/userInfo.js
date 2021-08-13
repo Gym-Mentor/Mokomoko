@@ -12,6 +12,8 @@
 
 const SET_USERINFO = 'userInfo/SET_DETAIL';
 const GET_USERINFO = 'userInfo/GET_USERINFO';
+const MODIFY_USERINFO_NICKNAME = 'userInfo/MODIFY_USERINFO_NICKNAME';
+const MODIFY_USERINFO_IMAGE = 'userInfo/MODIFY_USERINFO_IMAGE';
 /* 액션 생성함수 만들기 */
 // 액션 생성함수를 만들고 export 키워드를 사용해서 내보내주세요.
 
@@ -26,11 +28,26 @@ export const getUserInfo = () =>({
     type : GET_USERINFO,
 })
 
+export const modifyUserInfoNickname = nickname =>({
+    type : MODIFY_USERINFO_NICKNAME,
+    nickname
+})
+
+export const modifyUserInfoImage = image =>({
+    type : MODIFY_USERINFO_IMAGE,
+    image
+})
+
 
 
 /*초기 상태 선언 */
 const initialState = {
-    user : {}
+    user : {
+        "id":"",
+        "email":"",
+        "password":"",
+        "nickname":""
+    }
 }
 
 
@@ -45,7 +62,7 @@ export default function userInfo(state=initialState, action){
             };
         case  GET_USERINFO:
             return state.user;
-
+            
         default:
             return state;
     }

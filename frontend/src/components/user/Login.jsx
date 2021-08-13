@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserInfo } from "../../modules/userInfo";
@@ -38,19 +38,18 @@ const Login = ({ history }) => {
     // history.push("/main/feed");
     axios({
       method: "post",
-      url: "http://i5d104.p.ssafy.io:8080/auth/login",
+      url: "http://localhost:8080/auth/login",
       data: {
         email: email,
         password: password,
       },
     })
       .then((res) => {
-        console.log(res);
-        console.log("data", res.data);
-        console.log("data,data", res.data.data);
         const user = res.data.data.user;
         console.log("유저정보 ", user);
         onSetUserInfo(user);
+        //로그인 하고 localStorage 저장
+        localStorage.setItem("accessToken", user);
         history.push("/main/feed");
       })
       .catch((error) => {
@@ -75,6 +74,12 @@ const Login = ({ history }) => {
     console.log(btnColorState);
   };
 
+  useEffect(() => {
+    if (localStorage.getItem("accessToken") != null) {
+      window.location.replace("http://localhost:3000/main/feed");
+    }
+    return () => {};
+  }, []);
   return (
     <div className="wrap">
       <div className="user-container">

@@ -1,12 +1,25 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setUserInfo } from "../../modules/userInfo";
 import "../../css/user/NicknameSetting.css";
 
-const NicknameSetting = () => {
+const NicknameSetting = ({history}) => {
+  
+  const { user} = useSelector((state) => ({
+    user : state.userInfo.user,
+  }));
+
   const [nickname, setNickname] = useState("");
 
   const [nicknameValidation, setNicknameValidation] = useState(false);
   const [btnColorState, setBtnColorState] = useState(false);
+  const [info, setInfo]  = useState(user);
+
+  
+  const dispatch = useDispatch();
+
+  const onSetUserInfo = (userInfo) => dispatch(setUserInfo(userInfo));
 
   useEffect(() => {
     console.log(nickname);
@@ -18,11 +31,9 @@ const NicknameSetting = () => {
 
   const onChangeNickname = (e) => {
     setNickname(e.target.value);
-    // console.log("nicknamecng ok");
   };
-  const onClickProgress = () => {
-    window.location.replace("/feed");
-  };
+
+
   const isNicknameOk = () => {
     // 숫자, 알파벳 대소문자, . , _ 이외 문자일 경우 false
     console.log("ok");
@@ -38,6 +49,18 @@ const NicknameSetting = () => {
       setNicknameValidation(false);
     }
   };
+
+  const onClickProgress = () => {
+    // setInfo(user); 
+    // console.log("사용자 정보", info)
+    info.nickname = nickname;
+    
+    onSetUserInfo(info);
+    alert("백엔드 설정 필요");
+    history.push("/main/feed");
+  };
+
+
   return (
     <div className="wrap">
       <div className="user-container">
