@@ -17,18 +17,18 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Switch>
-          <Route path="/" component={Test} exact />
-          <Route path="/account/login" component={Login} />
-          <Route path="/account/join" component={Join} />
-          <Route path="/account/naverLogin" component={NaverCallBack} />
-          <Route path="/account/joinConfirm" component={JoinConfirm} />
-          <Route path="/account/forgot" component={ForgotPassword} />
-          <Route path="/account/enterCode/:email" component={EnterCode} />
-          <Route path="/account/updatepw/:email" component={UpdatePW} />
-          <Route path="/main" component={Main} />
-          <Route component={Error404} />
-        </Switch>
+        {/* <Switch> */}
+        <Route path="/" component={Test} exact />
+        <Route path="/account/login" component={Login} />
+        <Route path="/account/join" component={Join} />
+        <Route path="/account/naverLogin" component={NaverCallBack} />
+        <Route path="/account/joinConfirm" component={JoinConfirm} />
+        <Route path="/account/forgot" component={ForgotPassword} />
+        <Route path="/account/enterCode/:email" component={EnterCode} />
+        <Route path="/account/updatepw/:email" component={UpdatePW} />
+        <Route path="/main" component={Main} />
+        {/* <Route component={Error404} /> */}
+        {/* </Switch> */}
         {/* <Route path="/" component={Test} exact="exact"/> */}
       </BrowserRouter>
     </div>
