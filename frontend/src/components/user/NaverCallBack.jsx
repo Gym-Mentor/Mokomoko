@@ -4,7 +4,7 @@ const { naver } = window;
 const NaverCallBack = (props) => {
   const naverLogin = new naver.LoginWithNaverId({
     clientId: "nwk_DGz4Rg8qXKe4QUws",
-    callbackUrl: "http://localhost:3000/account/naverLogin",
+    callbackUrl: "http://i5d104.p.ssafy.io:80/account/naverLogin",
     isPopup: false, // popup 형식으로 띄울것인지 설정
     callbackHandle: true,
   });
@@ -26,7 +26,7 @@ const NaverCallBack = (props) => {
         props.history.push("/account/login");
         axios({
           method: "post",
-          url: "http://localhost:8080/auth/sns",
+          url: "http://i5d104.p.ssafy.io:8080/auth/sns",
           data: data,
         })
           .then((res) => {

@@ -14,6 +14,10 @@ const FoodHeader = (props) => {
     }),
     shallowEqual
   );
+  //userSelector로 리덕스 스토어의 상태 조회하기
+  const { user } = useSelector((state) => ({
+    user: state.userInfo.user,
+  }));
   const dispatch = useDispatch();
   // recipeIndex 더하기
   const count = (e) => {
@@ -54,14 +58,14 @@ const FoodHeader = (props) => {
     formData.append("comment", write.setting.comment);
     formData.append("like", write.setting.like);
     // 유저이메일 넣기
-    formData.append("email", "email.com");
+    formData.append("email", user.email);
 
     // 초기화
     dispatch(setInitValue());
     //axios 통신 후 상세페이지로 이동하게 수정하기!
     axios({
       method: "post",
-      url: "http://localhost:8080/post",
+      url: "http://i5d104.p.ssafy.io:8080/post",
       data: formData,
       contentType: false,
       processData: false,

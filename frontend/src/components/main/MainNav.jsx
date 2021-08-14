@@ -20,13 +20,21 @@ const MainNav = () => {
     <div className="wrapper">
       <div className="Navs">
         {/*첫 번째 아이콘을 클릭하면 activeNav가 1로 바뀐다. activeNav와 각 아이콘의 숫자가 같으면 classname이 바뀌고 적용된 css가 바뀜 */}
-        <Link to="/main/feed" className="nav-link" onClick={() => onClickNavItem(1)}>
+        <Link
+          to="/main/feed"
+          className="nav-link"
+          onClick={() => onClickNavItem(1) | window.scrollTo(0, 0)}
+        >
           <FontAwesomeIcon
             icon="home"
             className={activeNav === 1 ? "nav-item active" : "nav-item"}
           />
         </Link>
-        <Link to="/main/explore" className="nav-link" onClick={() => onClickNavItem(2)}>
+        <Link
+          to="/main/explore"
+          className="nav-link"
+          onClick={() => onClickNavItem(2) | window.scrollTo(0, 0)}
+        >
           <FontAwesomeIcon
             icon="compass"
             className={activeNav === 2 ? "nav-item active" : "nav-item"}

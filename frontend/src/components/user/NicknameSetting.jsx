@@ -2,21 +2,20 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserInfo } from "../../modules/userInfo";
+import axios from "axios";
 import "../../css/user/NicknameSetting.css";
 
-const NicknameSetting = ({history}) => {
-  
-  const { user} = useSelector((state) => ({
-    user : state.userInfo.user,
+const NicknameSetting = ({ history }) => {
+  const { user } = useSelector((state) => ({
+    user: state.userInfo.user,
   }));
 
   const [nickname, setNickname] = useState("");
 
   const [nicknameValidation, setNicknameValidation] = useState(false);
   const [btnColorState, setBtnColorState] = useState(false);
-  const [info, setInfo]  = useState(user);
+  const [info, setInfo] = useState(user);
 
-  
   const dispatch = useDispatch();
 
   const onSetUserInfo = (userInfo) => dispatch(setUserInfo(userInfo));
@@ -32,7 +31,6 @@ const NicknameSetting = ({history}) => {
   const onChangeNickname = (e) => {
     setNickname(e.target.value);
   };
-
 
   const isNicknameOk = () => {
     // 숫자, 알파벳 대소문자, . , _ 이외 문자일 경우 false
@@ -51,15 +49,21 @@ const NicknameSetting = ({history}) => {
   };
 
   const onClickProgress = () => {
-    // setInfo(user); 
+    // setInfo(user);
     // console.log("사용자 정보", info)
     info.nickname = nickname;
-    
+
     onSetUserInfo(info);
-    alert("백엔드 설정 필요");
+    // 백엔드 통신
+    axios({
+      method: "put",
+      url: "http://i5d104.p.ssafy.io:8080/user",
+      data: {
+        user: user,
+      },
+    });
     history.push("/main/feed");
   };
-
 
   return (
     <div className="wrap">
