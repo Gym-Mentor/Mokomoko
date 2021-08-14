@@ -5,7 +5,6 @@ import Test from "./components/main/Test";
 import Login from "./components/user/Login";
 import Join from "./components/user/Join";
 import Error404 from "./components/errors/Error404";
-import KakaoTest from "./components/user/KakaoTest";
 import JoinConfirm from "./components/user/JoinConfirm";
 import ForgotPassword from "./components/user/ForgotPassword";
 import EnterCode from "./components/user/EnterCode";
@@ -23,7 +22,6 @@ function App() {
           <Route path="/account/login" component={Login} />
           <Route path="/account/join" component={Join} />
           <Route path="/account/naverLogin" component={NaverCallBack} />
-          <Route path="/account/kakaoLogin" component={KakaoTest} />
           <Route path="/account/joinConfirm" component={JoinConfirm} />
           <Route path="/account/forgot" component={ForgotPassword} />
           <Route path="/account/enterCode/:email" component={EnterCode} />

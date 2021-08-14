@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../../css/main/explore/ExploreHeader.css";
+// import "../../../css/main/explore/ExploreHeader.css";
 const ExploreHeader = () => {
   const [results, setResults] = useState("");
   const [updateField, setUpdateField] = useState("");
@@ -17,7 +17,7 @@ const ExploreHeader = () => {
       <div className="search-form">
         <div className="search-box">
           <input id="search-ipt" type="text" value={keyword} onChange={onChangeKeyword} />
-          <span id="ospan"></span>
+          <div id="ospan"></div>
         </div>
       </div>
     </>
