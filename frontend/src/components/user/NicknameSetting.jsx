@@ -61,7 +61,14 @@ const NicknameSetting = ({ history }) => {
       data: {
         user: user,
       },
-    });
+    })
+    .then(function(response){
+      console.log(response);
+    })
+    .catch(function(error){
+      console.log(error);
+    })
+    ;
     history.push("/main/feed");
   };
 
