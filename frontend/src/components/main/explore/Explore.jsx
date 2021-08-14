@@ -60,12 +60,6 @@ export default function App() {
       <div className="explore-row">
         <div className="explore-col">
           <ExploreHeader />
-          {/* <header className="explore-header">
-            {"\u00A0"}
-            <Link to="/search">
-              <FontAwesomeIcon icon="search" className="search fa-2x" />
-            </Link>
-          </header> */}
           <div id="explore" className={page === 0 && loading ? "loading" : ""}>
             <List list={list} />
             <FetchMore loading={page !== 0 && loading} setPage={setPage} />
