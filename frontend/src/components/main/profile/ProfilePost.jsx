@@ -28,7 +28,7 @@ const ProfilePost = (/*{ postList, post, number, onSetDetail, onGetDetailNumber,
       for(var i=0;i<response.data.data.length;i++){
         console.log(response.data.data[i]);
         var postItem = {
-          image : "http://i5d104.p.ssafy.io/"+response.data.data[i].image,
+          image : "http://i5d104.p.ssafy.io"+response.data.data[i].image,
           postId : response.data.data[i].post.id,
         }
 
@@ -52,7 +52,7 @@ const ProfilePost = (/*{ postList, post, number, onSetDetail, onGetDetailNumber,
       console.log("값이 바뀌거나 컴포넌트 이동되었을 시 ");
       // console.log(post);
     };
-  }, [/*number, post*/]);
+  }, [/*number, post*/postList]);
 
   const showDetail = (e, index) => {
     e.preventDefault();
@@ -77,7 +77,7 @@ const ProfilePost = (/*{ postList, post, number, onSetDetail, onGetDetailNumber,
           postList.map((item, index) => {
             return (
               <div key={index} className="postGrid" onClick={(e) => showDetail(e, { index })}>
-                {/* <Link
+                <Link
                   to={{
                     pathname: `/main/testt/${index}`,
                     state: {
@@ -85,9 +85,9 @@ const ProfilePost = (/*{ postList, post, number, onSetDetail, onGetDetailNumber,
                       item: postList[index],
                     },
                   }}
-                > */}
+                > 
                   <img className="postImg" src={item.image} />
-                {/* </Link> */}
+                </Link>
               </div>
             );
           })}
