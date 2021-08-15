@@ -65,7 +65,7 @@ const UserInfoModify = () => {
     setFile("");
     // 임시로 담고있는 유저정보의 image 수정
     let newUserInfo = Object.assign({}, userInfo);
-    newUserInfo.image = "";
+    newUserInfo.image = null;
     SetUserInfo(newUserInfo);
     // 프로필에 실제로 보이는 이미지
     setPreviewURL("/profileImg/user_image.png");
@@ -88,14 +88,17 @@ const UserInfoModify = () => {
     //멀티 파트로 바꾸기
     // formData로 변환
     const formData = new FormData();
-    formData.append("image", userInfo.image);
+    // 이미지를 넣었을 때만 수정함
+    if (userInfo.image !== null) {
+      formData.append("image", userInfo.image);
+    }
     formData.append("id", userInfo.id);
     formData.append("nickname", userInfo.nickname);
     formData.append("introduce", userInfo.introduce);
     // 백엔드와 통신하기
     axios({
       method: "put",
-      url: "http://i5d104.p.ssafy.io:8080/user",
+      url: "http://i5d104.p.ssafy.io:8080/user/name",
       data: formData,
       contentType: "application/json; charset=utf-8",
       processData: false,
