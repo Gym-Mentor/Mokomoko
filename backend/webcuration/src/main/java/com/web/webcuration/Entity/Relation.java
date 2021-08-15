@@ -14,25 +14,23 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@Builder
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Contents {
+public class Relation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "postid")
-    private Long postid;
+    @Column(name = "send")
+    private Long send;
 
-    @Column(name = "image")
-    private String image;
+    @Column(name = "receive")
+    private Long receive;
 
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "seq")
-    private Integer seq;
+    // true : 팔로우, false : 차단
+    @Column(name = "state")
+    private boolean state;
 }

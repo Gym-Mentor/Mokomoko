@@ -1,5 +1,7 @@
 package com.web.webcuration.dto.response;
 
+import com.web.webcuration.Entity.Post;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,11 +9,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class BaseResponse {
+public class UserPostResponse {
 
-    String status;
+    private Post post;
 
-    String msg;
-
-    Object data;
+    private String image;
 }

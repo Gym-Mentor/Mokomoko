@@ -6,19 +6,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
 @Builder
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-public class Contents {
+public class Likes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +23,6 @@ public class Contents {
     @Column(name = "postid")
     private Long postid;
 
-    @Column(name = "image")
-    private String image;
-
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "seq")
-    private Integer seq;
+    @Column(name = "userid")
+    private Long userid;
 }
