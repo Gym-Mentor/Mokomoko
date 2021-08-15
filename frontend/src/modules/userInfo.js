@@ -45,7 +45,7 @@ const initialState = {
   user: {
     id: "",
     email: "",
-    image: "/home/ubuntu/img/user_image.png",
+    image: "/profileImg/user_image.png",
     password: "",
     nickname: "",
     introduce: "",
