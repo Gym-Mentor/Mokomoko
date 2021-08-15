@@ -33,6 +33,10 @@ spring:
                     connectiontimeout: 5000
                     timeout: 5000
                     writetimeout: 5000
+    servlet:
+        multipart:
+            maxFileSize: 50MB
+            maxRequestSize: 50MB
 jwt:
     #HS512 알고리즘을 사용할 것이기 때문에 512bit, 즉 64byte 이상의 secret key를 사용해야 한다.
     #echo 'silvernine-tech-spring-boot-jwt-tutorial-secret-silvernine-tech-spring-boot-jwt-tutorial-secret'|base64
