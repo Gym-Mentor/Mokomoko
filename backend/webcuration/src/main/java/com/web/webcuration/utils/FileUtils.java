@@ -58,14 +58,17 @@ public class FileUtils {
     public static String getContentType(MultipartFile file) {
         String contentType = file.getContentType();
         String originalFileExtension;
+        System.out.println("비디오 : " + file.getContentType());
         if (contentType.equals("image/jpeg")) {
             originalFileExtension = ".jpg";
         } else if (contentType.equals("image/png")) {
             originalFileExtension = ".png";
         } else if (contentType.equals("image/gif")) {
             originalFileExtension = ".gif";
+        } else if (contentType.equals("video/mp4")) {
+            originalFileExtension = ".mp4";
         } else {
-            throw new RuntimeException("이미지가 아닙니다");
+            throw new RuntimeException("동영상이나 이미지가 아닙니다.");
         }
         return originalFileExtension;
     }
