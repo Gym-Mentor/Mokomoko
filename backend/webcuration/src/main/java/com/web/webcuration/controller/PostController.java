@@ -7,9 +7,11 @@ import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.PostService;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,10 +27,9 @@ public class PostController {
 
     // @PostMapping(value = "/", consumes = { MediaType.APPLICATION_JSON_VALUE,
     // MediaType.MULTIPART_FORM_DATA_VALUE })
-    @PostMapping("")
+    @PostMapping()
     public @ResponseBody ResponseEntity<BaseResponse> createPosts(PostRequest post) throws IOException {
-        System.out.println(post);
-        return ResponseEntity.ok(postService.createPosts(post));
+        return ResponseEntity.ok(postService.createPost(post));
     }
 
     @GetMapping("/user/{email}")
@@ -39,5 +40,15 @@ public class PostController {
     @GetMapping("/{postid}")
     public ResponseEntity<BaseResponse> getSelectedPost(@PathVariable("postid") Long postid) {
         return ResponseEntity.ok(postService.getSelectedPost(postid));
+    }
+
+    @DeleteMapping("/{postid}")
+    public ResponseEntity<BaseResponse> deletePost(@PathVariable("postid") Long postid) {
+        return ResponseEntity.ok(postService.deletePost(postid));
+    }
+
+    @PutMapping()
+    public @ResponseBody ResponseEntity<BaseResponse> updatePost(PostRequest changePost) throws IOException {
+        return ResponseEntity.ok(null);
     }
 }

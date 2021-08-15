@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { setUserInfo } from "../../modules/userInfo";
 const { naver } = window;
 const NaverCallBack = (props) => {
+  //useDispatch 사용해서 리덕스 스토어의 dispatch를 함수에서 사용할 수 있도록 해준다.
+  const dispatch = useDispatch();
+
+  const onSetUserInfo = (userInfo) => dispatch(setUserInfo(userInfo));
   const naverLogin = new naver.LoginWithNaverId({
     clientId: "nwk_DGz4Rg8qXKe4QUws",
     callbackUrl: "http://i5d104.p.ssafy.io:80/account/naverLogin",
@@ -11,7 +17,6 @@ const NaverCallBack = (props) => {
   naverLogin.init();
   useEffect(() => {
     naverLogin.getLoginStatus(function (status) {
-      console.log(status);
       if (status) {
         let image = naverLogin.user.getProfileImage();
         let id = naverLogin.user.getId();
@@ -31,6 +36,7 @@ const NaverCallBack = (props) => {
         })
           .then((res) => {
             console.log(res);
+            onSetUserInfo(res.data.data.user);
             props.history.push("/main/feed");
           })
           .catch((error) => {

@@ -1,13 +1,8 @@
 package com.web.webcuration.mails;
 
-import java.io.File;
-import java.io.IOException;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
@@ -43,14 +38,6 @@ public class MailHandler {
         mimeMessageHelper.setText(text, useHtml);
     }
 
-    // 이미지 삽입
-    public void setInline(String contentId, String pathToInline) throws MessagingException, IOException {
-        File file = new ClassPathResource(pathToInline).getFile();
-        FileSystemResource fsr = new FileSystemResource(file);
-
-        mimeMessageHelper.addInline(contentId, fsr);
-    }
-
     // 발송
     public void send() {
         try {
@@ -58,7 +45,5 @@ public class MailHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-
 }

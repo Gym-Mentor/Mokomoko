@@ -11,6 +11,7 @@ import com.web.webcuration.repository.TagManageRepository;
 import com.web.webcuration.repository.TagRepository;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +23,7 @@ public class TagServiceImpl implements TagService {
     private final TagManageRepository tagManageRepository;
 
     @Override
-    public void saveTag(List<TagDto> reqTags, Long postid) {
+    public List<Tag> saveTag(List<TagDto> reqTags, Long postid) {
 
         List<Tag> resTags = new ArrayList<>();
         for (TagDto tag : reqTags) {
@@ -39,6 +40,7 @@ public class TagServiceImpl implements TagService {
             tagManages.add(TagManage.builder().postId(postid).tagId(tag.getId()).build());
         }
         tagManageRepository.saveAll(tagManages);
+        return resultTag;
     }
 
     @Override
@@ -53,6 +55,24 @@ public class TagServiceImpl implements TagService {
             }
         }
         return tags;
+    }
+
+    @Override
+    @Transactional
+    public void deleteTag(Long postid) {
+        List<TagManage> tagManages = tagManageRepository.findAllBypostId(postid);
+        List<Tag> tags = new ArrayList<>();
+        for (TagManage tagManage : tagManages) {
+            Tag tag = tagRepository.findById(tagManage.getTagId()).get();
+            if (tag.getCount() == 1) {
+                tags.add(tagRepository.findById(tagManage.getTagId()).get());
+            } else {
+                tag.setCount(tag.getCount() - 1);
+                tagRepository.save(tag);
+            }
+        }
+        tagRepository.deleteAll(tags);
+        tagManageRepository.deleteAll(tagManages);
     }
 
 }

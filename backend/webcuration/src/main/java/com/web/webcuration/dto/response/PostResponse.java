@@ -15,6 +15,9 @@ import lombok.Setter;
 @Builder
 public class PostResponse {
 
+    // postid
+    private Long id;
+
     private String userImage;
 
     private String userName;
@@ -24,4 +27,8 @@ public class PostResponse {
     private List<Tag> tags;
 
     private List<Contents> contents;
+
+    private boolean like;
+
+    private List<CommentResponse> comments;
 }

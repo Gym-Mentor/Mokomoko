@@ -56,7 +56,7 @@ const KakaoLogin = () => {
                 console.log(res);
                 console.log("데이터베이스 데이터",res.data.data);
                 console.log("데이터베이스 유저",res.data.data.user);
-                
+
                 let userInfo = {
                   "authority": "ROLE_USER",
                   "createdate": "2021-08-15T10:58:56.305022",
@@ -68,7 +68,7 @@ const KakaoLogin = () => {
                   "password": "$2a$10$SH0NV/GKLTT2RTGnDh/7TOnY29gH6D5RuGHfkElrguohj5QW70fTG",
                 }
 
-                onSetUser(userInfo);
+                onSetUserInfo(userInfo);
                 localStorage.setItem("accessToken", user);
                 history.push("/main/feed");
               })

@@ -7,7 +7,9 @@ import com.web.webcuration.dto.TagDto;
 
 public interface TagService {
 
-    void saveTag(List<TagDto> reqTags, Long postid);
+    List<Tag> saveTag(List<TagDto> reqTags, Long postid);
 
     List<Tag> findPostInTag(Long postid);
+
+    void deleteTag(Long postid);
 }

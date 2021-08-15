@@ -30,4 +30,5 @@ public class ContentsQueryRepository {
             throw new RuntimeException("컨텐츠가 없습니다");
         return resContent;
     }
+
 }

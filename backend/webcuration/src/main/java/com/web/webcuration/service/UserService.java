@@ -1,6 +1,8 @@
 package com.web.webcuration.service;
 
-import com.web.webcuration.Entity.User;
+import java.io.IOException;
+
+import com.web.webcuration.dto.request.ProfileRequest;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 
@@ -10,7 +12,7 @@ public interface UserService {
 
     BaseResponse deleteUser(Long userid);
 
-    BaseResponse updateUser(User changeUser);
+    BaseResponse updateUser(ProfileRequest profileRequest) throws IllegalStateException, IOException;
 
     BaseResponse updatePasswordUser(UserRequest changeUser);
 }

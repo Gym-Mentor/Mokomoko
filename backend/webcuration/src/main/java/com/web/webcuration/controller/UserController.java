@@ -1,6 +1,8 @@
 package com.web.webcuration.controller;
 
-import com.web.webcuration.Entity.User;
+import java.io.IOException;
+
+import com.web.webcuration.dto.request.ProfileRequest;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.UserService;
@@ -34,9 +36,10 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserInfo(email));
     }
 
-    @PutMapping("")
-    public ResponseEntity<BaseResponse> updateUser(@RequestBody User chagneUser) {
-        return ResponseEntity.ok(userService.updateUser(chagneUser));
+    @PutMapping()
+    public ResponseEntity<BaseResponse> updateUser(@RequestBody ProfileRequest profileRequest)
+            throws IllegalStateException, IOException {
+        return ResponseEntity.ok(userService.updateUser(profileRequest));
     }
 
     @DeleteMapping("/{userid}")
