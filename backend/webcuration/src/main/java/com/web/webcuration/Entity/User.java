@@ -62,7 +62,12 @@ public class User {
     public void prePersist() {
         this.createdate = LocalDateTime.now();
         this.prelikecnt = this.prelikecnt == null ? 0 : this.prelikecnt;
+        // 로컬
+        // this.image = this.image == null ? "C:\\Users\\Master\\Desktop\\img" :
+        // this.image;
+        // 서버
         this.image = this.image == null ? "/profileImg/user_img.png" : this.image;
+
     }
 
 }

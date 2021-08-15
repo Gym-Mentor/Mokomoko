@@ -1,6 +1,7 @@
 package com.web.webcuration.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import com.web.webcuration.dto.request.PostRequest;
 import com.web.webcuration.dto.response.BaseResponse;
@@ -49,6 +50,11 @@ public class PostController {
 
     @PutMapping()
     public @ResponseBody ResponseEntity<BaseResponse> updatePost(PostRequest changePost) throws IOException {
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(postService.updatePost(changePost));
+    }
+
+    @GetMapping("/explore")
+    public ResponseEntity<BaseResponse> getExplorePost(LocalDateTime lastTime) {
+        return ResponseEntity.ok(postService.getExplorePost(lastTime));
     }
 }
