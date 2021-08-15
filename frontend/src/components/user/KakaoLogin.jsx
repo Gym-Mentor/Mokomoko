@@ -54,9 +54,8 @@ const KakaoLogin = () => {
               .then((res) => {
 
                 console.log(res);
-                console.log(res.data.user);
-
-                onSetUserInfo(res.data.user);
+                console.log("데이터베이스 데이터",res.data.data);
+                console.log("데이터베이스 유저",res.data.data.user);
                 localStorage.setItem("accessToken", user);
                 history.push("/main/feed");
               })
