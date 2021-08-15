@@ -42,14 +42,7 @@ export const modifyUserInfoIntroduce = (introduce) => ({
 
 /*초기 상태 선언 */
 const initialState = {
-  user: {
-    id: "",
-    email: "",
-    image: "/profileImg/user_image.png",
-    password: "",
-    nickname: "",
-    introduce: "",
-  },
+  user: null,
 };
 
 /* 리듀서 선언 */
