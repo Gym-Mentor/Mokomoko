@@ -16,17 +16,12 @@ public class FileUtils {
     public static List<Contents> uploadFile(List<ContentDto> reqContents, Long postid)
             throws IllegalStateException, IOException {
         List<Contents> resContents = new ArrayList<>();
-        // local환경
-        // String rootPath =
-        // FileSystemView.getFileSystemView().getHomeDirectory().toString();
-        // String basePath = rootPath + "/" + "img";
-        // 서버 환경
-        String basePath = "/profileImg/";
+        String basePath = SetFilePath();
         Integer index = 1;
         for (ContentDto content : reqContents) {
             UUID uuid = UUID.randomUUID();
             String filePath = basePath + "/" + uuid.toString() + getContentType(content.getMedia());
-            resContents.add(content.toContents(postid, filePath, index++));
+            resContents.add(content.toContents(postid, filePath.replace(basePath, "/profileImg"), index++));
             File dest = new File(filePath);
             content.getMedia().transferTo(dest);
         }
@@ -45,17 +40,12 @@ public class FileUtils {
 
     public static String uploadProfile(MultipartFile profileImage) throws IllegalStateException, IOException {
         UUID uuid = UUID.randomUUID();
-        // String rootPath =
-        // FileSystemView.getFileSystemView().getHomeDirectory().toString();
-        // local환경
-        // String basePath = rootPath + "/" + "img";
-        // 서버 환경
-        String basePath = "/profileImg/";
+        String basePath = SetFilePath();
         String filePath = basePath + "/" + uuid.toString() + getContentType(profileImage);
         File dest = new File(filePath);
         profileImage.transferTo(dest);
 
-        return filePath;
+        return filePath.replace(basePath, "/profileImg");
     }
 
     public static void deleteProfile(String profileFilePath) {
@@ -78,5 +68,15 @@ public class FileUtils {
             throw new RuntimeException("이미지가 아닙니다");
         }
         return originalFileExtension;
+    }
+
+    public static String SetFilePath() {
+        // local환경
+        // String basePath =
+        // FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/"+
+        // "img";
+        // 서버 환경
+        String basePath = "/home/img";
+        return basePath;
     }
 }

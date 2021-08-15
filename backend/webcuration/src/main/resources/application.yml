@@ -8,14 +8,10 @@ spring:
         username: root
         password: ssafy
 
-<<<<<<< HEAD
-        jpa:
-=======
     jpa:
         hibernate:
             ddl-auto: update
         properties:
->>>>>>> backend
             hibernate:
                 ddl-auto: update
             properties:
