@@ -21,7 +21,7 @@ public class FileUtils {
         for (ContentDto content : reqContents) {
             UUID uuid = UUID.randomUUID();
             String filePath = basePath + "/" + uuid.toString() + getContentType(content.getMedia());
-            resContents.add(content.toContents(postid, filePath, index++));
+            resContents.add(content.toContents(postid, filePath.replace(basePath, "/profileImg"), index++));
             File dest = new File(filePath);
             content.getMedia().transferTo(dest);
         }
@@ -45,7 +45,7 @@ public class FileUtils {
         File dest = new File(filePath);
         profileImage.transferTo(dest);
 
-        return filePath;
+        return filePath.replace(basePath, "/profileImg");
     }
 
     public static void deleteProfile(String profileFilePath) {
@@ -76,7 +76,7 @@ public class FileUtils {
         // FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/"+
         // "img";
         // 서버 환경
-        String basePath = "/profileImg";
+        String basePath = "/home/img";
         return basePath;
     }
 }
