@@ -78,13 +78,14 @@ const UserInfoModify = () => {
   }
   // 사용자 사진이 있으면 보여주고 없으면 기본사진 보여줌
   else {
-    preview_img = <img className="userModify img" src={user.image}></img>;
+    preview_img = (
+      <img className="userModify img" src={user.image !== null ? user.image : previewURL}></img>
+    );
   }
 
   // 백엔드와 통신하여 유저 정보 바꾸기
   const saveUserInfo = (e) => {
     // userInfo.image = file !== "" ? previewURL : user.image;
-    console.log(userInfo);
     //멀티 파트로 바꾸기
     // formData로 변환
     const formData = new FormData();
@@ -95,6 +96,7 @@ const UserInfoModify = () => {
     formData.append("id", userInfo.id);
     formData.append("nickname", userInfo.nickname);
     formData.append("introduce", userInfo.introduce);
+    console.log(formData);
     // 백엔드와 통신하기
     axios({
       method: "put",
