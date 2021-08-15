@@ -36,7 +36,7 @@ const KakaoLogin = () => {
           url: "/v2/user/me",
           success: function (response) {
             //어떤 정보 넘어오는지 확인
-            // console.log(response);
+            console.log(response);
             // console.log("정보확인");
 
             console.log("사용자 아이디", response.id);
@@ -52,14 +52,23 @@ const KakaoLogin = () => {
               },
             })
               .then((res) => {
-                console.log(res);
-                let user = {
-                  id: response.id,
-                  nickname: null,
-                  image: response.properties.profile_image,
-                };
 
-                onSetUserInfo(user);
+                console.log(res);
+                console.log("데이터베이스 데이터",res.data.data);
+                console.log("데이터베이스 유저",res.data.data.user);
+                
+                let userInfo = {
+                  "authority": "ROLE_USER",
+                  "createdate": "2021-08-15T10:58:56.305022",
+                  "email": "1817338044",
+                  "id": 3,
+                  "image": "http://k.kakaocdn.net/dn/cZEac2/btracK7S1p0/AhW3MjDgcH7dinaBJLh8iK/m1.jpg",
+                  "introduce": null,
+                  "nickname": "박다영",
+                  "password": "$2a$10$SH0NV/GKLTT2RTGnDh/7TOnY29gH6D5RuGHfkElrguohj5QW70fTG",
+                }
+
+                onSetUser(userInfo);
                 localStorage.setItem("accessToken", user);
                 history.push("/main/feed");
               })

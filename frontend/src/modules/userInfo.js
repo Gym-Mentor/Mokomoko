@@ -43,12 +43,14 @@ export const modifyUserInfoIntroduce = (introduce) => ({
 /*초기 상태 선언 */
 const initialState = {
   user: {
-    id: "",
-    email: "",
-    image: "/home/ubuntu/img/user_image.png",
-    password: "",
-    nickname: "",
-    introduce: "",
+    "authority": null,
+    "createdate": null,
+    "email": null,
+    "id": null,
+    "image": "/profileImg/user_image.png",
+    "introduce": null,
+    "nickname": null,
+    "password": null,
   },
 };
 
