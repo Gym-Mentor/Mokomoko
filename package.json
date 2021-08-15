@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "redux-persist": "^6.0.0"
+    "react-slick": "^0.28.1",
+    "react-speech-recognition": "^3.8.2",
+    "redux-persist": "^6.0.0",
+    "slick-carousel": "^1.8.1"
   }
 }

@@ -37,8 +37,10 @@ public class UserController {
     }
 
     @PutMapping()
-    public ResponseEntity<BaseResponse> updateUser(@RequestBody ProfileRequest profileRequest)
+    public ResponseEntity<BaseResponse> updateUser(ProfileRequest profileRequest)
             throws IllegalStateException, IOException {
+        System.out.println("프로필수정");
+        System.out.println(profileRequest);
         return ResponseEntity.ok(userService.updateUser(profileRequest));
     }
 
