@@ -54,7 +54,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public BaseResponse login(UserRequest userRequest) {
-
+        System.out.println("로그인!");
         User loginUser = userRepository.findByEmail(userRequest.getEmail()).get();
         // userRepository
         // 1. Login ID/PW를 기반으로 AuthenticationToken 생성
@@ -170,8 +170,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public BaseResponse authSNSLogin(SNSRequest snsRequest) {
         User snsUser = snsRequest.SNStoUser(passwordEncoder);
+        System.out.println("snsUser : " + snsUser);
         if (userRepository.findByEmail(snsUser.getEmail()).isEmpty()) {
             userRepository.save(snsUser);
+            System.out.println("snsuser " + snsUser);
         }
         return login(new UserRequest(snsUser.getEmail(), snsUser.getEmail()));
     }

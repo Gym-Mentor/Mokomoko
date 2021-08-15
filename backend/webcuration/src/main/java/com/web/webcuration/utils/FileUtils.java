@@ -21,7 +21,7 @@ public class FileUtils {
         // FileSystemView.getFileSystemView().getHomeDirectory().toString();
         // String basePath = rootPath + "/" + "img";
         // 서버 환경
-        String basePath = "";
+        String basePath = "/profileImg/";
         Integer index = 1;
         for (ContentDto content : reqContents) {
             UUID uuid = UUID.randomUUID();
@@ -45,12 +45,12 @@ public class FileUtils {
 
     public static String uploadProfile(MultipartFile profileImage) throws IllegalStateException, IOException {
         UUID uuid = UUID.randomUUID();
-        // local환경
         // String rootPath =
         // FileSystemView.getFileSystemView().getHomeDirectory().toString();
+        // local환경
         // String basePath = rootPath + "/" + "img";
         // 서버 환경
-        String basePath = "";
+        String basePath = "/profileImg/";
         String filePath = basePath + "/" + uuid.toString() + getContentType(profileImage);
         File dest = new File(filePath);
         profileImage.transferTo(dest);
