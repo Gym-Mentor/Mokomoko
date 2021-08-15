@@ -54,13 +54,15 @@ const NicknameSetting = ({ history }) => {
     info.nickname = nickname;
 
     onSetUserInfo(info);
+    const formData = new FormData();
+    formData.append("id",info.id);
+    formData.apeend("nickname",info.nickname);
     // 백엔드 통신
     axios({
       method: "put",
       url: "http://i5d104.p.ssafy.io:8080/user",
-      data: {
-        user: user,
-      },
+      data : formData,
+      contentType: 'application/json; charset=utf-8',
     })
     .then(function(response){
       console.log(response);
