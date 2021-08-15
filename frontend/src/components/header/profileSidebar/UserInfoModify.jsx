@@ -68,7 +68,7 @@ const UserInfoModify = () => {
     newUserInfo.image = null;
     SetUserInfo(newUserInfo);
     // 프로필에 실제로 보이는 이미지
-    setPreviewURL("/profileImg/user_image.png");
+    setPreviewURL("http://i5d104.p.ssafy.io/profileImg/user_image.png");
   };
   // 현재 프로필 수정에 보여줄 사진을 담고있는 변수
   let preview_img = null;
@@ -100,7 +100,7 @@ const UserInfoModify = () => {
     // 백엔드와 통신하기
     axios({
       method: "put",
-      url: "http://i5d104.p.ssafy.io:8080/user/name",
+      url: "http://i5d104.p.ssafy.io:8080/user",
       data: formData,
       contentType: "application/json; charset=utf-8",
       processData: false,
