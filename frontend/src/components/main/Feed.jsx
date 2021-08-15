@@ -1,13 +1,31 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React ,{useState,useEffect}from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setIndex } from "../../modules/MainNav";
 import Post from "../../components/main/Post";
 import { Container, Row, Col } from "react-bootstrap";
 
-const Feed = () => {
+const Feed = ({history}) => {
+  const { activeNav ,user} = useSelector((state) => ({
+    activeNav: state.activeNav,
+    user : state.userInfo.user,
+  }));
+
+  const dispatch = useDispatch();
+
+  const onSetIndex = (activeNav) => dispatch(setIndex(activeNav));
+
   const [posts, setPosts] = useState([]);
 
-  //   useEffect(() => {}); db연결시 활용
+  useEffect(() => {
+    onSetIndex(1);
+    if(user.nickname == null){
+      console.log("닉네임 설정해야함");
+      history.push("/main/settingNick");
+    }
+    return () => {
+      
+    }
+  }, [])
 
   return (
     <div className="feed-wrapper">
@@ -15,16 +33,14 @@ const Feed = () => {
         <Col></Col>
         <Col className="main-col">
           <div className="feed">
-            <Post
+            {/* <Post
               profilePhoto=""
               timestamp="2021.07.27(tue)"
               image=""
               username="jay"
               description="is it works ?"
-            />
-            <Post />
-            <Post />
-            <Post />
+            /> */}
+
             <Post />
           </div>
         </Col>

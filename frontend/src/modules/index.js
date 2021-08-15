@@ -6,13 +6,27 @@
 
 import { combineReducers } from "redux";
 import profileDetail from "./profileDetail";
-import todos from "./todos";
-import counter from "./counter";
+import userInfo from "./userInfo";
+import MainNav from "./MainNav";
+import Food from "./Food";
+
+// redux-persist 새로고침 이슈 해결
+import { persistReducer } from "redux-persist";
+// import storage from "redux-persist/lib/storage"; // 로컬 스토리지에 store 저장
+import storageSession from "redux-persist/lib/storage/session"; // 세션에 저장하고 싶을경우
+
+// 새로고침 이슈 해결
+const persistConfig = {
+  key: "root",
+  storage: storageSession,
+};
 
 const rootReducer = combineReducers({
-    profileDetail,
-    todos,
-    counter
+  profileDetail,
+  userInfo,
+  MainNav,
+  Food,
 });
 
-export default rootReducer;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+export default persistedReducer;

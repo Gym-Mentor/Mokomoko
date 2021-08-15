@@ -42,7 +42,7 @@ const EnterCode = (props) => {
 
   const onClickNextTo = () => {
     axios({
-      url: "http://localhost:8080/auth/passwords",
+      url: "http://i5d104.p.ssafy.io:8080/auth/passwords",
       method: "post",
       data: {
         email: email,

@@ -7,26 +7,30 @@ import {BiCut} from 'react-icons/bi';
 export const ProfileSideBarData = [
     {
         title: '회원정보수정',
-        path: '/login',
+        path: '/main/account/userInfo/modify',
         icons: <AiOutlineUser/>,
-        cName: 'nav-text'
+        cName: 'nav-text',
+        functionName : '',
     },
     {
         title: '차단된 계정',
-        path: '/login',
+        path: '/main/account/userInfo/block',
         icons: <BiCut/>,
-        cName: 'nav-text'
+        cName: 'nav-text',
+        functionName : '',
     },
     {
         title: '개발자 정보',
-        path: '/login',
+        path: '/main/developers/info',
         icons: <FaConnectdevelop/>,
-        cName: 'nav-text'
+        cName: 'nav-text',
+        functionName : '',
     },
     {
         title: '로그아웃',
-        path: '/login',
+        path: '/',
         icons: <FiLogOut/>,
-        cName: 'nav-text'
+        cName: 'nav-text',
+        functionName :'logout',
     }
 ];

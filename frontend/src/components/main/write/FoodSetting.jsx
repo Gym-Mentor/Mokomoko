@@ -1,18 +1,23 @@
 import React from "react";
 import Switch from "react-switch";
-
+import { useSelector, useDispatch } from "react-redux";
+import { setContent } from "../../../modules/Food";
 const FoodSetting = (props) => {
-  // 부모 컴포넌트에서 얻은 props의 like의 반대값으로 세팅한다.
+  const { write } = useSelector((state) => ({
+    write: state.Food,
+  }));
+  const dispatch = useDispatch();
+  // like 이벤트
   const onLikeChange = () => {
-    let newTemp = Object.assign({}, props.setting);
-    newTemp.like = !newTemp.like;
-    props.onSettingChange(newTemp);
+    let newWrite = Object.assign({}, write);
+    newWrite.setting.like = !newWrite.setting.like;
+    dispatch(setContent(newWrite));
   };
-  // 부모 컴포넌트에서 얻은 props의 comment의 반대값으로 세팅한다.
+  // comment 이벤트
   const onCommentChange = () => {
-    let newTemp = Object.assign({}, props.setting);
-    newTemp.comment = !newTemp.comment;
-    props.onSettingChange(newTemp);
+    let newWrite = Object.assign({}, write);
+    newWrite.setting.comment = !newWrite.setting.comment;
+    dispatch(setContent(newWrite));
   };
   return (
     <div>
@@ -20,13 +25,13 @@ const FoodSetting = (props) => {
       <div className="food-setting-body">
         <div className="food-setting-title">좋아요 표시하기</div>
         <div className="food-setting-toggle">
-          <Switch onChange={onLikeChange} checked={props.setting.like} />
+          <Switch onChange={onLikeChange} checked={write.setting.like} />
         </div>
       </div>
       <div className="food-setting-body">
         <div className="food-setting-title">댓글 표시하기</div>
         <div className="food-setting-toggle">
-          <Switch onChange={onCommentChange} checked={props.setting.comment} />
+          <Switch onChange={onCommentChange} checked={write.setting.comment} />
         </div>
       </div>
     </div>
