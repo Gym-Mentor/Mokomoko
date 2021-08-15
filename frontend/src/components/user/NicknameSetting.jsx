@@ -56,7 +56,7 @@ const NicknameSetting = ({ history }) => {
     onSetUserInfo(info);
     const formData = new FormData();
     formData.append("id",info.id);
-    formData.apeend("nickname",info.nickname);
+    formData.append("nickname",info.nickname);
     // 백엔드 통신
     axios({
       method: "put",
