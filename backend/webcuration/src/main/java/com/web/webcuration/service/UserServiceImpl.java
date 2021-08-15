@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
             User changeUser = user.get();
             changeUser.setNickname(profileRequest.getNickname());
             changeUser.setIntroduce(profileRequest.getIntroduce());
-            if (!changeUser.getImage().equals("/profileImg/user_img.png")) {
+            if (!changeUser.getImage().equals("/profileImg/user_image.png")) {
                 FileUtils.deleteProfile(changeUser.getImage());
             }
             if (profileRequest.getImage() != null) {
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
             } else {
                 // changeUser.setImage("C:\\Users\\Master\\Desktop\\img\\user_image.png");
                 // 서버
-                changeUser.setImage("/profileImg/user_img.png");
+                changeUser.setImage("/profileImg/user_image.png");
             }
             return BaseResponse.builder().status("200").status("success").data(userRepository.save(changeUser)).build();
         }

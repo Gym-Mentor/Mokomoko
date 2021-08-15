@@ -66,7 +66,7 @@ public class User {
         // this.image = this.image == null ? "C:\\Users\\Master\\Desktop\\img" :
         // this.image;
         // 서버
-        this.image = this.image == null ? "/profileImg/user_img.png" : this.image;
+        this.image = this.image == null ? "/profileImg/user_image.png" : this.image;
 
     }
 
