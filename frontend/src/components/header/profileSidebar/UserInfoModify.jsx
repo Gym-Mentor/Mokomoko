@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserInfo, setUserInfo } from "../../../modules/userInfo";
 import { IoIosArrowBack } from "react-icons/io";
@@ -21,12 +21,11 @@ const UserInfoModify = () => {
 
   const [file, setFile] = useState("");
   const [previewURL, setPreviewURL] = useState("");
-
+  let preview_img = null;
   // 뒤로가기
   const goBack = () => {
     window.history.back();
   };
-
   // 사진이 수정될 때 호출 -> 임시로 담고있는 유저정보의 사진을 바꿔줌
   const handleImageUpload = (e) => {
     e.preventDefault();
@@ -71,18 +70,22 @@ const UserInfoModify = () => {
     setPreviewURL("http://i5d104.p.ssafy.io/profileImg/user_image.png");
   };
   // 현재 프로필 수정에 보여줄 사진을 담고있는 변수
-  let preview_img = null;
-  // 사용자가 프로필 사진을 변경하면 변경한 사진으로 바뀜
-  if (file !== "") {
-    preview_img = <img className="userModify img" src={previewURL}></img>;
-  }
-  // 사용자 사진이 있으면 보여주고 없으면 기본사진 보여줌
-  else {
-    preview_img = (
-      <img className="userModify img" src={user.image !== null ? user.image : previewURL}></img>
-    );
-  }
 
+  // const changeImage = () => {
+  //   // 사용자가 프로필 사진을 변경하면 변경한 사진으로 바뀜
+  //   if (file !== "") {
+  //     preview_img = <img className="userModify img" src={previewURL}></img>;
+  //   }
+  //   // 사용자 사진이 있으면 보여주고 없으면 기본사진 보여줌
+  //   else {
+  //     preview_img = (
+  //       <img
+  //         className="userModify img"
+  //         src={file != "" ? previewURL : user.image !== null ? user.image : previewURL}
+  //       ></img>
+  //     );
+  //   }
+  // };
   // 백엔드와 통신하여 유저 정보 바꾸기
   const saveUserInfo = (e) => {
     // userInfo.image = file !== "" ? previewURL : user.image;
@@ -141,7 +144,12 @@ const UserInfoModify = () => {
           </div>
 
           <div className="userModify main">
-            <div className="userModify userImg">{preview_img}</div>
+            <div className="userModify userImg">
+              <img
+                className="userModify img"
+                src={file != "" ? previewURL : user.image !== null ? user.image : previewURL}
+              ></img>
+            </div>
             <div className="userImg input">
               <label htmlFor="img-file">
                 <FontAwesomeIcon icon="images" />
