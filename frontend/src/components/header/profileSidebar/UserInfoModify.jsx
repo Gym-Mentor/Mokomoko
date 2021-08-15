@@ -97,7 +97,7 @@ const UserInfoModify = () => {
       method: "put",
       url: "http://i5d104.p.ssafy.io:8080/user",
       data: formData,
-      contentType: false,
+      contentType: 'application/json; charset=utf-8',
       processData: false,
       enctype: "multipart/form-data",
     })
