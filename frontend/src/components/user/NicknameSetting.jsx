@@ -61,10 +61,7 @@ const NicknameSetting = ({ history }) => {
     axios({
       method: "put",
       url: "http://i5d104.p.ssafy.io:8080/user",
-      data : {
-        id : info.id,
-        nickname : info.nickname
-      },
+      data : user,
       contentType: 'application/json; charset=utf-8',
     })
     .then(function(response){
