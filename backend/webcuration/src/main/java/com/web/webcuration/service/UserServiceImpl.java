@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import com.web.webcuration.Entity.User;
+import com.web.webcuration.dto.request.NickNameRequest;
 import com.web.webcuration.dto.request.ProfileRequest;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
@@ -46,12 +47,16 @@ public class UserServiceImpl implements UserService {
         if (user.isPresent()) {
             User changeUser = user.get();
             changeUser.setNickname(profileRequest.getNickname());
-            changeUser.setIntroduce(profileRequest.getNickname());
-            if (changeUser.getImage() != null) {
+            changeUser.setIntroduce(profileRequest.getIntroduce());
+            if (!changeUser.getImage().equals("/profileImg/user_img.png")) {
                 FileUtils.deleteProfile(changeUser.getImage());
             }
             if (profileRequest.getImage() != null) {
                 changeUser.setImage(FileUtils.uploadProfile(profileRequest.getImage()));
+            } else {
+                // changeUser.setImage("C:\\Users\\Master\\Desktop\\img\\user_image.png");
+                // 서버
+                changeUser.setImage("/profileImg/user_img.png");
             }
             return BaseResponse.builder().status("200").status("success").data(userRepository.save(changeUser)).build();
         }
@@ -64,10 +69,18 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = userRepository.findByEmail(changeUser.getEmail());
         if (user.isPresent()) {
             user.get().setPassword(passwordEncoder.encode(changeUser.getPassword()));
+            System.out.println("프로필 수정 : " + user.get());
             return BaseResponse.builder().status("200").status("success").data(userRepository.save(user.get())).build();
         } else {
             throw new RuntimeException("패스워드 설정 실패");
         }
+    }
+
+    @Override
+    public BaseResponse setNickname(NickNameRequest nicknameRequest) {
+        Optional<User> user = userRepository.findById(nicknameRequest.getId());
+        user.get().setNickname(nicknameRequest.getNickname());
+        return BaseResponse.builder().status("200").msg("success").data(userRepository.save(user.get())).build();
     }
 
 }
