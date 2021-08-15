@@ -73,10 +73,10 @@ public class FileUtils {
     public static String SetFilePath() {
         // local환경
         // String basePath =
-        // FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/" +
+        // FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/"+
         // "img";
         // 서버 환경
-        String basePath = "/profileImg/";
+        String basePath = "/profileImg";
         return basePath;
     }
 }
