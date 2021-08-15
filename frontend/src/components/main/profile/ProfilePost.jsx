@@ -5,6 +5,7 @@ import Detail from "./Detail";
 import "../../../css/main/profile/ProfilePost.css";
 import { setDetail } from "../../../modules/profileDetail";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const PostList = [
   {
@@ -35,10 +36,25 @@ const PostList = [
 
 const ProfilePost = ({ postList, post, number, onSetDetail, onGetDetailNumber, onGetDetail }) => {
   const [isDetail, setIsDetail] = useState(false);
+  
+  const { user } = useSelector((state) => ({
+    user: state.userInfo.user,
+  }));
+
 
   useEffect(() => {
-    //https://react.vlpt.us/basic/16-useEffect.html
-    //위의 블로그 참고하면 될 듯
+    axios({
+      method : "get",
+      url: "http://i5d104.p.ssafy.io:8080/post/user/"+user.email,
+    })
+    .then(function(response){
+      console.log(response);
+      console.log(response.data.post);
+    })
+    .catch(function(error){
+      console.log(error);
+    })
+
     onSetDetail(PostList);
     console.log(postList);
 
