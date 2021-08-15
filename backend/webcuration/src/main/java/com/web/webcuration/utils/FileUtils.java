@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.swing.filechooser.FileSystemView;
-
 import com.web.webcuration.Entity.Contents;
 import com.web.webcuration.dto.ContentDto;
 
@@ -18,11 +16,12 @@ public class FileUtils {
     public static List<Contents> uploadFile(List<ContentDto> reqContents, Long postid)
             throws IllegalStateException, IOException {
         List<Contents> resContents = new ArrayList<>();
-        String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
         // local환경
-        String basePath = rootPath + "/" + "img";
+        // String rootPath =
+        // FileSystemView.getFileSystemView().getHomeDirectory().toString();
+        // String basePath = rootPath + "/" + "img";
         // 서버 환경
-        // String basePath = "/home/img";
+        String basePath = "/profileImg/";
         Integer index = 1;
         for (ContentDto content : reqContents) {
             UUID uuid = UUID.randomUUID();
@@ -46,11 +45,12 @@ public class FileUtils {
 
     public static String uploadProfile(MultipartFile profileImage) throws IllegalStateException, IOException {
         UUID uuid = UUID.randomUUID();
-        String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+        // String rootPath =
+        // FileSystemView.getFileSystemView().getHomeDirectory().toString();
         // local환경
-        String basePath = rootPath + "/" + "img";
+        // String basePath = rootPath + "/" + "img";
         // 서버 환경
-        // String basePath = "/home/img";
+        String basePath = "/profileImg/";
         String filePath = basePath + "/" + uuid.toString() + getContentType(profileImage);
         File dest = new File(filePath);
         profileImage.transferTo(dest);
