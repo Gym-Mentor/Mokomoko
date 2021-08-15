@@ -8,36 +8,10 @@ import { setDetail } from "../../../modules/profileDetail";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const PostList = [
-  // {
-  //   img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
-  //   content: "재밌다1",
-  //   date: "2021-07-27",
-  //   path: "/test",
-  // },
-  // {
-  //   img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
-  //   content: "재밌다2",
-  //   date: "2021-07-27",
-  //   path: "/test",
-  // },
-  // {
-  //   img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
-  //   content: "재밌다3",
-  //   date: "2021-07-27",
-  //   path: "/test",
-  // },
-  // {
-  //   img: "https://i.pinimg.com/564x/fa/e3/50/fae3500cc623c6b6051f33ef2dda9205.jpg",
-  //   content: "재밌다4",
-  //   date: "2021-07-27",
-  //   path: "/test",
-  // },
-];
 
-const ProfilePost = ({ postList, post, number, onSetDetail, onGetDetailNumber, onGetDetail }) => {
+const ProfilePost = (/*{ postList, post, number, onSetDetail, onGetDetailNumber, onGetDetail }*/) => {
   const [isDetail, setIsDetail] = useState(false);
-  
+  const postList = [];
   const { user } = useSelector((state) => ({
     user: state.userInfo.user,
   }));
@@ -60,25 +34,25 @@ const ProfilePost = ({ postList, post, number, onSetDetail, onGetDetailNumber, o
 
         postList.push(postItem);
       }
+
+      console.log("완성된 배열",postList);
     })
     .catch(function(error){
       console.log(error);
     })
 
-    console.log("완성된 PostList",postList);
+    // onSetDetail(PostList);
+    // console.log(postList);
 
-    onSetDetail(PostList);
-    console.log(postList);
-
-    console.log("useEffect", number);
-    console.log(number);
+    // console.log("useEffect", number);
+    // console.log(number);
 
     //한박자 씩 늦게 찍힘
     return () => {
       console.log("값이 바뀌거나 컴포넌트 이동되었을 시 ");
-      console.log(post);
+      // console.log(post);
     };
-  }, [number, post]);
+  }, [/*number, post*/]);
 
   const showDetail = (e, index) => {
     e.preventDefault();
@@ -99,11 +73,11 @@ const ProfilePost = ({ postList, post, number, onSetDetail, onGetDetailNumber, o
   return (
     <div>
       <div className="userPost" on>
-        {PostList &&
-          PostList.map((item, index) => {
+        {postList &&
+          postList.map((item, index) => {
             return (
               <div key={index} className="postGrid" onClick={(e) => showDetail(e, { index })}>
-                <Link
+                {/* <Link
                   to={{
                     pathname: `/main/testt/${index}`,
                     state: {
@@ -111,9 +85,9 @@ const ProfilePost = ({ postList, post, number, onSetDetail, onGetDetailNumber, o
                       item: postList[index],
                     },
                   }}
-                >
+                > */}
                   <img className="postImg" src={item.image} />
-                </Link>
+                {/* </Link> */}
               </div>
             );
           })}
