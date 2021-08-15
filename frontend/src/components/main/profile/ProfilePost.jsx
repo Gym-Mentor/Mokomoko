@@ -9,30 +9,30 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const PostList = [
-  {
-    img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
-    content: "재밌다1",
-    date: "2021-07-27",
-    path: "/test",
-  },
-  {
-    img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
-    content: "재밌다2",
-    date: "2021-07-27",
-    path: "/test",
-  },
-  {
-    img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
-    content: "재밌다3",
-    date: "2021-07-27",
-    path: "/test",
-  },
-  {
-    img: "https://i.pinimg.com/564x/fa/e3/50/fae3500cc623c6b6051f33ef2dda9205.jpg",
-    content: "재밌다4",
-    date: "2021-07-27",
-    path: "/test",
-  },
+  // {
+  //   img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
+  //   content: "재밌다1",
+  //   date: "2021-07-27",
+  //   path: "/test",
+  // },
+  // {
+  //   img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
+  //   content: "재밌다2",
+  //   date: "2021-07-27",
+  //   path: "/test",
+  // },
+  // {
+  //   img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
+  //   content: "재밌다3",
+  //   date: "2021-07-27",
+  //   path: "/test",
+  // },
+  // {
+  //   img: "https://i.pinimg.com/564x/fa/e3/50/fae3500cc623c6b6051f33ef2dda9205.jpg",
+  //   content: "재밌다4",
+  //   date: "2021-07-27",
+  //   path: "/test",
+  // },
 ];
 
 const ProfilePost = ({ postList, post, number, onSetDetail, onGetDetailNumber, onGetDetail }) => {
@@ -50,7 +50,11 @@ const ProfilePost = ({ postList, post, number, onSetDetail, onGetDetailNumber, o
     })
     .then(function(response){
       console.log(response);
-      console.log(response.data.post);
+      console.log(response.data.data);
+      for(var i=0;i<response.data.data.length;i++){
+        console.log(response.data.data[i]);
+        postList.push(response.data.data[i]);
+      }
     })
     .catch(function(error){
       console.log(error);
