@@ -48,13 +48,13 @@ public class AuthServiceImpl implements AuthService {
         }
 
         User user = userRequest.toUser(passwordEncoder);
-        return new BaseResponse("200", "success", userRepository.save(user));
+        return BaseResponse.builder().status("200").msg("success").data(userRepository.save(user)).build();
     }
 
     @Override
     @Transactional
     public BaseResponse login(UserRequest userRequest) {
-
+        System.out.println("로그인!");
         User loginUser = userRepository.findByEmail(userRequest.getEmail()).get();
         // userRepository
         // 1. Login ID/PW를 기반으로 AuthenticationToken 생성
@@ -75,7 +75,7 @@ public class AuthServiceImpl implements AuthService {
         refreshTokenRepository.save(refreshToken);
         tokenDto.setUser(loginUser);
         // 5. 토큰 발급
-        return new BaseResponse("200", "success", tokenDto);
+        return BaseResponse.builder().status("200").msg("success").data(tokenDto).build();
 
     }
 
@@ -86,7 +86,7 @@ public class AuthServiceImpl implements AuthService {
         Long effectRaw = refreshTokenRepository.deleteBytokenKey(Long.toString(tokenKey));
         System.out.println("effectRaw : " + effectRaw);
         if (effectRaw > 0) {
-            return new BaseResponse("200", "success", null);
+            return BaseResponse.builder().status("200").msg("success").build();
         } else {
             throw new RuntimeException("로그아웃을 실패하였습니다.");
         }
@@ -121,7 +121,7 @@ public class AuthServiceImpl implements AuthService {
         refreshTokenRepository.save(newRefreshToken);
 
         // 토큰 발급
-        return new BaseResponse("200", "success", tokenDto);
+        return BaseResponse.builder().status("200").msg("success").data(tokenDto).build();
     }
 
     @Override
@@ -135,7 +135,7 @@ public class AuthServiceImpl implements AuthService {
                     confirmationTokenService.deleteAuthMail(confirmationToken.getId());
                 }
                 confirmationTokenService.createEmailConfirmationToken(email, type);
-                return new BaseResponse("200", "success", null);
+                return BaseResponse.builder().status("200").msg("success").build();
             } else {
                 throw new RuntimeException("이미 가입된 이메일이 존재합니다.");
             }
@@ -147,7 +147,7 @@ public class AuthServiceImpl implements AuthService {
                     confirmationTokenService.deleteAuthMail(confirmationToken.getId());
                 }
                 confirmationTokenService.createEmailConfirmationToken(email, type);
-                return new BaseResponse("200", "success", null);
+                return BaseResponse.builder().status("200").msg("success").build();
             } else {
                 throw new RuntimeException("가입된 이메일이 없습니다.");
             }
@@ -163,15 +163,17 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("인증 가능한 이메일 또는 코드가 없습니다.");
         } else {
             confirmationTokenService.deleteAuthMail(confirmationToken.getId());
-            return new BaseResponse("200", "success", null);
+            return BaseResponse.builder().status("200").msg("success").build();
         }
     }
 
     @Override
     public BaseResponse authSNSLogin(SNSRequest snsRequest) {
         User snsUser = snsRequest.SNStoUser(passwordEncoder);
+        System.out.println("snsUser : " + snsUser);
         if (userRepository.findByEmail(snsUser.getEmail()).isEmpty()) {
             userRepository.save(snsUser);
+            System.out.println("snsuser " + snsUser);
         }
         return login(new UserRequest(snsUser.getEmail(), snsUser.getEmail()));
     }

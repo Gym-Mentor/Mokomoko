@@ -29,6 +29,9 @@ public class ChildComment {
     @Column(name = "commentid")
     private Long commentid;
 
+    @Column(name = "postid")
+    private Long postid;
+
     @Column(name = "createdate")
     private LocalDateTime createdate;
 

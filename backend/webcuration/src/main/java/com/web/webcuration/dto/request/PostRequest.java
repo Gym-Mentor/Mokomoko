@@ -17,6 +17,8 @@ import lombok.ToString;
 @NoArgsConstructor
 public class PostRequest {
 
+    private Long postid;
+
     private String email;
 
     private boolean type;
@@ -31,5 +33,12 @@ public class PostRequest {
 
     public Post toPost(Long userid) {
         return Post.builder().userid(userid).likeType(this.like).comType(this.comment).type(this.type).build();
+    }
+
+    public Post toPost(Post post) {
+        post.setLikeType(this.like);
+        post.setComType(this.comment);
+        post.setType(this.type);
+        return post;
     }
 }

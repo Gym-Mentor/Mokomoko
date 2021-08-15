@@ -42,10 +42,8 @@ public class User {
 
     private String nickname;
 
-    @Column(insertable = false, updatable = false)
+    @Column
     private LocalDateTime createdate;
-
-    private String phone;
 
     private Long prelikecnt;
 
@@ -64,6 +62,7 @@ public class User {
     public void prePersist() {
         this.createdate = LocalDateTime.now();
         this.prelikecnt = this.prelikecnt == null ? 0 : this.prelikecnt;
+        this.image = this.image == null ? "/profileImg/user_img.png" : this.image;
     }
 
 }
