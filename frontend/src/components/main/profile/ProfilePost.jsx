@@ -60,7 +60,7 @@ const ProfilePost = (/*{ postList, post, number, onSetDetail, onGetDetailNumber,
     setIsDetail((prev) => !prev);
     console.log(isDetail);
 
-    onGetDetailNumber(index.index);
+    // onGetDetailNumber(index.index);
     // onGetDetail(index.index);
     // store.dispatch({type:'SHOW_PROFILE_DETAIL', item: detail})
     // if(!isDetail){
