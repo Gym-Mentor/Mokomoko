@@ -36,7 +36,7 @@ const KakaoLogin = () => {
           url: "/v2/user/me",
           success: function (response) {
             //어떤 정보 넘어오는지 확인
-            // console.log(response);
+            console.log(response);
             // console.log("정보확인");
 
             console.log("사용자 아이디", response.id);
@@ -52,14 +52,11 @@ const KakaoLogin = () => {
               },
             })
               .then((res) => {
-                console.log(res);
-                let user = {
-                  id: response.id,
-                  nickname: response.properties.nickname,
-                  image: response.properties.profile_image,
-                };
 
-                onSetUserInfo(user);
+                console.log(res);
+                console.log(res.data.user);
+
+                onSetUserInfo(res.data.user);
                 localStorage.setItem("accessToken", user);
                 history.push("/main/feed");
               })
