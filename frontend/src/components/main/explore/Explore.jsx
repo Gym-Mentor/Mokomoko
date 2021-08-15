@@ -10,7 +10,7 @@ import "../../../css/main/explore/Explore.css";
 import image1 from "../../../img/햄버거1.jpg";
 import image2 from "../../../img/햄버거2.jpg";
 import image3 from "../../../img/햄버거3.jpg";
-// import axios from "axios";
+import axios from "axios";
 export default function App() {
   const dispatch = useDispatch();
 
@@ -19,38 +19,38 @@ export default function App() {
   const [page, setPage] = useState(0);
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [lastTime, setLastTime] = useState(null);
   // 탐색 피드 받아오기
   useEffect(() => {
     onSetIndex(2);
   });
   useEffect(() => {
     setLoading(true);
-    let list = [
-      { url: image1, isImage: true },
-      { url: image2, isImage: true },
-      { url: image3, isImage: true },
-      { url: image1, isImage: true },
-      { url: image2, isImage: true },
-      { url: image3, isImage: true },
-      { url: image1, isImage: true },
-      { url: image2, isImage: true },
-      { url: image3, isImage: true },
-      { url: image1, isImage: true },
-      { url: image2, isImage: true },
-      { url: image3, isImage: true },
-    ];
-    //  axios({
-    //   method: "post",
-    //   url: "/guestbook/api/guestbook/list?no=" + page,
-    //   type: "GET",
-    //   dataType: "json",
-    // })
-    //   .then((result) => {
-    //     list = result;
-    //   })
-    //   .catch((res) => {
-    //     console.log(res);
-    //   });
+    // let list = [
+    //   { url: image1, isImage: true },
+    //   { url: image2, isImage: true },
+    //   { url: image3, isImage: true },
+    //   { url: image1, isImage: true },
+    //   { url: image2, isImage: true },
+    //   { url: image3, isImage: true },
+    //   { url: image1, isImage: true },
+    //   { url: image2, isImage: true },
+    //   { url: image3, isImage: true },
+    //   { url: image1, isImage: true },
+    //   { url: image2, isImage: true },
+    //   { url: image3, isImage: true },
+    // ];
+    axios({
+      method: "get",
+      url: "http://i5d104.p.ssafy.io:8080/explore?lastTime=" + lastTime,
+    })
+      .then((result) => {
+        console.log(result.data);
+        list = result.data;
+      })
+      .catch((res) => {
+        console.log(res);
+      });
     setList((prev) => [...prev, ...list]);
     setLoading(false);
   }, [page]);

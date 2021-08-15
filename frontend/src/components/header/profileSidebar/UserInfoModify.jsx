@@ -65,10 +65,10 @@ const UserInfoModify = () => {
     setFile("");
     // 임시로 담고있는 유저정보의 image 수정
     let newUserInfo = Object.assign({}, userInfo);
-    newUserInfo.image = "/home/ubuntu/img/user_image.png";
+    newUserInfo.image = "";
     SetUserInfo(newUserInfo);
     // 프로필에 실제로 보이는 이미지
-    setPreviewURL("/home/ubuntu/img/user_image.png");
+    setPreviewURL("/profileImg/user_image.png");
   };
   // 현재 프로필 수정에 보여줄 사진을 담고있는 변수
   let preview_img = null;
@@ -97,7 +97,7 @@ const UserInfoModify = () => {
       method: "put",
       url: "http://i5d104.p.ssafy.io:8080/user",
       data: formData,
-      contentType: 'application/json; charset=utf-8',
+      contentType: "application/json; charset=utf-8",
       processData: false,
       enctype: "multipart/form-data",
     })
