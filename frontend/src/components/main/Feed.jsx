@@ -19,7 +19,7 @@ const Feed = ({history}) => {
   useEffect(() => {
     onSetIndex(1);
     if(user.nickname == null){
-      console.log("닉네임 설정해야함");
+      console.log(user);
       history.push("/main/settingNick");
     }
     return () => {
