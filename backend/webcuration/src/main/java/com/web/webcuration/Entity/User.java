@@ -63,7 +63,7 @@ public class User {
         System.out.println("userprePersist");
         this.createdate = LocalDateTime.now();
         this.prelikecnt = this.prelikecnt == null ? 0 : this.prelikecnt;
-        this.image = this.image == null ? "/home/img/user_img.png" : this.image;
+        this.image = this.image == null ? "user_img.png" : this.image;
     }
 
 }
