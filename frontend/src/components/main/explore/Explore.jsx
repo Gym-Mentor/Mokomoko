@@ -42,9 +42,10 @@ export default function App() {
     // ];
     axios({
       method: "get",
-      url: "http://i5d104.p.ssafy.io:8080/explore?lastTime=" + lastTime,
+      url: "http://i5d104.p.ssafy.io:8080/post/explore/" + lastTime,
     })
       .then((result) => {
+        console.log(result);
         console.log(result.data);
         list = result.data;
       })
