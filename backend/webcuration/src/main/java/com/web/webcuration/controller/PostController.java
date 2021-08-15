@@ -53,8 +53,8 @@ public class PostController {
         return ResponseEntity.ok(postService.updatePost(changePost));
     }
 
-    @GetMapping("/explore")
-    public ResponseEntity<BaseResponse> getExplorePost(LocalDateTime lastTime) {
+    @GetMapping("/explore/{lastTime}")
+    public ResponseEntity<BaseResponse> getExplorePost(@PathVariable("lastTime") LocalDateTime lastTime) {
         return ResponseEntity.ok(postService.getExplorePost(lastTime));
     }
 }
