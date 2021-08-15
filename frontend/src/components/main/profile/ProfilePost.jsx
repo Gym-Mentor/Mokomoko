@@ -35,7 +35,8 @@ const ProfilePost = (/*{ postList, post, number, onSetDetail, onGetDetailNumber,
         postList.push(postItem);
       }
 
-      console.log("완성된 배열",postList);
+      console.log(postList[0]);
+      console.log(postList[1]);
     })
     .catch(function(error){
       console.log(error);
