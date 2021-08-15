@@ -53,12 +53,19 @@ const ProfilePost = ({ postList, post, number, onSetDetail, onGetDetailNumber, o
       console.log(response.data.data);
       for(var i=0;i<response.data.data.length;i++){
         console.log(response.data.data[i]);
-        postList.push(response.data.data[i]);
+        var postItem = {
+          image : "http://i5d104.p.ssafy.io/"+response.data.data[i].image,
+          postId : response.data.data[i].post.id,
+        }
+
+        postList.push(postItem);
       }
     })
     .catch(function(error){
       console.log(error);
     })
+
+    console.log("완성된 PostList",postList);
 
     onSetDetail(PostList);
     console.log(postList);
@@ -105,7 +112,7 @@ const ProfilePost = ({ postList, post, number, onSetDetail, onGetDetailNumber, o
                     },
                   }}
                 >
-                  <img className="postImg" src={item.img} />
+                  <img className="postImg" src={item.image} />
                 </Link>
               </div>
             );
