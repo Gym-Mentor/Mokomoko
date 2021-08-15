@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.springframework.data.annotation.CreatedDate;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -35,8 +33,7 @@ public class ConfirmationToken {
     @Column
     private String email;
 
-    @CreatedDate
-    @Column(updatable = false)
+    @Column
     private LocalDateTime createDate;
 
     @Column
