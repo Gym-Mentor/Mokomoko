@@ -2,8 +2,10 @@ import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import "../../../css/main/profile/Detail.css";
 import {Avatar} from "@material-ui/core";
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import ChatBubbleOutlinedIcon from "@material-ui/icons/ChatBubbleOutlined";
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import testImg from "../../../img/user.jpg";
 
@@ -21,8 +23,23 @@ const Detail = (props) => {
     content : state.Post.content,
   }));
 
-  const postLike = () =>{
+  const [bookmark,setBookmark] = useState(false);
+  const [like,setLike] = useState(false);
+
+  const isPostLike = () =>{
       console.log("좋아요");
+      setLike(!like);
+  }
+
+  const isBookmark = () =>{
+      setBookmark(!bookmark);
+  }
+
+
+  const goToShop =(e, shoppingUrl) =>{
+      e.preventDefault();
+
+      window.open(shoppingUrl);
   }
 
     
@@ -47,14 +64,20 @@ const Detail = (props) => {
             <img className="mobile-detail-img"/>
         </div>
         <div className="mobile-detail-things">
-            <div className="mobile-detail-like">
-                <FavoriteBorderOutlinedIcon fontSize="large" onClick={postLike}/>
+            <div className="mobile-detail-like" onClick={isPostLike}>
+                {
+                    like
+                    ?<FavoriteIcon fontSize="large"/>
+                    :<FavoriteBorderOutlinedIcon fontSize="large"/>
+                }
             </div>
             <div className="mobile-detail-comment">
                 <ChatBubbleOutlinedIcon fontSize="large"/>
             </div>
-            <div className="mobile-detail-scrap">
-                <BookmarkBorderOutlinedIcon fontSize="large"/>
+            <div className="mobile-detail-scrap" onClick={isBookmark}>
+                {bookmark 
+                ? <BookmarkIcon fontSize="large"/>
+                : <BookmarkBorderOutlinedIcon fontSize="large"/>}
             </div>
         </div>
         <div className="mobile-detail-likecnt">
@@ -102,13 +125,19 @@ const Detail = (props) => {
                     <div className="dt-right-footer">
                         <div className="dt-right-footer-btn-section">
                             <div className="dt-detail-like">
-                                <FavoriteBorderOutlinedIcon fontSize="large"/>
+                                {
+                                like
+                                ?<FavoriteIcon fontSize="large"/>
+                                :<FavoriteBorderOutlinedIcon fontSize="large"/>
+                                }
                             </div>
                             <div className="dt-detail-comment">
                                 <ChatBubbleOutlinedIcon fontSize="large"/>
                             </div>
-                            <div className="dt-detail-scrap">
-                                <BookmarkBorderOutlinedIcon fontSize="large"/>
+                            <div className="dt-detail-scrap" onClick={isBookmark}>
+                                {bookmark 
+                                ? <BookmarkIcon fontSize="large"/>
+                                : <BookmarkBorderOutlinedIcon fontSize="large"/>}
                             </div>
                         </div>
                         <div className="dt-right-footer-likecnt">
@@ -128,6 +157,12 @@ const Detail = (props) => {
             </div>
         </div>
     </div>
+    링크
+    {tags.map((item,index) =>{
+        return(
+            <div key = {index} onClick={(e) => goToShop(e,`${item.url}`)}>{item.name}</div>
+        );
+    })}
 </div>
 </>
     );
