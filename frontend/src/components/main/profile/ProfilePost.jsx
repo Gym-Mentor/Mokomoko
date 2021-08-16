@@ -7,53 +7,44 @@ import "../../../css/main/profile/ProfilePost.css";
 import { setDetail } from "../../../modules/profileDetail";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+  
 
 const ProfilePost = (/*{ postList, post, number, onSetDetail, onGetDetailNumber, onGetDetail }*/) => {
   const [isDetail, setIsDetail] = useState(false);
-  const postList = [];
+  const [postList, setPostList] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const { user } = useSelector((state) => ({
     user: state.userInfo.user,
   }));
 
 
   useEffect(() => {
-    axios({
-      method : "get",
-      url: "http://i5d104.p.ssafy.io:8080/post/user/"+user.email,
-    })
-    .then(function(response){
-      console.log(response);
-      console.log(response.data.data);
-      for(var i=0;i<response.data.data.length;i++){
-        console.log(response.data.data[i]);
-        var postItem = {
-          image : "http://i5d104.p.ssafy.io"+response.data.data[i].image,
-          postId : response.data.data[i].post.id,
-        }
+    
+    const fetchPostList = async () =>{
+      try{
+        //요청 시작 시  error와 postList 초기화
+        setError(null);
+        setPostList(null);
 
-        postList.push(postItem);
+        //loading 상태 true로 바꾸기
+        setLoading(true);
+
+        const response = await axios.get("http://i5d104.p.ssafy.io:8080/post/user/"+user.email);
+
+        setPostList(response.data.data);
+      }catch(e){
+        setError(e);
       }
 
-      console.log(postList[0]);
-      console.log(postList[1]);
-    })
-    .catch(function(error){
-      console.log(error);
-    })
+      setLoading(false);
+    }
 
-    // onSetDetail(PostList);
-    // console.log(postList);
 
-    // console.log("useEffect", number);
-    // console.log(number);
 
-    //한박자 씩 늦게 찍힘
-    return () => {
-      console.log("값이 바뀌거나 컴포넌트 이동되었을 시 ");
-      // console.log(post);
-    };
-  }, [/*number, post*/postList]);
+    fetchPostList();
+  }, []);
 
   const showDetail = (e, index) => {
     e.preventDefault();
@@ -71,9 +62,12 @@ const ProfilePost = (/*{ postList, post, number, onSetDetail, onGetDetailNumber,
     // location.href(`/mian/detail/${index}`);
   };
 
+  if (loading) return <div>로딩중..</div>;
+  if (error) return <div>에러가 발생했습니다</div>;
+
   return (
     <div>
-      <div className="userPost" on>
+      <div className="userPost">
         {postList &&
           postList.map((item, index) => {
             return (

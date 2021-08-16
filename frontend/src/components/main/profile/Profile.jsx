@@ -6,6 +6,7 @@ import UserInfo from "./UserInfo";
 
 import "../../../css/main/profile/Profile.css";
 import ProfilePostContainer from "../../../container/ProfilePostContainer";
+import ProfilePost from "./ProfilePost";
 
 const Profile = () => {
 
@@ -29,7 +30,8 @@ const Profile = () => {
                     <div className="profile">
                         <UserInfo/>
                     </div>
-                    <ProfilePostContainer/>
+                    {/* <ProfilePostContainer/> */}
+                    <ProfilePost/>
                 </div>
             </div>
 
