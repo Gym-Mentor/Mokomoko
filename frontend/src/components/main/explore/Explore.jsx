@@ -19,7 +19,7 @@ export default function App() {
   const [page, setPage] = useState(0);
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
-  var lastTime = new Date();
+  var lastTime = new Date().getTime();
   console.log(lastTime.getTime());
   // 탐색 피드 받아오기
   useEffect(() => {
