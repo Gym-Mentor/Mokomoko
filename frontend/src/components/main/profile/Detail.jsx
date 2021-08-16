@@ -98,8 +98,7 @@ const Detail = (props) => {
         </div>
         <div className="mobile-detail-img">
             {/* <img src={item.img} alt="image" /> */}
-            <img alt="image" src={contentImage[scrollState]}/>
-            <img className="mobile-detail-img"/>
+            <img className="mobile-detail-img" src={contentImage[scrollState]}/>
             <div className="mobile-image-next" onClick={showNextImage}>
                 <NavigateNextIcon fontSize="large"/>
             </div>
@@ -138,6 +137,7 @@ const Detail = (props) => {
         } < div className = "dt" > <div className="dt-details-content">
             <div className="dt-details-content2">
                 <div className="dt-img-section">
+                <img className="dt-detail-img" src={contentImage[scrollState]}/>
                     <div className="mobile-image-next" onClick={showNextImage}>
                         <NavigateNextIcon fontSize="large"/>
                     </div>
