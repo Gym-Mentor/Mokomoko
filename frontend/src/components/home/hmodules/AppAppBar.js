@@ -43,13 +43,7 @@ function AppAppBar(props) {
       <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
           <div className={classes.left} />
-          <Link
-            variant="h6"
-            underline="none"
-            color="inherit"
-            className={classes.title}
-            href="/testt"
-          >
+          <Link variant="h6" underline="none" color="inherit" className={classes.title} href="/">
             {"mokomoko"}
           </Link>
           <div className={classes.right}>
