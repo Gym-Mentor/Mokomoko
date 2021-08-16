@@ -80,7 +80,45 @@ export default function Food(state = initialState, action) {
         ...action.write,
       };
     case SET_INITVALUE:
-      return initialState;
+      return {
+        ...state,
+        temp: [
+          {
+            file: "",
+            media: "", // 미디어 파일(이미지 또는 비디오)(파일 형태 그대로)
+            desc: "", // 글 내용(string)
+            isImage: "", // 미디어 파일이 비디오인지 이미지인지(boolean)
+          },
+        ],
+        contents: [
+          {
+            media: "", // 미디어 파일(이미지 또는 비디오)(파일 형태 그대로)
+            desc: "", // 글 내용(string)
+            isImage: "", // 미디어 파일이 비디오인지 이미지인지(boolean)
+          },
+        ],
+        // 좋아요 댓글 표시할 것인지
+        setting: {
+          like: true, // 좋아요 표시할 것인지(boolean)
+          comment: true, // 댓글 표시할 것인지(boolean)
+        },
+        // 태그
+        tag: [
+          // {
+          //   title: "", // 태그 제목 (string)
+          //   url: "", // 태그 url (string)
+          // },
+        ],
+        // 음식 사진인지 레시피인지 구분(type이 겹쳐서 수정했습니다)
+        isRecipe: "", // boolean
+        // 유저 이메일
+        email: "", // boolean
+
+        // DB에는 안들어가지만 필요한 state
+        nowImage: "", // Number, 현재 사용자가 선택한 이미지 저장
+        imgArr: [], // 사용자가 선택한 이미지 순서 저장
+        recipeIndex: 0, // 레시피 작성 인덱스
+      };
     case GET_CONTENT:
       return state;
 
