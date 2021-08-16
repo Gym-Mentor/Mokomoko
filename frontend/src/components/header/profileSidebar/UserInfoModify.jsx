@@ -68,7 +68,6 @@ const UserInfoModify = () => {
     SetUserInfo(newUserInfo);
     // 프로필에 실제로 보이는 이미지
     setPreviewURL("http://i5d104.p.ssafy.io/profileImg/user_image.png");
-    onSetUserInfo(userInfo);
   };
   // 현재 프로필 수정에 보여줄 사진을 담고있는 변수
 
@@ -115,7 +114,8 @@ const UserInfoModify = () => {
         // SetUserInfo(res.user);
         console.log(res);
         let newUserInfo = Object.assign({}, userInfo);
-        newUserInfo.image = res.data.image;
+        newUserInfo.image = res.data.data.image;
+        console.log(res.data.data.image);
         SetUserInfo(newUserInfo);
       })
       .catch((res) => {
