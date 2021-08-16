@@ -95,9 +95,10 @@ const ProfilePost = () => {
       onSetContent(response.data.data.contents);
 
       var contentImage = new Array();
+      var content_box = response.data.data.contents;
       
-      for(var i=0;i<content.length;i++){
-        contentImage.push(content[i].image);
+      for(var i=0;i<content_box.length;i++){
+        contentImage.push(content_box[i].image);
       }
 
       onSetContentImage(contentImage);
