@@ -137,8 +137,8 @@ const Detail = (props) => {
         } < div className = "dt" > <div className="dt-details-content">
             <div className="dt-details-content2">
                 <div className="dt-img-section">
-                <img className="dt-detail-img" src={contentImage[scrollState]}/>
-                    <div className="mobile-image-next" onClick={showNextImage}>
+                <img src={contentImage[scrollState]}/>
+                    <div className="dt-image-next" onClick={showNextImage}>
                         <NavigateNextIcon fontSize="large"/>
                     </div>
                 </div>
