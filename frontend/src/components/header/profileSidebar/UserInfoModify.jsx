@@ -114,8 +114,8 @@ const UserInfoModify = () => {
         // SetUserInfo(res.user);
         console.log(res);
         let newUserInfo = Object.assign({}, userInfo);
-        newUserInfo.image = res.data.data.image;
-        console.log(res.data.data.image);
+        newUserInfo.image = res.data.data.image.toString();
+        console.log(res.data.data.image.toString());
         SetUserInfo(newUserInfo);
       })
       .catch((res) => {
@@ -150,7 +150,9 @@ const UserInfoModify = () => {
             <div className="userModify userImg">
               <img
                 className="userModify img"
-                src={file != "" ? previewURL : user.image !== null ? user.image : previewURL}
+                src={
+                  file != "" ? previewURL : userInfo.image !== null ? userInfo.image : previewURL
+                }
               ></img>
             </div>
             <div className="userImg input">
