@@ -167,10 +167,10 @@ const UserInfoModify = () => {
                 onChange={handleImageUpload}
               />
             </div>
-            <div className="userImg input">
+            <div className="user-profile-remove">
               <label htmlFor="img-fil" onClick={handleImageRemove}>
                 <FontAwesomeIcon icon="images" />
-                <span>프로필 사진 삭제</span>
+                <span className="user-profile-remove-click">프로필 사진 삭제</span>
               </label>
             </div>
             <div className="userModify-title">닉네임</div>
@@ -194,7 +194,7 @@ const UserInfoModify = () => {
             </div>
 
             <div className="remove-user" onClick={removeUser}>
-              <span>탈퇴하시겠습니까?</span> {/*클릭되게 바꿔주기 */}
+              <span className="remove-user-click">탈퇴하시겠습니까?</span> {/*클릭되게 바꿔주기 */}
             </div>
 
             <div className="apply-button">
