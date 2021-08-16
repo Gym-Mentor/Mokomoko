@@ -1,90 +1,72 @@
 import React, { useState, useEffect } from "react";
-import Detail from "./Detail";
-// import store from '../../../store/store';
-
+import { useSelector, useDispatch } from "react-redux";
 import "../../../css/main/profile/ProfilePost.css";
-import { setDetail } from "../../../modules/profileDetail";
 import { Link } from "react-router-dom";
+import axios from "axios";
+  
 
-const PostList = [
-  {
-    img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
-    content: "재밌다1",
-    date: "2021-07-27",
-    path: "/test",
-  },
-  {
-    img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
-    content: "재밌다2",
-    date: "2021-07-27",
-    path: "/test",
-  },
-  {
-    img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
-    content: "재밌다3",
-    date: "2021-07-27",
-    path: "/test",
-  },
-  {
-    img: "https://i.pinimg.com/564x/fa/e3/50/fae3500cc623c6b6051f33ef2dda9205.jpg",
-    content: "재밌다4",
-    date: "2021-07-27",
-    path: "/test",
-  },
-];
-
-const ProfilePost = ({ postList, post, number, onSetDetail, onGetDetailNumber, onGetDetail }) => {
+const ProfilePost = () => {
   const [isDetail, setIsDetail] = useState(false);
+  const [postList, setPostList] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const { user } = useSelector((state) => ({
+    user: state.userInfo.user,
+  }));
+
 
   useEffect(() => {
-    //https://react.vlpt.us/basic/16-useEffect.html
-    //위의 블로그 참고하면 될 듯
-    onSetDetail(PostList);
-    console.log(postList);
+    
+    const fetchPostList = async () =>{
+      try{
+        //요청 시작 시  error와 postList 초기화
+        setError(null);
+        setPostList(null);
 
-    console.log("useEffect", number);
-    console.log(number);
+        //loading 상태 true로 바꾸기
+        setLoading(true);
 
-    //한박자 씩 늦게 찍힘
-    return () => {
-      console.log("값이 바뀌거나 컴포넌트 이동되었을 시 ");
-      console.log(post);
-    };
-  }, [number, post]);
+        const response = await axios.get("http://i5d104.p.ssafy.io:8080/post/user/"+user.email);
+
+        console.log(response.data.data);
+        setPostList(response.data.data);
+      }catch(e){
+        setError(e);
+      }
+
+      setLoading(false);
+    }
+    fetchPostList();
+
+  }, []);
 
   const showDetail = (e, index) => {
     e.preventDefault();
 
     setIsDetail((prev) => !prev);
     console.log(isDetail);
-
-    onGetDetailNumber(index.index);
-    // onGetDetail(index.index);
-    // store.dispatch({type:'SHOW_PROFILE_DETAIL', item: detail})
-    // if(!isDetail){
-    //   history.pushState({},'main/profile/detail');
-    // }
-
-    // location.href(`/mian/detail/${index}`);
   };
+
+  if (loading) return <div>로딩중..</div>;
+  if (error) return <div>에러가 발생했습니다</div>;
 
   return (
     <div>
-      <div className="userPost" on>
-        {PostList &&
-          PostList.map((item, index) => {
+      <div className="userPost">
+        {postList &&
+          postList.map((item, index) => {
             return (
               <div key={index} className="postGrid" onClick={(e) => showDetail(e, { index })}>
                 <Link
                   to={{
-                    pathname: `/main/testt/${index}`,
+                    pathname: `/main/testt/${item.post.id}`,
                     state: {
-                      idx: index,
-                      item: postList[index],
+                      idx: item.post.id,
                     },
                   }}
-                >
-                  <img className="postImg" src={item.img} />
+                > 
+                  <img className="postImg" src={item.image} />
                 </Link>
               </div>
             );
