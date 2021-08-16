@@ -113,14 +113,16 @@ const UserInfoModify = () => {
         // res.data.image를 받아서 userInfo 바꿔주기(이미지 경로를 받아서 수정)
         // SetUserInfo(res.user);
         console.log(res);
-        console.log(res.data);
+        let newUserInfo = Object.assign({}, userInfo);
+        newUserInfo.image = res.data.data.image.toString();
+        console.log(res.data.data.image.toString());
+        SetUserInfo(newUserInfo);
+        // 현재 로그인한 사용자의 정보 바꾸기
+        onSetUserInfo(newUserInfo);
       })
       .catch((res) => {
         console.log(res);
       });
-
-    // 현재 로그인한 사용자의 정보 바꾸기
-    onSetUserInfo(userInfo);
   };
 
   const removeUser = (e) => {
@@ -147,7 +149,9 @@ const UserInfoModify = () => {
             <div className="userModify userImg">
               <img
                 className="userModify img"
-                src={file != "" ? previewURL : user.image !== null ? user.image : previewURL}
+                src={
+                  file != "" ? previewURL : userInfo.image !== null ? userInfo.image : previewURL
+                }
               ></img>
             </div>
             <div className="userImg input">
@@ -163,10 +167,10 @@ const UserInfoModify = () => {
                 onChange={handleImageUpload}
               />
             </div>
-            <div className="userImg input">
+            <div className="user-profile-remove">
               <label htmlFor="img-fil" onClick={handleImageRemove}>
                 <FontAwesomeIcon icon="images" />
-                <span>프로필 사진 삭제</span>
+                <span className="user-profile-remove-click">프로필 사진 삭제</span>
               </label>
             </div>
             <div className="userModify-title">닉네임</div>
@@ -190,7 +194,7 @@ const UserInfoModify = () => {
             </div>
 
             <div className="remove-user" onClick={removeUser}>
-              <span>탈퇴하시겠습니까?</span> {/*클릭되게 바꿔주기 */}
+              <span className="remove-user-click">탈퇴하시겠습니까?</span> {/*클릭되게 바꿔주기 */}
             </div>
 
             <div className="apply-button">
