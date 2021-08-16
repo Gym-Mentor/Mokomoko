@@ -2,6 +2,7 @@ package com.web.webcuration.controller;
 
 import java.io.IOException;
 
+import com.web.webcuration.dto.request.NickNameRequest;
 import com.web.webcuration.dto.request.ProfileRequest;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -37,16 +39,20 @@ public class UserController {
     }
 
     @PutMapping()
-    public ResponseEntity<BaseResponse> updateUser(ProfileRequest profileRequest)
+    public @ResponseBody ResponseEntity<BaseResponse> updateUser(ProfileRequest profileRequest)
             throws IllegalStateException, IOException {
-        System.out.println("프로필수정");
-        System.out.println(profileRequest);
         return ResponseEntity.ok(userService.updateUser(profileRequest));
     }
 
     @DeleteMapping("/{userid}")
     public ResponseEntity<BaseResponse> deleteUser(@PathVariable("userid") Long userid) {
         return ResponseEntity.ok(userService.deleteUser(userid));
+    }
+
+    @PutMapping("/name")
+    public ResponseEntity<BaseResponse> updateUser(@RequestBody NickNameRequest nicknameRequest)
+            throws IllegalStateException, IOException {
+        return ResponseEntity.ok(userService.setNickname(nicknameRequest));
     }
 
 }

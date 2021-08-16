@@ -33,7 +33,7 @@ const FoodTag = () => {
             <button type="button" className="food-tag-btn">
               {/* url 주소가 있는 것만 링크로 연결 */}
               {item.url !== "" ? (
-                <a href={"https://" + item.url} target="_blank" rel="noopener noreferrer">
+                <a href={/*"https://" + */item.url} target="_blank" rel="noopener noreferrer">
                   {"\u00A0"}
                   {"\u00A0"}
                   {"\u00A0"}

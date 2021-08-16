@@ -1,6 +1,7 @@
 package com.web.webcuration.service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import com.web.webcuration.dto.request.PostRequest;
 import com.web.webcuration.dto.response.BaseResponse;
@@ -16,4 +17,6 @@ public interface PostService {
     BaseResponse deletePost(Long postid);
 
     BaseResponse updatePost(PostRequest changePost) throws IllegalStateException, IOException;
+
+    BaseResponse getExplorePost(LocalDateTime lastTime);
 }

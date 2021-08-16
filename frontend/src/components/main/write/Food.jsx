@@ -45,6 +45,7 @@ const Food = ({ history }) => {
       reader.onload = () => {
         newWrite.temp[i].media = reader.result;
         newWrite.contents[i] = newWrite.temp[i];
+        newWrite.contents[i].desc = "";
         dispatch(setContent(newWrite));
       };
       reader.readAsDataURL(file);

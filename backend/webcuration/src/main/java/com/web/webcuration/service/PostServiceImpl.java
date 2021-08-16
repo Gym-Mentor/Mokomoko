@@ -1,6 +1,7 @@
 package com.web.webcuration.service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -128,5 +129,16 @@ public class PostServiceImpl implements PostService {
                     .build();
         }
         throw new RuntimeException("수정하려는 게시글이 없습니다.");
+    }
+
+    @Override
+    public BaseResponse getExplorePost(LocalDateTime lastTime) {
+        List<Post> explorePosts = postQueryRepository.getExplorePost(lastTime);
+        List<UserPostResponse> userPostResponse = new ArrayList<>();
+        for (Post post : explorePosts) {
+            userPostResponse.add(UserPostResponse.builder().post(post)
+                    .image(contentsQueryRepository.FindByPostidOrderby(post.getId()).getImage()).build());
+        }
+        return BaseResponse.builder().status("200").msg("success").data(userPostResponse).build();
     }
 }

@@ -55,22 +55,21 @@ const NicknameSetting = ({ history }) => {
 
     onSetUserInfo(info);
     const formData = new FormData();
-    formData.append("id",info.id);
-    formData.append("nickname",info.nickname);
+    formData.append("id", info.id);
+    formData.append("nickname", info.nickname);
     // 백엔드 통신
     axios({
       method: "put",
-      url: "http://i5d104.p.ssafy.io:8080/user",
-      data : user,
-      contentType: 'application/json; charset=utf-8',
+      url: "http://i5d104.p.ssafy.io:8080/user/name",
+      data: user,
+      contentType: "application/json; charset=utf-8",
     })
-    .then(function(response){
-      console.log(response);
-    })
-    .catch(function(error){
-      console.log(error);
-    })
-    ;
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     history.push("/main/feed");
   };
 

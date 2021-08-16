@@ -71,7 +71,6 @@ const Login = ({ history }) => {
   // 로그인 유효성 검사 후 btnColorState 값 변경
   const btnChangeColor = () => {
     isEmail(email) && password.length >= 5 ? setBtnColorState(true) : setBtnColorState(false);
-    console.log(btnColorState);
   };
 
   useEffect(() => {
