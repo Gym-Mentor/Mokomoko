@@ -109,12 +109,9 @@ const Detail = (props) => {
         } < div className = "dt" > <div className="dt-details-content">
             <div className="dt-details-content2">
                 <div className="dt-img-section">
-                  {content.map((item,index) =>{
-                      return(
-                        <img alt="image" key = {index} src={item.image}/>
-                      )
-                    })}
-                    <button>다음</button>
+                    <div className="mobile-image-next" onClick={showNextImage}>
+                        <NavigateNextIcon fontSize="large"/>
+                    </div>
                 </div>
                 <div className="dt-right-section">
                     <div className="dt-right-header">
