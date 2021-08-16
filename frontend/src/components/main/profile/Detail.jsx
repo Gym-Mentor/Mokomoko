@@ -8,13 +8,23 @@ import ChatBubbleOutlinedIcon from "@material-ui/icons/ChatBubbleOutlined";
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import testImg from "../../../img/user.jpg";
 
 import {Col, Form, Row} from "react-bootstrap";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import axios from "axios";
+
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 
 const Detail = (props) => {
+
+    const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+    var word = transcript.split(" ");
+    useEffect(() => {
+        // checking();
+        return () => {
+          checking();
+        };
+      }, [transcript]);
+
 
   const {userImage,userName,post,tags,content,contentImage } = useSelector((state) => ({
     userImage : state.Post.userImage,
@@ -54,16 +64,35 @@ const Detail = (props) => {
       }
   }
 
+  const checking = () => {
+    console.log("체크", word[word.length - 1]);
+    if (word[word.length - 1] === "다음") {
+      showNextImage();
+    }
+    //  else if (word[word.length - 1] === "이전") {
+    //   prevButton();
+    // }
+  };
 
+
+  if (!browserSupportsSpeechRecognition) {
+    return <span>Browser doesn't support speech recognition.</span>;
+  }
+  else{
+    SpeechRecognition.startListening({ continuous: true ,language :"ko"})
+  }
     
     return (
-        <> < div className = "detail-contents" > {/* <div className="mobile-headerDiv">
+        <> 
+        < div className = "detail-contents" > 
+        {/* <div className="mobile-headerDiv">
           <div className="mobile-headerDiv icon">
             <IoIosArrowBack onClick={onClickBack} />
           </div>
           <div className="mobile-headerDiv title">사진</div>
         </div> */
-        } < div className = "mobile-detail-contents-wrapper" > <div className="mobile-detail-userInfo">
+        } 
+        < div className = "mobile-detail-contents-wrapper" > <div className="mobile-detail-userInfo">
             <Avatar className="mobile-detail-avatar"/>
             <span className="mobile-detail-username">{userName}</span>
         </div>
@@ -109,12 +138,9 @@ const Detail = (props) => {
         } < div className = "dt" > <div className="dt-details-content">
             <div className="dt-details-content2">
                 <div className="dt-img-section">
-                  {content.map((item,index) =>{
-                      return(
-                        <img alt="image" key = {index} src={item.image}/>
-                      )
-                    })}
-                    <button>다음</button>
+                    <div className="mobile-image-next" onClick={showNextImage}>
+                        <NavigateNextIcon fontSize="large"/>
+                    </div>
                 </div>
                 <div className="dt-right-section">
                     <div className="dt-right-header">
