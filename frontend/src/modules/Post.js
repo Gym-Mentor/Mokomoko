@@ -4,6 +4,7 @@ const SET_USERNAME = 'Post/SET_USERNAME';
 const SET_POST = 'Post/SET_POST';
 const SET_TAGS = 'Post/SET_TAGS';
 const SET_CONTENT = 'Post/SET_CONTENT';
+const SET_CONTENT_IMAGE = 'Post/SET_CONTENT_IMAGE';
 
 
 //데이터베이스에서 글 목록 불러온 후 setting
@@ -32,6 +33,11 @@ export const setContent = (content) => ({
     content,
 })
 
+export const setContentImage = (contentImage) => ({
+    type : SET_CONTENT_IMAGE,
+    contentImage,
+})
+
 
 /*초기 상태 선언 */
 const initialState = {
@@ -40,6 +46,7 @@ const initialState = {
     post: {},
     tags: [],
     content: [],
+    contentImage : [],
 }
 
 
@@ -72,6 +79,13 @@ export default function Post(state=initialState, action){
             return{
                 ...state,
                 content : action.content
+            };
+
+            //이미지 여러장 처리 위해서 사용
+        case SET_CONTENT_IMAGE:
+            return{
+                ...state,
+                contentImage : action.contentImage
             };
 
         default:
