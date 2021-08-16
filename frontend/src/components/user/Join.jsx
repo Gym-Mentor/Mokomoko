@@ -16,11 +16,9 @@ const Join = ({ props, history }) => {
   const [passwordValidation, setPasswordValidation] = useState(false);
   const [passwordChkValidation, setPasswordChkValidation] = useState(false);
   const [modalShow, setModalShow] = useState(false);
+  const [validationCnt, setValidationCnt] = useState(0);
 
-  useEffect(() => {
-    console.log(password);
-    console.log(passwordChk);
-  }, [password, passwordChk, passwordChkValidation, isCheck]);
+  useEffect(() => {}, [password, passwordChk, passwordChkValidation, isCheck, validationCnt]);
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -50,12 +48,8 @@ const Join = ({ props, history }) => {
         password: password,
       },
     })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      .then((res) => {})
+      .catch((error) => {});
     history.push("/account/login");
   };
 
@@ -99,13 +93,12 @@ const Join = ({ props, history }) => {
   };
 
   const mailValidation = () => {
+    setValidationCnt(validationCnt + 1);
     if (!isCheck) {
       axios({
         url: "http://i5d104.p.ssafy.io:8080/auth/mails/" + email,
         method: "get",
-      }).then((res) => {
-        console.log(res);
-      });
+      }).then((res) => {});
     }
 
     setModalShow(true);
@@ -148,8 +141,14 @@ const Join = ({ props, history }) => {
                 show={modalShow}
                 onHide={() => setModalShow(false)}
               />
-              <div className={"email-validation-" + (emailValidation ? "onColor" : "offColor")}>
+              <div
+                className={"email-validation-" + (emailValidation ? "onColor" : "offColor")}
+                style={isCheck || validationCnt > 0 ? { display: "none" } : {}}
+              >
                 {emailValidation ? "사용 가능한 아이디입니다." : "이메일 형식이 잘못되었습니다."}
+              </div>
+              <div className={"id-validation-" + (isCheck ? "onColor" : "offColor")}>
+                {isCheck ? "인증이 완료되었습니다." : "이메일 인증을 해주세요."}
               </div>
             </div>
             <div>
@@ -194,10 +193,10 @@ const Join = ({ props, history }) => {
             <div className="submit">
               <button
                 id="join-btn"
-                className={btnColorState ? "join-btn-active" : "join-btn-unactive"}
+                className={btnColorState && isCheck ? "join-btn-active" : "join-btn-unactive"}
                 type="button"
                 onClick={onClickJoin}
-                disabled={!btnColorState}
+                disabled={!btnColorState || !isCheck}
               >
                 회원가입
               </button>
