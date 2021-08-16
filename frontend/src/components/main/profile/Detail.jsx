@@ -21,53 +21,9 @@ const Detail = (props) => {
     content : state.Post.content,
   }));
 
-    // const [userImage, setUserImage] = useState(null); //사용자 이미지
-    // const [userName, setUserName] = useState(null); //사용자 아이디
-    // const [post, setPost] = useState({}); //포스트 관련 정보 (좋아요 할지 안할지 등)
-    // const [tags, setTags] = useState(null); //태그 관련 정보
-    // const [content, setContent] = useState(null); //포스트 내용 관련 정보
-    // const [loading, setLoading] = useState(false);
-    // const [error, setError] = useState(null);
-
-    //사용자 정보 && 포스트 정보
-    // useEffect(() => {
-
-    //     const fetchDetail = async () => {
-    //         try {
-    //             //요청 시작 시  error와 postList 초기화
-    //             setError(null);
-
-    //             // setUserImage(null); setUserName(null); setPost(null); setTags(null);
-    //             // setContent(null); loading 상태 true로 바꾸기
-    //             setLoading(true);
-    //             console.log(props.postid);
-    //             const response = await axios.get(
-    //                 "http://i5d104.p.ssafy.io:8080/post/" + props.postid
-    //             );
-
-    //             console.log(response);
-    //             setUserImage(response.data.data.userImage);
-    //             setUserName(response.data.data.userName);
-    //             setPost(response.data.data.post);
-    //             setTags(response.data.data.tags);
-    //             setContent(response.data.data.contents);
-
-    //             console.log("userImage",userImage);
-    //             console.log("userName",userName);
-    //             console.log("POST", post);
-    //             console.log("TAGS",tags);
-    //             console.log("Content",content);
-
-    //         } catch (error) {
-    //             setError(error);
-    //         }
-
-    //         setLoading(false);
-    //     }
-
-    //     fetchDetail();
-
-    // }, []);
+  const postLike = () =>{
+      console.log("좋아요");
+  }
 
     
     return (
@@ -92,7 +48,7 @@ const Detail = (props) => {
         </div>
         <div className="mobile-detail-things">
             <div className="mobile-detail-like">
-                <FavoriteBorderOutlinedIcon fontSize="large"/>
+                <FavoriteBorderOutlinedIcon fontSize="large" onClick={postLike}/>
             </div>
             <div className="mobile-detail-comment">
                 <ChatBubbleOutlinedIcon fontSize="large"/>
