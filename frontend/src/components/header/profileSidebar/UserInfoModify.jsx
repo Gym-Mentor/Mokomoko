@@ -113,7 +113,9 @@ const UserInfoModify = () => {
         // res.data.image를 받아서 userInfo 바꿔주기(이미지 경로를 받아서 수정)
         // SetUserInfo(res.user);
         console.log(res);
-        console.log(res.data);
+        let newUserInfo = Object.assign({}, userInfo);
+        newUserInfo.image = res.data.image;
+        SetUserInfo(newUserInfo);
       })
       .catch((res) => {
         console.log(res);
