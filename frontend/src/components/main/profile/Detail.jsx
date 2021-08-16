@@ -2,9 +2,12 @@ import React, {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import "../../../css/main/profile/Detail.css";
 import {Avatar} from "@material-ui/core";
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import ChatBubbleOutlinedIcon from "@material-ui/icons/ChatBubbleOutlined";
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import testImg from "../../../img/user.jpg";
 
 import {Col, Form, Row} from "react-bootstrap";
@@ -13,17 +16,44 @@ import axios from "axios";
 
 const Detail = (props) => {
 
-  const {userImage,userName,post,tags,content } = useSelector((state) => ({
+  const {userImage,userName,post,tags,content,contentImage } = useSelector((state) => ({
     userImage : state.Post.userImage,
     userName : state.Post.userName,
     post : state.Post.post,
     tags : state.Post.tags,
     content : state.Post.content,
+    contentImage : state.Post.contentImage
   }));
 
-  const postLike = () =>{
+  const [bookmark,setBookmark] = useState(false);
+  const [like,setLike] = useState(false);
+  const [scrollState, setScrollState] = useState(Number(0));
+
+  const isPostLike = () =>{
       console.log("좋아요");
+      setLike(!like);
   }
+
+  const isBookmark = () =>{
+      setBookmark(!bookmark);
+  }
+
+
+  const goToShop =(e, shoppingUrl) =>{
+      e.preventDefault();
+
+      window.open(shoppingUrl);
+  }
+
+  const showNextImage = () =>{
+      console.log("다음 이미지 보여주기");
+      if (scrollState === contentImage.length - 1) {
+        setScrollState(0);
+      } else {
+        setScrollState(scrollState + 1);
+      }
+  }
+
 
     
     return (
@@ -39,22 +69,27 @@ const Detail = (props) => {
         </div>
         <div className="mobile-detail-img">
             {/* <img src={item.img} alt="image" /> */}
-            {content.map((item,index) =>{
-              return(
-                  <img alt="image" key = {index} src={item.image}/>
-                )
-              })}
+            <img alt="image" src={contentImage[scrollState]}/>
             <img className="mobile-detail-img"/>
+            <div className="mobile-image-next" onClick={showNextImage}>
+                <NavigateNextIcon fontSize="large"/>
+            </div>
         </div>
         <div className="mobile-detail-things">
-            <div className="mobile-detail-like">
-                <FavoriteBorderOutlinedIcon fontSize="large" onClick={postLike}/>
+            <div className="mobile-detail-like" onClick={isPostLike}>
+                {
+                    like
+                    ?<FavoriteIcon fontSize="large"/>
+                    :<FavoriteBorderOutlinedIcon fontSize="large"/>
+                }
             </div>
             <div className="mobile-detail-comment">
                 <ChatBubbleOutlinedIcon fontSize="large"/>
             </div>
-            <div className="mobile-detail-scrap">
-                <BookmarkBorderOutlinedIcon fontSize="large"/>
+            <div className="mobile-detail-scrap" onClick={isBookmark}>
+                {bookmark 
+                ? <BookmarkIcon fontSize="large"/>
+                : <BookmarkBorderOutlinedIcon fontSize="large"/>}
             </div>
         </div>
         <div className="mobile-detail-likecnt">
@@ -79,6 +114,7 @@ const Detail = (props) => {
                         <img alt="image" key = {index} src={item.image}/>
                       )
                     })}
+                    <button>다음</button>
                 </div>
                 <div className="dt-right-section">
                     <div className="dt-right-header">
@@ -102,13 +138,19 @@ const Detail = (props) => {
                     <div className="dt-right-footer">
                         <div className="dt-right-footer-btn-section">
                             <div className="dt-detail-like">
-                                <FavoriteBorderOutlinedIcon fontSize="large"/>
+                                {
+                                like
+                                ?<FavoriteIcon fontSize="large"/>
+                                :<FavoriteBorderOutlinedIcon fontSize="large"/>
+                                }
                             </div>
                             <div className="dt-detail-comment">
                                 <ChatBubbleOutlinedIcon fontSize="large"/>
                             </div>
-                            <div className="dt-detail-scrap">
-                                <BookmarkBorderOutlinedIcon fontSize="large"/>
+                            <div className="dt-detail-scrap" onClick={isBookmark}>
+                                {bookmark 
+                                ? <BookmarkIcon fontSize="large"/>
+                                : <BookmarkBorderOutlinedIcon fontSize="large"/>}
                             </div>
                         </div>
                         <div className="dt-right-footer-likecnt">
@@ -128,6 +170,12 @@ const Detail = (props) => {
             </div>
         </div>
     </div>
+    링크
+    {tags.map((item,index) =>{
+        return(
+            <div key = {index} onClick={(e) => goToShop(e,`${item.url}`)}>{item.name}</div>
+        );
+    })}
 </div>
 </>
     );
