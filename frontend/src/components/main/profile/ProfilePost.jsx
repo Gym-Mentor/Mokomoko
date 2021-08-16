@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Detail from "./Detail";
-// import store from '../../../store/store';
-
 import "../../../css/main/profile/ProfilePost.css";
-import { setDetail } from "../../../modules/profileDetail";
 import { Link } from "react-router-dom";
 import axios from "axios";
   
 
-const ProfilePost = (/*{ postList, post, number, onSetDetail, onGetDetailNumber, onGetDetail }*/) => {
+const ProfilePost = () => {
   const [isDetail, setIsDetail] = useState(false);
   const [postList, setPostList] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -33,6 +29,7 @@ const ProfilePost = (/*{ postList, post, number, onSetDetail, onGetDetailNumber,
 
         const response = await axios.get("http://i5d104.p.ssafy.io:8080/post/user/"+user.email);
 
+        console.log(response.data.data);
         setPostList(response.data.data);
       }catch(e){
         setError(e);
@@ -40,10 +37,8 @@ const ProfilePost = (/*{ postList, post, number, onSetDetail, onGetDetailNumber,
 
       setLoading(false);
     }
-
-
-
     fetchPostList();
+
   }, []);
 
   const showDetail = (e, index) => {
@@ -51,15 +46,6 @@ const ProfilePost = (/*{ postList, post, number, onSetDetail, onGetDetailNumber,
 
     setIsDetail((prev) => !prev);
     console.log(isDetail);
-
-    // onGetDetailNumber(index.index);
-    // onGetDetail(index.index);
-    // store.dispatch({type:'SHOW_PROFILE_DETAIL', item: detail})
-    // if(!isDetail){
-    //   history.pushState({},'main/profile/detail');
-    // }
-
-    // location.href(`/mian/detail/${index}`);
   };
 
   if (loading) return <div>로딩중..</div>;
@@ -74,10 +60,9 @@ const ProfilePost = (/*{ postList, post, number, onSetDetail, onGetDetailNumber,
               <div key={index} className="postGrid" onClick={(e) => showDetail(e, { index })}>
                 <Link
                   to={{
-                    pathname: `/main/testt/${index}`,
+                    pathname: `/main/testt/${item.post.id}`,
                     state: {
-                      idx: index,
-                      item: postList[index],
+                      idx: item.post.id,
                     },
                   }}
                 > 
