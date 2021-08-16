@@ -4,7 +4,8 @@ import "../../css/header/ContentHeader.css";
 
 const ContentHeader = (props) => {
   const onClickBack = () => {
-    console.log("뒤로가기 처리");
+    console.log("뒤로 가는거 처리");
+    window.history.back();
   };
   return (
     <div>
