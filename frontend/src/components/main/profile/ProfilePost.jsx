@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "../../../css/main/profile/ProfilePost.css";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-import { setContent, setPost, setTags, setUserImage, setUserName } from "../../../modules/Post";
+import { setContent, setContentImage, setPost, setTags, setUserImage, setUserName } from "../../../modules/Post";
   
 
 const ProfilePost = () => {
@@ -14,13 +14,14 @@ const ProfilePost = () => {
 
   const history = useHistory();
 
-  const { user,userImage,userName,post,tags,content } = useSelector((state) => ({
+  const { user,userImage,userName,post,tags,content ,contentImage} = useSelector((state) => ({
     user: state.userInfo.user,
     userImage : state.Post.userImage,
     userName : state.Post.userName,
     post : state.Post.post,
     tags : state.Post.tags,
     content : state.Post.content,
+    contentImage : state.Post.contentImage,
   }));
 
     //useDispatch 사용해서 리덕스 스토어의 dispatch를 함수에서 사용할 수 있도록 해준다.
@@ -31,6 +32,7 @@ const ProfilePost = () => {
     const onSetPost = (post) => dispatch(setPost(post));
     const onSetTags = (tags) => dispatch(setTags(tags));
     const onSetContent = (content) => dispatch(setContent(content));
+    const onSetContentImage = (contentImage) => dispatch(setContentImage(contentImage));
   
 
 
@@ -68,6 +70,7 @@ const ProfilePost = () => {
     onSetPost({});
     onSetTags([]);
     onSetContent([]);
+    onSetContentImage([]);
 
     setIsDetail((prev) => !prev);
     
@@ -79,11 +82,25 @@ const ProfilePost = () => {
     })
     .then((response) => {
       console.log(response);
+      
+      
+      console.log("이미지 테스트");
+      // for(var i=0;i<response.data.data.content.length;i++){
+      //   console.log(response.data.data.content[i]);
+      // }
       onSetUserImage(response.data.data.userImage);
       onSetUserName(response.data.data.userName);
       onSetPost(response.data.data.post);
       onSetTags(response.data.data.tags);
       onSetContent(response.data.data.contents);
+
+      var contentImage = new Array();
+      
+      for(var i=0;i<content.length;i++){
+        contentImage.push(content[i].image);
+      }
+
+      onSetContentImage(contentImage);
 
     })
     .catch((error) =>{

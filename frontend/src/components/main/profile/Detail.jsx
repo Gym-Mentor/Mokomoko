@@ -7,6 +7,7 @@ import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutline
 import ChatBubbleOutlinedIcon from "@material-ui/icons/ChatBubbleOutlined";
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import testImg from "../../../img/user.jpg";
 
 import {Col, Form, Row} from "react-bootstrap";
@@ -15,16 +16,18 @@ import axios from "axios";
 
 const Detail = (props) => {
 
-  const {userImage,userName,post,tags,content } = useSelector((state) => ({
+  const {userImage,userName,post,tags,content,contentImage } = useSelector((state) => ({
     userImage : state.Post.userImage,
     userName : state.Post.userName,
     post : state.Post.post,
     tags : state.Post.tags,
     content : state.Post.content,
+    contentImage : state.Post.contentImage
   }));
 
   const [bookmark,setBookmark] = useState(false);
   const [like,setLike] = useState(false);
+  const [scrollState, setScrollState] = useState(Number(0));
 
   const isPostLike = () =>{
       console.log("좋아요");
@@ -42,6 +45,16 @@ const Detail = (props) => {
       window.open(shoppingUrl);
   }
 
+  const showNextImage = () =>{
+      console.log("다음 이미지 보여주기");
+      if (scrollState === contentImage.length - 1) {
+        setScrollState(0);
+      } else {
+        setScrollState(scrollState + 1);
+      }
+  }
+
+
     
     return (
         <> < div className = "detail-contents" > {/* <div className="mobile-headerDiv">
@@ -56,12 +69,11 @@ const Detail = (props) => {
         </div>
         <div className="mobile-detail-img">
             {/* <img src={item.img} alt="image" /> */}
-            {content.map((item,index) =>{
-              return(
-                  <img alt="image" key = {index} src={item.image}/>
-                )
-              })}
+            <img alt="image" src={contentImage[scrollState]}/>
             <img className="mobile-detail-img"/>
+            <div className="mobile-image-next" onClick={showNextImage}>
+                <NavigateNextIcon fontSize="large"/>
+            </div>
         </div>
         <div className="mobile-detail-things">
             <div className="mobile-detail-like" onClick={isPostLike}>
@@ -102,6 +114,7 @@ const Detail = (props) => {
                         <img alt="image" key = {index} src={item.image}/>
                       )
                     })}
+                    <button>다음</button>
                 </div>
                 <div className="dt-right-section">
                     <div className="dt-right-header">
