@@ -117,13 +117,12 @@ const UserInfoModify = () => {
         newUserInfo.image = res.data.data.image.toString();
         console.log(res.data.data.image.toString());
         SetUserInfo(newUserInfo);
+        // 현재 로그인한 사용자의 정보 바꾸기
+        onSetUserInfo(newUserInfo);
       })
       .catch((res) => {
         console.log(res);
       });
-
-    // 현재 로그인한 사용자의 정보 바꾸기
-    onSetUserInfo(userInfo);
   };
 
   const removeUser = (e) => {
