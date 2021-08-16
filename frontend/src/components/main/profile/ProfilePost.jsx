@@ -62,6 +62,13 @@ const ProfilePost = () => {
   const showDetail = (e, postid) => {
     e.preventDefault();
 
+    //redux초기화
+    onSetUserImage("");
+    onSetUserName("");
+    onSetPost({});
+    onSetTags([]);
+    onSetContent([]);
+
     setIsDetail((prev) => !prev);
     
     console.log(postid);
