@@ -14,7 +14,7 @@ const Cheader = (props) => {
           <div id="header-title">{props.title}</div>
         </Container>
       </Navbar>
-      <hr className="header-line" />
+      {/* <hr className="header-line" /> */}
     </div>
   );
 };

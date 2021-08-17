@@ -1,5 +1,6 @@
 #profile-header-name {
   font-size: 20px;
+  padding-top: 20px;
 }
 .cheader-wrapper {
   width: 100%;
@@ -12,6 +13,7 @@
   padding-right: 130px;
   font-family: Wemakeprice-SemiBold;
   background-color: transparent;
+  padding-top: 20px;
 }
 .header-line {
   color: #5f5d5d;
