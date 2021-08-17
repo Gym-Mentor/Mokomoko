@@ -96,9 +96,11 @@ const UserInfoModify = (props) => {
     // formData로 변환
     const formData = new FormData();
     // 이미지를 넣었을 때만 수정함
-    formData.append("image", userInfo.image);
+
     if (!userInfo.fileChanged) {
-      formData.append("image", null);
+      formData.set("image", null);
+    } else {
+      formData.set("image", userInfo.image);
     }
     formData.append("provide", userInfo.provide);
     formData.append("fileChanged", fileChanged);
