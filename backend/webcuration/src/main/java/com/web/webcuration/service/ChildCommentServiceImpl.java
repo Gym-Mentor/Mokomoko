@@ -52,4 +52,11 @@ public class ChildCommentServiceImpl implements ChildCommentService {
         }
     }
 
+    @Override
+    public List<ChildComment> deleteChildCommentByPostid(List<Long> postid) {
+        List<ChildComment> deleteChildComment = childCommentQueryRepository.getDeleteChildComment(postid);
+        childCommentRepository.deleteAll(deleteChildComment);
+        return deleteChildComment;
+    }
+
 }
