@@ -1,10 +1,13 @@
 package com.web.webcuration.service;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.util.List;
 
+import com.web.webcuration.dto.request.ExplorePostRequest;
+import com.web.webcuration.dto.request.MainFeedRequest;
 import com.web.webcuration.dto.request.PostRequest;
 import com.web.webcuration.dto.response.BaseResponse;
+import com.web.webcuration.dto.response.MainFeedResponse;
 
 public interface PostService {
 
@@ -18,5 +21,11 @@ public interface PostService {
 
     BaseResponse updatePost(PostRequest changePost) throws IllegalStateException, IOException;
 
-    BaseResponse getExplorePost(LocalDateTime lastTime);
+    BaseResponse getExplorePost(ExplorePostRequest explorePostRequest);
+
+    List<MainFeedResponse> getMainFeed(MainFeedRequest mainFeedRequest);
+
+    void ChangePostCommentCnt(Long postid, Long number);
+
+    void ChangePostLikeCnt(Long postid, Long number);
 }

@@ -17,7 +17,7 @@ public class UserQueryRepository {
     public boolean DuplicateCheckName(Long userid, String nickname) {
         String previousNickname = jpaQueryFactory.select(qUser.nickname).from(qUser).where(qUser.id.eq(userid))
                 .fetchFirst();
-        if (previousNickname.equals(nickname)) {
+        if (previousNickname == null || previousNickname.equals(nickname)) {
             return true;
         }
         Long countChangeNickname = jpaQueryFactory.select(qUser.nickname).from(qUser).where(qUser.nickname.eq(nickname))

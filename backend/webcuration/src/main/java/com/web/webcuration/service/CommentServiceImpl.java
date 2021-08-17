@@ -1,6 +1,7 @@
 package com.web.webcuration.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.web.webcuration.Entity.ChildComment;
 import com.web.webcuration.Entity.Comment;
@@ -19,8 +20,8 @@ import lombok.RequiredArgsConstructor;
 public class CommentServiceImpl implements CommentService {
 
     private final CommentUtils commentUtils;
-    private final CommentRepository commentRepository;
     private final ChildCommentService childCommentService;
+    private final CommentRepository commentRepository;
     private final CommentQueryRepository commentQueryRepository;
 
     // 게시글 모든 댓글 가져오기(미니 댓글 포함)
@@ -48,6 +49,16 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public BaseResponse createComment(Comment comment) {
         return BaseResponse.builder().status("200").msg("success").data(commentRepository.save(comment)).build();
+    }
+
+    @Override
+    public Long getCommentPostid(Long commentid) {
+        Optional<Comment> comment = commentRepository.findById(commentid);
+        if (comment.isPresent()) {
+            return comment.get().getPostid();
+        } else {
+            throw new RuntimeException("해당 댓글이 없습니다.");
+        }
     }
 
 }

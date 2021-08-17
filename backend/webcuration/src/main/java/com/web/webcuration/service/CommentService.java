@@ -12,7 +12,9 @@ public interface CommentService {
 
     BaseResponse updateComment(Comment comment);
 
-    BaseResponse deleteComment(Long commentId);
+    BaseResponse deleteComment(Long commentid);
 
     BaseResponse createComment(Comment comment);
+
+    Long getCommentPostid(Long commentid);
 }

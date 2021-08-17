@@ -24,4 +24,6 @@ public class ProfileRequest {
     private String introduce;
 
     private String nickname;
+
+    private boolean fileChanged;
 }

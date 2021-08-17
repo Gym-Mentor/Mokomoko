@@ -44,8 +44,7 @@ public class UserController {
     }
 
     @PutMapping("/name")
-    public ResponseEntity<BaseResponse> updateUser(@RequestBody NickNameRequest nicknameRequest)
-            throws IllegalStateException, IOException {
+    public ResponseEntity<BaseResponse> updateUser(@RequestBody NickNameRequest nicknameRequest) {
         return ResponseEntity.ok(userService.setNickname(nicknameRequest));
     }
 
