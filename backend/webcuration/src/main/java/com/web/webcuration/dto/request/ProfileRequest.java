@@ -19,6 +19,8 @@ public class ProfileRequest {
 
     private Long id;
 
+    private String provide;
+
     private MultipartFile image;
 
     private String introduce;
