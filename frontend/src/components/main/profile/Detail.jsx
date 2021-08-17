@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import {useSelector,useDispatch} from "react-redux";
 import "../../../css/main/profile/Detail.css";
 import {Avatar} from "@material-ui/core";
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -13,6 +13,8 @@ import {Col, Form, Row} from "react-bootstrap";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import { setLike} from "../../../modules/Post";
+import axios from "axios";
 
 const Detail = (props) => {
 
@@ -26,22 +28,63 @@ const Detail = (props) => {
       }, [transcript]);
 
 
-  const {userImage,userName,post,tags,content,contentImage } = useSelector((state) => ({
+  const {user,userImage,userName,post,tags,content,contentImage,like,comments } = useSelector((state) => ({
+    user : state.userInfo.user,
     userImage : state.Post.userImage,
     userName : state.Post.userName,
     post : state.Post.post,
     tags : state.Post.tags,
     content : state.Post.content,
-    contentImage : state.Post.contentImage
+    contentImage : state.Post.contentImage,
+    like : state.Post.like,
+    comments : state.Post.comments
   }));
 
+  const dispatch = useDispatch();
+  const onSetLike = (like) => dispatch(setLike(like)); 
+
   const [bookmark,setBookmark] = useState(false);
-  const [like,setLike] = useState(false);
   const [scrollState, setScrollState] = useState(Number(0));
 
   const isPostLike = () =>{
       console.log("좋아요");
-      setLike(!like);
+      
+      if(like == false){
+          onSetLike(true);
+
+          axios({
+              method : 'post',
+              url :"http://i5d104.p.ssafy.io:8080:/likes",
+              data :{
+                  "userid" : user.id,
+                  "postid" : post.id,
+              }
+          })
+          .then((response) =>{
+              console.log(response);
+          })
+          .catch((error)=>{
+              console.error(error);
+          })
+      }
+      else{
+          onSetLike(false);
+
+          axios({
+              method :"delete",
+              url:"http://i5d104.p.ssafy.io:8080/likes",
+              data:{
+                  "userid" : user.id,
+                  "postid" : post.id,
+              }
+          })
+          .then((response) =>{
+              console.log(response);
+          })
+          .catch((error) =>{
+            console.error(error);
+        })
+      }
   }
 
   const isBookmark = () =>{
@@ -163,7 +206,7 @@ const Detail = (props) => {
                     </div>
                     <div className="dt-right-footer">
                         <div className="dt-right-footer-btn-section">
-                            <div className="dt-detail-like">
+                            <div className="dt-detail-like" onClick={isPostLike}>
                                 {
                                 like
                                 ?<FavoriteIcon fontSize="large"/>
