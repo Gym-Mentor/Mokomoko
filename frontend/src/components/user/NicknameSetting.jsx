@@ -21,7 +21,7 @@ const NicknameSetting = ({ history }) => {
   const onSetUserInfo = (userInfo) => dispatch(setUserInfo(userInfo));
 
   useEffect(() => {
-    console.log(nickname);
+    // console.log(nickname);
   }, [nickname, nicknameValidation]);
 
   const btnChangeColor = () => {
@@ -34,11 +34,11 @@ const NicknameSetting = ({ history }) => {
 
   const isNicknameOk = () => {
     // 숫자, 알파벳 대소문자, . , _ 이외 문자일 경우 false
-    console.log("ok");
+    // console.log("ok");
 
     const nicknameRegex = /^[a-zA-Z0-9._]{3,15}$/;
 
-    console.log(nicknameRegex.test(nickname));
+    // console.log(nicknameRegex.test(nickname));
 
     if (nicknameRegex.test(nickname)) {
       setNicknameValidation(true);
