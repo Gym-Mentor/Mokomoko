@@ -15,11 +15,13 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { setLike} from "../../../modules/Post";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const Detail = (props) => {
-
+    const history = useHistory();
     const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
     var word = transcript.split(" ");
+
     useEffect(() => {
         // checking();
         return () => {
@@ -107,6 +109,12 @@ const Detail = (props) => {
       }
   }
 
+  const goToComment = () =>{
+      SpeechRecognition.stopListening()
+      console.log("댓글페이지 이동");
+      history.push("/main/p/comment");
+  }
+
   const checking = () => {
     console.log("체크", word[word.length - 1]);
     if (word[word.length - 1] === "다음") {
@@ -154,7 +162,7 @@ const Detail = (props) => {
                     :<FavoriteBorderOutlinedIcon fontSize="large"/>
                 }
             </div>
-            <div className="mobile-detail-comment">
+            <div className="mobile-detail-comment" onClick={goToComment}>
                 <ChatBubbleOutlinedIcon fontSize="large"/>
             </div>
             <div className="mobile-detail-scrap" onClick={isBookmark}>
@@ -213,7 +221,7 @@ const Detail = (props) => {
                                 :<FavoriteBorderOutlinedIcon fontSize="large"/>
                                 }
                             </div>
-                            <div className="dt-detail-comment">
+                            <div className="dt-detail-comment" onClick={goToComment}>
                                 <ChatBubbleOutlinedIcon fontSize="large"/>
                             </div>
                             <div className="dt-detail-scrap" onClick={isBookmark}>

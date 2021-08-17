@@ -7,6 +7,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import ContentHeader from "../header/ContentHeader";
 
 const DetailPresenter = () => {
+  
   return (
     <div className="detail-presenter-wrapper">
       <Row id="detail-presenter-row">
