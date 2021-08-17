@@ -95,6 +95,8 @@ const UserInfoModify = (props) => {
     // 이미지를 넣었을 때만 수정함
     if (userInfo.image !== null) {
       formData.append("image", userInfo.image);
+    } else {
+      formData.append("image", "/profileImg/user_image.png");
     }
     formData.append("id", userInfo.id);
     formData.append("nickname", userInfo.nickname);
