@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-import com.web.webcuration.dto.response.LoginUserResponse;
+import com.web.webcuration.dto.TokenDto;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -44,7 +44,7 @@ public class TokenProvider {
     }
 
     // 토큰 생성
-    public LoginUserResponse createToken(Authentication authentication) {
+    public TokenDto createToken(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
@@ -59,7 +59,7 @@ public class TokenProvider {
         String refreshToken = Jwts.builder().setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
                 .signWith(key, SignatureAlgorithm.HS512).compact();
 
-        return LoginUserResponse.builder().grantType(BEARED_TYPE).accessToken(accessToken)
+        return TokenDto.builder().grantType(BEARED_TYPE).accessToken(accessToken)
                 .accessTokenExpiresIn(accessTokenExpiresIn.getTime()).refreshToken(refreshToken).build();
     }
 

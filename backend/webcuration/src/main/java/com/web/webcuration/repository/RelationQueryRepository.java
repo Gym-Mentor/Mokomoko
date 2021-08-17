@@ -1,5 +1,6 @@
 package com.web.webcuration.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -27,9 +28,9 @@ public class RelationQueryRepository {
 
     // 로그인했을 때 팔로워, 차단 userid 전해주기
     public List<Relation> getUserRelation(Long userid) {
-        List<Relation> relations = null;
+        List<Relation> relations = new ArrayList<>();
         relations = jpaQueryFactory.select(qRelation).from(qRelation).where(qRelation.send.eq(userid)).fetch();
-        return relations.size() == 0 ? null : relations;
+        return relations;
     }
 
     // 팔로우, 팔로워 수 가져오기

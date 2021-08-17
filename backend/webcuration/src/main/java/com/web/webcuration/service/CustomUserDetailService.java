@@ -14,31 +14,28 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component("userDetailService")
-public class CustomUserDetailService implements UserDetailsService{
+public class CustomUserDetailService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     public CustomUserDetailService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    
+
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email)
-                .map(this::createUserDetails)
+        return userRepository.findByEmail(email).map(this::createUserDetails)
                 .orElseThrow(() -> new UsernameNotFoundException(email + " -> 데이터베이스에서 찾을 수 없습니다."));
     }
 
     private UserDetails createUserDetails(User user) {
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(user.getAuthority().toString());
 
-        return new org.springframework.security.core.userdetails.User(
-            String.valueOf(user.getId()),
-            user.getPassword(),
-            Collections.singleton(grantedAuthority)
-        );
-        
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(user.getAuthority());
+
+        return new org.springframework.security.core.userdetails.User(String.valueOf(user.getId()), user.getPassword(),
+                Collections.singleton(grantedAuthority));
+
     }
-    
+
 }
