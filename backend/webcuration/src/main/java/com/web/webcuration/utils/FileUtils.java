@@ -58,7 +58,6 @@ public class FileUtils {
     public static String getContentType(MultipartFile file) {
         String contentType = file.getContentType();
         String originalFileExtension;
-        System.out.println("비디오 : " + file.getContentType());
         if (contentType.equals("image/jpeg")) {
             originalFileExtension = ".jpg";
         } else if (contentType.equals("image/png")) {
@@ -76,8 +75,7 @@ public class FileUtils {
     public static String SetFilePath() {
         // local환경
         // String basePath =
-        // FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/"+
-        // "img";
+        // FileSystemView.getFileSystemView().getHomeDirectory().toString() + "/img";
         // 서버 환경
         String basePath = "/home/img";
         return basePath;
