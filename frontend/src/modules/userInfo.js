@@ -51,6 +51,7 @@ const initialState = {
     introduce: null,
     nickname: null,
     password: null,
+    provide: null,
     relationResponse: {
       follow: [],
       block: [],
