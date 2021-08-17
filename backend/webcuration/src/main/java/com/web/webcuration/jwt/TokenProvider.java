@@ -1,13 +1,12 @@
 package com.web.webcuration.jwt;
 
-
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-import com.web.webcuration.dto.TokenDto;
+import com.web.webcuration.dto.response.LoginUserResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class TokenProvider{
+public class TokenProvider {
 
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARED_TYPE = "bearer";
@@ -39,40 +38,29 @@ public class TokenProvider{
 
     private Key key;
 
-    public TokenProvider(@Value("${jwt.secret}") String secretkey){
+    public TokenProvider(@Value("${jwt.secret}") String secretkey) {
         byte[] keyBytes = Decoders.BASE64.decode(secretkey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    //토큰 생성
-    public TokenDto createToken(Authentication authentication) {
-        String authorities = authentication.getAuthorities().stream()
-                                .map(GrantedAuthority::getAuthority)
-                                .collect(Collectors.joining(","));
+    // 토큰 생성
+    public LoginUserResponse createToken(Authentication authentication) {
+        String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
         Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
 
-        //accessToken 생성
-        String accessToken = Jwts.builder()
-                                .setSubject(authentication.getName())
-                                .claim(AUTHORITIES_KEY, authorities)
-                                .signWith(key, SignatureAlgorithm.HS512)
-                                .setExpiration(accessTokenExpiresIn)
-                                .compact();
+        // accessToken 생성
+        String accessToken = Jwts.builder().setSubject(authentication.getName()).claim(AUTHORITIES_KEY, authorities)
+                .signWith(key, SignatureAlgorithm.HS512).setExpiration(accessTokenExpiresIn).compact();
 
-        //RefreshToken 생성
-        String refreshToken = Jwts.builder()
-                                .setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
-                                .signWith(key, SignatureAlgorithm.HS512)
-                                .compact();
-        
-        return TokenDto.builder()
-                    .grantType(BEARED_TYPE)
-                    .accessToken(accessToken)
-                    .accessTokenExpiresIn(accessTokenExpiresIn.getTime())
-                    .refreshToken(refreshToken)
-                    .build();
+        // RefreshToken 생성
+        String refreshToken = Jwts.builder().setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
+                .signWith(key, SignatureAlgorithm.HS512).compact();
+
+        return LoginUserResponse.builder().grantType(BEARED_TYPE).accessToken(accessToken)
+                .accessTokenExpiresIn(accessTokenExpiresIn.getTime()).refreshToken(refreshToken).build();
     }
 
     // 토큰으로 정보 얻기
@@ -80,31 +68,25 @@ public class TokenProvider{
         // Jwt에서 claims을 추출
         Claims claims = parseClaims(token);
 
-        if(claims.get(AUTHORITIES_KEY) == null) {
+        if (claims.get(AUTHORITIES_KEY) == null) {
             throw new RuntimeException("권한 정보가 없는 토큰입니다.");
         }
         // claims에서 권한 정보를 추출
-        Collection<? extends GrantedAuthority> authorities = 
-                Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
+        Collection<? extends GrantedAuthority> authorities = Arrays
+                .stream(claims.get(AUTHORITIES_KEY).toString().split(",")).map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
 
-        //spring.security의 User객체
+        // spring.security의 User객체
         UserDetails principal = new User(claims.getSubject(), "", authorities);
-        
+
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
-            
+
     }
 
     private Claims parseClaims(String token) {
         try {
-            return Jwts
-                        .parserBuilder()
-                        .setSigningKey(key)
-                        .build()
-                        .parseClaimsJws(token)
-                        .getBody();
-        } catch (ExpiredJwtException e){
+            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+        } catch (ExpiredJwtException e) {
             return e.getClaims();
         }
     }

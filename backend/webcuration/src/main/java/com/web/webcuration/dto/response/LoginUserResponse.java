@@ -1,4 +1,4 @@
-package com.web.webcuration.dto;
+package com.web.webcuration.dto.response;
 
 import com.web.webcuration.Entity.User;
 
@@ -15,12 +15,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class TokenDto {
-    
+public class LoginUserResponse {
 
     private String grantType;
     private String accessToken;
     private String refreshToken;
     private Long accessTokenExpiresIn;
     private User user;
+    private RelationResponse relationResponse;
 }

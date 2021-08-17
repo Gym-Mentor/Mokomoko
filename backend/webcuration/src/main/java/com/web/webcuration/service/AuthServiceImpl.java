@@ -4,18 +4,15 @@ import java.time.LocalDateTime;
 
 import com.web.webcuration.Entity.ConfirmationToken;
 import com.web.webcuration.Entity.RefreshToken;
+import com.web.webcuration.Entity.Relation;
 import com.web.webcuration.Entity.User;
-import com.web.webcuration.dto.TokenDto;
 import com.web.webcuration.dto.request.AuthMailCode;
 import com.web.webcuration.dto.request.SNSRequest;
 import com.web.webcuration.dto.request.TokenRequest;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
+import com.web.webcuration.dto.response.LoginUserResponse;
 import com.web.webcuration.jwt.TokenProvider;
-import com.web.webcuration.repository.ConfirmationTokenQueryRepository;
-import com.web.webcuration.repository.RefreshTokenRepository;
-import com.web.webcuration.repository.UserQueryRepository;
-import com.web.webcuration.repository.UserRepository;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -30,32 +27,37 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final RelationService relationService;
+    private final RefreshTokenService refreshTokenService;
     private final TokenProvider tokenProvider;
-    private final UserRepository userRepository;
-    private final UserQueryRepository userQueryRepository;
-    private final RefreshTokenRepository refreshTokenRepository;
+    private final PasswordEncoder passwordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
-    private final ConfirmationTokenQueryRepository confirmationTokenQueryRepository;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @Override
     @Transactional
     public BaseResponse signup(UserRequest userRequest) {
 
-        if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다.");
+        if (userService.getUserInfo(userRequest.getEmail()) != null) {
+            return BaseResponse.builder().status("500").msg("이미 가입된 이메일입니다.").build();
         }
 
-        User user = userRequest.toUser(passwordEncoder);
-        return BaseResponse.builder().status("200").msg("success").data(userRepository.save(user)).build();
+        User userInfo = userRequest.toUser(passwordEncoder);
+        User newUser = userService.createUser(userInfo);
+        relationService
+                .createRelation(Relation.builder().send(newUser.getId()).receive(newUser.getId()).state(true).build());
+        return BaseResponse.builder().status("200").msg("success").data(newUser).build();
     }
 
     @Override
     @Transactional
     public BaseResponse login(UserRequest userRequest) {
-        System.out.println("로그인!");
-        User loginUser = userRepository.findByEmail(userRequest.getEmail()).get();
+
+        User loginUser = userService.getUserInfo(userRequest.getEmail());
+        if (loginUser == null) {
+            return BaseResponse.builder().status("500").msg("가입하지 않은 이메일입니다.").build();
+        }
         // userRepository
         // 1. Login ID/PW를 기반으로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken = userRequest.toAuthentication();
@@ -66,25 +68,25 @@ public class AuthServiceImpl implements AuthService {
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
         // 3. 인증 정보를 기반으로 JWT 토큰 생성
-        TokenDto tokenDto = tokenProvider.createToken(authentication);
+        LoginUserResponse loginUserResponse = tokenProvider.createToken(authentication);
 
         // 4. RefreshToken 저장
         RefreshToken refreshToken = RefreshToken.builder().tokenKey(authentication.getName())
-                .tokenValue(tokenDto.getRefreshToken()).build();
+                .tokenValue(loginUserResponse.getRefreshToken()).build();
 
-        refreshTokenRepository.save(refreshToken);
-        tokenDto.setUser(loginUser);
+        refreshTokenService.creatRefreshToken(refreshToken);
+        loginUserResponse.setUser(loginUser);
+        loginUserResponse.setRelationResponse(relationService.getUserRelation(loginUser.getId()));
         // 5. 토큰 발급
-        return BaseResponse.builder().status("200").msg("success").data(tokenDto).build();
+        return BaseResponse.builder().status("200").msg("success").data(loginUserResponse).build();
 
     }
 
     @Override
     @Transactional
     public BaseResponse logout(String email) {
-        Long tokenKey = userQueryRepository.findIdByEmail(email);
-        Long effectRaw = refreshTokenRepository.deleteBytokenKey(Long.toString(tokenKey));
-        System.out.println("effectRaw : " + effectRaw);
+        Long tokenKey = userService.getUserInfo(email).getId();
+        Long effectRaw = refreshTokenService.deleteBytokenKey(Long.toString(tokenKey));
         if (effectRaw > 0) {
             return BaseResponse.builder().status("200").msg("success").build();
         } else {
@@ -105,7 +107,7 @@ public class AuthServiceImpl implements AuthService {
         Authentication authentication = tokenProvider.getAuthentication(tokenRequest.getAccessToken());
 
         // 3. 저장소에서 UserID를 기반으로 Refresh Token 값 가져옴
-        RefreshToken refreshToken = refreshTokenRepository.findBytokenKey(authentication.getName())
+        RefreshToken refreshToken = refreshTokenService.findBytokenKey(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("로그아웃 된 사용자입니다."));
 
         // 4. Refresh Token 일치하는지 검사
@@ -114,11 +116,11 @@ public class AuthServiceImpl implements AuthService {
         }
 
         // 5. 새로운 토큰 생성
-        TokenDto tokenDto = tokenProvider.createToken(authentication);
+        LoginUserResponse tokenDto = tokenProvider.createToken(authentication);
 
         // 6. 저장소 정보 업데이트
         RefreshToken newRefreshToken = refreshToken.updateValue(tokenDto.getRefreshToken());
-        refreshTokenRepository.save(newRefreshToken);
+        refreshTokenService.creatRefreshToken(newRefreshToken);
 
         // 토큰 발급
         return BaseResponse.builder().status("200").msg("success").data(tokenDto).build();
@@ -128,8 +130,8 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public BaseResponse sendAuthMail(String email, boolean type) {
         if (type) { // 회원 가입
-            if (userRepository.findByEmail(email).isEmpty()) {
-                ConfirmationToken confirmationToken = confirmationTokenQueryRepository.existAuthMail(email,
+            if (userService.getUserInfo(email) == null) {
+                ConfirmationToken confirmationToken = confirmationTokenService.existAuthMail(email,
                         LocalDateTime.now());
                 if (confirmationToken != null) {
                     confirmationTokenService.deleteAuthMail(confirmationToken.getId());
@@ -140,8 +142,8 @@ public class AuthServiceImpl implements AuthService {
                 throw new RuntimeException("이미 가입된 이메일이 존재합니다.");
             }
         } else { // 비밀번호 찾기
-            if (userRepository.findByEmail(email).isPresent()) {
-                ConfirmationToken confirmationToken = confirmationTokenQueryRepository.existAuthMail(email,
+            if (userService.getUserInfo(email) != null) {
+                ConfirmationToken confirmationToken = confirmationTokenService.existAuthMail(email,
                         LocalDateTime.now());
                 if (confirmationToken != null) {
                     confirmationTokenService.deleteAuthMail(confirmationToken.getId());
@@ -157,7 +159,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public BaseResponse authMail(AuthMailCode authMailCode, boolean type) {
-        ConfirmationToken confirmationToken = confirmationTokenQueryRepository.AuthMailCodeAndTime(authMailCode,
+        ConfirmationToken confirmationToken = confirmationTokenService.AuthMailCodeAndTime(authMailCode,
                 LocalDateTime.now(), type);
         if (confirmationToken == null) {
             throw new RuntimeException("인증 가능한 이메일 또는 코드가 없습니다.");
@@ -171,9 +173,8 @@ public class AuthServiceImpl implements AuthService {
     public BaseResponse authSNSLogin(SNSRequest snsRequest) {
         User snsUser = snsRequest.SNStoUser(passwordEncoder);
         System.out.println("snsUser : " + snsUser);
-        if (userRepository.findByEmail(snsUser.getEmail()).isEmpty()) {
-            userRepository.save(snsUser);
-            System.out.println("snsuser " + snsUser);
+        if (userService.getUserInfo(snsUser.getEmail()) == null) {
+            userService.createUser(snsUser);
         }
         return login(new UserRequest(snsUser.getEmail(), snsUser.getEmail()));
     }

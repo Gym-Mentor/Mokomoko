@@ -1,32 +1,17 @@
 package com.web.webcuration.service;
 
+import java.time.LocalDateTime;
+
 import com.web.webcuration.Entity.ConfirmationToken;
-import com.web.webcuration.mails.EmailSenderService;
-import com.web.webcuration.repository.ConfirmationTokenRepository;
+import com.web.webcuration.dto.request.AuthMailCode;
 
-import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
+public interface ConfirmationTokenService {
 
-import lombok.RequiredArgsConstructor;
+    String createEmailConfirmationToken(String receiveEmail, boolean type);
 
-@RequiredArgsConstructor
-@Service
-public class ConfirmationTokenService {
+    void deleteAuthMail(Long id);
 
-    private final EmailSenderService emailSenderService;
-    private final ConfirmationTokenRepository confirmationTokenRepository;
+    ConfirmationToken existAuthMail(String email, LocalDateTime time);
 
-    public String createEmailConfirmationToken(String receiveEmail, boolean type) {
-
-        Assert.hasText(receiveEmail, "Email은 필수 입니다.");
-
-        ConfirmationToken emailConfirmationToken = ConfirmationToken.createEmailConfirmationToken(receiveEmail, type);
-        confirmationTokenRepository.save(emailConfirmationToken);
-        emailSenderService.sendEmail(receiveEmail, emailConfirmationToken.getVirifyCode(), type);
-        return emailConfirmationToken.getEmail();
-    }
-
-    public void deleteAuthMail(Long id) {
-        confirmationTokenRepository.deleteById(id);
-    }
+    ConfirmationToken AuthMailCodeAndTime(AuthMailCode authMailCode, LocalDateTime time, boolean type);
 }

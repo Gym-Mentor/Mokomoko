@@ -10,18 +10,16 @@ import com.web.webcuration.Entity.Contents;
 import com.web.webcuration.Entity.Post;
 import com.web.webcuration.Entity.Tag;
 import com.web.webcuration.Entity.User;
+import com.web.webcuration.dto.UserPostInfo;
+import com.web.webcuration.dto.UserRelationInfo;
 import com.web.webcuration.dto.request.LikeRequest;
 import com.web.webcuration.dto.request.PostRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.dto.response.CommentResponse;
 import com.web.webcuration.dto.response.PostResponse;
 import com.web.webcuration.dto.response.UserPostResponse;
-import com.web.webcuration.repository.ContentsQueryRepository;
-import com.web.webcuration.repository.ContentsRepository;
 import com.web.webcuration.repository.PostQueryRepository;
 import com.web.webcuration.repository.PostRepository;
-import com.web.webcuration.repository.UserQueryRepository;
-import com.web.webcuration.repository.UserRepository;
 import com.web.webcuration.utils.FileUtils;
 
 import org.springframework.stereotype.Service;
@@ -36,40 +34,44 @@ public class PostServiceImpl implements PostService {
     private final TagService tagService;
     private final LikeService likeService;
     private final CommentService commentService;
+    private final UserService userService;
+    private final RelationService relationService;
+    private final ContentsService contentsService;
     private final PostRepository postRepository;
     private final PostQueryRepository postQueryRepository;
-    private final ContentsRepository contentsRepository;
-    private final ContentsQueryRepository contentsQueryRepository;
-    private final UserRepository userRepository;
-    private final UserQueryRepository userQueryRepository;
 
     // 유저의 모든 게시글 출력
     @Override
     public BaseResponse readUserPosts(String email) {
-        Long userid = userQueryRepository.findIdByEmail(email);
+        Long userid = userService.getUserInfo(email).getId();
         List<Post> posts = postQueryRepository.FindByUserPostOrderby(userid);
-        List<UserPostResponse> userPostResponse = new ArrayList<>();
+        List<UserPostInfo> userPostResponse = new ArrayList<>();
         for (Post post : posts) {
             // 썸네일 사진을 어떻게 전해 주는가?..
-            userPostResponse.add(UserPostResponse.builder().post(post)
-                    .image(contentsQueryRepository.FindByPostidOrderby(post.getId()).getImage()).build());
+            userPostResponse.add(UserPostInfo.builder().post(post)
+                    .image(contentsService.FindByPostidOrderby(post.getId()).getImage()).build());
         }
-        return BaseResponse.builder().status("200").msg("success").data(userPostResponse).build();
+        UserRelationInfo relationInfo = relationService.getCountUserRelation(userid);
+        UserPostResponse postResponse = UserPostResponse.builder().postInfo(userPostResponse).relationInfo(relationInfo)
+                .build();
+        return BaseResponse.builder().status("200").msg("success").data(postResponse).build();
     }
 
     // 특정 게시글 출력
     @Override
+    // 로그인 한 사람 userid, 게시글 postid
     public BaseResponse getSelectedPost(Long userid, Long postid) {
         Optional<Post> post = postRepository.findById(postid);
         if (post.isPresent()) {
-            Optional<User> user = userRepository.findById(post.get().getUserid());
-            List<Contents> contents = contentsQueryRepository.FindAllByPostidOrderBy(postid);
+            // 해당 게시글의 유저 정보
+            User user = userService.getUserInfo(post.get().getUserid());
+            List<Contents> contents = contentsService.findAllByPostidOrderBy(postid);
             List<Tag> tags = tagService.findPostInTag(postid);
             boolean like = likeService.readLike(LikeRequest.builder().postid(postid).userid(userid).build());
             // comment도 같이 줘야됨
             List<CommentResponse> comments = commentService.getPostComment(postid);
             return BaseResponse.builder().status("200").msg("success")
-                    .data(PostResponse.builder().userName(user.get().getNickname()).userImage(user.get().getImage())
+                    .data(PostResponse.builder().userName(user.getNickname()).userImage(user.getImage())
                             .contents(contents).tags(tags).post(post.get()).like(like).comments(comments).build())
                     .build();
         } else {
@@ -80,10 +82,9 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public BaseResponse createPost(PostRequest newPost) throws IllegalStateException, IOException {
-        Long postid = postRepository.save(newPost.toPost(userQueryRepository.findIdByEmail(newPost.getEmail())))
-                .getId();
+        Long postid = postRepository.save(newPost.toPost(userService.getUserInfo(newPost.getEmail()).getId())).getId();
         if (newPost.getContents() != null) {
-            contentsRepository.saveAll(FileUtils.uploadFile(newPost.getContents(), postid));
+            contentsService.saveAllContents(FileUtils.uploadFile(newPost.getContents(), postid));
         }
         if (newPost.getTags() != null) {
             tagService.saveTag(newPost.getTags(), postid);
@@ -95,9 +96,10 @@ public class PostServiceImpl implements PostService {
     @Transactional
     public BaseResponse deletePost(Long postid) {
         tagService.deleteTag(postid);
-        List<Contents> reqContents = contentsQueryRepository.FindAllByPostidOrderBy(postid);
+
+        List<Contents> reqContents = contentsService.findAllByPostidOrderBy(postid);
         FileUtils.deleteFile(reqContents);
-        contentsRepository.deleteAll(reqContents);
+        contentsService.deleteAllContents(reqContents);
         postRepository.deleteById(postid);
 
         return BaseResponse.builder().status("200").status("success").build();
@@ -109,22 +111,22 @@ public class PostServiceImpl implements PostService {
         Optional<Post> optPost = postRepository.findById(changePost.getPostid());
         if (optPost.isPresent()) {
             Post post = postRepository.save(changePost.toPost(optPost.get()));
-            Optional<User> user = userRepository.findById(post.getUserid());
+            User user = userService.getUserInfo(post.getUserid());
             // contents
-            List<Contents> reqContents = contentsQueryRepository.FindAllByPostidOrderBy(post.getId());
+            List<Contents> reqContents = contentsService.findAllByPostidOrderBy(post.getId());
             FileUtils.deleteFile(reqContents);
-            List<Contents> contents = contentsRepository
-                    .saveAll(FileUtils.uploadFile(changePost.getContents(), post.getId()));
+            List<Contents> contents = contentsService
+                    .saveAllContents(FileUtils.uploadFile(changePost.getContents(), post.getId()));
             // 태그
             tagService.deleteTag(post.getId());
             List<Tag> tags = changePost.getTags() != null ? tagService.saveTag(changePost.getTags(), post.getId())
                     : null;
             // like
             boolean like = likeService
-                    .readLike(LikeRequest.builder().postid(changePost.getPostid()).userid(user.get().getId()).build());
-            return BaseResponse.builder().status("200").status("success")
-                    .data(PostResponse.builder().userName(user.get().getNickname()).userImage(user.get().getImage())
-                            .contents(contents).tags(tags).post(post).like(like).build())
+                    .readLike(LikeRequest.builder().postid(changePost.getPostid()).userid(user.getId()).build());
+            return BaseResponse
+                    .builder().status("200").status("success").data(PostResponse.builder().userName(user.getNickname())
+                            .userImage(user.getImage()).contents(contents).tags(tags).post(post).like(like).build())
                     .build();
         }
         throw new RuntimeException("수정하려는 게시글이 없습니다.");
@@ -133,10 +135,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public BaseResponse getExplorePost(LocalDateTime lastTime) {
         List<Post> explorePosts = postQueryRepository.getExplorePost(lastTime);
-        List<UserPostResponse> userPostResponse = new ArrayList<>();
+        List<UserPostInfo> userPostResponse = new ArrayList<>();
         for (Post post : explorePosts) {
-            userPostResponse.add(UserPostResponse.builder().post(post)
-                    .image(contentsQueryRepository.FindByPostidOrderby(post.getId()).getImage()).build());
+            userPostResponse.add(UserPostInfo.builder().post(post)
+                    .image(contentsService.FindByPostidOrderby(post.getId()).getImage()).build());
         }
         return BaseResponse.builder().status("200").msg("success").data(userPostResponse).build();
     }
