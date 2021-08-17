@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "../../../css/main/profile/ProfilePost.css";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-import { setContent, setContentImage, setPost, setTags, setUserImage, setUserName } from "../../../modules/Post";
+import {setContent, setContentImage, setPost, setTags, setUserImage, setUserName, setLike, setComments } from "../../../modules/Post";
   
 
 const ProfilePost = () => {
@@ -14,7 +14,7 @@ const ProfilePost = () => {
 
   const history = useHistory();
 
-  const { user,userImage,userName,post,tags,content ,contentImage} = useSelector((state) => ({
+  const { user,userImage,userName,post,tags,content ,contentImage,like,comments} = useSelector((state) => ({
     user: state.userInfo.user,
     userImage : state.Post.userImage,
     userName : state.Post.userName,
@@ -22,6 +22,8 @@ const ProfilePost = () => {
     tags : state.Post.tags,
     content : state.Post.content,
     contentImage : state.Post.contentImage,
+    like : state.Post.like,
+    comments : state.Post.comments
   }));
 
     //useDispatch 사용해서 리덕스 스토어의 dispatch를 함수에서 사용할 수 있도록 해준다.
@@ -33,6 +35,8 @@ const ProfilePost = () => {
     const onSetTags = (tags) => dispatch(setTags(tags));
     const onSetContent = (content) => dispatch(setContent(content));
     const onSetContentImage = (contentImage) => dispatch(setContentImage(contentImage));
+    const onSetLike = (like) => dispatch(setLike(like));
+    const onSetComments = (comments) => dispatch(setComments(comments));
   
 
 
@@ -71,13 +75,15 @@ const ProfilePost = () => {
     onSetTags([]);
     onSetContent([]);
     onSetContentImage([]);
+    onSetLike(false);
+    onSetComments([]);
 
     setIsDetail((prev) => !prev);
     
     console.log(postid);
     //받아온 postid 통해서 GET 으로 정보 얻어오기
     axios({
-      url :"http://i5d104.p.ssafy.io:8080/post/"+postid,
+      url :"http://i5d104.p.ssafy.io:8080/post/"+user.id+"/"+postid,
       method: "get",
     })
     .then((response) => {
@@ -93,6 +99,8 @@ const ProfilePost = () => {
       onSetPost(response.data.data.post);
       onSetTags(response.data.data.tags);
       onSetContent(response.data.data.contents);
+      onSetLike(response.data.data.like);
+      onSetComments(response.data.data.comments);
 
       var contentImage = new Array();
       var content_box = response.data.data.contents;
@@ -101,6 +109,7 @@ const ProfilePost = () => {
         contentImage.push(content_box[i].image);
       }
 
+      //이미지 여러장 처리 위해 사용
       onSetContentImage(contentImage);
 
     })
