@@ -67,7 +67,7 @@ const Login = ({ history }) => {
       })
       .catch((error) => {
         // console.log(error);
-        console.error(error);
+        console.error(JSON.stringify(error));
         // if (error === 401) {
         //   window.location.reload();
         // }
