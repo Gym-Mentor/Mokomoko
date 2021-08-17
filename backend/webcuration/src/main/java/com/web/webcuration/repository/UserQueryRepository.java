@@ -2,6 +2,7 @@ package com.web.webcuration.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.webcuration.Entity.QUser;
+import com.web.webcuration.Entity.User;
 
 import org.springframework.stereotype.Repository;
 
@@ -20,5 +21,14 @@ public class UserQueryRepository {
             throw new RuntimeException("존재하지 않는 이메일입니다.");
         }
         return id;
+    }
+
+    public boolean DuplicateCheckName(String nickname) {
+        User checkNickname = jpaQueryFactory.select(quser).from(quser).where(quser.nickname.eq(nickname)).fetchFirst();
+        if (checkNickname == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

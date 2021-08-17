@@ -31,10 +31,10 @@ const Food = ({ history }) => {
     for (let i = 0; i < fileLength; i++) {
       // 파일 하나 받아오기
       file = fileArr[i];
-      if (file.size > 1024 * 1024 * 10) {
+      if (file.size > 1024 * 1024 * 50) {
         // 용량 초과시 경고후 해당 파일의 용량도 보여줌
         alert(
-          "10MB 이하 파일만 등록할 수 있습니다.\n\n" +
+          "50MB 이하 파일만 등록할 수 있습니다.\n\n" +
             (i + 1) +
             "번째 파일 용량 : " +
             Math.round((file.size / 1024 / 1024) * 100) / 100 +
@@ -43,7 +43,7 @@ const Food = ({ history }) => {
         check = true;
       }
     }
-    // 파일 용량이 10MB면 종료
+    // 파일 용량이 50MB 이상이면 종료
     if (check) return;
     for (let i = 0; i < fileLength; i++) {
       // 파일 하나 받아오기
@@ -172,7 +172,7 @@ const Food = ({ history }) => {
                 type="file"
                 id="food-file"
                 multiple
-                accept="image/jpg,image/png,image/jpeg,image/gif,video/*"
+                accept="image/jpg,image/png,image/jpeg,image/gif,video/mp4"
                 onChange={handleImageUpload}
                 onClick={handleUploadClick}
               />
