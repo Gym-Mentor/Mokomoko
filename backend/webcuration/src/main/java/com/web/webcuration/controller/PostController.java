@@ -38,9 +38,10 @@ public class PostController {
         return ResponseEntity.ok(postService.readUserPosts(email));
     }
 
-    @GetMapping("/{postid}")
-    public ResponseEntity<BaseResponse> getSelectedPost(@PathVariable("postid") Long postid) {
-        return ResponseEntity.ok(postService.getSelectedPost(postid));
+    @GetMapping("/{userid}/{postid}")
+    public ResponseEntity<BaseResponse> getSelectedPost(@PathVariable("userid") Long userid,
+            @PathVariable("postid") Long postid) {
+        return ResponseEntity.ok(postService.getSelectedPost(userid, postid));
     }
 
     @DeleteMapping("/{postid}")

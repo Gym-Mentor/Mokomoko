@@ -10,7 +10,7 @@ public interface PostService {
 
     BaseResponse readUserPosts(String email);
 
-    BaseResponse getSelectedPost(Long postid);
+    BaseResponse getSelectedPost(Long userid, Long postid);
 
     BaseResponse createPost(PostRequest newPost) throws IllegalStateException, IOException;
 

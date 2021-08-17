@@ -34,7 +34,12 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public BaseResponse deleteLike(LikeRequest reqLike) {
-        return BaseResponse.builder().status("200").msg("success")
-                .data(likeRepository.deleteByUseridAndPostid(reqLike.getUserid(), reqLike.getPostid())).build();
+        Optional<Likes> findLike = likeRepository.findByUseridAndPostid(reqLike.getUserid(), reqLike.getPostid());
+        if (findLike.isPresent()) {
+            likeRepository.deleteById(findLike.get().getId());
+            return BaseResponse.builder().status("200").msg("success").build();
+        } else {
+            throw new RuntimeException("해당 Likes 데이터가 없습니다.");
+        }
     }
 }
