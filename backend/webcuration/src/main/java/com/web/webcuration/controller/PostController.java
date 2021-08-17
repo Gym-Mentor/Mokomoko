@@ -2,8 +2,7 @@ package com.web.webcuration.controller;
 
 import java.io.IOException;
 
-import com.web.webcuration.dto.request.ExplorePostRequest;
-import com.web.webcuration.dto.request.MainFeedRequest;
+import com.web.webcuration.dto.request.FeedRequest;
 import com.web.webcuration.dto.request.PostRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.PostService;
@@ -55,13 +54,13 @@ public class PostController {
     }
 
     @PostMapping("/explore")
-    public ResponseEntity<BaseResponse> getExplorePost(@RequestBody ExplorePostRequest explorePostRequest) {
-        return ResponseEntity.ok(postService.getExplorePost(explorePostRequest));
+    public ResponseEntity<BaseResponse> getExplorePost(@RequestBody FeedRequest FeedRequest) {
+        return ResponseEntity.ok(postService.getExplorePost(FeedRequest));
     }
 
     @PostMapping("/main")
-    public ResponseEntity<BaseResponse> getMainFeed(@RequestBody MainFeedRequest mainFeedRequest) {
-        return ResponseEntity.ok(BaseResponse.builder().status("200").msg("success")
-                .data(postService.getMainFeed(mainFeedRequest)).build());
+    public ResponseEntity<BaseResponse> getMainFeed(@RequestBody FeedRequest FeedRequest) {
+        return ResponseEntity.ok(
+                BaseResponse.builder().status("200").msg("success").data(postService.getMainFeed(FeedRequest)).build());
     }
 }

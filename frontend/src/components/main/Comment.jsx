@@ -100,7 +100,7 @@ const Comment = () => {
 
   const deleteComments = (e,commentid) =>{
     e.preventDefault();
-    var isDelete = confirm("삭제하시겠습니까?");
+    var isDelete = window.confirm("삭제하시겠습니까?");
 
     if(isDelete == true){
       axios({
@@ -152,32 +152,6 @@ const Comment = () => {
 
       <div className="user-comment">
         <ul className="comment-list">
-          {/* <li className="comment-list-detail">
-            <div className="usr-comment-userInfo">
-              <Avatar id="usr-comment-avatar" className="post-avatar" src={userImage} />
-              <p className="usr-comment-username">username</p>
-              <span className="usr-comment-desc">
-                this is test comment. plz type right messages
-              </span>
-            </div>
-            <div className="usr-comment-like">
-              <FavoriteBorderIcon id="comment-like" />
-            </div>
-            <div className="usr-comment-footer">
-              <div className="comment-likecnt-cont">
-                <a href="#" id="comment-likecnt">
-                  <p id="comment-likecnt-desc">좋아요 30개</p>
-                </a>
-              </div>
-              <div className="comment-footer-recomment-cont">
-                <div className="comment-footer-re">
-                  <button id="recomment-btn">
-                    <p id="recomment">답글 달기</p>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </li> */}
           {comments && comments.map((item,index) =>{
             return(
             <li className="comment-list-detail" key = {index}>
