@@ -22,7 +22,7 @@ const UserInfoModify = (props) => {
   const [file, setFile] = useState("");
   const [previewURL, setPreviewURL] = useState("");
   let preview_img = null;
-  let fileChanged = false;
+  var fileChanged = false;
   // 뒤로가기
   const goBack = () => {
     window.history.back();
