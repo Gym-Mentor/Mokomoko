@@ -27,12 +27,22 @@ public class UserServiceImpl implements UserService {
     private final UserQueryRepository userQueryRepository;
 
     @Override
-    public BaseResponse getUserInfo(String email) {
+    public User getUserInfo(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent()) {
-            return BaseResponse.builder().status("200").status("success").data(user.get()).build();
+            return user.get();
         } else {
-            throw new RuntimeException("존재하지 않은 이메일입니다.");
+            return null;
+        }
+    }
+
+    @Override
+    public User getUserInfo(Long userid) {
+        Optional<User> user = userRepository.findById(userid);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            return null;
         }
     }
 
@@ -45,7 +55,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public BaseResponse updateUser(ProfileRequest profileRequest) throws IllegalStateException, IOException {
-        if (userQueryRepository.DuplicateCheckName(profileRequest.getNickname())) {
+        if (userQueryRepository.DuplicateCheckName(profileRequest.getId(), profileRequest.getNickname())) {
             Optional<User> user = userRepository.findById(profileRequest.getId());
             if (user.isPresent()) {
                 User changeUser = user.get();
@@ -85,13 +95,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public BaseResponse setNickname(NickNameRequest nicknameRequest) {
-        if (userQueryRepository.DuplicateCheckName(nicknameRequest.getNickname())) {
+        if (userQueryRepository.DuplicateCheckName(nicknameRequest.getId(), nicknameRequest.getNickname())) {
             Optional<User> user = userRepository.findById(nicknameRequest.getId());
             user.get().setNickname(nicknameRequest.getNickname());
             return BaseResponse.builder().status("200").msg("success").data(userRepository.save(user.get())).build();
         } else {
             return BaseResponse.builder().status("500").msg("닉네임 중복").build();
         }
+    }
+
+    @Override
+    public User createUser(User newUser) {
+        return userRepository.save(newUser);
     }
 
 }
