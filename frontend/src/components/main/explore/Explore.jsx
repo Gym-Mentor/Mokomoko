@@ -24,10 +24,9 @@ export default function App() {
   const onSetIndex = (activeNav) => dispatch(setIndex(activeNav));
 
   const [page, setPage] = useState(0);
-  const [list, setList] = useState([]);
+  const [list, setList] = useState([{}]);
   const [loading, setLoading] = useState(false);
-  var postId = 0;
-  console.log(postId);
+  const [postid, setPostid] = useState(0);
   // 탐색 피드 받아오기
   useEffect(() => {
     onSetIndex(2);
@@ -52,14 +51,14 @@ export default function App() {
       method: "post",
       url: "http://i5d104.p.ssafy.io:8080/post/explore/",
       data: {
-        postId: postId,
+        postid: postid,
         block: user.block,
       },
     })
       .then((result) => {
         console.log(result);
         console.log(result.data);
-        list = result.data;
+        setList(...list, ...result.data);
       })
       .catch((res) => {
         console.log(res);

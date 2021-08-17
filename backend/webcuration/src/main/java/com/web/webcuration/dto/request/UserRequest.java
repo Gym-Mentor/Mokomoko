@@ -3,6 +3,7 @@ package com.web.webcuration.dto.request;
 import javax.validation.constraints.NotNull;
 
 import com.web.webcuration.Entity.Authority;
+import com.web.webcuration.Entity.Provide;
 import com.web.webcuration.Entity.User;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,7 +30,7 @@ public class UserRequest {
 
     public User toUser(PasswordEncoder passwordEncoder) {
         return User.builder().email(this.email).password(passwordEncoder.encode(this.password))
-                .authority(Authority.ROLE_USER).build();
+                .authority(Authority.ROLE_USER).provide(Provide.LOCAL).build();
     }
 
     public UsernamePasswordAuthenticationToken toAuthentication() {

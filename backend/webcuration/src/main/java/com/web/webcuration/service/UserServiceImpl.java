@@ -3,6 +3,7 @@ package com.web.webcuration.service;
 import java.io.IOException;
 import java.util.Optional;
 
+import com.web.webcuration.Entity.Provide;
 import com.web.webcuration.Entity.User;
 import com.web.webcuration.dto.request.NickNameRequest;
 import com.web.webcuration.dto.request.ProfileRequest;
@@ -17,9 +18,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -67,7 +70,13 @@ public class UserServiceImpl implements UserService {
                     // 사진이 변경 됐으면
                     if (!changeUser.getImage().equals("/profileImg/user_image.png")) {
                         // 기본 프로필이 아니면
-                        FileUtils.deleteProfile(changeUser.getImage());
+                        if (changeUser.getProvide().equals(Provide.LOCAL)) {
+                            // 로컬이면
+                            FileUtils.deleteProfile(changeUser.getImage());
+                        } else {
+                            // SNS면
+                            changeUser.setProvide(Provide.LOCAL);
+                        }
                     }
                     if (profileRequest.getImage() == null) {
                         // 기본 프로필 설정을 했으면
@@ -77,6 +86,7 @@ public class UserServiceImpl implements UserService {
                         changeUser.setImage(FileUtils.uploadProfile(profileRequest.getImage()));
                     }
                 }
+                log.info("{}", "프로필 : " + changeUser);
                 return BaseResponse.builder().status("200").status("success").data(userRepository.save(changeUser))
                         .build();
             }

@@ -38,7 +38,7 @@ const Main = () => {
         <Route path="/main/writeFoodImageText" component={FoodImageText} />
         <Route path="/main/writeFoodRecipeText" component={FoodRecipeText} />
         <Route path="/main/writeFoodRecipeSubmit" component={FoodRecipeSubmit} />
-        <Route path="/p/comment" component={Comment} />
+        <Route path="/main/p/comment" component={Comment} />
         <Route path="/main/testt/:index" component={DetailPresenter} />
         <Route path="/main/award" component={AwardMain} />
 
