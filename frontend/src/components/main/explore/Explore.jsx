@@ -74,7 +74,7 @@ export default function App() {
           <ExploreHeader />
           <div id="explore" className={page === 0 && loading ? "loading" : ""}>
             <List list={list} />
-            <FetchMore loading={page !== 0 && loading} setPage={setPage} />
+            <FetchMore loading={page !== 0 && loading} setPage={setPage} page={page} />
           </div>
         </div>
       </div>
