@@ -145,7 +145,6 @@ const UserInfoModify = (props) => {
 
   const removeUser = (e) => {
     e.preventDefault();
-    console.log("탈퇴");
     if (!window.confirm("탈퇴하시겠습니까?")) {
     } else {
       axios({
@@ -155,6 +154,7 @@ const UserInfoModify = (props) => {
       })
         .then((res) => {
           alert("탈퇴되었습니다.");
+          props.history.push("/");
         })
         .catch((res) => {
           console.log(res);

@@ -52,7 +52,7 @@ export default function App() {
       method: "post",
       url: "http://i5d104.p.ssafy.io:8080/post/explore/",
       data: {
-        postId: postId,
+        postid: postId,
         block: user.block,
       },
     })
