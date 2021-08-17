@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.web.webcuration.Entity.Contents;
 import com.web.webcuration.Entity.Post;
-import com.web.webcuration.Entity.Tag;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -13,19 +12,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class PostResponse {
+public class MainFeedResponse {
 
-    private String userImage;
+    private String nickname;
 
-    private String userName;
+    private String image;
 
     private Post post;
-
-    private List<Tag> tags;
 
     private List<Contents> contents;
 
     private boolean like;
-
-    private List<CommentResponse> comments;
 }

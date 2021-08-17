@@ -1,17 +1,22 @@
 package com.web.webcuration.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.web.webcuration.Entity.ConfirmationToken;
 import com.web.webcuration.Entity.RefreshToken;
 import com.web.webcuration.Entity.Relation;
 import com.web.webcuration.Entity.User;
+import com.web.webcuration.dto.TokenDto;
 import com.web.webcuration.dto.request.AuthMailCode;
+import com.web.webcuration.dto.request.MainFeedRequest;
 import com.web.webcuration.dto.request.SNSRequest;
 import com.web.webcuration.dto.request.TokenRequest;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.dto.response.LoginUserResponse;
+import com.web.webcuration.dto.response.MainFeedResponse;
+import com.web.webcuration.dto.response.RelationResponse;
 import com.web.webcuration.jwt.TokenProvider;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,16 +27,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class AuthServiceImpl implements AuthService {
 
     private final UserService userService;
     private final RelationService relationService;
     private final RefreshTokenService refreshTokenService;
+    private final PostService postService;
     private final TokenProvider tokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
@@ -70,17 +74,19 @@ public class AuthServiceImpl implements AuthService {
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
         // 3. 인증 정보를 기반으로 JWT 토큰 생성
-        LoginUserResponse loginUserResponse = tokenProvider.createToken(authentication);
+        TokenDto tokenDto = tokenProvider.createToken(authentication);
 
         // 4. RefreshToken 저장
         RefreshToken refreshToken = RefreshToken.builder().tokenKey(authentication.getName())
-                .tokenValue(loginUserResponse.getRefreshToken()).build();
+                .tokenValue(tokenDto.getRefreshToken()).build();
 
         refreshTokenService.creatRefreshToken(refreshToken);
-        loginUserResponse.setUser(loginUser);
-        loginUserResponse.setRelationResponse(relationService.getUserRelation(loginUser.getId()));
+        RelationResponse relationResponse = relationService.getUserRelation(loginUser.getId());
+        List<MainFeedResponse> mainFeed = postService
+                .getMainFeed(MainFeedRequest.builder().follow(relationResponse.getFollow()).postid(0L).build());
         // 5. 토큰 발급
-        return BaseResponse.builder().status("200").msg("success").data(loginUserResponse).build();
+        return BaseResponse.builder().status("200").msg("success").data(LoginUserResponse.builder().user(loginUser)
+                .token(tokenDto).relationResponse(relationResponse).mainFeed(mainFeed).build()).build();
 
     }
 
@@ -118,7 +124,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         // 5. 새로운 토큰 생성
-        LoginUserResponse tokenDto = tokenProvider.createToken(authentication);
+        TokenDto tokenDto = tokenProvider.createToken(authentication);
 
         // 6. 저장소 정보 업데이트
         RefreshToken newRefreshToken = refreshToken.updateValue(tokenDto.getRefreshToken());
@@ -175,7 +181,6 @@ public class AuthServiceImpl implements AuthService {
     public BaseResponse authSNSLogin(SNSRequest snsRequest) {
         User snsUser = snsRequest.SNStoUser(passwordEncoder);
         User newSnsUser = userService.getUserInfo(snsUser.getEmail());
-        log.info("{}", "sns로그인 : " + newSnsUser);
         if (newSnsUser == null) {
             newSnsUser = userService.createUser(snsUser);
             relationService.createRelation(

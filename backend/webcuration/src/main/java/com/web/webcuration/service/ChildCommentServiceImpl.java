@@ -1,6 +1,7 @@
 package com.web.webcuration.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.web.webcuration.Entity.ChildComment;
 import com.web.webcuration.dto.response.BaseResponse;
@@ -39,6 +40,16 @@ public class ChildCommentServiceImpl implements ChildCommentService {
     public BaseResponse createChildComment(ChildComment childComment) {
         return BaseResponse.builder().status("200").msg("success").data(childCommentRepository.save(childComment))
                 .build();
+    }
+
+    @Override
+    public Long getChildCommentPostid(Long childCommentid) {
+        Optional<ChildComment> childComment = childCommentRepository.findById(childCommentid);
+        if (childComment.isPresent()) {
+            return childComment.get().getPostid();
+        } else {
+            throw new RuntimeException("해당 대댓글이 없습니다.");
+        }
     }
 
 }
