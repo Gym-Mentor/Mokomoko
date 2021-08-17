@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserInfo, setUserInfo } from "../../../modules/userInfo";
 import { IoIosArrowBack } from "react-icons/io";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import userImg from "../../../img/user_image.png";
+import { withRouter } from "react-router-dom";
 import "../../../css/header/profileSidebar/UserInfoModify.css";
 import axios from "axios";
 
@@ -87,7 +87,7 @@ const UserInfoModify = (props) => {
   //   }
   // };
   // 백엔드와 통신하여 유저 정보 바꾸기
-  const saveUserInfo = (props) => {
+  const saveUserInfo = () => {
     // userInfo.image = file !== "" ? previewURL : user.image;
     //멀티 파트로 바꾸기
     // formData로 변환
@@ -95,8 +95,6 @@ const UserInfoModify = (props) => {
     // 이미지를 넣었을 때만 수정함
     if (userInfo.image !== null) {
       formData.append("image", userInfo.image);
-    } else {
-      formData.append("image", "/profileImg/user_image.png");
     }
     formData.append("id", userInfo.id);
     formData.append("nickname", userInfo.nickname);
@@ -129,7 +127,6 @@ const UserInfoModify = (props) => {
         }
       })
       .catch((res) => {
-        alert("닉네임이 중복되었습니다.");
         console.log(res);
       });
   };
@@ -216,4 +213,4 @@ const UserInfoModify = (props) => {
   );
 };
 
-export default UserInfoModify;
+export default withRouter(UserInfoModify);
