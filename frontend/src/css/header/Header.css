@@ -25,7 +25,6 @@
   }
 }
 
-
 .header {
   position: fixed;
   width: 100%;
@@ -42,7 +41,13 @@
   margin-left: -10px;
   float: left;
 }
-
+#profile-header-name {
+  display: block;
+  margin: auto;
+  float: left;
+  font-family: Wemakeprice-SemiBold;
+  background-color: transparent;
+}
 .VscBell {
   width: 30px;
   height: 30px;
@@ -50,4 +55,11 @@
 }
 .logo {
   background-color: white;
+}
+@font-face {
+  font-family: "Wemakeprice-SemiBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Wemakeprice-SemiBold.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
