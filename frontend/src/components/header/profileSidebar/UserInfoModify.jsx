@@ -115,14 +115,18 @@ const UserInfoModify = (props) => {
         // res.data.image를 받아서 userInfo 바꿔주기(이미지 경로를 받아서 수정)
         // SetUserInfo(res.user);
         console.log(res);
-        let newUserInfo = Object.assign({}, userInfo);
-        newUserInfo.image = res.data.data.image.toString();
-        console.log(res.data.data.image.toString());
-        SetUserInfo(newUserInfo);
-        // 현재 로그인한 사용자의 정보 바꾸기
-        onSetUserInfo(newUserInfo);
-        alert("저장되었습니다.");
-        props.history.push("/main/profile");
+        if (res.data.status === "200") {
+          let newUserInfo = Object.assign({}, userInfo);
+          newUserInfo.image = res.data.data.image.toString();
+          console.log(res.data.data.image.toString());
+          SetUserInfo(newUserInfo);
+          // 현재 로그인한 사용자의 정보 바꾸기
+          onSetUserInfo(newUserInfo);
+          alert("저장되었습니다.");
+          props.history.push("/main/profile");
+        } else {
+          alert("닉네임이 중복되었습니다.");
+        }
       })
       .catch((res) => {
         alert("닉네임이 중복되었습니다.");
