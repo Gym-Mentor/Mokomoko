@@ -148,7 +148,17 @@ const UserInfoModify = (props) => {
     console.log("탈퇴");
     if (!window.confirm("탈퇴하시겠습니까?")) {
     } else {
-      alert("탈퇴되었습니다.");
+      axios({
+        method: "delete",
+        url: "http://i5d104.p.ssafy.io:8080/user/" + userInfo.id,
+        contentType: "application/json; charset=utf-8",
+      })
+        .then((res) => {
+          alert("탈퇴되었습니다.");
+        })
+        .catch((res) => {
+          console.log(res);
+        });
     }
   };
 
