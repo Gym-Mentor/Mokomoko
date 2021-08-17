@@ -28,7 +28,7 @@
 .header {
   position: fixed;
   width: 100%;
-  background-color: white;
+  background-color: transparent;
   top: 0;
   /* height: 80px; */
 }
@@ -51,12 +51,12 @@
 .VscBell {
   width: 30px;
   height: 30px;
-  background-color: white;
+  background-color: transparent;
   padding-bottom: 10px;
   margin-bottom: 20px;
 }
 .logo {
-  background-color: white;
+  background-color: transparent;
   margin-bottom: 20px;
 
   /* border-bottom: 1px solid #dbdbdb; */
