@@ -47,24 +47,32 @@ const Login = ({ history }) => {
         password: password,
       },
     })
-      // .then((res) => {
-      //   let user = res.data.data.user;
-      //   user = { ...user, ...res.data.data.relationResponse };
-      //   const { accessToken, refreshToken } = res.data;
+      .then((res) => {
+        let user = res.data.data.user;
+        user = { ...user, ...res.data.data.relationResponse };
+        const { accessToken, refreshToken } = res.data;
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
+        console.log("유저정보 ", user);
+        onSetUserInfo(user);
+        //로그인 하고 localStorage 저장
+        // localStorage.setItem("accessToken", user);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+        console.log(accessToken);
+        history.push("/main/feed");
+      })
+      // .then((response) => {
+      //   let user = response.data.data.user;
+      //   user = { ...user, ...response.data.data.relationResponse };
+      //   const { accessToken, refreshToken } = response.data;
       //   setAccessToken(accessToken);
       //   setRefreshToken(refreshToken);
       //   console.log("유저정보 ", user);
       //   onSetUserInfo(user);
-      //   //로그인 하고 localStorage 저장
-      //   // localStorage.setItem("accessToken", user);
       //   axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-      //   console.log(accessToken);
-      //   history.push("/main/feed");
 
+      //   // setTimeout(onReissue, JWT_EXPIRY_TIME); // 토큰 만료 전에 토큰 연장해주게,
       // })
-      .then(() => {
-        onLoginSuccess();
-      })
       .catch((error) => {
         // console.log(error);
         console.error(JSON.stringify(error));
@@ -87,7 +95,18 @@ const Login = ({ history }) => {
         refreshToken: refreshToken,
       },
     })
-      .then(onLoginSuccess)
+      .then((response) => {
+        let user = response.data.data.user;
+        user = { ...user, ...response.data.data.relationResponse };
+        const { accessToken, refreshToken } = response.data;
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
+        console.log("유저정보 ", user);
+        onSetUserInfo(user);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+        setTimeout(onReissue, JWT_EXPIRY_TIME);
+      })
       .catch((error) => {
         console.log(JSON.stringify(error));
         if (error === 401) {
@@ -99,18 +118,18 @@ const Login = ({ history }) => {
       });
   };
 
-  const onLoginSuccess = (response) => {
-    let user = response.data.data.user;
-    user = { ...user, ...response.data.data.relationResponse };
-    const { accessToken, refreshToken } = response.data;
-    setAccessToken(accessToken);
-    setRefreshToken(refreshToken);
-    console.log("유저정보 ", user);
-    onSetUserInfo(user);
-    axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+  // const onLoginSuccess = (response) => {
+  //   let user = response.data.data.user;
+  //   user = { ...user, ...response.data.data.relationResponse };
+  //   const { accessToken, refreshToken } = response.data;
+  //   setAccessToken(accessToken);
+  //   setRefreshToken(refreshToken);
+  //   console.log("유저정보 ", user);
+  //   onSetUserInfo(user);
+  //   axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
-    setTimeout(onReissue, JWT_EXPIRY_TIME); // 토큰 만료 전에 토큰 연장해주게,
-  };
+  //   setTimeout(onReissue, JWT_EXPIRY_TIME); // 토큰 만료 전에 토큰 연장해주게,
+  // };
 
   //이메일 유효성 검사
   const isEmail = (email) => {
