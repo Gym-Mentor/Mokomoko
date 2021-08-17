@@ -39,6 +39,8 @@ const Login = ({ history }) => {
   const onClickLogin = (email, password) => {
     // 백엔드와 통신
     // history.push("/main/feed");
+    console.log(email);
+    console.log(password);
     axios({
       method: "post",
       url: "http://i5d104.p.ssafy.io:8080/auth/login",
@@ -75,7 +77,7 @@ const Login = ({ history }) => {
       // })
       .catch((error) => {
         // console.log(error);
-        console.error(JSON.stringify(error));
+        console.log(error);
         // if (error === 401) {
         //   window.location.reload();
         // }
