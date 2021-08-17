@@ -54,7 +54,7 @@ const ProfilePost = () => {
         const response = await axios.get("http://i5d104.p.ssafy.io:8080/post/user/"+user.email);
 
         console.log(response.data.data);
-        setPostList(response.data.data);
+        setPostList(response.data.data.postInfo);
       }catch(e){
         setError(e);
       }
@@ -123,6 +123,7 @@ const ProfilePost = () => {
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다</div>;
+  // if(postList.length == 0) return <div>글을 작성해주세요</div>
 
   return (
     <div>
