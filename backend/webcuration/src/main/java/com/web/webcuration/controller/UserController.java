@@ -6,6 +6,8 @@ import com.web.webcuration.dto.request.NickNameRequest;
 import com.web.webcuration.dto.request.ProfileRequest;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
+import com.web.webcuration.service.PostService;
+import com.web.webcuration.service.RelationService;
 import com.web.webcuration.service.UserService;
 
 import org.springframework.http.ResponseEntity;
@@ -18,15 +20,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
-@Slf4j
 public class UserController {
 
     private final UserService userService;
+    private final PostService postService;
+    private final RelationService relationService;
 
     @PutMapping("/passwords")
     public ResponseEntity<BaseResponse> updatePasswordUsEntity(@RequestBody UserRequest updateUser) {
@@ -37,12 +39,13 @@ public class UserController {
     @PutMapping()
     public @ResponseBody ResponseEntity<BaseResponse> updateUser(ProfileRequest profileRequest)
             throws IllegalStateException, IOException {
-        log.info("{}", "프로필 : " + profileRequest);
         return ResponseEntity.ok(userService.updateUser(profileRequest));
     }
 
     @DeleteMapping("/{userid}")
     public ResponseEntity<BaseResponse> deleteUser(@PathVariable("userid") Long userid) {
+        relationService.deleteRelationByUserid(userid);
+        postService.deleteByUserid(userid);
         return ResponseEntity.ok(userService.deleteUser(userid));
     }
 

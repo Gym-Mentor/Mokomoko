@@ -15,5 +15,7 @@ public interface RelationService {
 
     RelationResponse getUserRelation(Long userid);
 
-    UserRelationInfo getCountUserRelation(Long userid);
+    UserRelationInfo getCountUserRelation(Long send, Long userid);
+
+    void deleteRelationByUserid(Long userid);
 }

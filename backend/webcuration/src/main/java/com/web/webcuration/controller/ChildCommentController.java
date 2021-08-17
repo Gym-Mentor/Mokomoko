@@ -28,7 +28,7 @@ public class ChildCommentController {
     @PostMapping()
     @Transactional
     public ResponseEntity<BaseResponse> createChildComment(@RequestBody ChildComment childComment) {
-        postService.ChangePostCommentCnt(childComment.getPostid(), 1L);
+        postService.changePostCommentCnt(childComment.getPostid(), 1L);
         return ResponseEntity.ok(childCommentService.createChildComment(childComment));
     }
 
@@ -41,7 +41,7 @@ public class ChildCommentController {
     @Transactional
     public ResponseEntity<BaseResponse> deleteChildComment(@PathVariable("childCommentid") Long childCommentid) {
         Long postid = childCommentService.getChildCommentPostid(childCommentid);
-        postService.ChangePostCommentCnt(postid, -1L);
+        postService.changePostCommentCnt(postid, -1L);
         return ResponseEntity.ok(childCommentService.deleteChildComment(childCommentid));
     }
 
