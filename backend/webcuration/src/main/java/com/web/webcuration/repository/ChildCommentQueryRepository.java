@@ -1,5 +1,6 @@
 package com.web.webcuration.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -18,7 +19,17 @@ public class ChildCommentQueryRepository {
     private final QChildComment qChildComment = QChildComment.childComment;
 
     public List<ChildComment> getPostChildComment(Long postid) {
-        return jpaQueryFactory.select(qChildComment).from(qChildComment).where(qChildComment.postid.eq(postid))
+        List<ChildComment> childComments = new ArrayList<>();
+        childComments = jpaQueryFactory.select(qChildComment).from(qChildComment).where(qChildComment.postid.eq(postid))
                 .orderBy(qChildComment.createdate.desc()).fetch();
+        return childComments;
     }
+
+    public List<ChildComment> getDeleteChildComment(List<Long> postid) {
+        List<ChildComment> deleteChildComments = new ArrayList<>();
+        deleteChildComments = jpaQueryFactory.select(qChildComment).from(qChildComment)
+                .where(qChildComment.postid.in(postid)).fetch();
+        return deleteChildComments;
+    }
+
 }

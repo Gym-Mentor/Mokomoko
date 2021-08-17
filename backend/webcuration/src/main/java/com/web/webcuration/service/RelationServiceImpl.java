@@ -59,4 +59,10 @@ public class RelationServiceImpl implements RelationService {
         return relationQueryRepository.getCountUserRelation(userid);
     }
 
+    @Override
+    public void deleteRelationByUserid(Long userid) {
+        List<Relation> deleteRelation = relationQueryRepository.findAllbyUserid(userid);
+        relationRepository.deleteAll(deleteRelation);
+    }
+
 }

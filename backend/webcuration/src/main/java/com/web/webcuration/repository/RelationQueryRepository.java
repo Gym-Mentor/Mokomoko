@@ -43,4 +43,11 @@ public class RelationQueryRepository {
         return UserRelationInfo.builder().follwer(follwer).follwing(follwing).build();
     }
 
+    public List<Relation> findAllbyUserid(Long userid) {
+        List<Relation> relations = new ArrayList<>();
+        relations = jpaQueryFactory.select(qRelation).from(qRelation)
+                .where(qRelation.send.eq(userid).or(qRelation.receive.eq(userid))).fetch();
+        return relations;
+    }
+
 }
