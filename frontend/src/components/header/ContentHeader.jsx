@@ -10,8 +10,8 @@ const ContentHeader = (props) => {
   return (
     <div>
       <div className="headerDiv">
-        <div className="headerDiv icon">
-          <IoIosArrowBack onClick={onClickBack} />
+        <div className="headerDiv icon" onClick={onClickBack}>
+          <IoIosArrowBack />
         </div>
         <div className="headerDiv title">{props.title}</div>
       </div>
