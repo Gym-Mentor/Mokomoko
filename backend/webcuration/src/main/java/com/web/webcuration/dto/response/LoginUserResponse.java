@@ -22,6 +22,5 @@ public class LoginUserResponse {
 
     private TokenDto token;
     private User user;
-    private RelationResponse relationResponse;
     private List<MainFeedResponse> mainFeed;
 }

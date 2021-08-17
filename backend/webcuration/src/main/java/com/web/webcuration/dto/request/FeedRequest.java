@@ -1,7 +1,5 @@
 package com.web.webcuration.dto.request;
 
-import java.util.List;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,9 +7,9 @@ import lombok.Setter;
 @Setter
 @Getter
 @Builder
-public class ExplorePostRequest {
+public class FeedRequest {
 
-    private List<Long> block;
+    private Long userid;
 
     private Long postid;
 
