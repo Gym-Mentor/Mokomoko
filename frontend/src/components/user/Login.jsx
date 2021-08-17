@@ -91,7 +91,7 @@ const Login = ({ history }) => {
       .catch((error) => {
         console.log(error);
         if (error === 401) {
-          window.location.reload();
+          history.push("/account/login");
         }
         alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
         setEmail("");
@@ -110,6 +110,7 @@ const Login = ({ history }) => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
     setTimeout(onReissue, JWT_EXPIRY_TIME); // 토큰 만료 전에 토큰 연장해주게,
+    history.push("/main/feed");
   };
 
   //이메일 유효성 검사
