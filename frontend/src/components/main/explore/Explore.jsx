@@ -24,10 +24,9 @@ export default function App() {
   const onSetIndex = (activeNav) => dispatch(setIndex(activeNav));
 
   const [page, setPage] = useState(0);
-  const [list, setList] = useState([]);
+  const [list, setList] = useState([{}]);
   const [loading, setLoading] = useState(false);
-  var postId = 0;
-  console.log(postId);
+  const [postid, setPostid] = useState(0);
   // 탐색 피드 받아오기
   useEffect(() => {
     onSetIndex(2);
@@ -52,19 +51,21 @@ export default function App() {
       method: "post",
       url: "http://i5d104.p.ssafy.io:8080/post/explore/",
       data: {
-        postId: postId,
+        postid: postid,
         block: user.block,
       },
     })
       .then((result) => {
         console.log(result);
-        console.log(result.data);
-        list = result.data;
+        console.log(result.data.data);
+        let newList = Object.assign([], list);
+        newList.push(result.data.data);
+        setList(newList);
+        console.log(newList);
       })
       .catch((res) => {
         console.log(res);
       });
-    setList((prev) => [...prev, ...list]);
     setLoading(false);
   }, [page]);
 
@@ -75,7 +76,7 @@ export default function App() {
           <ExploreHeader />
           <div id="explore" className={page === 0 && loading ? "loading" : ""}>
             <List list={list} />
-            <FetchMore loading={page !== 0 && loading} setPage={setPage} />
+            <FetchMore loading={page !== 0 && loading} setPage={setPage} page={page} />
           </div>
         </div>
       </div>

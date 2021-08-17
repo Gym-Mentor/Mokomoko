@@ -114,3 +114,27 @@
   background-color: transparent;
   font-weight: bold;
 }
+
+#modify-btn{
+  background-color: transparent;
+  margin-left: 5px;
+}
+
+#modify{
+  font-size: 13px;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+
+#delete-btn{
+  background-color: transparent;
+  margin-left: 5px;
+}
+
+
+#delete{
+  font-size: 13px;
+  background-color: transparent;
+  font-weight: bold;
+}

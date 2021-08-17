@@ -18,9 +18,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -84,6 +86,7 @@ public class UserServiceImpl implements UserService {
                         changeUser.setImage(FileUtils.uploadProfile(profileRequest.getImage()));
                     }
                 }
+                log.info("{}", "프로필 : " + changeUser);
                 return BaseResponse.builder().status("200").status("success").data(userRepository.save(changeUser))
                         .build();
             }
