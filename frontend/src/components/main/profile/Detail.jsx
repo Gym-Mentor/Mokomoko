@@ -221,7 +221,7 @@ const Detail = (props) => {
                                 :<FavoriteBorderOutlinedIcon fontSize="large"/>
                                 }
                             </div>
-                            <div className="dt-detail-comment">
+                            <div className="dt-detail-comment" onClick={goToComment}>
                                 <ChatBubbleOutlinedIcon fontSize="large"/>
                             </div>
                             <div className="dt-detail-scrap" onClick={isBookmark}>
