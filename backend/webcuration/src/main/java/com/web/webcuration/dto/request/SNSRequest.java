@@ -1,6 +1,7 @@
 package com.web.webcuration.dto.request;
 
 import com.web.webcuration.Entity.Authority;
+import com.web.webcuration.Entity.Provide;
 import com.web.webcuration.Entity.User;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,7 +28,7 @@ public class SNSRequest {
     @Builder
     public User SNStoUser(PasswordEncoder passwordEncoder) {
         return User.builder().email(this.id).password(passwordEncoder.encode(this.id)).image(this.image)
-                .nickname(this.nickname).authority(Authority.ROLE_USER).build();
+                .nickname(this.nickname).authority(Authority.ROLE_USER).provide(Provide.SNS).build();
     }
 
 }
