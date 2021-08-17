@@ -26,7 +26,6 @@ const Header = () => {
             <VscBell className="VscBell" onClick={showAlarm} />
             <ProfileNavbar />
           </Navbar>
-          <hr className="header-line" />
         </div>
       </div>
     </div>
