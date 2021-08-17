@@ -125,7 +125,7 @@ const Login = ({ history }) => {
   };
 
   useEffect(() => {
-    onReissue(); // 페이지가 리로드 될 때 로그인 연장
+    // onReissue(); // 페이지가 리로드 될 때 로그인 연장
     if (localStorage.getItem("accessToken") != null) {
       window.location.replace("http://i5d104.p.ssafy.io:80/main/feed");
     }
