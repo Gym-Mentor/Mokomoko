@@ -8,7 +8,6 @@ const SET_CONTENT_IMAGE = 'Post/SET_CONTENT_IMAGE';
 const SET_LIKE = 'Post/SET_LIKE';
 const SET_COMMENTS = 'Post/SET_COMMENTS';
 
-
 //데이터베이스에서 글 목록 불러온 후 setting
 export const setUserImage = (userImage) =>({
     type : SET_USERIMAGE,

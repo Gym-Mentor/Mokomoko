@@ -22,14 +22,6 @@ const Detail = (props) => {
     const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
     var word = transcript.split(" ");
 
-    useEffect(() => {
-        // checking();
-        return () => {
-          checking();
-        };
-      }, [transcript]);
-
-
   const {user,userImage,userName,post,tags,content,contentImage,like,comments } = useSelector((state) => ({
     user : state.userInfo.user,
     userImage : state.Post.userImage,
@@ -41,6 +33,16 @@ const Detail = (props) => {
     like : state.Post.like,
     comments : state.Post.comments
   }));
+
+    useEffect(() => {
+        // checking();
+        return () => {
+          checking();
+        };
+      }, [transcript]);
+
+
+
 
   const dispatch = useDispatch();
   const onSetLike = (like) => dispatch(setLike(like)); 
@@ -112,7 +114,11 @@ const Detail = (props) => {
   const goToComment = () =>{
       SpeechRecognition.stopListening()
       console.log("댓글페이지 이동");
-      history.push("/main/p/comment");
+      console.log(window.location.href);
+      var url = window.location.href.split("/");
+      console.log(url[5]);
+
+      history.push(`/main/p/comment/${url[5]}`);
   }
 
   const checking = () => {
