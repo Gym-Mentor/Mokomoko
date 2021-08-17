@@ -87,7 +87,7 @@ const UserInfoModify = (props) => {
   //   }
   // };
   // 백엔드와 통신하여 유저 정보 바꾸기
-  const saveUserInfo = (e) => {
+  const saveUserInfo = (props) => {
     // userInfo.image = file !== "" ? previewURL : user.image;
     //멀티 파트로 바꾸기
     // formData로 변환
@@ -115,7 +115,7 @@ const UserInfoModify = (props) => {
         // res.data.image를 받아서 userInfo 바꿔주기(이미지 경로를 받아서 수정)
         // SetUserInfo(res.user);
         console.log(res);
-        if (res.data.status === "200") {
+        if (res.data.status === "success") {
           let newUserInfo = Object.assign({}, userInfo);
           newUserInfo.image = res.data.data.image.toString();
           console.log(res.data.data.image.toString());
