@@ -18,16 +18,15 @@
 
 💄 **deco** : UI 또는 스타일 추가 및 업데이트에 관한 커밋
 
-
-
-
-
 # 나중에 내꺼 branch merge할 때
+
 **일단 pull 먼저 받기**
 내 branch에서
+
 ```
 git push origin blowfish
 ```
+
 해주고
 깃 사이트에서
 create merge request

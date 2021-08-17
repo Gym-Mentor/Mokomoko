@@ -6,10 +6,8 @@ import Header from "../header/Header";
 import { IoIosArrowBack } from "react-icons/io";
 import ContentHeader from "../header/ContentHeader";
 
-const DetailPresenter = ({ location: state }, props) => {
-  const onClickBack = () => {
-    console.log("뒤로 가는거 처리");
-  };
+const DetailPresenter = () => {
+  
   return (
     <div className="detail-presenter-wrapper">
       <Row id="detail-presenter-row">
@@ -17,7 +15,7 @@ const DetailPresenter = ({ location: state }, props) => {
         <Col></Col>
         <Col md={6} className="detail-col">
           <div className="details">
-            <Detail />
+            <Detail/>
           </div>
         </Col>
         <Col></Col>

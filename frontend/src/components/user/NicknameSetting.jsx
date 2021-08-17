@@ -21,7 +21,7 @@ const NicknameSetting = ({ history }) => {
   const onSetUserInfo = (userInfo) => dispatch(setUserInfo(userInfo));
 
   useEffect(() => {
-    console.log(nickname);
+    // console.log(nickname);
   }, [nickname, nicknameValidation]);
 
   const btnChangeColor = () => {
@@ -34,11 +34,11 @@ const NicknameSetting = ({ history }) => {
 
   const isNicknameOk = () => {
     // 숫자, 알파벳 대소문자, . , _ 이외 문자일 경우 false
-    console.log("ok");
+    // console.log("ok");
 
     const nicknameRegex = /^[a-zA-Z0-9._]{3,15}$/;
 
-    console.log(nicknameRegex.test(nickname));
+    // console.log(nicknameRegex.test(nickname));
 
     if (nicknameRegex.test(nickname)) {
       setNicknameValidation(true);
@@ -55,22 +55,21 @@ const NicknameSetting = ({ history }) => {
 
     onSetUserInfo(info);
     const formData = new FormData();
-    formData.append("id",info.id);
-    formData.append("nickname",info.nickname);
+    formData.append("id", info.id);
+    formData.append("nickname", info.nickname);
     // 백엔드 통신
     axios({
       method: "put",
-      url: "http://i5d104.p.ssafy.io:8080/user",
-      data : user,
-      contentType: 'application/json; charset=utf-8',
+      url: "http://i5d104.p.ssafy.io:8080/user/name",
+      data: user,
+      contentType: "application/json; charset=utf-8",
     })
-    .then(function(response){
-      console.log(response);
-    })
-    .catch(function(error){
-      console.log(error);
-    })
-    ;
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     history.push("/main/feed");
   };
 

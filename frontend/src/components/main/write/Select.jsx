@@ -4,10 +4,10 @@ import { setIndex } from "../../../modules/MainNav";
 import { Link } from "react-router-dom";
 import "../../../css/main/write/Select.css";
 import { setContent, setInitValue } from "../../../modules/Food";
+import Cheader from "../../header/Cheader";
 
 // Select창이 뜨면 세션에 존재하는 write data 초기화
 const Select = () => {
-
   const { activeNav } = useSelector((state) => ({
     activeNav: state.activeNav,
   }));
@@ -38,7 +38,8 @@ const Select = () => {
     <div className="select-wrapper">
       <div className="select-row">
         <div className="select-col">
-          <header className="select-header">피드 작성</header>
+          {/* <header className="select-header">피드 작성</header> */}
+          <Cheader title="글 작성" />
           <div className="select-content">
             <div className="select-btn">
               <Link

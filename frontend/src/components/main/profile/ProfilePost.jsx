@@ -1,91 +1,140 @@
 import React, { useState, useEffect } from "react";
-import Detail from "./Detail";
-// import store from '../../../store/store';
-
+import { useSelector, useDispatch } from "react-redux";
 import "../../../css/main/profile/ProfilePost.css";
-import { setDetail } from "../../../modules/profileDetail";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
+import {setContent, setContentImage, setPost, setTags, setUserImage, setUserName, setLike, setComments } from "../../../modules/Post";
+  
 
-const PostList = [
-  {
-    img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
-    content: "재밌다1",
-    date: "2021-07-27",
-    path: "/test",
-  },
-  {
-    img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
-    content: "재밌다2",
-    date: "2021-07-27",
-    path: "/test",
-  },
-  {
-    img: "https://i.pinimg.com/originals/20/27/3b/20273b98f34d8d467b906fb5a17bd939.jpg",
-    content: "재밌다3",
-    date: "2021-07-27",
-    path: "/test",
-  },
-  {
-    img: "https://i.pinimg.com/564x/fa/e3/50/fae3500cc623c6b6051f33ef2dda9205.jpg",
-    content: "재밌다4",
-    date: "2021-07-27",
-    path: "/test",
-  },
-];
-
-const ProfilePost = ({ postList, post, number, onSetDetail, onGetDetailNumber, onGetDetail }) => {
+const ProfilePost = () => {
   const [isDetail, setIsDetail] = useState(false);
+  const [postList, setPostList] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const history = useHistory();
+
+  const { user,userImage,userName,post,tags,content ,contentImage,like,comments} = useSelector((state) => ({
+    user: state.userInfo.user,
+    userImage : state.Post.userImage,
+    userName : state.Post.userName,
+    post : state.Post.post,
+    tags : state.Post.tags,
+    content : state.Post.content,
+    contentImage : state.Post.contentImage,
+    like : state.Post.like,
+    comments : state.Post.comments
+  }));
+
+    //useDispatch 사용해서 리덕스 스토어의 dispatch를 함수에서 사용할 수 있도록 해준다.
+    const dispatch = useDispatch();
+
+    const onSetUserImage = (userImage) => dispatch(setUserImage(userImage));
+    const onSetUserName = (userName) => dispatch(setUserName(userName));
+    const onSetPost = (post) => dispatch(setPost(post));
+    const onSetTags = (tags) => dispatch(setTags(tags));
+    const onSetContent = (content) => dispatch(setContent(content));
+    const onSetContentImage = (contentImage) => dispatch(setContentImage(contentImage));
+    const onSetLike = (like) => dispatch(setLike(like));
+    const onSetComments = (comments) => dispatch(setComments(comments));
+  
+
 
   useEffect(() => {
-    //https://react.vlpt.us/basic/16-useEffect.html
-    //위의 블로그 참고하면 될 듯
-    onSetDetail(PostList);
-    console.log(postList);
+    
+    const fetchPostList = async () =>{
+      try{
+        //요청 시작 시  error와 postList 초기화
+        setError(null);
+        setPostList(null);
 
-    console.log("useEffect", number);
-    console.log(number);
+        //loading 상태 true로 바꾸기
+        setLoading(true);
 
-    //한박자 씩 늦게 찍힘
-    return () => {
-      console.log("값이 바뀌거나 컴포넌트 이동되었을 시 ");
-      console.log(post);
-    };
-  }, [number, post]);
+        const response = await axios.get("http://i5d104.p.ssafy.io:8080/post/user/"+user.email);
 
-  const showDetail = (e, index) => {
+        console.log(response.data.data);
+        setPostList(response.data.data.postInfo);
+      }catch(e){
+        setError(e);
+      }
+
+      setLoading(false);
+    }
+    fetchPostList();
+
+  }, []);
+
+  const showDetail = (e, postid) => {
     e.preventDefault();
 
+    //redux초기화
+    onSetUserImage("");
+    onSetUserName("");
+    onSetPost({});
+    onSetTags([]);
+    onSetContent([]);
+    onSetContentImage([]);
+    onSetLike(false);
+    onSetComments([]);
+
     setIsDetail((prev) => !prev);
-    console.log(isDetail);
+    
+    console.log(postid);
+    //받아온 postid 통해서 GET 으로 정보 얻어오기
+    axios({
+      url :"http://i5d104.p.ssafy.io:8080/post/"+user.id+"/"+postid,
+      method: "get",
+    })
+    .then((response) => {
+      console.log(response);
+      
+      
+      console.log("이미지 테스트");
+      // for(var i=0;i<response.data.data.content.length;i++){
+      //   console.log(response.data.data.content[i]);
+      // }
+      onSetUserImage(response.data.data.userImage);
+      onSetUserName(response.data.data.userName);
+      onSetPost(response.data.data.post);
+      onSetTags(response.data.data.tags);
+      onSetContent(response.data.data.contents);
+      onSetLike(response.data.data.like);
+      onSetComments(response.data.data.comments);
 
-    onGetDetailNumber(index.index);
-    // onGetDetail(index.index);
-    // store.dispatch({type:'SHOW_PROFILE_DETAIL', item: detail})
-    // if(!isDetail){
-    //   history.pushState({},'main/profile/detail');
-    // }
+      console.log(response.data.data.comments);
 
-    // location.href(`/mian/detail/${index}`);
+      var contentImage = new Array();
+      var content_box = response.data.data.contents;
+      
+      for(var i=0;i<content_box.length;i++){
+        contentImage.push(content_box[i].image);
+      }
+
+      //이미지 여러장 처리 위해 사용
+      onSetContentImage(contentImage);
+
+    })
+    .catch((error) =>{
+      console.log(error);
+    });
+
+    history.push(`testt/${postid}`);
+
   };
+
+  if (loading) return <div>로딩중..</div>;
+  if (error) return <div>에러가 발생했습니다</div>;
+  // if(postList.length == 0) return <div>글을 작성해주세요</div>
 
   return (
     <div>
-      <div className="userPost" on>
-        {PostList &&
-          PostList.map((item, index) => {
+      <div className="userPost">
+        {postList &&
+          postList.map((item, index) => {
             return (
-              <div key={index} className="postGrid" onClick={(e) => showDetail(e, { index })}>
-                <Link
-                  to={{
-                    pathname: `/main/testt/${index}`,
-                    state: {
-                      idx: index,
-                      item: postList[index],
-                    },
-                  }}
-                >
-                  <img className="postImg" src={item.img} />
-                </Link>
+              <div key={index} className="postGrid" onClick={(e) => showDetail(e, `${item.post.id}`)}>
+                  <img className="postImg" src={item.image} />
               </div>
             );
           })}

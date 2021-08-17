@@ -11,6 +11,18 @@
   font-size: 10px;
 }
 
+.id-validation-onColor {
+  color: rgb(105, 130, 211);
+  float: right;
+  margin-bottom: 12px;
+  font-size: 10px;
+}
+.id-validation-offColor {
+  color: red;
+  float: right;
+  margin-bottom: 12px;
+  font-size: 10px;
+}
 .password-validation-onColor {
   color: rgb(105, 130, 211);
   float: left;

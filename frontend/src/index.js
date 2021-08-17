@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter} from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -20,6 +20,8 @@ import { composeWithDevTools } from "redux-devtools-extension"; // 리덕스 개
 import persistedReducer from "./modules";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 //composeWithDevTools 사용 시 에러 나길래 아래 코드로 수정하였습니다.
 // const store = createStore(rootReducer,composeWithDevTools, window.__REDUX_DEVTOOLS_EXTENSION__ &&
@@ -38,7 +40,7 @@ ReactDOM.render(
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         {/* <BrowserRouter> */}
-          <App />
+        <App />
         {/* </BrowserRouter> */}
       </PersistGate>
     </Provider>

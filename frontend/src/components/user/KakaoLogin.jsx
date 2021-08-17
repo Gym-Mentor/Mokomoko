@@ -52,21 +52,12 @@ const KakaoLogin = () => {
               },
             })
               .then((res) => {
-
                 console.log(res);
-                console.log("데이터베이스 데이터",res.data.data);
-                console.log("데이터베이스 유저",res.data.data.user);
+                console.log("데이터베이스 데이터", res.data.data);
+                console.log("데이터베이스 유저", res.data.data.user);
 
-                let userInfo = {
-                  "authority": res.data.data.user.authority,
-                  "createdate": res.data.data.user.createdate,
-                  "email": res.data.data.user.email,
-                  "id": res.data.data.user.id,
-                  "image": res.data.data.user.image,
-                  "introduce": res.data.data.user.introduce,
-                  "nickname": res.data.data.user.nickname,
-                  "password": res.data.data.user.password,
-                }
+                let userInfo = res.data.data.user;
+                userInfo = { ...userInfo, ...res.data.data.relationResponse };
 
                 onSetUserInfo(userInfo);
                 localStorage.setItem("accessToken", user);

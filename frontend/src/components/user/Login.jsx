@@ -12,6 +12,8 @@ const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [btnColorState, setBtnColorState] = useState(false); // 기본값 false
+  const [accessToken, setAccessToken] = useState("");
+  const [refreshToken, setRefreshToken] = useState("");
 
   //userSelector로 리덕스 스토어의 상태 조회하기
   const { user } = useSelector((state) => ({
@@ -32,10 +34,13 @@ const Login = ({ history }) => {
     setPassword(e.target.value);
   };
 
+  const JWT_EXPIRY_TIME = 10000;
   // 로그인 버튼 이벤트
-  const onClickLogin = (e) => {
+  const onClickLogin = () => {
     // 백엔드와 통신
     // history.push("/main/feed");
+    console.log(email);
+    console.log(password);
     axios({
       method: "post",
       url: "http://i5d104.p.ssafy.io:8080/auth/login",
@@ -45,21 +50,90 @@ const Login = ({ history }) => {
       },
     })
       .then((res) => {
-        const user = res.data.data.user;
+        let user = res.data.data.user;
+        user = { ...user, ...res.data.data.relationResponse };
+        const { accessToken, refreshToken } = res.data;
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
         console.log("유저정보 ", user);
+        console.log("res.data", res.data);
+        console.log("res.data.data", res.data.data);
         onSetUserInfo(user);
         //로그인 하고 localStorage 저장
-        localStorage.setItem("accessToken", user);
+        // localStorage.setItem("accessToken", user);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+        console.log(accessToken);
         history.push("/main/feed");
       })
+      // .then((response) => {
+      //   let user = response.data.data.user;
+      //   user = { ...user, ...response.data.data.relationResponse };
+      //   const { accessToken, refreshToken } = response.data;
+      //   setAccessToken(accessToken);
+      //   setRefreshToken(refreshToken);
+      //   console.log("유저정보 ", user);
+      //   onSetUserInfo(user);
+      //   axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+      //   // setTimeout(onReissue, JWT_EXPIRY_TIME); // 토큰 만료 전에 토큰 연장해주게,
+      // })
       .catch((error) => {
         // console.log(error);
-        console.error(error);
+        console.log(error);
+        // if (error === 401) {
+        //   window.location.reload();
+        // }
+        // alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
+        // setEmail("");
+        // setPassword("");
+      });
+  };
+
+  const onReissue = () => {
+    axios({
+      method: "post",
+      url: "http://i5d104.p.ssafy.io:8080/auth/reissue",
+      data: {
+        // email: email,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+      },
+    })
+      .then((response) => {
+        let user = response.data.data.user;
+        user = { ...user, ...response.data.data.relationResponse };
+        const { accessToken, refreshToken } = response.data;
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
+        console.log("유저정보 ", user);
+        onSetUserInfo(user);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+        setTimeout(onReissue, JWT_EXPIRY_TIME);
+      })
+      .catch((error) => {
+        console.log(JSON.stringify(error));
+        if (error === 401) {
+          window.location.reload();
+        }
         alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
         setEmail("");
         setPassword("");
       });
   };
+
+  // const onLoginSuccess = (response) => {
+  //   let user = response.data.data.user;
+  //   user = { ...user, ...response.data.data.relationResponse };
+  //   const { accessToken, refreshToken } = response.data;
+  //   setAccessToken(accessToken);
+  //   setRefreshToken(refreshToken);
+  //   console.log("유저정보 ", user);
+  //   onSetUserInfo(user);
+  //   axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+  //   setTimeout(onReissue, JWT_EXPIRY_TIME); // 토큰 만료 전에 토큰 연장해주게,
+  // };
 
   //이메일 유효성 검사
   const isEmail = (email) => {
@@ -71,10 +145,10 @@ const Login = ({ history }) => {
   // 로그인 유효성 검사 후 btnColorState 값 변경
   const btnChangeColor = () => {
     isEmail(email) && password.length >= 5 ? setBtnColorState(true) : setBtnColorState(false);
-    console.log(btnColorState);
   };
 
   useEffect(() => {
+    // onReissue(); // 페이지가 리로드 될 때 로그인 연장
     if (localStorage.getItem("accessToken") != null) {
       window.location.replace("http://i5d104.p.ssafy.io:80/main/feed");
     }
