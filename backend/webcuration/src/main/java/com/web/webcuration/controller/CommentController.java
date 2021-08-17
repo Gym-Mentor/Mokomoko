@@ -34,14 +34,14 @@ public class CommentController {
     @Transactional
     public ResponseEntity<BaseResponse> deleteComment(@PathVariable("commentid") Long commentid) {
         Long postid = commentService.getCommentPostid(commentid);
-        postService.changePostCommentCnt(postid, -1L);
-        return ResponseEntity.ok(commentService.deleteComment(commentid));
+        commentService.deleteComment(commentid);
+        return ResponseEntity.ok(postService.changePostCommentCnt(postid, -1L));
     }
 
     @PostMapping()
     @Transactional
     public ResponseEntity<BaseResponse> createComment(@RequestBody Comment comment) {
-        postService.changePostCommentCnt(comment.getPostid(), 1L);
-        return ResponseEntity.ok(commentService.createComment(comment));
+        commentService.createComment(comment);
+        return ResponseEntity.ok(postService.changePostCommentCnt(comment.getPostid(), 1L));
     }
 }

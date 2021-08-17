@@ -24,9 +24,9 @@ public interface PostService {
 
     List<MainFeedResponse> getMainFeed(FeedRequest feedRequest);
 
-    void changePostCommentCnt(Long postid, Long number);
+    BaseResponse changePostCommentCnt(Long postid, Long number);
 
-    void changePostLikeCnt(Long postid, Long number);
+    BaseResponse changePostLikeCnt(Long postid, Long number);
 
     void deleteByUserid(Long userid);
 }

@@ -167,26 +167,28 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void changePostCommentCnt(Long postid, Long number) {
+    public BaseResponse changePostCommentCnt(Long postid, Long number) {
         Optional<Post> previousPost = postRepository.findById(postid);
         if (previousPost.isPresent()) {
             Post post = previousPost.get();
             Long changeCommentCnt = post.getComCnt() + number;
             post.setLikeCnt(changeCommentCnt);
             postRepository.save(post);
+            return BaseResponse.builder().status("200").msg("success").data(changeCommentCnt).build();
         } else {
             throw new RuntimeException("해당 게시글이 없습니다.");
         }
     }
 
     @Override
-    public void changePostLikeCnt(Long postid, Long number) {
+    public BaseResponse changePostLikeCnt(Long postid, Long number) {
         Optional<Post> previousPost = postRepository.findById(postid);
         if (previousPost.isPresent()) {
             Post post = previousPost.get();
             Long changeLikeCnt = post.getLikeCnt() + number;
             post.setLikeCnt(changeLikeCnt);
             postRepository.save(post);
+            return BaseResponse.builder().status("200").msg("success").data(changeLikeCnt).build();
         } else {
             throw new RuntimeException("해당 게시글이 없습니다.");
         }
