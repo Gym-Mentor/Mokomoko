@@ -58,11 +58,8 @@ export default function App() {
       .then((result) => {
         console.log(result);
         console.log(result.data.data);
-        setList((prev, res) => prev.push(result.data.data));
-        list.map((item) => {
-          console.log(item.post);
-          console.log(item.image);
-        });
+        setList((prev, result) => prev.push(result.data.data));
+        console.log(list);
       })
       .catch((res) => {
         console.log(res);
@@ -77,7 +74,7 @@ export default function App() {
           <ExploreHeader />
           <div id="explore" className={page === 0 && loading ? "loading" : ""}>
             <List list={list} />
-            <FetchMore loading={page !== 0 && loading} setPage={setPage} />
+            <FetchMore loading={page !== 0 && loading} setPage={setPage} page={page} />
           </div>
         </div>
       </div>
