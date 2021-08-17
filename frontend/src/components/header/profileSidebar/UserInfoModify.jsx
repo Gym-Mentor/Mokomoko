@@ -97,16 +97,18 @@ const UserInfoModify = (props) => {
     const formData = new FormData();
     // 이미지를 넣었을 때만 수정함
 
-    if (!userInfo.fileChanged) {
-      formData.set("image", null);
-    } else {
+    if (userInfo.fileChanged) {
       formData.set("image", userInfo.image);
     }
     formData.append("provide", userInfo.provide);
     formData.append("fileChanged", fileChanged);
     formData.append("id", userInfo.id);
     formData.append("nickname", userInfo.nickname);
-    formData.append("introduce", userInfo.introduce);
+    if (userInfo.introduce == null) {
+      formData.append("introduce", null);
+    } else {
+      formData.append("introduce", userInfo.introduce);
+    }
     console.log(userInfo);
     // 백엔드와 통신하기
     axios({
