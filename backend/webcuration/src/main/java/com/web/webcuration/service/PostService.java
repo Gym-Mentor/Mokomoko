@@ -10,7 +10,7 @@ import com.web.webcuration.dto.response.MainFeedResponse;
 
 public interface PostService {
 
-    BaseResponse readUserPosts(String email);
+    BaseResponse readUserPosts(Long loginUserid, String email);
 
     BaseResponse getSelectedPost(Long userid, Long postid);
 

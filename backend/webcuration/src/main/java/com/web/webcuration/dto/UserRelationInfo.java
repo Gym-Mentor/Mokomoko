@@ -9,6 +9,8 @@ import lombok.Setter;
 @Builder
 public class UserRelationInfo {
 
+    private boolean isFollow;
+
     private Long follwer;
 
     private Long follwing;
