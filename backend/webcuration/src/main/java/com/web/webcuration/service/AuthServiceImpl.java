@@ -9,14 +9,13 @@ import com.web.webcuration.Entity.Relation;
 import com.web.webcuration.Entity.User;
 import com.web.webcuration.dto.TokenDto;
 import com.web.webcuration.dto.request.AuthMailCode;
-import com.web.webcuration.dto.request.MainFeedRequest;
+import com.web.webcuration.dto.request.FeedRequest;
 import com.web.webcuration.dto.request.SNSRequest;
 import com.web.webcuration.dto.request.TokenRequest;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.dto.response.LoginUserResponse;
 import com.web.webcuration.dto.response.MainFeedResponse;
-import com.web.webcuration.dto.response.RelationResponse;
 import com.web.webcuration.jwt.TokenProvider;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -81,12 +80,11 @@ public class AuthServiceImpl implements AuthService {
                 .tokenValue(tokenDto.getRefreshToken()).build();
 
         refreshTokenService.creatRefreshToken(refreshToken);
-        RelationResponse relationResponse = relationService.getUserRelation(loginUser.getId());
         List<MainFeedResponse> mainFeed = postService
-                .getMainFeed(MainFeedRequest.builder().follow(relationResponse.getFollow()).postid(0L).build());
+                .getMainFeed(FeedRequest.builder().userid(loginUser.getId()).postid(0L).build());
         // 5. 토큰 발급
-        return BaseResponse.builder().status("200").msg("success").data(LoginUserResponse.builder().user(loginUser)
-                .token(tokenDto).relationResponse(relationResponse).mainFeed(mainFeed).build()).build();
+        return BaseResponse.builder().status("200").msg("success")
+                .data(LoginUserResponse.builder().user(loginUser).token(tokenDto).mainFeed(mainFeed).build()).build();
 
     }
 

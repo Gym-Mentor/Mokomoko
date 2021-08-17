@@ -16,4 +16,6 @@ public interface ChildCommentService {
     BaseResponse createChildComment(ChildComment childComment);
 
     Long getChildCommentPostid(Long childCommentid);
+
+    List<ChildComment> deleteChildCommentByPostid(List<Long> postid);
 }

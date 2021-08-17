@@ -5,15 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.web.webcuration.Entity.ChildComment;
+import com.web.webcuration.Entity.Comment;
 import com.web.webcuration.Entity.Contents;
+import com.web.webcuration.Entity.Likes;
 import com.web.webcuration.Entity.Post;
 import com.web.webcuration.Entity.Tag;
 import com.web.webcuration.Entity.User;
 import com.web.webcuration.dto.UserPostInfo;
 import com.web.webcuration.dto.UserRelationInfo;
-import com.web.webcuration.dto.request.ExplorePostRequest;
+import com.web.webcuration.dto.request.FeedRequest;
 import com.web.webcuration.dto.request.LikeRequest;
-import com.web.webcuration.dto.request.MainFeedRequest;
 import com.web.webcuration.dto.request.PostRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.dto.response.CommentResponse;
@@ -36,6 +38,7 @@ public class PostServiceImpl implements PostService {
     private final TagService tagService;
     private final LikeService likeService;
     private final CommentService commentService;
+    private final ChildCommentService childCommentService;
     private final UserService userService;
     private final RelationService relationService;
     private final ContentsService contentService;
@@ -102,6 +105,7 @@ public class PostServiceImpl implements PostService {
         List<Contents> reqContents = contentService.findAllByPostidOrderBy(postid);
         FileUtils.deleteFile(reqContents);
         contentService.deleteAllContents(reqContents);
+
         postRepository.deleteById(postid);
 
         return BaseResponse.builder().status("200").status("success").build();
@@ -135,8 +139,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public BaseResponse getExplorePost(ExplorePostRequest explorePostRequest) {
-        List<Post> explorePosts = postQueryRepository.getExplorePost(explorePostRequest);
+    public BaseResponse getExplorePost(FeedRequest feedRequest) {
+        List<Long> block = relationService.getUserRelation(feedRequest.getUserid()).getBlock();
+        List<Post> explorePosts = postQueryRepository.getExplorePost(block, feedRequest.getPostid());
         List<UserPostInfo> userPostResponse = new ArrayList<>();
         for (Post post : explorePosts) {
             userPostResponse.add(UserPostInfo.builder().post(post)
@@ -146,8 +151,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<MainFeedResponse> getMainFeed(MainFeedRequest mainFeedRequest) {
-        List<Post> posts = postQueryRepository.getMainFeed(mainFeedRequest);
+    public List<MainFeedResponse> getMainFeed(FeedRequest feedRequest) {
+        List<Long> follow = relationService.getUserRelation(feedRequest.getUserid()).getFollow();
+        List<Post> posts = postQueryRepository.getMainFeed(follow, feedRequest.getPostid());
         List<MainFeedResponse> mainFeedResponses = new ArrayList<>();
         for (Post post : posts) {
             User user = userService.getUserInfo(post.getUserid());
@@ -161,28 +167,54 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void ChangePostCommentCnt(Long postid, Long number) {
+    public BaseResponse changePostCommentCnt(Long postid, Long number) {
         Optional<Post> previousPost = postRepository.findById(postid);
         if (previousPost.isPresent()) {
             Post post = previousPost.get();
             Long changeCommentCnt = post.getComCnt() + number;
             post.setLikeCnt(changeCommentCnt);
             postRepository.save(post);
+            return BaseResponse.builder().status("200").msg("success").data(changeCommentCnt).build();
         } else {
             throw new RuntimeException("해당 게시글이 없습니다.");
         }
     }
 
     @Override
-    public void ChangePostLikeCnt(Long postid, Long number) {
+    public BaseResponse changePostLikeCnt(Long postid, Long number) {
         Optional<Post> previousPost = postRepository.findById(postid);
         if (previousPost.isPresent()) {
             Post post = previousPost.get();
             Long changeLikeCnt = post.getLikeCnt() + number;
             post.setLikeCnt(changeLikeCnt);
             postRepository.save(post);
+            return BaseResponse.builder().status("200").msg("success").data(changeLikeCnt).build();
         } else {
             throw new RuntimeException("해당 게시글이 없습니다.");
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteByUserid(Long userid) {
+        List<Post> deletePost = postRepository.findAllByUserid(userid);
+        List<Long> postids = new ArrayList<>();
+        for (Post post : deletePost) {
+            deletePost(post.getId());
+            likeService.deleteLikeByPostid(post.getId());
+            postids.add(post.getId());
+        }
+        List<Likes> deleteByUserid = likeService.deleteLikeByUserid(userid);
+        for (Likes like : deleteByUserid) {
+            changePostLikeCnt(like.getPostid(), -1L);
+        }
+        List<Comment> deleteComment = commentService.deleteCommentByPostid(postids);
+        for (Comment comment : deleteComment) {
+            changePostCommentCnt(comment.getPostid(), -1L);
+        }
+        List<ChildComment> deleteChildComment = childCommentService.deleteChildCommentByPostid(postids);
+        for (ChildComment childComment : deleteChildComment) {
+            changePostCommentCnt(childComment.getPostid(), -1L);
         }
     }
 

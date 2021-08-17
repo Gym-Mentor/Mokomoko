@@ -7,19 +7,31 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import axios from "axios";
-
-import { setComments } from "../../modules/Post";
+import { setContent, setContentImage, setPost, setTags, setUserImage, setUserName, setLike, setComments } from "../../modules/Post";
 
 const Comment = () => {
 
-  const {user,userImage,post,comments} = useSelector(state => ({
+  const {user,userImage,userName,post,tags,content,contentImage,like,comments } = useSelector((state) => ({
     user : state.userInfo.user,
     userImage : state.Post.userImage,
+    userName : state.Post.userName,
     post : state.Post.post,
-    comments : state.Post.comments,
+    tags : state.Post.tags,
+    content : state.Post.content,
+    contentImage : state.Post.contentImage,
+    like : state.Post.like,
+    comments : state.Post.comments
   }));
 
   const dispatch = useDispatch();
+
+  const onSetUserImage = (userImage) => dispatch(setUserImage(userImage));
+  const onSetUserName = (userName) => dispatch(setUserName(userName));
+  const onSetPost = (post) => dispatch(setPost(post));
+  const onSetTags = (tags) => dispatch(setTags(tags));
+  const onSetContent = (content) => dispatch(setContent(content));
+  const onSetContentImage = (contentImage) => dispatch(setContentImage(contentImage));
+  const onSetLike = (like) => dispatch(setLike(like));
   const onSetComments = (comments) => dispatch(setComments(comments));
   
   const [writeComment,setWriteComment] = useState(null);
@@ -28,10 +40,41 @@ const Comment = () => {
     setWriteComment(e.target.value);
   };
 
-  const submitComment = () =>{
-    console.log(writeComment);
-    console.log("댓글 전송");
+  const updateInfo = () =>{
+    //화면 정보 갱신하기 위해 사용
+    var url = window.location.href.split("/");
+    var postid = url[6];
+    axios({
+      method:'get',
+      url:"http://i5d104.p.ssafy.io:8080/post/"+user.id+"/"+postid,
+    })
+    .then((response) =>{
+      onSetUserImage(response.data.data.userImage);
+      onSetUserName(response.data.data.userName);
+      onSetPost(response.data.data.post);
+      onSetTags(response.data.data.tags);
+      onSetContent(response.data.data.contents);
+      onSetLike(response.data.data.like);
+      onSetComments(response.data.data.comments);
 
+      var contentImage = new Array();
+      var content_box = response.data.data.contents;
+      
+      for(var i=0;i<content_box.length;i++){
+        contentImage.push(content_box[i].image);
+      }
+
+      //이미지 여러장 처리 위해 사용
+      onSetContentImage(contentImage);
+
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
+  }
+
+  const submitComment = () =>{
+    //댓글 작성 함수
     axios({
       method : "post",
       url: "http://i5d104.p.ssafy.io:8080/comment",
@@ -42,13 +85,35 @@ const Comment = () => {
       }
     })
     .then((response) =>{
-      console.log(response);
+      updateInfo();
     })
     .catch((error) =>{
       console.log(error);
     })
 
-    setWriteComment(null);
+    setWriteComment("");
+  }
+
+  const modifyComments =()=>{
+    console.log("수정");
+  }
+
+  const deleteComments = (e,commentid) =>{
+    e.preventDefault();
+    var isDelete = window.confirm("삭제하시겠습니까?");
+
+    if(isDelete == true){
+      axios({
+        method:"delete",
+        url: "http://i5d104.p.ssafy.io:8080/comment/"+commentid,
+      })
+      .then((response) =>{
+        updateInfo();
+      })
+      .catch((error) =>{
+        console.error(error);
+      })
+    }
   }
 
   useEffect(() => {
@@ -56,7 +121,8 @@ const Comment = () => {
     return () => {
       
     }
-  }, [writeComment])
+  }, [comments])
+
   return (
     <div className="comments-wrapper">
       <ContentHeader title="댓글" />
@@ -86,32 +152,6 @@ const Comment = () => {
 
       <div className="user-comment">
         <ul className="comment-list">
-          {/* <li className="comment-list-detail">
-            <div className="usr-comment-userInfo">
-              <Avatar id="usr-comment-avatar" className="post-avatar" src={userImage} />
-              <p className="usr-comment-username">username</p>
-              <span className="usr-comment-desc">
-                this is test comment. plz type right messages
-              </span>
-            </div>
-            <div className="usr-comment-like">
-              <FavoriteBorderIcon id="comment-like" />
-            </div>
-            <div className="usr-comment-footer">
-              <div className="comment-likecnt-cont">
-                <a href="#" id="comment-likecnt">
-                  <p id="comment-likecnt-desc">좋아요 30개</p>
-                </a>
-              </div>
-              <div className="comment-footer-recomment-cont">
-                <div className="comment-footer-re">
-                  <button id="recomment-btn">
-                    <p id="recomment">답글 달기</p>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </li> */}
           {comments && comments.map((item,index) =>{
             return(
             <li className="comment-list-detail" key = {index}>
@@ -136,6 +176,12 @@ const Comment = () => {
                   <button id="recomment-btn">
                     <p id="recomment">답글 달기</p>
                   </button>
+                  {user.nickname == item.name 
+                  ? <button id="modify-btn" onClick={modifyComments}><p id="modify">수정</p></button>
+                  :""}
+                  {user.nickname == item.name 
+                  ? <button id="delete-btn" onClick={(e) =>deleteComments(e,`${item.id}`)}><p id="delete">삭제</p></button>
+                  :""}
                 </div>
               </div>
             </div>

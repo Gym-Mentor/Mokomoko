@@ -17,4 +17,6 @@ public interface CommentService {
     BaseResponse createComment(Comment comment);
 
     Long getCommentPostid(Long commentid);
+
+    List<Comment> deleteCommentByPostid(List<Long> postid);
 }

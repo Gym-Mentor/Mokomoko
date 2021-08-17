@@ -3,8 +3,7 @@ package com.web.webcuration.service;
 import java.io.IOException;
 import java.util.List;
 
-import com.web.webcuration.dto.request.ExplorePostRequest;
-import com.web.webcuration.dto.request.MainFeedRequest;
+import com.web.webcuration.dto.request.FeedRequest;
 import com.web.webcuration.dto.request.PostRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.dto.response.MainFeedResponse;
@@ -21,11 +20,13 @@ public interface PostService {
 
     BaseResponse updatePost(PostRequest changePost) throws IllegalStateException, IOException;
 
-    BaseResponse getExplorePost(ExplorePostRequest explorePostRequest);
+    BaseResponse getExplorePost(FeedRequest feedRequest);
 
-    List<MainFeedResponse> getMainFeed(MainFeedRequest mainFeedRequest);
+    List<MainFeedResponse> getMainFeed(FeedRequest feedRequest);
 
-    void ChangePostCommentCnt(Long postid, Long number);
+    BaseResponse changePostCommentCnt(Long postid, Long number);
 
-    void ChangePostLikeCnt(Long postid, Long number);
+    BaseResponse changePostLikeCnt(Long postid, Long number);
+
+    void deleteByUserid(Long userid);
 }

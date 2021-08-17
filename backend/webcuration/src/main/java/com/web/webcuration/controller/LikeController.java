@@ -26,15 +26,15 @@ public class LikeController {
     @PostMapping()
     @Transactional
     public ResponseEntity<BaseResponse> createLike(@RequestBody LikeRequest reqLike) {
-        postService.ChangePostLikeCnt(reqLike.getPostid(), 1L);
-        return ResponseEntity.ok(likeService.createLike(reqLike));
+        likeService.createLike(reqLike);
+        return ResponseEntity.ok(postService.changePostLikeCnt(reqLike.getPostid(), 1L));
     }
 
     @DeleteMapping()
     @Transactional
     public ResponseEntity<BaseResponse> deleteLike(@RequestBody LikeRequest reqLike) {
-        postService.ChangePostLikeCnt(reqLike.getPostid(), -1L);
-        return ResponseEntity.ok(likeService.deleteLike(reqLike));
+        likeService.deleteLike(reqLike);
+        return ResponseEntity.ok(postService.changePostLikeCnt(reqLike.getPostid(), -1L));
     }
 
 }
