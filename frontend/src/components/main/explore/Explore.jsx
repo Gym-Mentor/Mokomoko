@@ -58,8 +58,10 @@ export default function App() {
       .then((result) => {
         console.log(result);
         console.log(result.data.data);
-        setList((prev, result) => prev.push(result.data.data));
-        console.log(list);
+        let newList = Object.assign([], list);
+        newList.push(result.data.data);
+        setList(newList);
+        console.log(newList);
       })
       .catch((res) => {
         console.log(res);
