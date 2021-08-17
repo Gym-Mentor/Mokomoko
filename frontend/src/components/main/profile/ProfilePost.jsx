@@ -102,6 +102,8 @@ const ProfilePost = () => {
       onSetLike(response.data.data.like);
       onSetComments(response.data.data.comments);
 
+      console.log(response.data.data.comments);
+
       var contentImage = new Array();
       var content_box = response.data.data.contents;
       
