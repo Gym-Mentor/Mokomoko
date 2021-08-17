@@ -45,7 +45,8 @@ const Login = ({ history }) => {
       },
     })
       .then((res) => {
-        const user = res.data.data.user;
+        let user = res.data.data.user;
+        user = { ...res.data.data.relationResponse };
         const { accessToken } = res.data;
         console.log("유저정보 ", user);
         onSetUserInfo(user);
