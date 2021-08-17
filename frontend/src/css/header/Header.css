@@ -78,6 +78,6 @@
 }
 .header-col {
   width: 100%;
-  position: fixed;
+  /* position: fixed; */
   /* border-bottom: 1px solid #dbdbdb; */
 }
