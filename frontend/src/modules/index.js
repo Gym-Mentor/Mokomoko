@@ -9,6 +9,7 @@ import profileDetail from "./profileDetail";
 import userInfo from "./userInfo";
 import MainNav from "./MainNav";
 import Food from "./Food";
+import Post from "./Post";
 
 // redux-persist 새로고침 이슈 해결
 import { persistReducer } from "redux-persist";
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   userInfo,
   MainNav,
   Food,
+  Post,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

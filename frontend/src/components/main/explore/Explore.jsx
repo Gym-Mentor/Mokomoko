@@ -19,7 +19,8 @@ export default function App() {
   const [page, setPage] = useState(0);
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [lastTime, setLastTime] = useState(null);
+  var lastTime = new Date().getTime();
+  console.log(lastTime);
   // 탐색 피드 받아오기
   useEffect(() => {
     onSetIndex(2);
@@ -40,20 +41,20 @@ export default function App() {
     //   { url: image2, isImage: true },
     //   { url: image3, isImage: true },
     // ];
-    axios({
-      method: "get",
-      url: "http://i5d104.p.ssafy.io:8080/post/explore/" + lastTime,
-    })
-      .then((result) => {
-        console.log(result);
-        console.log(result.data);
-        list = result.data;
-      })
-      .catch((res) => {
-        console.log(res);
-      });
-    setList((prev) => [...prev, ...list]);
-    setLoading(false);
+    //   axios({
+    //     method: "get",
+    //     url: "http://i5d104.p.ssafy.io:8080/post/explore/" + lastTime,
+    //   })
+    //     .then((result) => {
+    //       console.log(result);
+    //       console.log(result.data);
+    //       list = result.data;
+    //     })
+    //     .catch((res) => {
+    //       console.log(res);
+    //     });
+    //   setList((prev) => [...prev, ...list]);
+    //   setLoading(false);
   }, [page]);
 
   return (

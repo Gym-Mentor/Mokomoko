@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../../../css/main/profile/ProfilePost.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+import { setContent, setContentImage, setPost, setTags, setUserImage, setUserName } from "../../../modules/Post";
   
 
 const ProfilePost = () => {
@@ -11,9 +12,28 @@ const ProfilePost = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const { user } = useSelector((state) => ({
+  const history = useHistory();
+
+  const { user,userImage,userName,post,tags,content ,contentImage} = useSelector((state) => ({
     user: state.userInfo.user,
+    userImage : state.Post.userImage,
+    userName : state.Post.userName,
+    post : state.Post.post,
+    tags : state.Post.tags,
+    content : state.Post.content,
+    contentImage : state.Post.contentImage,
   }));
+
+    //useDispatch 사용해서 리덕스 스토어의 dispatch를 함수에서 사용할 수 있도록 해준다.
+    const dispatch = useDispatch();
+
+    const onSetUserImage = (userImage) => dispatch(setUserImage(userImage));
+    const onSetUserName = (userName) => dispatch(setUserName(userName));
+    const onSetPost = (post) => dispatch(setPost(post));
+    const onSetTags = (tags) => dispatch(setTags(tags));
+    const onSetContent = (content) => dispatch(setContent(content));
+    const onSetContentImage = (contentImage) => dispatch(setContentImage(contentImage));
+  
 
 
   useEffect(() => {
@@ -41,11 +61,55 @@ const ProfilePost = () => {
 
   }, []);
 
-  const showDetail = (e, index) => {
+  const showDetail = (e, postid) => {
     e.preventDefault();
 
+    //redux초기화
+    onSetUserImage("");
+    onSetUserName("");
+    onSetPost({});
+    onSetTags([]);
+    onSetContent([]);
+    onSetContentImage([]);
+
     setIsDetail((prev) => !prev);
-    console.log(isDetail);
+    
+    console.log(postid);
+    //받아온 postid 통해서 GET 으로 정보 얻어오기
+    axios({
+      url :"http://i5d104.p.ssafy.io:8080/post/"+postid,
+      method: "get",
+    })
+    .then((response) => {
+      console.log(response);
+      
+      
+      console.log("이미지 테스트");
+      // for(var i=0;i<response.data.data.content.length;i++){
+      //   console.log(response.data.data.content[i]);
+      // }
+      onSetUserImage(response.data.data.userImage);
+      onSetUserName(response.data.data.userName);
+      onSetPost(response.data.data.post);
+      onSetTags(response.data.data.tags);
+      onSetContent(response.data.data.contents);
+
+      var contentImage = new Array();
+      var content_box = response.data.data.contents;
+      
+      for(var i=0;i<content_box.length;i++){
+        contentImage.push(content_box[i].image);
+      }
+
+      onSetContentImage(contentImage);
+
+    })
+    .catch((error) =>{
+      console.log(error);
+    });
+
+    history.push(`testt/${postid}`);
+
   };
 
   if (loading) return <div>로딩중..</div>;
@@ -57,17 +121,8 @@ const ProfilePost = () => {
         {postList &&
           postList.map((item, index) => {
             return (
-              <div key={index} className="postGrid" onClick={(e) => showDetail(e, { index })}>
-                <Link
-                  to={{
-                    pathname: `/main/testt/${item.post.id}`,
-                    state: {
-                      idx: item.post.id,
-                    },
-                  }}
-                > 
+              <div key={index} className="postGrid" onClick={(e) => showDetail(e, `${item.post.id}`)}>
                   <img className="postImg" src={item.image} />
-                </Link>
               </div>
             );
           })}

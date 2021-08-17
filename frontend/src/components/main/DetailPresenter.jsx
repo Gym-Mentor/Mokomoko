@@ -6,10 +6,7 @@ import Header from "../header/Header";
 import { IoIosArrowBack } from "react-icons/io";
 import ContentHeader from "../header/ContentHeader";
 
-const DetailPresenter = ({ location: {state} }, props) => {
-  const { idx } = state;
-
-
+const DetailPresenter = () => {
   return (
     <div className="detail-presenter-wrapper">
       <Row id="detail-presenter-row">
@@ -17,7 +14,7 @@ const DetailPresenter = ({ location: {state} }, props) => {
         <Col></Col>
         <Col md={6} className="detail-col">
           <div className="details">
-            <Detail postid={idx}/>
+            <Detail/>
           </div>
         </Col>
         <Col></Col>
