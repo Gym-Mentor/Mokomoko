@@ -58,13 +58,15 @@ export default function App() {
       .then((result) => {
         console.log(result);
         console.log(result.data.data);
-        setList(...list, ...result.data.data);
-        console.log(list);
+        setList((prev, res) => prev.push(res.data.data));
+        list.map((item) => {
+          console.log(item.post);
+          console.log(item.image);
+        });
       })
       .catch((res) => {
         console.log(res);
       });
-    setList((prev) => [...prev, ...list]);
     setLoading(false);
   }, [page]);
 
