@@ -36,7 +36,7 @@ const Login = ({ history }) => {
 
   const JWT_EXPIRY_TIME = 10000;
   // 로그인 버튼 이벤트
-  const onClickLogin = (email, password) => {
+  const onClickLogin = () => {
     // 백엔드와 통신
     // history.push("/main/feed");
     console.log(email);
