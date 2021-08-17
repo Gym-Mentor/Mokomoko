@@ -45,11 +45,14 @@ const Login = ({ history }) => {
       },
     })
       .then((res) => {
-        const user = res.data.data.user;
+        let user = res.data.data.user;
+        user = { ...user, ...res.data.data.relationResponse };
+        const { accessToken } = res.data;
         console.log("유저정보 ", user);
         onSetUserInfo(user);
         //로그인 하고 localStorage 저장
-        localStorage.setItem("accessToken", user);
+        // localStorage.setItem("accessToken", user);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
         history.push("/main/feed");
       })
       .catch((error) => {

@@ -3,6 +3,7 @@ package com.web.webcuration.service;
 import java.io.IOException;
 import java.util.Optional;
 
+import com.web.webcuration.Entity.Provide;
 import com.web.webcuration.Entity.User;
 import com.web.webcuration.dto.request.NickNameRequest;
 import com.web.webcuration.dto.request.ProfileRequest;
@@ -58,18 +59,30 @@ public class UserServiceImpl implements UserService {
         if (userQueryRepository.DuplicateCheckName(profileRequest.getId(), profileRequest.getNickname())) {
             Optional<User> user = userRepository.findById(profileRequest.getId());
             if (user.isPresent()) {
+                // 바뀌기전 이본 유저 정보
                 User changeUser = user.get();
                 changeUser.setNickname(profileRequest.getNickname());
                 changeUser.setIntroduce(profileRequest.getIntroduce());
-                if (!changeUser.getImage().equals("/profileImg/user_image.png")) {
-                    FileUtils.deleteProfile(changeUser.getImage());
-                }
-                if (profileRequest.getImage() != null) {
-                    changeUser.setImage(FileUtils.uploadProfile(profileRequest.getImage()));
-                } else {
-                    // changeUser.setImage("C:\\Users\\Master\\Desktop\\img\\user_image.png");
-                    // 서버
-                    changeUser.setImage("/profileImg/user_image.png");
+
+                if (profileRequest.isFileChanged()) {
+                    // 사진이 변경 됐으면
+                    if (!changeUser.getImage().equals("/profileImg/user_image.png")) {
+                        // 기본 프로필이 아니면
+                        if (changeUser.getProvide().equals(Provide.LOCAL)) {
+                            // 로컬이면
+                            FileUtils.deleteProfile(changeUser.getImage());
+                        } else {
+                            // SNS면
+                            changeUser.setProvide(Provide.LOCAL);
+                        }
+                    }
+                    if (profileRequest.getImage() == null) {
+                        // 기본 프로필 설정을 했으면
+                        changeUser.setImage("/profileImg/user_image.png");
+                    } else {
+                        // 다른 사진으로 설정했으면
+                        changeUser.setImage(FileUtils.uploadProfile(profileRequest.getImage()));
+                    }
                 }
                 return BaseResponse.builder().status("200").status("success").data(userRepository.save(changeUser))
                         .build();
@@ -86,7 +99,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = userRepository.findByEmail(changeUser.getEmail());
         if (user.isPresent()) {
             user.get().setPassword(passwordEncoder.encode(changeUser.getPassword()));
-            System.out.println("프로필 수정 : " + user.get());
+
             return BaseResponse.builder().status("200").status("success").data(userRepository.save(user.get())).build();
         } else {
             throw new RuntimeException("패스워드 설정 실패");

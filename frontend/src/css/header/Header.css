@@ -28,9 +28,9 @@
 .header {
   position: fixed;
   width: 100%;
-  background-color: white;
+  background-color: transparent;
   top: 0;
-  height: 90px;
+  /* height: 80px; */
 }
 #logo-img {
   /*상위의 로고 크기와 위치 설정*/
@@ -51,13 +51,14 @@
 .VscBell {
   width: 30px;
   height: 30px;
-  background-color: white;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
+  background-color: transparent;
+  padding-bottom: 11px;
+  margin-bottom: -6px;
 }
 .logo {
-  background-color: white;
-  margin-bottom: 25px;
+  background-color: transparent;
+  margin-bottom: 20px;
+
   /* border-bottom: 1px solid #dbdbdb; */
 }
 @font-face {
@@ -68,6 +69,7 @@
   font-style: normal;
 }
 #profile-header-nick {
+  padding-top: 20px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -77,5 +79,6 @@
 }
 .header-col {
   width: 100%;
+  /* position: fixed; */
   /* border-bottom: 1px solid #dbdbdb; */
 }

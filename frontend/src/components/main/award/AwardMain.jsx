@@ -15,7 +15,7 @@ const AwardMain = () => {
             <div className="awardMain-header">
               <Cheader title="명예의 전당" />
             </div>
-
+            <br />
             <AwardUser />
             <AwardTag />
             <AwardPost />

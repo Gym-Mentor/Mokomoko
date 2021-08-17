@@ -45,11 +45,12 @@ public class User {
     @Column
     private LocalDateTime createdate;
 
-    private Long prelikecnt;
-
     private String image;
 
     private String introduce;
+
+    @Enumerated(EnumType.STRING)
+    private Provide provide;
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
@@ -61,7 +62,6 @@ public class User {
     @PrePersist
     public void prePersist() {
         this.createdate = LocalDateTime.now();
-        this.prelikecnt = this.prelikecnt == null ? 0 : this.prelikecnt;
         // 로컬
         // this.image = this.image == null ? "C:\\Users\\Master\\Desktop\\img" :
         // this.image;

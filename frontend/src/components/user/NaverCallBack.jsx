@@ -36,7 +36,9 @@ const NaverCallBack = (props) => {
         })
           .then((res) => {
             console.log(res);
-            onSetUserInfo(res.data.data.user);
+            let user = res.data.data.user;
+            user = { ...user, ...res.data.data.relationResponse };
+            onSetUserInfo(user);
             props.history.push("/main/feed");
           })
           .catch((error) => {

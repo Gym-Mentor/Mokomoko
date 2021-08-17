@@ -3,8 +3,10 @@ package com.web.webcuration.controller;
 import com.web.webcuration.Entity.Comment;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.CommentService;
+import com.web.webcuration.service.PostService;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/comment")
 public class CommentController {
 
+    private final PostService postService;
     private final CommentService commentService;
 
     @PutMapping()
@@ -28,12 +31,17 @@ public class CommentController {
     }
 
     @DeleteMapping("/{commentid}")
-    public ResponseEntity<BaseResponse> deleteComment(@PathVariable("commentid") Long commentId) {
-        return ResponseEntity.ok(commentService.deleteComment(commentId));
+    @Transactional
+    public ResponseEntity<BaseResponse> deleteComment(@PathVariable("commentid") Long commentid) {
+        Long postid = commentService.getCommentPostid(commentid);
+        postService.ChangePostCommentCnt(postid, -1L);
+        return ResponseEntity.ok(commentService.deleteComment(commentid));
     }
 
     @PostMapping()
+    @Transactional
     public ResponseEntity<BaseResponse> createComment(@RequestBody Comment comment) {
+        postService.ChangePostCommentCnt(comment.getPostid(), 1L);
         return ResponseEntity.ok(commentService.createComment(comment));
     }
 }

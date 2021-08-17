@@ -22,6 +22,7 @@ const UserInfoModify = (props) => {
   const [file, setFile] = useState("");
   const [previewURL, setPreviewURL] = useState("");
   let preview_img = null;
+  let fileChanged = false;
   // 뒤로가기
   const goBack = () => {
     window.history.back();
@@ -42,6 +43,7 @@ const UserInfoModify = (props) => {
       setPreviewURL(reader.result);
     };
     reader.readAsDataURL(file);
+    fileChanged = true;
   };
 
   // 닉네임이 수정될 때 호출 -> 임시로 담고있는 유저정보의 nickname을 바꿔줌
@@ -68,6 +70,7 @@ const UserInfoModify = (props) => {
     SetUserInfo(newUserInfo);
     // 프로필에 실제로 보이는 이미지
     setPreviewURL("http://i5d104.p.ssafy.io/profileImg/user_image.png");
+    fileChanged = true;
   };
   // 현재 프로필 수정에 보여줄 사진을 담고있는 변수
 
@@ -93,12 +96,19 @@ const UserInfoModify = (props) => {
     // formData로 변환
     const formData = new FormData();
     // 이미지를 넣었을 때만 수정함
-    if (userInfo.image !== null) {
-      formData.append("image", userInfo.image);
+
+    if (userInfo.fileChanged) {
+      formData.set("image", userInfo.image);
     }
+    formData.append("provide", userInfo.provide);
+    formData.append("fileChanged", fileChanged);
     formData.append("id", userInfo.id);
     formData.append("nickname", userInfo.nickname);
-    formData.append("introduce", userInfo.introduce);
+    if (userInfo.introduce == null) {
+      formData.append("introduce", null);
+    } else {
+      formData.append("introduce", userInfo.introduce);
+    }
     console.log(userInfo);
     // 백엔드와 통신하기
     axios({
