@@ -11,25 +11,31 @@ const AwardUser = () => {
 
   const playSlider = () => {
     setSliderPlay(true);
+    setSliderPause(false);
   };
 
   const pauseSlider = () => {
+    setSliderPlay(false);
     setSliderPause(true);
   };
   const slider = useRef();
   const settings = {
     dots: true,
+    arrows: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 4000,
   };
 
+  //   const slideSettings = {...settings, autoplay}
   const test_user = [
     //9개 가져온다는 가정하에
     {
       id: "test1",
-      img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
+      img: "https://matsudapet.com.br/blog/wp-content/uploads/2019/08/shutterstock_275863976-compressed.jpg",
     },
     {
       id: "test2",
@@ -69,18 +75,33 @@ const AwardUser = () => {
       <div className="awardUser-wrapper">
         <div className="awardUser-row">
           <div className="awardUser-col">
+            <h3 className="award-user-title">인기 사용자</h3>
             <Slider ref={slider} {...settings}>
               <div className="awardUserItem">
-                <div className="round-user">
-                  <img src={test_user[0].img} alt="" />
+                <div className="award-user-profilepic">
+                  <div className="round-user">
+                    <img src={test_user[0].img} alt="" />
+                  </div>
+                  <div className="round-user">
+                    <img src={test_user[1].img} alt="" />
+                  </div>
+                  <div className="round-user">
+                    <img src={test_user[2].img} alt="" />
+                  </div>
                 </div>
-                <div className="round-user">
-                  <img src={test_user[1].img} alt="" />
-                </div>
-                <div className="round-user">
-                  <img src={test_user[2].img} alt="" />
+                <div className="award-usernick">
+                  <div className="award-user-nick">
+                    <span>{test_user[0].id}</span>
+                  </div>
+                  <div className="award-user-nick">
+                    <span>{test_user[0].id}</span>
+                  </div>
+                  <div className="award-user-nick">
+                    <span>{test_user[0].id}</span>
+                  </div>
                 </div>
               </div>
+
               <div>
                 <div className="round-user">
                   <img src={test_user[3].img} alt="" />

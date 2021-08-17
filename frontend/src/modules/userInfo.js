@@ -43,14 +43,18 @@ export const modifyUserInfoIntroduce = (introduce) => ({
 /*초기 상태 선언 */
 const initialState = {
   user: {
-    "authority": null,
-    "createdate": null,
-    "email": null,
-    "id": null,
-    "image": "/profileImg/user_image.png",
-    "introduce": null,
-    "nickname": null,
-    "password": null,
+    authority: null,
+    createdate: null,
+    email: null,
+    id: null,
+    image: "/profileImg/user_image.png",
+    introduce: null,
+    nickname: null,
+    password: null,
+    relationResponse: {
+      follow: [],
+      block: [],
+    },
   },
 };
 

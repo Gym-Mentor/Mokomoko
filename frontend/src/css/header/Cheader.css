@@ -3,7 +3,7 @@
 }
 .cheader-wrapper {
   width: 100%;
-  background-color: white;
+  background-color: transparent;
 }
 #header-title {
   display: block;
@@ -16,4 +16,6 @@
 .header-line {
   color: #5f5d5d;
   margin-top: -27px;
+}
+.header-nav {
 }
