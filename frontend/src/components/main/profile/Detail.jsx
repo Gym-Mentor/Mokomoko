@@ -54,7 +54,7 @@ const Detail = (props) => {
 
           axios({
               method : 'post',
-              url :"http://i5d104.p.ssafy.io:8080:/likes",
+              url :"http://i5d104.p.ssafy.io:8080/likes",
               data :{
                   "userid" : user.id,
                   "postid" : post.id,
