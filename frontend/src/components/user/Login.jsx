@@ -12,6 +12,8 @@ const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [btnColorState, setBtnColorState] = useState(false); // 기본값 false
+  const [accessToken, setAccessToken] = useState("");
+  const [refreshToken, setRefreshToken] = useState("");
 
   //userSelector로 리덕스 스토어의 상태 조회하기
   const { user } = useSelector((state) => ({
@@ -32,8 +34,10 @@ const Login = ({ history }) => {
     setPassword(e.target.value);
   };
 
+  // const JWT_EXPIRY_TIME = 600000;
+
   // 로그인 버튼 이벤트
-  const onClickLogin = (e) => {
+  const onClickLogin = (email, password) => {
     // 백엔드와 통신
     // history.push("/main/feed");
     axios({
@@ -47,22 +51,67 @@ const Login = ({ history }) => {
       .then((res) => {
         let user = res.data.data.user;
         user = { ...user, ...res.data.data.relationResponse };
-        const { accessToken } = res.data;
+        const { accessToken, refreshToken } = res.data;
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
         console.log("유저정보 ", user);
         onSetUserInfo(user);
         //로그인 하고 localStorage 저장
         // localStorage.setItem("accessToken", user);
         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+        console.log(accessToken);
         history.push("/main/feed");
       })
+      // .then(() => {
+      //   onLoginSuccess();
+      // })
       .catch((error) => {
         // console.log(error);
         console.error(error);
+        if (error === 401) {
+          window.location.reload();
+        }
         alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
         setEmail("");
         setPassword("");
       });
   };
+
+  // const onReissue = () => {
+  //   axios({
+  //     method: "post",
+  //     url: "http://i5d104.p.ssafy.io:8080/auth/reissue",
+  //     data: {
+  //       email: email,
+  //       accessToken: accessToken,
+  //       refreshToken: refreshToken,
+  //     },
+  //   })
+  //     .then(onLoginSuccess)
+  //     .catch((error) => {
+  //       console.log(error);
+  //       if (error === 401) {
+  //         history.push("/account/feed");
+  //       }
+  //       alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
+  //       setEmail("");
+  //       setPassword("");
+  //     });
+  // };
+
+  // const onLoginSuccess = (response) => {
+  //   let user = response.data.data.user;
+  //   user = { ...user, ...response.data.data.relationResponse };
+  //   const { accessToken, refreshToken } = response.data;
+  //   setAccessToken(accessToken);
+  //   setRefreshToken(refreshToken);
+  //   console.log("유저정보 ", user);
+  //   onSetUserInfo(user);
+  //   axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+  //   setTimeout(onReissue, JWT_EXPIRY_TIME); // 토큰 만료 전에 토큰 연장해주게,
+  //   history.push("/main/feed");
+  // };
 
   //이메일 유효성 검사
   const isEmail = (email) => {
@@ -77,6 +126,7 @@ const Login = ({ history }) => {
   };
 
   useEffect(() => {
+    // onReissue(); // 페이지가 리로드 될 때 로그인 연장
     if (localStorage.getItem("accessToken") != null) {
       window.location.replace("http://i5d104.p.ssafy.io:80/main/feed");
     }
