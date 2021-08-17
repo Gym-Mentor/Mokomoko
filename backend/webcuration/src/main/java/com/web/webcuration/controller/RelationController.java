@@ -23,17 +23,17 @@ public class RelationController {
 
     @PostMapping()
     public ResponseEntity<BaseResponse> createRelation(@RequestBody Relation relation) {
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(relationService.createRelation(relation));
     }
 
     // 팔로우 -> 차단
     @PutMapping()
     public ResponseEntity<BaseResponse> updateRelation(@RequestBody Relation relation) {
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(relationService.updateRelation(relation));
     }
 
     @DeleteMapping()
     public ResponseEntity<BaseResponse> deleteRelation(@RequestBody Relation relation) {
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(relationService.deleteRelation(relation));
     }
 }

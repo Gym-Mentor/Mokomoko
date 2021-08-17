@@ -5,6 +5,8 @@ const SET_POST = 'Post/SET_POST';
 const SET_TAGS = 'Post/SET_TAGS';
 const SET_CONTENT = 'Post/SET_CONTENT';
 const SET_CONTENT_IMAGE = 'Post/SET_CONTENT_IMAGE';
+const SET_LIKE = 'Post/SET_LIKE';
+const SET_COMMENTS = 'Post/SET_COMMENTS';
 
 
 //데이터베이스에서 글 목록 불러온 후 setting
@@ -38,6 +40,16 @@ export const setContentImage = (contentImage) => ({
     contentImage,
 })
 
+export const setLike = (like) => ({
+    type : SET_LIKE,
+    like
+})
+
+export const setComments = (comments) =>({
+    type : SET_COMMENTS,
+    comments
+})
+
 
 /*초기 상태 선언 */
 const initialState = {
@@ -47,6 +59,8 @@ const initialState = {
     tags: [],
     content: [],
     contentImage : [],
+    like : false,
+    comments:[],
 }
 
 
@@ -87,6 +101,16 @@ export default function Post(state=initialState, action){
                 ...state,
                 contentImage : action.contentImage
             };
+        case SET_LIKE:
+            return{
+                ...state,
+                like : action.like
+            };
+        case SET_COMMENTS:
+            return{
+                ...state,
+                comments : action.comments
+            }
 
         default:
             return state;

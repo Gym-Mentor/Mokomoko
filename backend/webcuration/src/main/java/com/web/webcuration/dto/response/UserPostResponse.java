@@ -1,6 +1,9 @@
 package com.web.webcuration.dto.response;
 
-import com.web.webcuration.Entity.Post;
+import java.util.List;
+
+import com.web.webcuration.dto.UserPostInfo;
+import com.web.webcuration.dto.UserRelationInfo;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +14,7 @@ import lombok.Setter;
 @Builder
 public class UserPostResponse {
 
-    private Post post;
+    private List<UserPostInfo> postInfo;
 
-    private String image;
+    private UserRelationInfo relationInfo;
 }

@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserInfo, setUserInfo } from "../../../modules/userInfo";
 import { IoIosArrowBack } from "react-icons/io";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import userImg from "../../../img/user_image.png";
+import { withRouter } from "react-router-dom";
 import "../../../css/header/profileSidebar/UserInfoModify.css";
 import axios from "axios";
 
 // 프로필 이미지 바꾸기, 사용자 정보 바꾸기 백엔드 완성되면 직접해보기
 // 탐색 페이지 완성하기 (백엔드랑 연결하기)
 // 글작성 버그 고치기(session)
-const UserInfoModify = ({ props }) => {
+const UserInfoModify = (props) => {
   // 현재 로그인된 사용자의 정보 받아오기
   const { user } = useSelector((state) => ({ user: state.userInfo.user }));
 
@@ -22,6 +22,7 @@ const UserInfoModify = ({ props }) => {
   const [file, setFile] = useState("");
   const [previewURL, setPreviewURL] = useState("");
   let preview_img = null;
+  let fileChanged = false;
   // 뒤로가기
   const goBack = () => {
     window.history.back();
@@ -42,6 +43,7 @@ const UserInfoModify = ({ props }) => {
       setPreviewURL(reader.result);
     };
     reader.readAsDataURL(file);
+    fileChanged = true;
   };
 
   // 닉네임이 수정될 때 호출 -> 임시로 담고있는 유저정보의 nickname을 바꿔줌
@@ -68,6 +70,7 @@ const UserInfoModify = ({ props }) => {
     SetUserInfo(newUserInfo);
     // 프로필에 실제로 보이는 이미지
     setPreviewURL("http://i5d104.p.ssafy.io/profileImg/user_image.png");
+    fileChanged = true;
   };
   // 현재 프로필 수정에 보여줄 사진을 담고있는 변수
 
@@ -87,7 +90,7 @@ const UserInfoModify = ({ props }) => {
   //   }
   // };
   // 백엔드와 통신하여 유저 정보 바꾸기
-  const saveUserInfo = (e) => {
+  const saveUserInfo = () => {
     // userInfo.image = file !== "" ? previewURL : user.image;
     //멀티 파트로 바꾸기
     // formData로 변환
@@ -96,10 +99,11 @@ const UserInfoModify = ({ props }) => {
     if (userInfo.image !== null) {
       formData.append("image", userInfo.image);
     }
+    formData.append("fileChanged", fileChanged);
     formData.append("id", userInfo.id);
     formData.append("nickname", userInfo.nickname);
     formData.append("introduce", userInfo.introduce);
-    console.log(formData);
+    console.log(userInfo);
     // 백엔드와 통신하기
     axios({
       method: "put",
@@ -113,14 +117,18 @@ const UserInfoModify = ({ props }) => {
         // res.data.image를 받아서 userInfo 바꿔주기(이미지 경로를 받아서 수정)
         // SetUserInfo(res.user);
         console.log(res);
-        let newUserInfo = Object.assign({}, userInfo);
-        newUserInfo.image = res.data.data.image.toString();
-        console.log(res.data.data.image.toString());
-        SetUserInfo(newUserInfo);
-        // 현재 로그인한 사용자의 정보 바꾸기
-        onSetUserInfo(newUserInfo);
-        alert("저장되었습니다.");
-        props.history.push("/main/profile");
+        if (res.data.status === "success") {
+          let newUserInfo = Object.assign({}, userInfo);
+          newUserInfo.image = res.data.data.image.toString();
+          console.log(res.data.data.image.toString());
+          SetUserInfo(newUserInfo);
+          // 현재 로그인한 사용자의 정보 바꾸기
+          onSetUserInfo(newUserInfo);
+          alert("저장되었습니다.");
+          props.history.push("/main/profile");
+        } else {
+          alert("닉네임이 중복되었습니다.");
+        }
       })
       .catch((res) => {
         console.log(res);
@@ -209,4 +217,4 @@ const UserInfoModify = ({ props }) => {
   );
 };
 
-export default UserInfoModify;
+export default withRouter(UserInfoModify);
