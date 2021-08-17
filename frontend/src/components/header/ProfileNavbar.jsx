@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
+import * as HiIcons from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ProfileSideBarData } from "./ProfileSidebarData";
@@ -42,7 +43,7 @@ const ProfileHambar = () => {
       {/*네비게이션 토글 코드 */}
       <div className="navbar">
         <Link to="#" className="menu-bars">
-          <FaIcons.FaBars onClick={showSidebar} />
+          <HiIcons.HiOutlineDotsHorizontal id="hori-menu" onClick={showSidebar} />
         </Link>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>

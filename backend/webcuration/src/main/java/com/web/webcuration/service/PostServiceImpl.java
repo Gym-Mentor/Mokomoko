@@ -59,14 +59,13 @@ public class PostServiceImpl implements PostService {
 
     // 특정 게시글 출력
     @Override
-    public BaseResponse getSelectedPost(Long postid) {
+    public BaseResponse getSelectedPost(Long userid, Long postid) {
         Optional<Post> post = postRepository.findById(postid);
         if (post.isPresent()) {
             Optional<User> user = userRepository.findById(post.get().getUserid());
             List<Contents> contents = contentsQueryRepository.FindAllByPostidOrderBy(postid);
             List<Tag> tags = tagService.findPostInTag(postid);
-            boolean like = likeService
-                    .readLike(LikeRequest.builder().postid(postid).userid(user.get().getId()).build());
+            boolean like = likeService.readLike(LikeRequest.builder().postid(postid).userid(userid).build());
             // comment도 같이 줘야됨
             List<CommentResponse> comments = commentService.getPostComment(postid);
             return BaseResponse.builder().status("200").msg("success")

@@ -10,7 +10,7 @@ import axios from "axios";
 // 프로필 이미지 바꾸기, 사용자 정보 바꾸기 백엔드 완성되면 직접해보기
 // 탐색 페이지 완성하기 (백엔드랑 연결하기)
 // 글작성 버그 고치기(session)
-const UserInfoModify = () => {
+const UserInfoModify = ({ props }) => {
   // 현재 로그인된 사용자의 정보 받아오기
   const { user } = useSelector((state) => ({ user: state.userInfo.user }));
 
@@ -95,11 +95,13 @@ const UserInfoModify = () => {
     // 이미지를 넣었을 때만 수정함
     if (userInfo.image !== null) {
       formData.append("image", userInfo.image);
+    } else {
+      formData.append("image", "/profileImg/user_image.png");
     }
     formData.append("id", userInfo.id);
     formData.append("nickname", userInfo.nickname);
     formData.append("introduce", userInfo.introduce);
-    console.log(formData);
+    console.log(userInfo);
     // 백엔드와 통신하기
     axios({
       method: "put",
@@ -119,6 +121,8 @@ const UserInfoModify = () => {
         SetUserInfo(newUserInfo);
         // 현재 로그인한 사용자의 정보 바꾸기
         onSetUserInfo(newUserInfo);
+        alert("저장되었습니다.");
+        props.history.push("/main/profile");
       })
       .catch((res) => {
         console.log(res);
