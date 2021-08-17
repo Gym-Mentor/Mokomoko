@@ -1,6 +1,9 @@
 package com.web.webcuration.dto.response;
 
+import java.util.List;
+
 import com.web.webcuration.Entity.User;
+import com.web.webcuration.dto.TokenDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,10 +20,8 @@ import lombok.ToString;
 @ToString
 public class LoginUserResponse {
 
-    private String grantType;
-    private String accessToken;
-    private String refreshToken;
-    private Long accessTokenExpiresIn;
+    private TokenDto token;
     private User user;
     private RelationResponse relationResponse;
+    private List<MainFeedResponse> mainFeed;
 }

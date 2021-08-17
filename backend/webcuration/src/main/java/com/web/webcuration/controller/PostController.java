@@ -1,8 +1,9 @@
 package com.web.webcuration.controller;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
+import com.web.webcuration.dto.request.ExplorePostRequest;
+import com.web.webcuration.dto.request.MainFeedRequest;
 import com.web.webcuration.dto.request.PostRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.PostService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,8 +28,6 @@ public class PostController {
 
     private final PostService postService;
 
-    // @PostMapping(value = "/", consumes = { MediaType.APPLICATION_JSON_VALUE,
-    // MediaType.MULTIPART_FORM_DATA_VALUE })
     @PostMapping()
     public @ResponseBody ResponseEntity<BaseResponse> createPosts(PostRequest post) throws IOException {
         return ResponseEntity.ok(postService.createPost(post));
@@ -54,8 +54,14 @@ public class PostController {
         return ResponseEntity.ok(postService.updatePost(changePost));
     }
 
-    @GetMapping("/explore/{lastTime}")
-    public ResponseEntity<BaseResponse> getExplorePost(@PathVariable("lastTime") LocalDateTime lastTime) {
-        return ResponseEntity.ok(postService.getExplorePost(lastTime));
+    @PostMapping("/explore")
+    public ResponseEntity<BaseResponse> getExplorePost(@RequestBody ExplorePostRequest explorePostRequest) {
+        return ResponseEntity.ok(postService.getExplorePost(explorePostRequest));
+    }
+
+    @PostMapping("/main")
+    public ResponseEntity<BaseResponse> getMainFeed(@RequestBody MainFeedRequest mainFeedRequest) {
+        return ResponseEntity.ok(BaseResponse.builder().status("200").msg("success")
+                .data(postService.getMainFeed(mainFeedRequest)).build());
     }
 }
