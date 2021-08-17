@@ -7,6 +7,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.webcuration.Entity.QRelation;
 import com.web.webcuration.Entity.Relation;
 import com.web.webcuration.dto.UserRelationInfo;
+import com.web.webcuration.dto.response.UserCheckRelation;
 
 import org.springframework.stereotype.Repository;
 
@@ -40,6 +41,7 @@ public class RelationQueryRepository {
 
         Long follwing = jpaQueryFactory.selectFrom(qRelation)
                 .where(qRelation.state.eq(true).and(qRelation.send.eq(userid))).fetchCount();
+
         return UserRelationInfo.builder().follwer(follwer).follwing(follwing).build();
     }
 
@@ -48,6 +50,12 @@ public class RelationQueryRepository {
         relations = jpaQueryFactory.select(qRelation).from(qRelation)
                 .where(qRelation.send.eq(userid).or(qRelation.receive.eq(userid))).fetch();
         return relations;
+    }
+
+    public UserCheckRelation checkFollowUser(Long loginUserid, Long selectUserid) {
+        List<Relation> relations = jpaQueryFactory.select(qRelation).from(qRelation)
+                .where(qRelation.send.eq(loginUserid).and(qRelation.receive.eq(selectUserid))).fetch();
+        return relation;
     }
 
 }
