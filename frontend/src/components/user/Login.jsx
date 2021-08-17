@@ -43,7 +43,7 @@ const Login = ({ history }) => {
     console.log(password);
     axios({
       method: "post",
-      url: "http://i5d104.p.ssafy.io:8080/auth/login",
+      url: "https://i5d104.p.ssafy.io/api/login",
       data: {
         email: email,
         password: password,
