@@ -100,13 +100,9 @@ const Login = ({ history }) => {
       },
     })
       .then((response) => {
-        let user = response.data.data.user;
-        user = { ...user, ...response.data.data.relationResponse };
         const { accessToken, refreshToken } = response.data;
         setAccessToken(accessToken);
         setRefreshToken(refreshToken);
-        console.log("유저정보 ", user);
-        onSetUserInfo(user);
         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
         setTimeout(onReissue, JWT_EXPIRY_TIME);
