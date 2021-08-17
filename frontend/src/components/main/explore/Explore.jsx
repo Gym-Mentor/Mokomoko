@@ -58,11 +58,8 @@ export default function App() {
       .then((result) => {
         console.log(result);
         console.log(result.data.data);
-        setList((prev, res) => prev.push(result.data.data));
-        list.map((item) => {
-          console.log(item.post);
-          console.log(item.image);
-        });
+        setList((prev, result) => prev.push(result.data.data));
+        console.log(list);
       })
       .catch((res) => {
         console.log(res);
