@@ -59,7 +59,7 @@ export default function App() {
       .then((result) => {
         console.log(result);
         console.log(result.data);
-        list = result.data;
+        setList(result.data);
       })
       .catch((res) => {
         console.log(res);
