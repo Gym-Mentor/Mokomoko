@@ -24,42 +24,29 @@ export default function App() {
   const onSetIndex = (activeNav) => dispatch(setIndex(activeNav));
 
   const [page, setPage] = useState(0);
-  const [list, setList] = useState([{}]);
+  const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [postid, setPostid] = useState(0);
   // 탐색 피드 받아오기
   useEffect(() => {
     onSetIndex(2);
-  });
+  }, []);
   useEffect(() => {
     setLoading(true);
-    // let list = [
-    //   { url: image1, isImage: true },
-    //   { url: image2, isImage: true },
-    //   { url: image3, isImage: true },
-    //   { url: image1, isImage: true },
-    //   { url: image2, isImage: true },
-    //   { url: image3, isImage: true },
-    //   { url: image1, isImage: true },
-    //   { url: image2, isImage: true },
-    //   { url: image3, isImage: true },
-    //   { url: image1, isImage: true },
-    //   { url: image2, isImage: true },
-    //   { url: image3, isImage: true },
-    // ];
     axios({
       method: "post",
       url: "http://i5d104.p.ssafy.io:8080/post/explore/",
       data: {
         postid: postid,
-        block: user.block,
+        userid: user.id,
       },
     })
       .then((result) => {
         console.log(result);
         console.log(result.data.data);
         let newList = Object.assign([], list);
-        newList.push(result.data.data);
+        console.log(newList);
+        newList.push(...result.data.data);
         setList(newList);
         console.log(newList);
       })
