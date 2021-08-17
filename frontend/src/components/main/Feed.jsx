@@ -31,8 +31,10 @@ const Feed = ({ history }) => {
       <Row>
         <Col></Col>
         <Col className="main-col">
-          <div className="feed-header"></div>
-          <Cheader title="피드" />
+          <div className="feed-header">
+            <Cheader title="피드" />
+          </div>
+
           <div className="feed">
             {/* <Post
               profilePhoto=""
@@ -42,6 +44,8 @@ const Feed = ({ history }) => {
               description="is it works ?"
             /> */}
 
+            <Post />
+            <Post />
             <Post />
           </div>
         </Col>

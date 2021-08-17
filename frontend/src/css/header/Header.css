@@ -30,7 +30,7 @@
   width: 100%;
   background-color: white;
   top: 0;
-  height: 90px;
+  /* height: 80px; */
 }
 #logo-img {
   /*상위의 로고 크기와 위치 설정*/
@@ -57,7 +57,8 @@
 }
 .logo {
   background-color: white;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
+
   /* border-bottom: 1px solid #dbdbdb; */
 }
 @font-face {
@@ -77,5 +78,6 @@
 }
 .header-col {
   width: 100%;
+  position: fixed;
   /* border-bottom: 1px solid #dbdbdb; */
 }
