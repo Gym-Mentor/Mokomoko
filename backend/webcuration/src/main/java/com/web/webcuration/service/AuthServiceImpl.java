@@ -22,9 +22,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AuthServiceImpl implements AuthService {
 
     private final UserService userService;
@@ -172,11 +174,14 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public BaseResponse authSNSLogin(SNSRequest snsRequest) {
         User snsUser = snsRequest.SNStoUser(passwordEncoder);
-        System.out.println("snsUser : " + snsUser);
-        if (userService.getUserInfo(snsUser.getEmail()) == null) {
-            userService.createUser(snsUser);
+        User newSnsUser = userService.getUserInfo(snsUser.getEmail());
+        log.info("{}", "sns로그인 : " + newSnsUser);
+        if (newSnsUser == null) {
+            newSnsUser = userService.createUser(snsUser);
+            relationService.createRelation(
+                    Relation.builder().send(newSnsUser.getId()).receive(newSnsUser.getId()).state(true).build());
         }
-        return login(new UserRequest(snsUser.getEmail(), snsUser.getEmail()));
+        return login(new UserRequest(newSnsUser.getEmail(), newSnsUser.getEmail()));
     }
 
 }
