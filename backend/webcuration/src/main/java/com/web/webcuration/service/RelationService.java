@@ -1,6 +1,7 @@
 package com.web.webcuration.service;
 
 import com.web.webcuration.Entity.Relation;
+import com.web.webcuration.dto.UserRelationInfo;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.dto.response.RelationResponse;
 
@@ -12,6 +13,7 @@ public interface RelationService {
 
     BaseResponse updateRelation(Relation relation);
 
-    RelationResponse getRelation(Long userid);
+    RelationResponse getUserRelation(Long userid);
 
+    UserRelationInfo getCountUserRelation(Long userid);
 }

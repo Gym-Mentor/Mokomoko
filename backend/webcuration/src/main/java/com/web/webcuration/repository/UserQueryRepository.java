@@ -2,7 +2,6 @@ package com.web.webcuration.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.webcuration.Entity.QUser;
-import com.web.webcuration.Entity.User;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,19 +12,17 @@ import lombok.RequiredArgsConstructor;
 public class UserQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
-    private QUser quser = QUser.user;
+    private QUser qUser = QUser.user;
 
-    public Long findIdByEmail(String email) {
-        Long id = jpaQueryFactory.select(quser.id).from(quser).where(quser.email.eq(email)).fetchOne();
-        if (id == null) {
-            throw new RuntimeException("존재하지 않는 이메일입니다.");
+    public boolean DuplicateCheckName(Long userid, String nickname) {
+        String previousNickname = jpaQueryFactory.select(qUser.nickname).from(qUser).where(qUser.id.eq(userid))
+                .fetchFirst();
+        if (previousNickname.equals(nickname)) {
+            return true;
         }
-        return id;
-    }
-
-    public boolean DuplicateCheckName(String nickname) {
-        User checkNickname = jpaQueryFactory.select(quser).from(quser).where(quser.nickname.eq(nickname)).fetchFirst();
-        if (checkNickname == null) {
+        Long countChangeNickname = jpaQueryFactory.select(qUser.nickname).from(qUser).where(qUser.nickname.eq(nickname))
+                .fetchCount();
+        if (countChangeNickname == 0) {
             return true;
         } else {
             return false;
