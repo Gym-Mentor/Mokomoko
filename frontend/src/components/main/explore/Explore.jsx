@@ -58,7 +58,7 @@ export default function App() {
       .then((result) => {
         console.log(result);
         console.log(result.data.data);
-        setList((prev, res) => prev.push(res.data.data));
+        setList((prev, res) => prev.push(result.data.data));
         list.map((item) => {
           console.log(item.post);
           console.log(item.image);
