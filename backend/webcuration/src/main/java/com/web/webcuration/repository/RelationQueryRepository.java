@@ -36,7 +36,7 @@ public class RelationQueryRepository {
     // 팔로우, 팔로워 수 가져오기
     public UserRelationInfo getCountUserRelation(Long userid) {
         Long follwer = jpaQueryFactory.selectFrom(qRelation)
-                .where(qRelation.state.eq(true).and(qRelation.receive.eq(userid))).fetchCount();
+                .where(qRelation.state.eq(true).and(qRelation.receive.eq(userid))).fetchCount() - 1;
 
         Long follwing = jpaQueryFactory.selectFrom(qRelation)
                 .where(qRelation.state.eq(true).and(qRelation.send.eq(userid))).fetchCount();
