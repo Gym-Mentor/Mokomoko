@@ -7,7 +7,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.webcuration.Entity.QRelation;
 import com.web.webcuration.Entity.Relation;
 import com.web.webcuration.dto.UserRelationInfo;
-import com.web.webcuration.dto.response.UserCheckRelation;
 
 import org.springframework.stereotype.Repository;
 
@@ -35,14 +34,25 @@ public class RelationQueryRepository {
     }
 
     // 팔로우, 팔로워 수 가져오기
-    public UserRelationInfo getCountUserRelation(Long userid) {
+    public UserRelationInfo getCountUserRelation(Long send, Long userid) {
         Long follwer = jpaQueryFactory.selectFrom(qRelation)
                 .where(qRelation.state.eq(true).and(qRelation.receive.eq(userid))).fetchCount() - 1;
 
-        Long follwing = jpaQueryFactory.selectFrom(qRelation)
-                .where(qRelation.state.eq(true).and(qRelation.send.eq(userid))).fetchCount();
+        List<Relation> follwingRelations = jpaQueryFactory.selectFrom(qRelation)
+                .where(qRelation.state.eq(true).and(qRelation.send.eq(userid))).fetch();
+        Long follwing = 0L;
+        boolean isFollow = false;
+        if (follwingRelations != null) {
+            follwing = Long.valueOf(follwingRelations.size());
+            for (Relation relation : follwingRelations) {
+                if (relation.getSend() == send) {
+                    isFollow = true;
+                    break;
+                }
+            }
+        }
 
-        return UserRelationInfo.builder().follwer(follwer).follwing(follwing).build();
+        return UserRelationInfo.builder().follwer(follwer).follwing(follwing).isFollow(isFollow).build();
     }
 
     public List<Relation> findAllbyUserid(Long userid) {
@@ -50,12 +60,6 @@ public class RelationQueryRepository {
         relations = jpaQueryFactory.select(qRelation).from(qRelation)
                 .where(qRelation.send.eq(userid).or(qRelation.receive.eq(userid))).fetch();
         return relations;
-    }
-
-    public UserCheckRelation checkFollowUser(Long loginUserid, Long selectUserid) {
-        List<Relation> relations = jpaQueryFactory.select(qRelation).from(qRelation)
-                .where(qRelation.send.eq(loginUserid).and(qRelation.receive.eq(selectUserid))).fetch();
-        return relation;
     }
 
 }
