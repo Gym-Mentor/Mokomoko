@@ -10,5 +10,4 @@ public interface LikeRepository extends JpaRepository<Likes, Long> {
 
     Optional<Likes> findByUseridAndPostid(Long userid, Long postid);
 
-    Long deleteByUseridAndPostid(Long userid, Long postid);
 }

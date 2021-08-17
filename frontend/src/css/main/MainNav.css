@@ -11,7 +11,7 @@
 /* 네비게이션 바 설정 */
 .Navs {
   overflow: hidden;
-  border-top: 2px solid grey;
+  border-top: 1px solid #dbdbdb;
   background: #ffffff;
   padding: 0;
 }
