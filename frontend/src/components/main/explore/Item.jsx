@@ -5,7 +5,7 @@ const Item = ({ image, post }) => {
     <div className="element-media-border">
       {/* {isImage ? ( */}
       <img className="element-media-content" src={image} />
-      {post.id}
+      {/* {post} */}
       {/* ) : (
         <video className="element-media-content" src={url}></video>
       )} */}
