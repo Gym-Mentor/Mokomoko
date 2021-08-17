@@ -101,7 +101,7 @@ const UserInfoModify = (props) => {
     const formData = new FormData();
     // 이미지를 넣었을 때만 수정함
 
-    if (userInfo.fileChanged) {
+    if (fileChanged) {
       if (userInfo.image != null) formData.append("image", userInfo.image);
     }
     formData.append("provide", userInfo.provide);
