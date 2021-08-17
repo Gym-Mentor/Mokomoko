@@ -56,8 +56,8 @@ const Login = ({ history }) => {
         setAccessToken(accessToken);
         setRefreshToken(refreshToken);
         console.log("유저정보 ", user);
-        console.log(res.data);
-        console.log(res.data.data);
+        console.log("res.data", res.data);
+        console.log("res.data.data", res.data.data);
         onSetUserInfo(user);
         //로그인 하고 localStorage 저장
         // localStorage.setItem("accessToken", user);
