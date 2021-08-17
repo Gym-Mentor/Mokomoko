@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     private final UserService userService;
@@ -35,6 +37,7 @@ public class UserController {
     @PutMapping()
     public @ResponseBody ResponseEntity<BaseResponse> updateUser(ProfileRequest profileRequest)
             throws IllegalStateException, IOException {
+        log.info("{}", "프로필 : " + profileRequest);
         return ResponseEntity.ok(userService.updateUser(profileRequest));
     }
 
