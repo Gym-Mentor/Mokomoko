@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import List from "./List";
 import FetchMore from "./FetchMore";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setIndex } from "../../../modules/MainNav";
+// import { getUserInfo, setUserInfo } from "../../../modules/userInfo";
 import ExploreHeader from "./ExploreHeader";
 // import jQuery from "jquery";
 import "../../../css/main/explore/Explore.css";
@@ -12,7 +13,13 @@ import image2 from "../../../img/햄버거2.jpg";
 import image3 from "../../../img/햄버거3.jpg";
 import axios from "axios";
 export default function App() {
+  // 현재 로그인된 사용자의 정보 받아오기
+  const { user } = useSelector((state) => ({ user: state.userInfo.user }));
+
   const dispatch = useDispatch();
+  // const onSetUserInfo = (userInfo) => dispatch(setUserInfo(userInfo));
+
+  // const [userInfo, SetUserInfo] = useState(user);
 
   const onSetIndex = (activeNav) => dispatch(setIndex(activeNav));
 
@@ -46,7 +53,7 @@ export default function App() {
       url: "http://i5d104.p.ssafy.io:8080/post/explore/",
       data: {
         postId: postId,
-        // block:block,
+        block: user.block,
       },
     })
       .then((result) => {

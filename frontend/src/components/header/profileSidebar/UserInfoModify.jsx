@@ -99,6 +99,7 @@ const UserInfoModify = (props) => {
     if (userInfo.image !== null) {
       formData.append("image", userInfo.image);
     }
+    formData.append("provide", userInfo.provide);
     formData.append("fileChanged", fileChanged);
     formData.append("id", userInfo.id);
     formData.append("nickname", userInfo.nickname);
