@@ -1,6 +1,7 @@
 package com.web.webcuration.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.web.webcuration.dto.request.NickNameRequest;
 import com.web.webcuration.dto.request.ProfileRequest;
@@ -8,6 +9,7 @@ import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.PostService;
 import com.web.webcuration.service.RelationService;
+import com.web.webcuration.service.ScrapService;
 import com.web.webcuration.service.UserService;
 
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,7 @@ public class UserController {
     private final UserService userService;
     private final PostService postService;
     private final RelationService relationService;
+    private final ScrapService scrapService;
 
     @PutMapping("/passwords")
     public ResponseEntity<BaseResponse> updatePasswordUsEntity(@RequestBody UserRequest updateUser) {
@@ -45,7 +48,9 @@ public class UserController {
     @DeleteMapping("/{userid}")
     public ResponseEntity<BaseResponse> deleteUser(@PathVariable("userid") Long userid) {
         relationService.deleteRelationByUserid(userid);
-        postService.deleteByUserid(userid);
+        List<Long> deletePostid = postService.deleteByUserid(userid);
+        scrapService.deleteAllScrapByUserid(userid);
+        scrapService.deleteAllScrapByPostid(deletePostid);
         return ResponseEntity.ok(userService.deleteUser(userid));
     }
 

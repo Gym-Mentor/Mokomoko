@@ -3,6 +3,7 @@ package com.web.webcuration.service;
 import java.io.IOException;
 import java.util.List;
 
+import com.web.webcuration.Entity.Scrap;
 import com.web.webcuration.dto.UserPostInfo;
 import com.web.webcuration.dto.request.FeedRequest;
 import com.web.webcuration.dto.request.PostRequest;
@@ -29,7 +30,9 @@ public interface PostService {
 
     BaseResponse changePostLikeCnt(Long postid, Long number);
 
-    void deleteByUserid(Long userid);
+    List<Long> deleteByUserid(Long userid);
 
     List<UserPostInfo> getRankPosts();
+
+    BaseResponse getScrapPost(List<Scrap> scraps);
 }

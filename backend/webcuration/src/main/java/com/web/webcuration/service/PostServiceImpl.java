@@ -10,6 +10,7 @@ import com.web.webcuration.Entity.Comment;
 import com.web.webcuration.Entity.Contents;
 import com.web.webcuration.Entity.Likes;
 import com.web.webcuration.Entity.Post;
+import com.web.webcuration.Entity.Scrap;
 import com.web.webcuration.Entity.Tag;
 import com.web.webcuration.Entity.User;
 import com.web.webcuration.dto.UserPostInfo;
@@ -21,6 +22,7 @@ import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.dto.response.CommentResponse;
 import com.web.webcuration.dto.response.MainFeedResponse;
 import com.web.webcuration.dto.response.PostResponse;
+import com.web.webcuration.dto.response.ScrapResponse;
 import com.web.webcuration.dto.response.UserPostResponse;
 import com.web.webcuration.repository.PostQueryRepository;
 import com.web.webcuration.repository.PostRepository;
@@ -196,7 +198,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public void deleteByUserid(Long userid) {
+    public List<Long> deleteByUserid(Long userid) {
         List<Post> deletePost = postRepository.findAllByUserid(userid);
         List<Long> postids = new ArrayList<>();
         for (Post post : deletePost) {
@@ -216,6 +218,7 @@ public class PostServiceImpl implements PostService {
         for (ChildComment childComment : deleteChildComment) {
             changePostCommentCnt(childComment.getPostid(), -1L);
         }
+        return postids;
     }
 
     @Override
@@ -231,6 +234,21 @@ public class PostServiceImpl implements PostService {
             }
             return rankPostInfo;
         }
+    }
+
+    @Override
+    public BaseResponse getScrapPost(List<Scrap> scraps) {
+        List<ScrapResponse> scrapResponses = new ArrayList<>();
+        for (Scrap scrap : scraps) {
+            Optional<Post> post = postRepository.findById(scrap.getPostid());
+            if (post.isPresent()) {
+                scrapResponses.add(ScrapResponse.builder().scrapid(scrap.getId()).post(post.get())
+                        .image(contentService.FindByPostidOrderby(post.get().getId()).getImage()).build());
+            } else {
+                throw new RuntimeException("해당 게시글이 없습니다.");
+            }
+        }
+        return BaseResponse.builder().status("200").msg("success").data(scrapResponses).build();
     }
 
 }
