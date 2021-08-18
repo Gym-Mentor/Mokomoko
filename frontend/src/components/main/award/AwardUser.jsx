@@ -7,32 +7,11 @@ import "../../../css/award/AwardUser.css";
 // import 'slick-carousel/slick/slick-theme.css'; 슬라이더 구현시 참고한 사이트
 // https://velog.io/@cookncoding/React-slick%EC%97%90-styled-components-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0
 
-const AwardUser = () => {
+const AwardUser = (props) => {
   const [sliderPlay, setSliderPlay] = useState(false);
   const [sliderPause, setSliderPause] = useState(false);
-  const [userList, setUserList] = useState([]);
 
-  const user = useSelector((state) => state.userInfo.user);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    axios({
-      url: "https://i5d104.p.ssafy.io/api/rank",
-      method: "get",
-    })
-      .then(({ data }) => {
-        console.log("data", data);
-
-        console.log("data.users", data.data.users);
-        setUserList(data.data.users);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  console.log(userList);
+  console.log("props awardUser : ", props);
 
   const playSlider = () => {
     setSliderPlay(true);
@@ -55,45 +34,6 @@ const AwardUser = () => {
     autoplaySpeed: 4000,
   };
 
-  // const award_user = [
-  //   //9개 가져온다는 가정하에
-  //   {
-  //     nickname: "test1",
-  //     img: "https://matsudapet.com.br/blog/wp-content/uploads/2019/08/shutterstock_275863976-compressed.jpg",
-  //   },
-  //   {
-  //     nickname: "test2",
-  //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
-  //   },
-  //   {
-  //     nickname: "test3",
-  //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
-  //   },
-  //   {
-  //     nickname: "test4",
-  //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
-  //   },
-  //   {
-  //     nickname: "test5",
-  //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
-  //   },
-  //   {
-  //     nickname: "test6",
-  //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
-  //   },
-  //   {
-  //     nickname: "test7",
-  //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
-  //   },
-  //   {
-  //     nickname: "test8",
-  //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
-  //   },
-  //   {
-  //     nickname: "test9",
-  //     img: "https://i.pinimg.com/564x/28/9e/fa/289efa2d92e57cc33d0ef5a3503d4973.jpg",
-  //   },
-  // ];
   return (
     <div>
       <div className="awardUser-wrapper">
@@ -109,14 +49,14 @@ const AwardUser = () => {
                     </div>
                   ))} */}
                   <div className="round-user">
-                    <img src={userList[0].image} alt="" />
+                    <img src={props[0].image} alt="" />
                   </div>
 
                   <div className="round-user">
-                    <img src={userList[1].image} alt="" />
+                    <img src={props[1].image} alt="" />
                   </div>
                   <div className="round-user">
-                    <img src={userList[2].image} alt="" />
+                    <img src={props[2].image} alt="" />
                   </div>
                 </div>
                 <div className="award-usernick">
@@ -126,13 +66,13 @@ const AwardUser = () => {
                     </div>
                   ))} */}
                   <div className="award-user-nick">
-                    <span>{userList[0].nickname}</span>
+                    <span>{props[0].nickname}</span>
                   </div>
                   <div className="award-user-nick">
-                    <span>{userList[1].nickname}</span>
+                    <span>{props[1].nickname}</span>
                   </div>
                   <div className="award-user-nick">
-                    <span>{userList[2].nickname}</span>
+                    <span>{props[2].nickname}</span>
                   </div>
                 </div>
               </div>
@@ -140,48 +80,48 @@ const AwardUser = () => {
               <div className="awardUserItem">
                 <div className="award-user-profilepic">
                   <div className="round-user">
-                    <img src={userList[3].image} alt="" />
+                    <img src={props[3].image} alt="" />
                   </div>
                   <div className="round-user">
-                    <img src={userList[4].image} alt="" />
+                    <img src={props[4].image} alt="" />
                   </div>
                   <div className="round-user">
-                    <img src={userList[5].image} alt="" />
+                    <img src={props[5].image} alt="" />
                   </div>
                 </div>
                 <div className="award-usernick">
                   <div className="award-user-nick">
-                    <span>{userList[3].nickname}</span>
+                    <span>{props[3].nickname}</span>
                   </div>
                   <div className="award-user-nick">
-                    <span>{userList[4].nickname}</span>
+                    <span>{props[4].nickname}</span>
                   </div>
                   <div className="award-user-nick">
-                    <span>{userList[5].nickname}</span>
+                    <span>{props[5].nickname}</span>
                   </div>
                 </div>
               </div>
               <div className="awardUserItem">
                 <div className="award-user-profilepic">
                   <div className="round-user">
-                    <img src={userList[6].image} alt="" />
+                    <img src={props[6].image} alt="" />
                   </div>
                   <div className="round-user">
-                    <img src={userList[7].image} alt="" />
+                    <img src={props[7].image} alt="" />
                   </div>
                   <div className="round-user">
-                    <img src={userList[8].image} alt="" />
+                    <img src={props[8].image} alt="" />
                   </div>
                 </div>
                 <div className="award-usernick">
                   <div className="award-user-nick">
-                    <span>{userList[6].nickname}</span>
+                    <span>{props[6].nickname}</span>
                   </div>
                   <div className="award-user-nick">
-                    <span>{userList[7].nickname}</span>
+                    <span>{props[7].nickname}</span>
                   </div>
                   <div className="award-user-nick">
-                    <span>{userList[8].nickname}</span>
+                    <span>{props[8].nickname}</span>
                   </div>
                 </div>
               </div>
