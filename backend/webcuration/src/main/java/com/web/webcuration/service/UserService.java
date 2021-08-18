@@ -32,4 +32,6 @@ public interface UserService {
     void changeUserFollower(Long userid, Long number);
 
     List<User> getRankUsers();
+
+    BaseResponse getRelationToUser(List<Long> relationList);
 }

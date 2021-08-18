@@ -32,7 +32,6 @@ public class RelationServiceImpl implements RelationService {
         Relation findRelation = relationQueryRepository.findBySendAndReceive(relationRequest);
         if (relationRequest.getSend() != relationRequest.getReceive()) {
             log.info("{}", "관계 " + relationRequest);
-            log.info("{}", "관계1 " + findRelation);
             if (findRelation != null) {
                 if (!relationRequest.isState()) {
                     // 팔로우 -> 차단
@@ -102,6 +101,16 @@ public class RelationServiceImpl implements RelationService {
     public void deleteRelationByUserid(Long userid) {
         List<Relation> deleteRelation = relationQueryRepository.findAllbyUserid(userid);
         relationRepository.deleteAll(deleteRelation);
+    }
+
+    @Override
+    public List<Long> getFollowListByUserid(Long userid) {
+        return relationQueryRepository.getFollowListByUserid(userid);
+    }
+
+    @Override
+    public List<Long> getFollowerListByUserid(Long userid) {
+        return relationQueryRepository.getFollowerListByUserid(userid);
     }
 
 }
