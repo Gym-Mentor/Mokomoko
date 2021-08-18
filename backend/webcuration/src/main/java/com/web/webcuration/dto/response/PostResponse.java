@@ -15,6 +15,8 @@ import lombok.Setter;
 @Builder
 public class PostResponse {
 
+    private Long userid;
+
     private String userImage;
 
     private String userName;
