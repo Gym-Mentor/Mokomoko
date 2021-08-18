@@ -67,7 +67,8 @@ const Login = ({ history }) => {
         // localStorage.setItem("accessToken", user);
         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
-        // setTimeout(onReissue, JWT_EXPIRY_TIME);
+        console.log("뺀시간", res.data.token.accessTokenExpiresIn - new Date().getTime());
+        setTimeout(onReissue, res.data.token.accessTokenExpiresIn - new Date().getTime() - 60000);
         console.log(res.data.data.token.accessToken);
         console.log(res.data.data.token.refreshToken);
         console.log("만료기간", res.data.data.token.accessTokenExpiresIn);
