@@ -27,6 +27,8 @@ export default function App() {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [postid, setPostid] = useState(0);
+  const [postCheck, setPostCheck] = useState(true);
+
   // 탐색 피드 받아오기
   useEffect(() => {
     onSetIndex(2);
@@ -49,6 +51,11 @@ export default function App() {
         newList.push(...result.data.data);
         setList(newList);
         console.log(newList);
+        if (result.data.data.length > 0) {
+          setPostid(result.data.data[result.data.data.length - 1].post.id);
+        } else {
+          setPostCheck(false);
+        }
       })
       .catch((res) => {
         console.log(res);
@@ -63,7 +70,11 @@ export default function App() {
           <ExploreHeader />
           <div id="explore" className={page === 0 && loading ? "loading" : ""}>
             <List list={list} />
-            <FetchMore loading={page !== 0 && loading} setPage={setPage} page={page} />
+            {postCheck ? (
+              <FetchMore loading={page !== 0 && loading} setPage={setPage} page={page} />
+            ) : (
+              <div>데이터 없음</div>
+            )}
           </div>
         </div>
       </div>

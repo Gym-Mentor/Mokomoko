@@ -5,8 +5,7 @@ const Item = ({ image, post }) => {
   const { user } = useSelector((state) => ({
     user: state.userInfo.user,
   }));
-  const showDetail = (e, postid) => {
-    e.preventDefault();
+  const showDetail = (postid) => {
     //받아온 postid 통해서 GET 으로 정보 얻어오기
     axios({
       url: "http://i5d104.p.ssafy.io:8080/post/" + user.id + "/" + postid,
