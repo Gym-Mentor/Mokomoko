@@ -27,14 +27,6 @@ const ProfilePost = () => {
   const { user, userImage, userName, post, tags, content, contentImage, like, comments } =
     useSelector((state) => ({
       user: state.userInfo.user,
-      // userImage: state.Post.userImage,
-      // userName: state.Post.userName,
-      // post: state.Post.post,
-      // tags: state.Post.tags,
-      // content: state.Post.content,
-      // contentImage: state.Post.contentImage,
-      // like: state.Post.like,
-      // comments: state.Post.comments,
     }));
 
     const { PostData } = useSelector((state) => state.PostData);
@@ -42,14 +34,6 @@ const ProfilePost = () => {
   //useDispatch 사용해서 리덕스 스토어의 dispatch를 함수에서 사용할 수 있도록 해준다.
   const dispatch = useDispatch();
 
-  // const onSetUserImage = (userImage) => dispatch(setUserImage(userImage));
-  // const onSetUserName = (userName) => dispatch(setUserName(userName));
-  // const onSetPost = (post) => dispatch(setPost(post));
-  // const onSetTags = (tags) => dispatch(setTags(tags));
-  // const onSetContent = (content) => dispatch(setContent(content));
-  // const onSetContentImage = (contentImage) => dispatch(setContentImage(contentImage));
-  // const onSetLike = (like) => dispatch(setLike(like));
-  // const onSetComments = (comments) => dispatch(setComments(comments));
 
   useEffect(() => {
     const fetchPostList = async () => {

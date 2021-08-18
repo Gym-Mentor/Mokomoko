@@ -2,7 +2,7 @@ import { Avatar } from "@material-ui/core";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import ChatBubbleOutlinedIcon from "@material-ui/icons/ChatBubbleOutlined";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../../../css/main/feed/Post.css";
 import testImg from "../../../img/logo-back.png";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,7 +11,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import axios from "axios";
 import { setPostData } from "../../../modules/PostData";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import { Carousel } from "react-bootstrap";
+import Slider from "react-slick";
 const Post = ({ contents, image, like, nickname, post }) => {
   // 출력할 데이터
   const dispatch = useDispatch();
@@ -24,6 +24,17 @@ const Post = ({ contents, image, like, nickname, post }) => {
   const [tempPost, setTempPost] = useState(post);
   const { PostData } = useSelector((state) => state.PostData);
   const [scrollState, setScrollState] = useState(Number(0));
+  const slider = useRef();
+  const settings = {
+    dots: true,
+    arrows: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 4000,
+  };
   // 댓글은 페이지 이동
   // 사진 누르면 상세페이지 이동
   // 프로필 누르면 상세 프로필 이동
@@ -135,13 +146,11 @@ const Post = ({ contents, image, like, nickname, post }) => {
           </div>
         </div> */}
 
-        <Carousel interval={null}>
+        <Slider ref={slider} {...settings}>
           {contents.map((item, index) => (
-            <Carousel.Item>
-              <img className="d-block w-100" src={item.image} />
-            </Carousel.Item>
+            <img className="d-block w-100" src={item.image} />
           ))}
-        </Carousel>
+        </Slider>
 
         <div className="post-things">
           <div className="post-like" onClick={isPostLike}>

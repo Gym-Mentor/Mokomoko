@@ -248,3 +248,11 @@ h1 {
   font-weight: bold;
   font-size: 14px;
 }
+
+.purchase-link-div{
+  background-color: #ff85a1;
+  color: white;
+  border-radius: 30px;
+  float: left;
+  margin-left: 10px;
+}

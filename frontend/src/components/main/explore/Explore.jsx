@@ -3,23 +3,15 @@ import List from "./List";
 import FetchMore from "./FetchMore";
 import { useSelector, useDispatch } from "react-redux";
 import { setIndex } from "../../../modules/MainNav";
-// import { getUserInfo, setUserInfo } from "../../../modules/userInfo";
 import ExploreHeader from "./ExploreHeader";
-// import jQuery from "jquery";
 import "../../../css/main/explore/Explore.css";
-// test 이미지
-import image1 from "../../../img/햄버거1.jpg";
-import image2 from "../../../img/햄버거2.jpg";
-import image3 from "../../../img/햄버거3.jpg";
+
 import axios from "axios";
 export default function App() {
   // 현재 로그인된 사용자의 정보 받아오기
   const { user } = useSelector((state) => ({ user: state.userInfo.user }));
 
   const dispatch = useDispatch();
-  // const onSetUserInfo = (userInfo) => dispatch(setUserInfo(userInfo));
-
-  // const [userInfo, SetUserInfo] = useState(user);
 
   const onSetIndex = (activeNav) => dispatch(setIndex(activeNav));
 
