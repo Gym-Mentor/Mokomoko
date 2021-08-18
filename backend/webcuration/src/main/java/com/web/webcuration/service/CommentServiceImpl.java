@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.web.webcuration.Entity.ChildComment;
 import com.web.webcuration.Entity.Comment;
+import com.web.webcuration.dto.request.CommentRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.dto.response.CommentResponse;
 import com.web.webcuration.repository.CommentQueryRepository;
@@ -34,8 +35,15 @@ public class CommentServiceImpl implements CommentService {
 
     // 댓글 수정
     @Override
-    public BaseResponse updateComment(Comment comment) {
-        return BaseResponse.builder().status("200").msg("success").data(commentRepository.save(comment)).build();
+    public BaseResponse updateComment(CommentRequest comment) {
+        Optional<Comment> findComment = commentRepository.findById(comment.getId());
+        if (findComment.isPresent()) {
+            findComment.get().setDescription(comment.getDescription());
+            return BaseResponse.builder().status("200").msg("success").data(commentRepository.save(findComment.get()))
+                    .build();
+        } else {
+            throw new RuntimeException("해당 댓글이 없습니다.");
+        }
     }
 
     // 댓글 삭제

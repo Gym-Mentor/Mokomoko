@@ -1,6 +1,7 @@
 package com.web.webcuration.controller;
 
 import com.web.webcuration.Entity.ChildComment;
+import com.web.webcuration.dto.request.CommentRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.ChildCommentService;
 import com.web.webcuration.service.PostService;
@@ -33,7 +34,7 @@ public class ChildCommentController {
     }
 
     @PutMapping()
-    public ResponseEntity<BaseResponse> updateChildComment(@RequestBody ChildComment childComment) {
+    public ResponseEntity<BaseResponse> updateChildComment(@RequestBody CommentRequest childComment) {
         return ResponseEntity.ok(childCommentService.updateChildComment(childComment));
     }
 

@@ -1,6 +1,7 @@
 package com.web.webcuration.controller;
 
 import com.web.webcuration.Entity.Comment;
+import com.web.webcuration.dto.request.CommentRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.CommentService;
 import com.web.webcuration.service.PostService;
@@ -26,7 +27,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PutMapping()
-    public ResponseEntity<BaseResponse> updateComment(@RequestBody Comment comment) {
+    public ResponseEntity<BaseResponse> updateComment(@RequestBody CommentRequest comment) {
         return ResponseEntity.ok(commentService.updateComment(comment));
     }
 
