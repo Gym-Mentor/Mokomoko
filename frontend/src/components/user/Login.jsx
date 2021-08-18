@@ -100,6 +100,7 @@ const Login = ({ history }) => {
       accessToken,
       refreshToken,
     };
+    console.log(data);
     axios
       .post("https://i5d104.p.ssafy.io/api/auth/reissue", data)
       .then(onLoginSuccess)
@@ -138,7 +139,10 @@ const Login = ({ history }) => {
   };
 
   const onLoginSuccess = (res) => {
-    const { accessToken } = res.data;
+    const { accessToken, refreshToken } = res.data;
+
+    setAccessToken(accessToken);
+    //   setRefreshToken(refreshToken);
 
     axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
