@@ -6,15 +6,7 @@ const ContentHeader = (props) => {
   // 출력할 데이터
   const onClickBack = () => {
     console.log("뒤로 가는거 처리");
-    console.log(props.data);
-    if (props.data !== undefined) {
-      window.history.replace({
-        pathname: `detailPresenter/${props.post.id}`,
-        data: { ...props.data },
-      });
-    } else {
-      window.history.back();
-    }
+    window.history.back();
   };
 
   return (
