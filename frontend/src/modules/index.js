@@ -11,6 +11,7 @@ import MainNav from "./MainNav";
 import Food from "./Food";
 import Post from "./Post";
 import PostData from "./PostData";
+import OtherUser from "./OtherUser";
 
 // redux-persist 새로고침 이슈 해결
 import { persistReducer } from "redux-persist";
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   Food,
   Post,
   PostData,
+  OtherUser,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

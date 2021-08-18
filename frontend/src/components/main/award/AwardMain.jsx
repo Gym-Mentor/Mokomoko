@@ -27,6 +27,10 @@ const AwardMain = () => {
         let newTag = Object.assign([], tagList);
         newTag = data.data.tags;
         setTagList(newTag);
+
+        let newPost = Object.assign([], postList);
+        newPost = data.data.postInfos;
+        setPostList(newPost);
       })
       .catch((error) => {
         console.log(error);
@@ -35,9 +39,11 @@ const AwardMain = () => {
 
   useEffect(() => {
     return () => {};
-  }, [userList, tagList]);
+  }, [userList, tagList, postList]);
 
   console.log(userList);
+  console.log(tagList);
+  console.log(postList);
   return (
     <div>
       <div className="awardMain-wrapper">
@@ -50,9 +56,9 @@ const AwardMain = () => {
               <br />
               {userList === undefined ? "" : <AwardUser userList={userList} />}
               {tagList === undefined ? "" : <AwardTag tagList={tagList} />}
-              {/* {postList === undefined ? "" : <AwardPost postList={postList} />} */}
+              {postList === undefined ? "" : <AwardPost postList={postList} />}
               {/* <AwardTag tagList={tagList} /> */}
-              <AwardPost postList={postList} />
+              {/* <AwardPost postList={postList} /> */}
             </div>
           </div>
         </div>
