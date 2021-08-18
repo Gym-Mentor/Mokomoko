@@ -51,7 +51,7 @@ const AwardMain = () => {
               {userList === undefined ? "" : <AwardUser userList={userList} />}
               {tagList === undefined ? "" : <AwardTag tagList={tagList} />}
               {/* {postList === undefined ? "" : <AwardPost postList={postList} />} */}
-              <AwardTag tagList={tagList} />
+              {/* <AwardTag tagList={tagList} /> */}
               <AwardPost postList={postList} />
             </div>
           </div>
