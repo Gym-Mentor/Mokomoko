@@ -67,8 +67,11 @@ const Login = ({ history }) => {
         // localStorage.setItem("accessToken", user);
         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
-        console.log("뺀시간", res.data.token.accessTokenExpiresIn - new Date().getTime());
-        setTimeout(onReissue, res.data.token.accessTokenExpiresIn - new Date().getTime() - 60000);
+        console.log("뺀시간", res.data.data.token.accessTokenExpiresIn - new Date().getTime());
+        setTimeout(
+          onReissue,
+          res.data.data.token.accessTokenExpiresIn - new Date().getTime() - 60000
+        );
         console.log(res.data.data.token.accessToken);
         console.log(res.data.data.token.refreshToken);
         console.log("만료기간", res.data.data.token.accessTokenExpiresIn);
@@ -125,19 +128,19 @@ const Login = ({ history }) => {
       },
     })
       .then((response) => {
-        let access = response.data.token.accessToken;
+        let access = response.data.data.token.accessToken;
 
         const { accessToken } = access;
         console.log("기존 토큰", access);
 
         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
-        access = response.data.token.accessToken;
+        access = response.data.data.token.accessToken;
         console.log("업데이트 후", access);
-        console.log("시간", response.data.token.accessTokenExpiresIn - new Date().getTime());
+        console.log("시간", response.data.data.token.accessTokenExpiresIn - new Date().getTime());
         setTimeout(
           onReissue,
-          response.data.token.accessTokenExpiresIn - new Date().getTime() - 60000
+          response.data.data.token.accessTokenExpiresIn - new Date().getTime() - 60000
         );
       })
       .catch((error) => {
