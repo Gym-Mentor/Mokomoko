@@ -11,11 +11,11 @@ import { setPostData } from "../../modules/PostData";
 
 const CommentPage = () => {
   // 출력할 데이터
-  const { user, PostData } = useSelector((state) => ({
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => ({
     user: state.userInfo.user,
-    PostData: state.PostData,
   }));
-
+  const { PostData } = useSelector((state) => state.PostData);
   const [writeComment, setWriteComment] = useState(null);
 
   const onChangeWriteComment = (e) => {
@@ -31,13 +31,13 @@ const CommentPage = () => {
       url: "https://i5d104.p.ssafy.io/api/post/" + user.id + "/" + postid,
     })
       .then((response) => {
-        setPostData(...response.data.data);
+        console.log(response);
+        dispatch(setPostData(response.data.data));
       })
       .catch((error) => {
         console.error(error);
       });
   };
-
   const submitComment = () => {
     //댓글 작성 함수
     axios({

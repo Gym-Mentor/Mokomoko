@@ -26,10 +26,10 @@ const DetailPage = (props) => {
   var word = transcript.split(" ");
 
   // 출력할 데이터
-  const { user, PostData } = useSelector((state) => ({
+  const { user } = useSelector((state) => ({
     user: state.userInfo.user,
-    PostData: state.PostData,
   }));
+  const { PostData } = useSelector((state) => state.PostData);
   console.log(PostData);
   const [likeNumber, setLikeNumber] = useState(PostData.post.likeCnt);
   useEffect(() => {
@@ -48,8 +48,11 @@ const DetailPage = (props) => {
   const isPostLike = () => {
     console.log("좋아요");
 
-    if (PostData.like == false) {
-      onSetLike(true);
+    let newPostData = Object.assign({}, PostData);
+
+    if (PostData.like === false) {
+      newPostData.like = true;
+      dispatch(setPostData(newPostData));
 
       axios({
         method: "post",
@@ -66,7 +69,8 @@ const DetailPage = (props) => {
           console.error(error);
         });
     } else {
-      onSetLike(false);
+      newPostData.like = false;
+      dispatch(setPostData(newPostData));
 
       axios({
         method: "delete",
