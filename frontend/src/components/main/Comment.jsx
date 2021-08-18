@@ -46,7 +46,7 @@ const Comment = () => {
     var postid = url[6];
     axios({
       method:'get',
-      url:"http://i5d104.p.ssafy.io:8080/post/"+user.id+"/"+postid,
+      url:"https://i5d104.p.ssafy.io/api/post/"+user.id+"/"+postid,
     })
     .then((response) =>{
       onSetUserImage(response.data.data.userImage);
@@ -77,7 +77,7 @@ const Comment = () => {
     //댓글 작성 함수
     axios({
       method : "post",
-      url: "http://i5d104.p.ssafy.io:8080/comment",
+      url: "https://i5d104.p.ssafy.io/api/comment",
       data :{
         "userid": user.id,
         "postid": post.id,
@@ -105,7 +105,7 @@ const Comment = () => {
     if(isDelete == true){
       axios({
         method:"delete",
-        url: "http://i5d104.p.ssafy.io:8080/comment/"+commentid,
+        url: "https://i5d104.p.ssafy.io/api/comment/"+commentid,
       })
       .then((response) =>{
         updateInfo();

@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/relation/**")
                 .permitAll()
                 // .hasRole("USER") // 특정 path 요청은 인증이 필요하지 않다.
-                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/api/**", "/auth/**").permitAll()
                 .antMatchers("/webcuration/**", "/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**")
                 .permitAll().anyRequest().authenticated()
                 // 나머지 요청은 모두 인증이 필요하다.
@@ -62,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("http://localhost:3000");
-        configuration.addAllowedOrigin("http://i5d104.p.ssafy.io");
+        configuration.addAllowedOrigin("https://i5d104.p.ssafy.io");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
