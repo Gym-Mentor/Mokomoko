@@ -120,6 +120,10 @@ const Detail = (props) => {
     history.push(`/main/p/comment/${url[5]}`);
   };
 
+  const goToUserPage = () =>{
+      history.push("/main/profile");
+  }
+
   const checking = () => {
     console.log("체크", word[word.length - 1]);
     if (word[word.length - 1] === "다음") {
@@ -147,7 +151,7 @@ const Detail = (props) => {
         </div> */}
         <div className="mobile-detail-contents-wrapper">
           {" "}
-          <div className="mobile-detail-userInfo">
+          <div className="mobile-detail-userInfo" onClick={goToUserPage}>
             <Avatar className="mobile-detail-avatar" />
             <span className="mobile-detail-username">{userName}</span>
           </div>
@@ -202,7 +206,7 @@ const Detail = (props) => {
               </div>
               <div className="dt-right-section">
                 <div className="dt-right-header">
-                  <div className="dt-detail-userInfo">
+                  <div className="dt-detail-userInfo" onClick={goToUserPage}>
                     <Avatar className="dt-detail-avatar" />
                     <span className="dt-detail-username">{userName}</span>
                   </div>
