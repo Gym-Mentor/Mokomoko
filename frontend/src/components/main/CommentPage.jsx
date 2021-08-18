@@ -100,7 +100,7 @@ const CommentPage = () => {
 
   useEffect(() => {
     return () => {};
-  }, [PostData.comments]);
+  }, [PostData]);
 
   return (
     <div className="comments-wrapper">
