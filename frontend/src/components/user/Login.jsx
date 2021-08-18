@@ -16,16 +16,16 @@ const Login = ({ history }) => {
   const [refreshToken, setRefreshToken] = useState("");
 
   //userSelector로 리덕스 스토어의 상태 조회하기
-  const users = useSelector((state) => ({
-    user: state.userInfo.user,
-  }));
+  const users = useSelector((state) => state.userInfo.user);
 
   //useDispatch 사용해서 리덕스 스토어의 dispatch를 함수에서 사용할 수 있도록 해준다.
   const dispatch = useDispatch();
 
   const onSetUserInfo = (userInfo) => dispatch(setUserInfo(userInfo));
 
-  useEffect(() => {}, [users]);
+  useEffect(() => {
+    console.log(users);
+  }, [users]);
 
   // 이메일 이벤트
   const onChangeEmail = (e) => {
@@ -95,17 +95,17 @@ const Login = ({ history }) => {
 
   const onReissue = () => {
     console.log("리이슈 들어옴");
-    console.log("기존 토큰", users.user.accessToken);
+    console.log("기존 토큰", users.accessToken);
 
-    console.log("기존 리프레쉬", users.user.refreshToken);
+    console.log("기존 리프레쉬", users.refreshToken);
 
     axios({
       method: "post",
       url: "https://i5d104.p.ssafy.io/api/auth/reissue",
       data: {
         // email: email,
-        accessToken: users.user.accessToken,
-        refreshToken: users.user.refreshToken,
+        accessToken: users.accessToken,
+        refreshToken: users.refreshToken,
       },
     })
       .then((res) => {
