@@ -11,11 +11,11 @@ import { setPostData } from "../../modules/PostData";
 
 const CommentPage = () => {
   // 출력할 데이터
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => ({
     user: state.userInfo.user,
   }));
   const { PostData } = useSelector((state) => state.PostData);
-  const [tempData, setTempData] = useState();
   const [writeComment, setWriteComment] = useState(null);
 
   const onChangeWriteComment = (e) => {
@@ -32,7 +32,7 @@ const CommentPage = () => {
     })
       .then((response) => {
         console.log(response);
-        setPostData(response.data.data);
+        dispatch(setPostData(response.data.data));
       })
       .catch((error) => {
         console.error(error);
