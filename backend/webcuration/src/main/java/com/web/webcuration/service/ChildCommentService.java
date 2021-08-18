@@ -3,13 +3,14 @@ package com.web.webcuration.service;
 import java.util.List;
 
 import com.web.webcuration.Entity.ChildComment;
+import com.web.webcuration.dto.request.CommentRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 
 public interface ChildCommentService {
 
     List<ChildComment> getPostChildComment(Long commentid);
 
-    BaseResponse updateChildComment(ChildComment childComment);
+    BaseResponse updateChildComment(CommentRequest childComment);
 
     BaseResponse deleteChildComment(Long childCommentid);
 

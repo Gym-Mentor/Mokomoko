@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.web.webcuration.Entity.ChildComment;
+import com.web.webcuration.dto.request.CommentRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.repository.ChildCommentQueryRepository;
 import com.web.webcuration.repository.ChildCommentRepository;
@@ -25,9 +26,15 @@ public class ChildCommentServiceImpl implements ChildCommentService {
     }
 
     @Override
-    public BaseResponse updateChildComment(ChildComment childComment) {
-        return BaseResponse.builder().status("200").msg("success").data(childCommentRepository.save(childComment))
-                .build();
+    public BaseResponse updateChildComment(CommentRequest childComment) {
+        Optional<ChildComment> findChildComment = childCommentRepository.findById(childComment.getId());
+        if (findChildComment.isPresent()) {
+            findChildComment.get().setDescription(childComment.getDescription());
+            return BaseResponse.builder().status("200").msg("success")
+                    .data(childCommentRepository.save(findChildComment.get())).build();
+        } else {
+            throw new RuntimeException("해당 대댓글이 없습니다.");
+        }
     }
 
     @Override
