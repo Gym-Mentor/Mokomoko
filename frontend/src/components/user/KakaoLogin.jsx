@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useHistory } from "react-router";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserInfo } from "../../modules/userInfo";
 import "../../css/user/KakaoLogin.css";
@@ -9,6 +9,9 @@ const { Kakao } = window;
 
 const KakaoLogin = () => {
   const history = useHistory();
+
+  const [accessToken, setAccessToken] = useState("");
+  const [refreshToken, setRefreshToken] = useState("");
 
   //userSelector로 리덕스 스토어의 상태 조회하기
   const { user } = useSelector((state) => ({
@@ -44,7 +47,7 @@ const KakaoLogin = () => {
             console.log(response.properties.profile_image);
             axios({
               method: "post",
-              url: "http://i5d104.p.ssafy.io:8080/auth/sns",
+              url: "https://i5d104.p.ssafy.io/api/auth/sns",
               data: {
                 id: response.id,
                 nickname: response.properties.nickname,
@@ -53,14 +56,18 @@ const KakaoLogin = () => {
             })
               .then((res) => {
                 console.log(res);
-                console.log("데이터베이스 데이터", res.data.data);
-                console.log("데이터베이스 유저", res.data.data.user);
 
                 let userInfo = res.data.data.user;
                 userInfo = { ...userInfo, ...res.data.data.relationResponse };
 
+                const { accessToken, refreshToken } = res.data;
+                setAccessToken(accessToken);
+                setRefreshToken(refreshToken);
+                console.log("카카오 데이터베이스 데이터", res.data.data);
+                console.log("카카오 데이터베이스 유저", res.data.data.user);
                 onSetUserInfo(userInfo);
-                localStorage.setItem("accessToken", user);
+                // localStorage.setItem("accessToken", user);
+                axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
                 history.push("/main/feed");
               })
               .catch((error) => {

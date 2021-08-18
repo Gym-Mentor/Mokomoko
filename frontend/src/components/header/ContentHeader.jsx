@@ -3,7 +3,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import "../../css/header/ContentHeader.css";
 
 const ContentHeader = (props) => {
-
+  // 출력할 데이터
   const onClickBack = () => {
     console.log("뒤로 가는거 처리");
     window.history.back();

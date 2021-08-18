@@ -115,7 +115,7 @@ const UserInfoModify = (props) => {
     // 백엔드와 통신하기
     axios({
       method: "put",
-      url: "http://i5d104.p.ssafy.io:8080/user",
+      url: "https://i5d104.p.ssafy.io/api/user",
       data: formData,
       contentType: "application/json; charset=utf-8",
       processData: false,
@@ -149,7 +149,7 @@ const UserInfoModify = (props) => {
     } else {
       axios({
         method: "delete",
-        url: "http://i5d104.p.ssafy.io:8080/user/" + userInfo.id,
+        url: "https://i5d104.p.ssafy.io/api/user/" + userInfo.id,
         contentType: "application/json; charset=utf-8",
       })
         .then((res) => {

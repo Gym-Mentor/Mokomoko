@@ -1,25 +1,20 @@
 import React, { useState, useEffect } from "react";
-import List from "./List";
-import FetchMore from "./FetchMore";
 import { useSelector, useDispatch } from "react-redux";
 import { setIndex } from "../../../modules/MainNav";
-// import { getUserInfo, setUserInfo } from "../../../modules/userInfo";
-import ExploreHeader from "./ExploreHeader";
-// import jQuery from "jquery";
-import "../../../css/main/explore/Explore.css";
-// test 이미지
-import image1 from "../../../img/햄버거1.jpg";
-import image2 from "../../../img/햄버거2.jpg";
-import image3 from "../../../img/햄버거3.jpg";
+import Post from "./Post";
+import List from "../explore/List";
+import FetchMore from "../explore/FetchMore";
+import { Container, Row, Col } from "react-bootstrap";
+import Cheader from "../../header/Cheader";
 import axios from "axios";
-export default function App() {
-  // 현재 로그인된 사용자의 정보 받아오기
-  const { user } = useSelector((state) => ({ user: state.userInfo.user }));
+import "../../../css/main/explore/Explore.css";
+const Feed = ({ history }) => {
+  const { activeNav, user } = useSelector((state) => ({
+    activeNav: state.activeNav,
+    user: state.userInfo.user,
+  }));
 
   const dispatch = useDispatch();
-  // const onSetUserInfo = (userInfo) => dispatch(setUserInfo(userInfo));
-
-  // const [userInfo, SetUserInfo] = useState(user);
 
   const onSetIndex = (activeNav) => dispatch(setIndex(activeNav));
 
@@ -28,11 +23,16 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [postid, setPostid] = useState(0);
   const [postCheck, setPostCheck] = useState(true);
-
-  // 탐색 피드 받아오기
   useEffect(() => {
-    onSetIndex(2);
+    onSetIndex(1);
+    if (user.nickname == null) {
+      console.log(user);
+      history.push("/main/settingNick");
+    }
+    return () => {};
   }, []);
+
+  //피드 받아오기
   useEffect(() => {
     setLoading(true);
     axios({
@@ -62,12 +62,11 @@ export default function App() {
       });
     setLoading(false);
   }, [page]);
-
   return (
     <div className="explore-wrapper">
       <div className="explore-row">
         <div className="explore-col">
-          <ExploreHeader />
+          <Cheader title="피드" />
           <div id="explore" className={page === 0 && loading ? "loading" : ""}>
             <List list={list} />
             {postCheck ? (
@@ -80,4 +79,6 @@ export default function App() {
       </div>
     </div>
   );
-}
+};
+
+export default Feed;

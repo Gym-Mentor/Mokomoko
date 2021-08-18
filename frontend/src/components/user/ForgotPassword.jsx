@@ -34,7 +34,7 @@ const ForgotPassword = ({ history }) => {
 
   const sendMail = () => {
     axios({
-      url: "http://i5d104.p.ssafy.io:8080/auth/passwords/" + email,
+      url: "https://i5d104.p.ssafy.io/api/auth/passwords/" + email,
       method: "get",
     }).then((res) => {
       console.log(res);
