@@ -10,8 +10,8 @@ import axios from "axios";
 
 const AwardMain = () => {
   const [userList, setUserList] = useState();
-  const [tagList, setTagList] = useState([]);
-  const [postList, setPostList] = useState([]);
+  const [tagList, setTagList] = useState();
+  const [postList, setPostList] = useState();
 
   useEffect(() => {
     axios({
@@ -21,13 +21,12 @@ const AwardMain = () => {
       .then(({ data }) => {
         console.log(data);
         let newList = Object.assign([], userList);
-        console.log(newList);
         newList = data.data.users;
         setUserList(newList);
-        // console.log("data", data);
-        console.log("data.users", data.data.users);
-        // setUserList(data.data.users);
-        // setTagList(data.data)
+
+        let newTag = Object.assign([], tagList);
+        newTag = data.data.tags;
+        setTagList(newTag);
       })
       .catch((error) => {
         console.log(error);
@@ -36,7 +35,7 @@ const AwardMain = () => {
 
   useEffect(() => {
     return () => {};
-  }, [userList]);
+  }, [userList, tagList]);
 
   console.log(userList);
   return (
@@ -50,6 +49,8 @@ const AwardMain = () => {
             <div className="awardMain-content">
               <br />
               {userList === undefined ? "" : <AwardUser userList={userList} />}
+              {tagList === undefined ? "" : <AwardTag tagList={tagList} />}
+              {/* {postList === undefined ? "" : <AwardPost postList={postList} />} */}
               <AwardTag tagList={tagList} />
               <AwardPost postList={postList} />
             </div>
