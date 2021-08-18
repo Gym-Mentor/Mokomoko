@@ -9,9 +9,10 @@ const ContentHeader = (props) => {
   const onClickBack = () => {
     console.log("뒤로 가는거 처리");
     console.log(location.data);
+    console.log(props.data);
     if (props.data !== undefined)
       window.history.back({
-        data: props.data,
+        data: { ...props.data },
       });
     else {
       window.history.back();
