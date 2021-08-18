@@ -32,7 +32,7 @@ const CommentPage = () => {
     })
       .then((response) => {
         console.log(response);
-        setPostData(response.data.data);
+        setPostData({ ...response.data.data });
       })
       .catch((error) => {
         console.error(error);
