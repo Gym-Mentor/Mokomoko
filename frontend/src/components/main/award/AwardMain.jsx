@@ -19,6 +19,7 @@ const AwardMain = () => {
       method: "get",
     })
       .then(({ data }) => {
+        console.log(data);
         let newList = Object.assign([], userList);
         console.log(newList);
         newList = data.data.users;
