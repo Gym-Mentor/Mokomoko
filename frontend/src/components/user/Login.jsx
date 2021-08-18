@@ -90,10 +90,10 @@ const Login = ({ history }) => {
       });
   };
 
-  const onReissue = (users) => {
+  const onReissue = () => {
     console.log("리이슈 들어옴");
     console.log(users.token.accessToken);
-    console.log(users.token.refreshToken);
+    console.log(users.data.token.refreshToken);
 
     axios({
       method: "post",
