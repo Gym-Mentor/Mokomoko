@@ -46,6 +46,8 @@ const Feed = ({ history }) => {
       .then((result) => {
         console.log(result);
         console.log(result.data.mainFeed);
+        console.log(result.data.data);
+        console.log(result.data);
         let newList = Object.assign([], list);
         console.log(newList);
         newList.push(...result.data.mainFeed);
