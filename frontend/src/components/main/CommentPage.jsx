@@ -33,6 +33,7 @@ const CommentPage = () => {
       .then((response) => {
         console.log(response);
         setTempData({ ...response.data.data });
+        console.log(tempData);
       })
       .catch((error) => {
         console.error(error);
