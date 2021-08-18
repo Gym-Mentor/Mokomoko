@@ -17,7 +17,7 @@ const Item = ({ image, post }) => {
       .then((response) => {
         console.log(response);
         history.push({
-          pathname: `detail/${post.id}`,
+          pathname: `detailPresenter/${post.id}`,
           data: { ...response.data.data },
         });
       })

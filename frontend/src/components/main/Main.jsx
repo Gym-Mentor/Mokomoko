@@ -43,7 +43,7 @@ const Main = () => {
         <Route path="/main/writeFoodRecipeSubmit" component={FoodRecipeSubmit} />
         <Route path="/main/p/comment/:index" component={Comment} />
         <Route path="/main/testt/:index" component={DetailPresenter} />
-        <Route path="/main/detail/:index" component={DetailPresenterCopy} />
+        <Route path="/main/detailPresenter/:index" component={DetailPresenterCopy} />
         <Route path="/main/award" component={AwardMain} />
 
         {/*profile side bar */}
