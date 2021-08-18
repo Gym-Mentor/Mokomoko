@@ -20,11 +20,11 @@ const AwardUser = () => {
     axios({
       url: "https://i5d104.p.ssafy.io/api/rank",
       method: "get",
-    }).then((res) => {
-      console.log(res.data);
-      setUserList(res.data.users);
+    }).then(({ data }) => {
+      // console.log(res.data);
+      setUserList(data.users);
     });
-  });
+  }, []);
 
   console.log(userList);
 
@@ -49,45 +49,45 @@ const AwardUser = () => {
     autoplaySpeed: 4000,
   };
 
-  const award_user = [
-    //9개 가져온다는 가정하에
-    {
-      id: "test1",
-      img: "https://matsudapet.com.br/blog/wp-content/uploads/2019/08/shutterstock_275863976-compressed.jpg",
-    },
-    {
-      id: "test2",
-      img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
-    },
-    {
-      id: "test3",
-      img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
-    },
-    {
-      id: "test4",
-      img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
-    },
-    {
-      id: "test5",
-      img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
-    },
-    {
-      id: "test6",
-      img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
-    },
-    {
-      id: "test7",
-      img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
-    },
-    {
-      id: "test8",
-      img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
-    },
-    {
-      id: "test9",
-      img: "https://i.pinimg.com/564x/28/9e/fa/289efa2d92e57cc33d0ef5a3503d4973.jpg",
-    },
-  ];
+  // const award_user = [
+  //   //9개 가져온다는 가정하에
+  //   {
+  //     id: "test1",
+  //     img: "https://matsudapet.com.br/blog/wp-content/uploads/2019/08/shutterstock_275863976-compressed.jpg",
+  //   },
+  //   {
+  //     id: "test2",
+  //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
+  //   },
+  //   {
+  //     id: "test3",
+  //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
+  //   },
+  //   {
+  //     id: "test4",
+  //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
+  //   },
+  //   {
+  //     id: "test5",
+  //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
+  //   },
+  //   {
+  //     id: "test6",
+  //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
+  //   },
+  //   {
+  //     id: "test7",
+  //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
+  //   },
+  //   {
+  //     id: "test8",
+  //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
+  //   },
+  //   {
+  //     id: "test9",
+  //     img: "https://i.pinimg.com/564x/28/9e/fa/289efa2d92e57cc33d0ef5a3503d4973.jpg",
+  //   },
+  // ];
   return (
     <div>
       <div className="awardUser-wrapper">
@@ -98,48 +98,48 @@ const AwardUser = () => {
               <div className="awardUserItem">
                 <div className="award-user-profilepic">
                   <div className="round-user">
-                    <img src={award_user[0].img} alt="" />
+                    <img src={userList[0].image} alt="" />
                   </div>
                   <div className="round-user">
-                    <img src={award_user[1].img} alt="" />
+                    <img src={userList[1].image} alt="" />
                   </div>
                   <div className="round-user">
-                    <img src={award_user[2].img} alt="" />
+                    <img src={userList[2].image} alt="" />
                   </div>
                 </div>
                 <div className="award-usernick">
                   <div className="award-user-nick">
-                    <span>{award_user[0].id}</span>
+                    <span>{userList[0].nickname}</span>
                   </div>
                   <div className="award-user-nick">
-                    <span>{award_user[0].id}</span>
+                    <span>{userList[1].nickname}</span>
                   </div>
                   <div className="award-user-nick">
-                    <span>{award_user[0].id}</span>
+                    <span>{userList[2].nickname}</span>
                   </div>
                 </div>
               </div>
 
               <div>
                 <div className="round-user">
-                  <img src={award_user[3].img} alt="" />
+                  <img src={userList[3].img} alt="" />
                 </div>
                 <div className="round-user">
-                  <img src={award_user[4].img} alt="" />
+                  <img src={userList[4].img} alt="" />
                 </div>
                 <div className="round-user">
-                  <img src={award_user[5].img} alt="" />
+                  <img src={userList[5].img} alt="" />
                 </div>
               </div>
               <div>
                 <div className="round-user">
-                  <img src={award_user[6].img} alt="" />
+                  <img src={userList[6].img} alt="" />
                 </div>
                 <div className="round-user">
-                  <img src={award_user[7].img} alt="" />
+                  <img src={userList[7].img} alt="" />
                 </div>
                 <div className="round-user">
-                  <img src={award_user[8].img} alt="" />
+                  <img src={userList[8].img} alt="" />
                 </div>
               </div>
             </Slider>
