@@ -8,10 +8,6 @@ import ChatBubbleOutlinedIcon from "@material-ui/icons/ChatBubbleOutlined";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-
-import { Col, Form, Row } from "react-bootstrap";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { setLike, setPost } from "../../../modules/Post";
 import axios from "axios";
@@ -299,10 +295,10 @@ const DetailPage = (props) => {
             </div>
           </div>
         </div>
-        링크
+        {/* {PostData.tags.length>0?<div className="purchase-link-div">구매링크</div>:""} */}
         {PostData.tags.map((item, index) => {
           return (
-            <div key={index} onClick={(e) => goToShop(e, `${item.url}`)}>
+            <div key={index} className="purchase-link-div" onClick={(e) => goToShop(e, `${item.url}`)}>
               {item.name}
             </div>
           );
