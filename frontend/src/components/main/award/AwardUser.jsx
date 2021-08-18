@@ -22,13 +22,11 @@ const AwardUser = () => {
       method: "get",
     }).then((res) => {
       console.log(res.data);
-      let uList = Object.assign([], userList);
-      console.log(uList);
-      uList.push(...res.data.users);
-      setUserList(uList);
-      console.log(uList);
+      setUserList(res.data.users);
     });
   });
+
+  console.log(userList);
 
   const playSlider = () => {
     setSliderPlay(true);
