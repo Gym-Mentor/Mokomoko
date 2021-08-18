@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 const AwardMain = () => {
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState();
   const [tagList, setTagList] = useState([]);
   const [postList, setPostList] = useState([]);
 
@@ -19,9 +19,13 @@ const AwardMain = () => {
       method: "get",
     })
       .then(({ data }) => {
-        console.log("data", data);
+        let newList = Object.assign([], userList);
+        console.log(newList);
+        newList = data.data.users;
+        setUserList(newList);
+        // console.log("data", data);
         console.log("data.users", data.data.users);
-        setUserList(data.data.users);
+        // setUserList(data.data.users);
         // setTagList(data.data)
       })
       .catch((error) => {
