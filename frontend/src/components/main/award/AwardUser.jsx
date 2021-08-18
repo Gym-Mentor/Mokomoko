@@ -25,15 +25,22 @@ const AwardUser = () => {
     axios({
       url: "https://i5d104.p.ssafy.io/api/rank",
       method: "get",
-    }).then(({ data }) => {
-      console.log("data", data);
+    })
+      .then(({ data }) => {
+        console.log("data", data);
 
-      console.log("data.users", data.data.users);
-      setUserList(data.users);
-    });
+        console.log("data.users", data.data.users);
+        setUserList({
+          nickname: data.data.users.nickname,
+          image: data.data.users.image,
+        });
+      })
+      .error((error) => {
+        console.log(error);
+      });
   }, []);
 
-  // console.log(userList);
+  console.log(userList);
 
   const playSlider = () => {
     setSliderPlay(true);
