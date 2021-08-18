@@ -36,12 +36,13 @@ const Detail = (props) => {
       comments: state.Post.comments,
     }));
 
+    const [likeNumber,setLikeNumber] = useState(post.likeCnt);
   useEffect(() => {
     // checking();
     return () => {
       checking();
     };
-  }, [transcript]);
+  }, [transcript,likeNumber,post]);
 
   const dispatch = useDispatch();
   const onSetLike = (like) => dispatch(setLike(like));
@@ -64,7 +65,7 @@ const Detail = (props) => {
         },
       })
         .then((response) => {
-          console.log(response);
+            setLikeNumber(response.data.data);      
         })
         .catch((error) => {
           console.error(error);
@@ -81,7 +82,7 @@ const Detail = (props) => {
         },
       })
         .then((response) => {
-          console.log(response);
+            setLikeNumber(response.data.data);      
         })
         .catch((error) => {
           console.error(error);
