@@ -134,18 +134,24 @@ const Comment = () => {
         setModifyComment(e.target.value);
     }
 
-    const modifyComments = (item) => {
+    const modifyComments = (e,index) => {
         //작성한 댓글 서버에 보내기 userid,postid,description
+        // console.log(item.id);
+        e.preventDefault();
+        console.log(index);
+
         axios({
             method: "put",
             url: "https://i5d104.p.ssafy.io/api/comment",
             data: {
-              "id": item.id,
+              "id": index,
               "description": modifyComment,
             }
         })
             .then((response) => {
                 console.log("성공", response);
+                setIsModify(false);
+                setWhichComment(null);
                 updateInfo();
             })
             .catch((error) => {
@@ -254,7 +260,7 @@ const Comment = () => {
                                         }
                                         {
                                             isModify && (whichComment == index)
-                                                ? <button onClick={(e)=>modifyComments(e,`${item}`)}>수정</button>
+                                                ? <button onClick={(e)=>modifyComments(e,`${item.id}`)}>수정</button>
                                                 : ""
                                         }
 
