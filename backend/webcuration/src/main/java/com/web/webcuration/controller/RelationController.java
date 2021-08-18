@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/relation")
+@RequestMapping("/api/relation")
 public class RelationController {
 
     private final RelationService relationService;
