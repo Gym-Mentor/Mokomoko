@@ -41,6 +41,7 @@ public class PostServiceImpl implements PostService {
     private final LikeService likeService;
     private final CommentService commentService;
     private final ChildCommentService childCommentService;
+    private final ScrapService scrapService;
     private final UserService userService;
     private final RelationService relationService;
     private final ContentsService contentService;
@@ -77,9 +78,12 @@ public class PostServiceImpl implements PostService {
             boolean like = likeService.readLike(LikeRequest.builder().postid(postid).userid(userid).build());
             // comment도 같이 줘야됨
             List<CommentResponse> comments = commentService.getPostComment(postid);
+            // Scrap 유무
+            boolean scrap = scrapService.checkScrapPost(userid, postid);
             return BaseResponse.builder().status("200").msg("success")
                     .data(PostResponse.builder().userName(user.getNickname()).userImage(user.getImage())
-                            .contents(contents).tags(tags).post(post.get()).like(like).comments(comments).build())
+                            .contents(contents).tags(tags).post(post.get()).like(like).scrap(scrap).comments(comments)
+                            .build())
                     .build();
         } else {
             throw new RuntimeException("해당하는 게시글이 없습니다.");

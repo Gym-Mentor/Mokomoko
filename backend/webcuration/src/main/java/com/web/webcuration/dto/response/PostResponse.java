@@ -27,5 +27,7 @@ public class PostResponse {
 
     private boolean like;
 
+    private boolean scrap;
+
     private List<CommentResponse> comments;
 }
