@@ -218,4 +218,19 @@ public class PostServiceImpl implements PostService {
         }
     }
 
+    @Override
+    public List<UserPostInfo> getRankPosts() {
+        List<Post> posts = postQueryRepository.getRankPost();
+        if (posts == null) {
+            return null;
+        } else {
+            List<UserPostInfo> rankPostInfo = new ArrayList<>();
+            for (Post post : posts) {
+                rankPostInfo.add(UserPostInfo.builder().post(post)
+                        .image(contentService.FindByPostidOrderby(post.getId()).getImage()).build());
+            }
+            return rankPostInfo;
+        }
+    }
+
 }
