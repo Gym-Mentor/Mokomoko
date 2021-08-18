@@ -120,11 +120,29 @@ const Comment = () => {
     setModifyComment(e.target.value);
   };
 
-  const modifyComments = (e, index) => {
-    //작성한 댓글 서버에 보내기 userid,postid,description
-    // console.log(item.id);
-    e.preventDefault();
-    console.log(index);
+    const modifyComments = (e,index) => {
+        //작성한 댓글 서버에 보내기 userid,postid,description
+        // console.log(item.id);
+        e.preventDefault();
+        console.log(index);
+
+        axios({
+            method: "put",
+            url: "https://i5d104.p.ssafy.io/api/comment",
+            data: {
+              "id": index,
+              "description": modifyComment,
+            }
+        })
+            .then((response) => {
+                console.log("성공", response);
+                setIsModify(false);
+                setWhichComment(null);
+                updateInfo();
+            })
+            .catch((error) => {
+                console.error(error);
+            })
 
     axios({
       method: "put",

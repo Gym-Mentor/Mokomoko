@@ -131,6 +131,10 @@ const DetailPage = (props) => {
     // }
   };
 
+  const showUserPage = () =>{
+    console.log("사용자 페이지 전송");
+  }
+
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
   } else {
@@ -148,7 +152,7 @@ const DetailPage = (props) => {
         </div> */}
         <div className="mobile-detail-contents-wrapper">
           {" "}
-          <div className="mobile-detail-userInfo">
+          <div className="mobile-detail-userInfo" onClick={showUserPage}>
             <Avatar className="mobile-detail-avatar" />
             <span className="mobile-detail-username">{PostData.userName}</span>
           </div>
