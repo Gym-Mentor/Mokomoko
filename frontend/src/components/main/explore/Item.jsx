@@ -1,10 +1,11 @@
 import React from "react";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, useHistory } from "react-redux";
 const Item = ({ image, post }) => {
   const { user } = useSelector((state) => ({
     user: state.userInfo.user,
   }));
+  let history = useHistory();
   const showDetail = () => {
     console.log(post.id);
     //받아온 postid 통해서 GET 으로 정보 얻어오기
@@ -14,6 +15,10 @@ const Item = ({ image, post }) => {
     })
       .then((response) => {
         console.log(response);
+        history.push({
+          pathname: `testt/${post.id}`,
+          data: response.data.data,
+        });
       })
       .catch((error) => {
         console.log(error);

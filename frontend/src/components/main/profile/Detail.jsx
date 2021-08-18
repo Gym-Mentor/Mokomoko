@@ -18,6 +18,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 const Detail = (props) => {
+  console.log(props.data);
   const history = useHistory();
   const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
