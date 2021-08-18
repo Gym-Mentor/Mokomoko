@@ -10,12 +10,7 @@ import "../../../css/award/AwardUser.css";
 const AwardUser = () => {
   const [sliderPlay, setSliderPlay] = useState(false);
   const [sliderPause, setSliderPause] = useState(false);
-  const [userList, setUserList] = useState([
-    {
-      nickname: "",
-      image: "",
-    },
-  ]);
+  const [userList, setUserList] = useState([]);
 
   const user = useSelector((state) => state.userInfo.user);
 
@@ -30,12 +25,9 @@ const AwardUser = () => {
         console.log("data", data);
 
         console.log("data.users", data.data.users);
-        setUserList({
-          nickname: data.data.users.nickname,
-          image: data.data.users.image,
-        });
+        setUserList(data);
       })
-      .error((error) => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
