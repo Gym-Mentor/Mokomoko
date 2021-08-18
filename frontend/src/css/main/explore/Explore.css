@@ -177,3 +177,8 @@
   top: -9px;
   left: -9px;
 }
+.no-data-msg {
+  font-size: 13px;
+  font-family: "Wemakeprice-SemiBold";
+  color: #808080;
+}
