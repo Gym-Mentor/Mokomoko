@@ -59,6 +59,7 @@ const initialState = {
     token: {
       accessToken: null,
       refreshToken: null,
+      accessTokenExpiresIn: 0,
     },
   },
 };
