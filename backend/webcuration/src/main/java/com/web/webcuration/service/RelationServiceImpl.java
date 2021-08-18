@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.web.webcuration.Entity.Relation;
 import com.web.webcuration.dto.UserRelationInfo;
+import com.web.webcuration.dto.request.RelationRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.dto.response.RelationResponse;
 import com.web.webcuration.repository.RelationQueryRepository;
@@ -14,32 +15,67 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class RelationServiceImpl implements RelationService {
 
+    private final UserService userService;
     private final RelationRepository relationRepository;
     private final RelationQueryRepository relationQueryRepository;
 
     @Override
-    public BaseResponse createRelation(Relation relation) {
-        relationRepository.save(relation);
-        return BaseResponse.builder().status("200").msg("success")
-                .data(relationQueryRepository.getCountUserRelation(relation.getSend(), relation.getReceive())).build();
-    }
-
-    @Override
-    public BaseResponse deleteRelation(Relation relation) {
-        relationRepository.delete(relationQueryRepository.findBySendAndReceive(relation));
-        return BaseResponse.builder().status("200").msg("success")
-                .data(relationQueryRepository.getCountUserRelation(relation.getSend(), relation.getReceive())).build();
+    @Transactional
+    public BaseResponse createRelation(RelationRequest relationRequest) {
+        Relation findRelation = relationQueryRepository.findBySendAndReceive(relationRequest);
+        if (relationRequest.getSend() != relationRequest.getReceive()) {
+            log.info("{}", "관계 " + relationRequest);
+            log.info("{}", "관계1 " + findRelation);
+            if (findRelation != null) {
+                if (!relationRequest.isState()) {
+                    // 팔로우 -> 차단
+                    userService.changeUserFollowing(relationRequest.getSend(), -1L);
+                    userService.changeUserFollower(relationRequest.getReceive(), -1L);
+                    findRelation.setState(relationRequest.isState());
+                    relationRepository.save(findRelation);
+                }
+            } else {
+                if (relationRequest.isState()) {
+                    // 바로 팔로우
+                    userService.changeUserFollowing(relationRequest.getSend(), 1L);
+                    userService.changeUserFollower(relationRequest.getReceive(), 1L);
+                }
+                relationRepository.save(Relation.builder().send(relationRequest.getSend())
+                        .receive(relationRequest.getReceive()).state(relationRequest.isState()).build());
+            }
+        } else {
+            relationRepository.save(Relation.builder().send(relationRequest.getSend())
+                    .receive(relationRequest.getReceive()).state(relationRequest.isState()).build());
+        }
+        return BaseResponse.builder().status("200").msg("success").data(
+                relationQueryRepository.getCountUserRelation(relationRequest.getSend(), relationRequest.getReceive()))
+                .build();
     }
 
     @Override
     @Transactional
-    public BaseResponse updateRelation(Relation relation) {
-        return BaseResponse.builder().status("200").msg("success").data(relationRepository.save(relation)).build();
+    public BaseResponse deleteRelation(RelationRequest relationRequest) {
+        Relation findRelation = relationQueryRepository.findBySendAndReceive(relationRequest);
+        if (findRelation != null) {
+            if (findRelation.isState()) {
+                // 팔로우 관계
+                userService.changeUserFollower(relationRequest.getSend(), -1L);
+                userService.changeUserFollowing(relationRequest.getReceive(), -1L);
+            }
+            relationRepository.delete(relationQueryRepository.findBySendAndReceive(relationRequest));
+        } else {
+            throw new RuntimeException("해당 유저와의 관계가 없습니다.");
+        }
+        return BaseResponse.builder().status("200").msg("success").data(
+                relationQueryRepository.getCountUserRelation(relationRequest.getSend(), relationRequest.getReceive()))
+                .build();
     }
 
     @Override
