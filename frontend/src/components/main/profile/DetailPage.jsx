@@ -149,7 +149,7 @@ const DetailPage = (props) => {
           </div>
           <div className="mobile-detail-img">
             {/* <img src={item.img} alt="image" /> */}
-            <img className="mobile-detail-img" src={postData.contentImage[scrollState]} />
+            <img className="mobile-detail-img" src={postData.contents[scrollState].image} />
             <div className="mobile-image-next" onClick={showNextImage}>
               <NavigateNextIcon fontSize="large" />
             </div>
@@ -191,7 +191,7 @@ const DetailPage = (props) => {
           <div className="dt-details-content">
             <div className="dt-details-content2">
               <div className="dt-img-section">
-                <img src={postData.contentImage[scrollState]} />
+                <img src={postData.contents[scrollState].image} />
                 <div className="dt-image-next" onClick={showNextImage}>
                   <NavigateNextIcon fontSize="large" />
                 </div>
