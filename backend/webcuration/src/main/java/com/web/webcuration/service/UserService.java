@@ -30,4 +30,6 @@ public interface UserService {
     void changeUserFollowing(Long userid, Long number);
 
     void changeUserFollower(Long userid, Long number);
+
+    List<User> getRankUsers();
 }

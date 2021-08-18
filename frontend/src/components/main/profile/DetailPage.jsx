@@ -16,30 +16,28 @@ import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognitio
 import { setLike, setPost } from "../../../modules/Post";
 import axios from "axios";
 import { useHistory, useLocation } from "react-router-dom";
-
+import { setPostData } from "../../../modules/PostData";
 const DetailPage = (props) => {
-  const location = useLocation();
-  console.log(location.data);
   const history = useHistory();
   // 출력할 데이터
-  const [postData, setPostData] = useState(location.data);
-  console.log(postData);
 
   const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
   var word = transcript.split(" ");
 
+  // 출력할 데이터
   const { user } = useSelector((state) => ({
     user: state.userInfo.user,
   }));
-
-  const [likeNumber, setLikeNumber] = useState(postData.post.likeCnt);
+  const { PostData } = useSelector((state) => state.PostData);
+  console.log(PostData);
+  const [likeNumber, setLikeNumber] = useState(PostData.post.likeCnt);
   useEffect(() => {
     // checking();
     return () => {
       checking();
     };
-  }, [transcript, likeNumber, postData.post]);
+  }, [transcript, likeNumber, PostData.post]);
 
   const dispatch = useDispatch();
   const onSetLike = (like) => dispatch(setLike(like));
@@ -50,7 +48,7 @@ const DetailPage = (props) => {
   const isPostLike = () => {
     console.log("좋아요");
 
-    if (postData.like == false) {
+    if (PostData.like == false) {
       onSetLike(true);
 
       axios({
@@ -58,7 +56,7 @@ const DetailPage = (props) => {
         url: "https://i5d104.p.ssafy.io/api/likes",
         data: {
           userid: user.id,
-          postid: postData.post.id,
+          postid: PostData.post.id,
         },
       })
         .then((response) => {
@@ -75,7 +73,7 @@ const DetailPage = (props) => {
         url: "https://i5d104.p.ssafy.io/api/likes",
         data: {
           userid: user.id,
-          postid: postData.post.id,
+          postid: PostData.post.id,
         },
       })
         .then((response) => {
@@ -99,7 +97,7 @@ const DetailPage = (props) => {
 
   const showNextImage = () => {
     console.log("다음 이미지 보여주기");
-    if (scrollState === postData.contents.length - 1) {
+    if (scrollState === PostData.contents.length - 1) {
       setScrollState(0);
     } else {
       setScrollState(scrollState + 1);
@@ -115,7 +113,7 @@ const DetailPage = (props) => {
 
     history.push({
       pathname: `/main/p/commentPage/${url[5]}`,
-      data: { ...postData },
+      data: { ...PostData },
     });
   };
 
@@ -148,18 +146,18 @@ const DetailPage = (props) => {
           {" "}
           <div className="mobile-detail-userInfo">
             <Avatar className="mobile-detail-avatar" />
-            <span className="mobile-detail-username">{postData.userName}</span>
+            <span className="mobile-detail-username">{PostData.userName}</span>
           </div>
           <div className="mobile-detail-img">
             {/* <img src={item.img} alt="image" /> */}
-            <img className="mobile-detail-img" src={postData.contents[scrollState].image} />
+            <img className="mobile-detail-img" src={PostData.contents[scrollState].image} />
             <div className="mobile-image-next" onClick={showNextImage}>
               <NavigateNextIcon fontSize="large" />
             </div>
           </div>
           <div className="mobile-detail-things">
             <div className="mobile-detail-like" onClick={isPostLike}>
-              {postData.like ? (
+              {PostData.like ? (
                 <FavoriteIcon fontSize="large" />
               ) : (
                 <FavoriteBorderOutlinedIcon fontSize="large" />
@@ -178,12 +176,12 @@ const DetailPage = (props) => {
           </div>
           <div className="mobile-detail-likecnt">
             <p className="mobile-detail-user-likecnt">
-              좋아요 {likeNumber == null ? postData.post.likeCnt : likeNumber}
+              좋아요 {likeNumber == null ? PostData.post.likeCnt : likeNumber}
             </p>
           </div>
           <div className="mobile-detail-bottom">
-            <h5 className="mobile-detail-desc-username">{postData.userName}</h5>
-            {postData.contents.map((item, index) => {
+            <h5 className="mobile-detail-desc-username">{PostData.userName}</h5>
+            {PostData.contents.map((item, index) => {
               return <span key={index}> {item.description}</span>;
             })}
           </div>
@@ -194,7 +192,7 @@ const DetailPage = (props) => {
           <div className="dt-details-content">
             <div className="dt-details-content2">
               <div className="dt-img-section">
-                <img src={postData.contents[scrollState].image} />
+                <img src={PostData.contents[scrollState].image} />
                 <div className="dt-image-next" onClick={showNextImage}>
                   <NavigateNextIcon fontSize="large" />
                 </div>
@@ -203,13 +201,13 @@ const DetailPage = (props) => {
                 <div className="dt-right-header">
                   <div className="dt-detail-userInfo">
                     <Avatar className="dt-detail-avatar" />
-                    <span className="dt-detail-username">{postData.userName}</span>
+                    <span className="dt-detail-username">{PostData.userName}</span>
                   </div>
                 </div>
                 <div className="dt-right-content">
                   <div className="dt-right-content-desc">
                     <div className="content-description">
-                      {postData.contents.map((item, index) => {
+                      {PostData.contents.map((item, index) => {
                         return <span key={index}> {item.description}</span>;
                       })}
                     </div>
@@ -219,7 +217,7 @@ const DetailPage = (props) => {
                 <div className="dt-right-footer">
                   <div className="dt-right-footer-btn-section">
                     <div className="dt-detail-like" onClick={isPostLike}>
-                      {postData.like ? (
+                      {PostData.like ? (
                         <FavoriteIcon fontSize="large" />
                       ) : (
                         <FavoriteBorderOutlinedIcon fontSize="large" />
@@ -238,7 +236,7 @@ const DetailPage = (props) => {
                   </div>
                   <div className="dt-right-footer-likecnt">
                     <a href="#">
-                      <b>좋아요 {likeNumber == null ? postData.post.likeCnt : likeNumber}</b>
+                      <b>좋아요 {likeNumber == null ? PostData.post.likeCnt : likeNumber}</b>
                     </a>
                   </div>
                   <div className="dt-right-footer-upload-date">2일전</div>
@@ -254,7 +252,7 @@ const DetailPage = (props) => {
           </div>
         </div>
         링크
-        {postData.tags.map((item, index) => {
+        {PostData.tags.map((item, index) => {
           return (
             <div key={index} onClick={(e) => goToShop(e, `${item.url}`)}>
               {item.name}

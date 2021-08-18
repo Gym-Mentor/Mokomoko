@@ -2,10 +2,16 @@ import React from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { setPostData } from "../../../modules/PostData";
+
 const Item = ({ image, post }) => {
+  // 출력할 데이터
+  const dispatch = useDispatch();
+  // 출력할 데이터
   const { user } = useSelector((state) => ({
     user: state.userInfo.user,
   }));
+  const { PostData } = useSelector((state) => state.PostData);
   let history = useHistory();
   const showDetail = () => {
     console.log(post.id);
@@ -16,9 +22,9 @@ const Item = ({ image, post }) => {
     })
       .then((response) => {
         console.log(response);
+        dispatch(setPostData(response.data.data));
         history.push({
           pathname: `detailPresenter/${post.id}`,
-          data: { ...response.data.data },
         });
       })
       .catch((error) => {

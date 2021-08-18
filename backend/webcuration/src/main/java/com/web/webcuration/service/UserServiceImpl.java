@@ -170,4 +170,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public List<User> getRankUsers() {
+        return userQueryRepository.getRankUsers();
+    }
+
 }

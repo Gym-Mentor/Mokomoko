@@ -25,8 +25,6 @@ const Login = ({ history }) => {
 
   const onSetUserInfo = (userInfo) => dispatch(setUserInfo(userInfo));
 
-  useEffect(() => {}, [onSetUserInfo]);
-
   // 이메일 이벤트
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -58,8 +56,8 @@ const Login = ({ history }) => {
         user = { ...user, ...res.data.data.relationResponse };
         user = { ...user, ...res.data.data.token };
         // const { accessToken, refreshToken } = res.data;
-        // setAccessToken(res.data.data.token.accessToken);
-        // setRefreshToken(res.data.data.token.refreshToken);
+        setAccessToken(res.data.data.token.accessToken);
+        setRefreshToken(res.data.data.token.refreshToken);
         console.log("유저정보 ", user);
         console.log("res.data", res.data);
         console.log("res.data.data", res.data.data);
@@ -94,29 +92,27 @@ const Login = ({ history }) => {
 
   const onReissue = () => {
     console.log("리이슈 들어옴");
-    console.log("기존 토큰", users.user.accessToken);
-
-    console.log("기존 리프레쉬", users.user.refreshToken);
+    console.log(users.token.accessToken);
+    console.log(users.token.refreshToken);
 
     axios({
       method: "post",
       url: "https://i5d104.p.ssafy.io/api/auth/reissue",
       data: {
         // email: email,
-        accessToken: users.user.accessToken,
-        refreshToken: users.user.refreshToken,
+        accessToken: users.token.accessToken,
+        refreshToken: users.token.refreshToken,
       },
     })
       .then((response) => {
         let access = response.data.data.token.accessToken;
         const { accessToken } = access;
-
-        let user = response.data.data.user;
-        user = { ...user, ...response.data.data.token };
-
-        onSetUserInfo(user);
+        console.log("기존 토큰", access);
 
         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+        let user = response.data.data.user;
+        user = { ...user, ...response.data.data.relationResponse };
+        user = { ...user, ...response.data.data.token };
 
         access = response.data.data.token.accessToken;
         console.log("업데이트 후", access);
@@ -124,7 +120,7 @@ const Login = ({ history }) => {
         console.log("시간", response.data.data.token.accessTokenExpiresIn - new Date().getTime());
         setTimeout(
           onReissue,
-          response.data.data.token.accessTokenExpiresIn - new Date().getTime() - 1789809
+          response.data.data.token.accessTokenExpiresIn - new Date().getTime() - 60000
         );
       })
       .catch((error) => {

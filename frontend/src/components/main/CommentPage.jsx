@@ -7,25 +7,14 @@ import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import axios from "axios";
-import {
-  setContent,
-  setContentImage,
-  setPost,
-  setTags,
-  setUserImage,
-  setUserName,
-  setLike,
-  setComments,
-} from "../../modules/Post";
-import { useHistory, useLocation } from "react-router-dom";
+import { setPostData } from "../../modules/PostData";
 
 const CommentPage = () => {
-  const location = useLocation();
   // 출력할 데이터
-  const [postData, setPostData] = useState(location.data);
   const { user } = useSelector((state) => ({
     user: state.userInfo.user,
   }));
+  const { PostData } = useSelector((state) => state.PostData);
 
   const [writeComment, setWriteComment] = useState(null);
 
@@ -56,7 +45,7 @@ const CommentPage = () => {
       url: "https://i5d104.p.ssafy.io/api/comment",
       data: {
         userid: user.id,
-        postid: postData.post.id,
+        postid: PostData.post.id,
         description: writeComment,
       },
     })
@@ -110,18 +99,18 @@ const CommentPage = () => {
 
   useEffect(() => {
     return () => {};
-  }, [postData.comments]);
+  }, [PostData.comments]);
 
   return (
     <div className="comments-wrapper">
-      <ContentHeader title="댓글" data={postData} />
+      <ContentHeader title="댓글" />
       <div className="type-comment">
         {/* body-comment는 댓글 페이지의 헤더부분 제외한 전반적인 영역 담당 */}
         <div className="comment-type-container">
           {/* container1, 2 는 댓글 작성자의 입력폼 */}
           <div className="comment-type-container2">
             <div className="comment-avatar-container">
-              <Avatar id="comment-avatar" className="post-avatar" src={postData.userImage} />
+              <Avatar id="comment-avatar" className="post-avatar" src={PostData.userImage} />
             </div>
             <textarea
               type="textarea"
@@ -141,8 +130,8 @@ const CommentPage = () => {
 
       <div className="user-comment">
         <ul className="comment-list">
-          {postData.comments &&
-            postData.comments.map((item, index) => {
+          {PostData.comments &&
+            PostData.comments.map((item, index) => {
               return (
                 <li className="comment-list-detail" key={index}>
                   <div className="usr-comment-userInfo">
