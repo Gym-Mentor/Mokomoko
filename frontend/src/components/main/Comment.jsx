@@ -100,28 +100,6 @@ const Comment = () => {
             .catch((error) => {
                 console.error(error);
             })
-            .then((response) => {
-                onSetUserImage(response.data.data.userImage);
-                onSetUserName(response.data.data.userName);
-                onSetPost(response.data.data.post);
-                onSetTags(response.data.data.tags);
-                onSetContent(response.data.data.contents);
-                onSetLike(response.data.data.like);
-                onSetComments(response.data.data.comments);
-
-                var contentImage = new Array();
-                var content_box = response.data.data.contents;
-
-                for (var i = 0; i < content_box.length; i++) {
-                    contentImage.push(content_box[i].image);
-                }
-
-                //이미지 여러장 처리 위해 사용
-                onSetContentImage(contentImage);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
     };
 
     const submitComment = () => {
@@ -132,7 +110,7 @@ const Comment = () => {
             data: {
                 userid: user.id,
                 postid: post.id,
-                description: writeComment
+                description: writeComment,
             }
         })
             .then((response) => {
@@ -141,12 +119,6 @@ const Comment = () => {
             .catch((error) => {
                 console.log(error);
             })
-            .then((response) => {
-                updateInfo();
-            })
-            .catch((error) => {
-                console.log(error);
-            });
 
         setWriteComment("");
     };
@@ -162,15 +134,14 @@ const Comment = () => {
         setModifyComment(e.target.value);
     }
 
-    const modifyComments = () => {
+    const modifyComments = (item) => {
         //작성한 댓글 서버에 보내기 userid,postid,description
         axios({
             method: "put",
             url: "http://i5d104.p.ssafy.io/api/comment",
             data: {
-                "userid": user.id,
-                "postid": post.id,
-                "description": modifyComment
+              "id": item.id,
+              "description": modifyComment,
             }
         })
             .then((response) => {
@@ -195,12 +166,14 @@ const Comment = () => {
 
     const submitRecomment = (e,index) => {
         console.log("대댓글 전송");
+        console.log(index);
+        console.log(post.id);
 
         axios({
           method:'post',
           url:'http://i5d104.p.ssafy.io/api/child',
           data:{
-            "userid": user.id,
+            "id": user.id,
             "commentid":index,
             "postid": post.id,
             "description": recomment,
@@ -228,18 +201,12 @@ const Comment = () => {
                 .catch((error) => {
                     console.error(error);
                 })
-                .then((response) => {
-                    updateInfo();
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
         }
     };
 
     useEffect(() => {
         return() => {};
-    }, [comments]);
+    }, [comments,modifyComment]);
 
     return (
         <div className="comments-wrapper">
@@ -287,7 +254,7 @@ const Comment = () => {
                                         }
                                         {
                                             isModify && (whichComment == index)
-                                                ? <button onClick={modifyComments}>수정</button>
+                                                ? <button onClick={(e)=>modifyComments(e,`${item}`)}>수정</button>
                                                 : ""
                                         }
 
