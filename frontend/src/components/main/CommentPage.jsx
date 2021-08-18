@@ -15,7 +15,7 @@ const CommentPage = () => {
     user: state.userInfo.user,
   }));
   const { PostData } = useSelector((state) => state.PostData);
-
+  const [tempData, setTempData] = useState();
   const [writeComment, setWriteComment] = useState(null);
 
   const onChangeWriteComment = (e) => {
@@ -32,13 +32,15 @@ const CommentPage = () => {
     })
       .then((response) => {
         console.log(response);
-        setPostData({ ...response.data.data });
+        setTempData({ ...response.data.data });
       })
       .catch((error) => {
         console.error(error);
       });
   };
-
+  useEffect(() => {
+    setPostData(tempData);
+  }, [tempData]);
   const submitComment = () => {
     //댓글 작성 함수
     axios({
