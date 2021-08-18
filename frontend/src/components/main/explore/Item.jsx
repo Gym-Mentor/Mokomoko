@@ -18,7 +18,7 @@ const Item = ({ image, post }) => {
         console.log(response);
         history.push({
           pathname: `testt/${post.id}`,
-          data: response.data.data,
+          data: { ...response.data.data },
         });
       })
       .catch((error) => {
