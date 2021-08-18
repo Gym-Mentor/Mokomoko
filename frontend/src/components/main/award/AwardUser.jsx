@@ -27,7 +27,8 @@ const AwardUser = () => {
       method: "get",
     }).then(({ data }) => {
       console.log("data", data);
-      console.log("data.users", data.users);
+
+      console.log("data.users", data.data.users);
       setUserList(data.users);
     });
   }, []);
