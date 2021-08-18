@@ -7,7 +7,7 @@ import Header from "../header/Header";
 import { IoIosArrowBack } from "react-icons/io";
 import ContentHeader from "../header/ContentHeader";
 
-const DetailPresenter = () => {
+const DetailPresenterCopy = () => {
   return (
     <div className="detail-presenter-wrapper">
       <Row id="detail-presenter-row">
@@ -15,7 +15,7 @@ const DetailPresenter = () => {
         <Col></Col>
         <Col md={6} className="detail-col">
           <div className="details">
-            <Detail />
+            <DetailPage />
           </div>
         </Col>
         <Col></Col>
@@ -24,4 +24,4 @@ const DetailPresenter = () => {
   );
 };
 
-export default DetailPresenter;
+export default DetailPresenterCopy;
