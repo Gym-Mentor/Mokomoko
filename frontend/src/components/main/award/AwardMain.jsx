@@ -29,6 +29,10 @@ const AwardMain = () => {
       });
   }, []);
 
+  useEffect(() => {
+    return () => {};
+  }, [userList]);
+
   console.log(userList);
   return (
     <div>
@@ -40,7 +44,7 @@ const AwardMain = () => {
             </div>
             <div className="awardMain-content">
               <br />
-              <AwardUser userList={userList} />
+              {userList === undefined ? "" : <AwardUser userList={userList} />}
               <AwardTag tagList={tagList} />
               <AwardPost postList={postList} />
             </div>
