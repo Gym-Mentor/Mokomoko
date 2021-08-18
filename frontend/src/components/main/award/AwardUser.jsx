@@ -10,7 +10,12 @@ import "../../../css/award/AwardUser.css";
 const AwardUser = () => {
   const [sliderPlay, setSliderPlay] = useState(false);
   const [sliderPause, setSliderPause] = useState(false);
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState([
+    {
+      nickname: "",
+      image: "",
+    },
+  ]);
 
   const user = useSelector((state) => state.userInfo.user);
 
@@ -21,8 +26,8 @@ const AwardUser = () => {
       url: "https://i5d104.p.ssafy.io/api/rank",
       method: "get",
     }).then(({ data }) => {
-      // console.log(res.data);
-      console.log(data.users);
+      console.log("data", data);
+      console.log("data.users", data.users);
       setUserList(data.users);
     });
   }, []);
@@ -53,39 +58,39 @@ const AwardUser = () => {
   // const award_user = [
   //   //9개 가져온다는 가정하에
   //   {
-  //     id: "test1",
+  //     nickname: "test1",
   //     img: "https://matsudapet.com.br/blog/wp-content/uploads/2019/08/shutterstock_275863976-compressed.jpg",
   //   },
   //   {
-  //     id: "test2",
+  //     nickname: "test2",
   //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
   //   },
   //   {
-  //     id: "test3",
+  //     nickname: "test3",
   //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
   //   },
   //   {
-  //     id: "test4",
+  //     nickname: "test4",
   //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
   //   },
   //   {
-  //     id: "test5",
+  //     nickname: "test5",
   //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
   //   },
   //   {
-  //     id: "test6",
+  //     nickname: "test6",
   //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
   //   },
   //   {
-  //     id: "test7",
+  //     nickname: "test7",
   //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
   //   },
   //   {
-  //     id: "test8",
+  //     nickname: "test8",
   //     img: "https://i.pinimg.com/564x/df/59/91/df59919e59912d4be6131ab437412e87.jpg",
   //   },
   //   {
-  //     id: "test9",
+  //     nickname: "test9",
   //     img: "https://i.pinimg.com/564x/28/9e/fa/289efa2d92e57cc33d0ef5a3503d4973.jpg",
   //   },
   // ];
@@ -123,24 +128,24 @@ const AwardUser = () => {
 
               <div>
                 <div className="round-user">
-                  <img src={userList[3].img} alt="" />
+                  <img src={userList[3].image} alt="" />
                 </div>
                 <div className="round-user">
-                  <img src={userList[4].img} alt="" />
+                  <img src={userList[4].image} alt="" />
                 </div>
                 <div className="round-user">
-                  <img src={userList[5].img} alt="" />
+                  <img src={userList[5].image} alt="" />
                 </div>
               </div>
               <div>
                 <div className="round-user">
-                  <img src={userList[6].img} alt="" />
+                  <img src={userList[6].image} alt="" />
                 </div>
                 <div className="round-user">
-                  <img src={userList[7].img} alt="" />
+                  <img src={userList[7].image} alt="" />
                 </div>
                 <div className="round-user">
-                  <img src={userList[8].img} alt="" />
+                  <img src={userList[8].image} alt="" />
                 </div>
               </div>
             </Slider>
