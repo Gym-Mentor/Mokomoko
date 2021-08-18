@@ -16,16 +16,14 @@ const Login = ({ history }) => {
   const [refreshToken, setRefreshToken] = useState("");
 
   //userSelector로 리덕스 스토어의 상태 조회하기
-  const users = useSelector((state) => state.userInfo.user);
+  const users = useSelector((state) => ({
+    user: state.userInfo.user,
+  }));
 
   //useDispatch 사용해서 리덕스 스토어의 dispatch를 함수에서 사용할 수 있도록 해준다.
   const dispatch = useDispatch();
 
   const onSetUserInfo = (userInfo) => dispatch(setUserInfo(userInfo));
-
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
 
   // 이메일 이벤트
   const onChangeEmail = (e) => {
@@ -49,23 +47,22 @@ const Login = ({ history }) => {
       method: "post",
       url: "https://i5d104.p.ssafy.io/api/auth/login",
       data: {
-        email,
-        password,
+        email: email,
+        password: password,
       },
     })
       .then((res) => {
-        console.log(res.data);
-        const { user, relationResponse, token } = res.data.data;
-        // let user = res.data.data.user;
-        // user = { ...user, ...res.data.data.relationResponse };
-        // user = { ...user, ...res.data.data.token };
+        let user = res.data.data.user;
+        user = { ...user, ...res.data.data.relationResponse };
+        user = { ...user, ...res.data.data.token };
         // const { accessToken, refreshToken } = res.data;
-        // setAccessToken(res.data.data.token.accessToken);
-        // setRefreshToken(res.data.data.token.refreshToken);
+        setAccessToken(res.data.data.token.accessToken);
+        setRefreshToken(res.data.data.token.refreshToken);
         console.log("유저정보 ", user);
-        console.log("token", token);
+        console.log("res.data", res.data);
+        console.log("res.data.data", res.data.data);
 
-        onSetUserInfo({ user, relationResponse, token });
+        onSetUserInfo(user);
         //로그인 하고 localStorage 저장
         // localStorage.setItem("accessToken", user);
         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
@@ -75,9 +72,9 @@ const Login = ({ history }) => {
           onReissue,
           res.data.data.token.accessTokenExpiresIn - new Date().getTime() - 1789809
         );
-        console.log(token.accessToken);
-        console.log(token.refreshToken);
-        console.log("만료기간", token.accessTokenExpiresIn);
+        console.log(res.data.data.token.accessToken);
+        console.log(res.data.data.token.refreshToken);
+        console.log("만료기간", res.data.data.token.accessTokenExpiresIn);
         console.log(users);
         history.push("/main/feed");
       })
@@ -95,37 +92,36 @@ const Login = ({ history }) => {
 
   const onReissue = () => {
     console.log("리이슈 들어옴");
-    console.log("기존 토큰", users.accessToken);
-
-    console.log("기존 리프레쉬", users.refreshToken);
+    console.log(users.token.accessToken);
+    console.log(users.token.refreshToken);
 
     axios({
       method: "post",
       url: "https://i5d104.p.ssafy.io/api/auth/reissue",
       data: {
         // email: email,
-        accessToken: users.accessToken,
-        refreshToken: users.refreshToken,
+        accessToken: users.token.accessToken,
+        refreshToken: users.token.refreshToken,
       },
     })
-      .then((res) => {
-        let access = res.data.data.token.accessToken;
+      .then((response) => {
+        let access = response.data.data.token.accessToken;
         const { accessToken } = access;
-
-        const { user, relationResponse, token } = res.data.data;
-        // user = { ...user, ...response.data.data.token };
-
-        //         onSetUserInfo(user);
-        // ZZ);
-        //         onSetUserInfo(user);
+        console.log("기존 토큰", access);
 
         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+        let user = response.data.data.user;
+        user = { ...user, ...response.data.data.relationResponse };
+        user = { ...user, ...response.data.data.token };
 
-        access = token.accessToken;
+        access = response.data.data.token.accessToken;
         console.log("업데이트 후", access);
-        // onSetUserInfo(user);
-        console.log("시간", token.accessTokenExpiresIn - new Date().getTime());
-        setTimeout(onReissue, token.accessTokenExpiresIn - new Date().getTime() - 1789809);
+        onSetUserInfo(user);
+        console.log("시간", response.data.data.token.accessTokenExpiresIn - new Date().getTime());
+        setTimeout(
+          onReissue,
+          response.data.data.token.accessTokenExpiresIn - new Date().getTime() - 60000
+        );
       })
       .catch((error) => {
         console.log(error);
