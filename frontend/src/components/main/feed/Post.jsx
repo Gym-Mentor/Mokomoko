@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import axios from "axios";
 import { setPostData } from "../../../modules/PostData";
-
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 const Post = ({ contents, image, like, nickname, post }) => {
   // 출력할 데이터
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const Post = ({ contents, image, like, nickname, post }) => {
   const [islike, setIsLike] = useState(like);
   const [tempPost, setTempPost] = useState(post);
   const { PostData } = useSelector((state) => state.PostData);
-
+  const [scrollState, setScrollState] = useState(Number(0));
   // 댓글은 페이지 이동
   // 사진 누르면 상세페이지 이동
   // 프로필 누르면 상세 프로필 이동
@@ -109,6 +109,14 @@ const Post = ({ contents, image, like, nickname, post }) => {
         });
     }
   };
+  const showNextImage = () => {
+    console.log("다음 이미지 보여주기");
+    if (scrollState === tempPost.contents.length - 1) {
+      setScrollState(0);
+    } else {
+      setScrollState(scrollState + 1);
+    }
+  };
   return (
     <div className="post">
       <div className="post-content">
@@ -121,7 +129,10 @@ const Post = ({ contents, image, like, nickname, post }) => {
         </div>
         <div className="post-image" onClick={showDetail}>
           {/* <img src={image} alt="image" /> */}
-          <img src={contents[0].image} alt="image" />
+          <img src={contents[scrollState].image} alt="image" />
+          <div className="mobile-image-next" onClick={showNextImage}>
+            <NavigateNextIcon fontSize="large" />
+          </div>
         </div>
 
         <div className="post-things">
@@ -145,6 +156,11 @@ const Post = ({ contents, image, like, nickname, post }) => {
         <div className="post-bottom">
           <h5 className="post-desc-username">{nickname} </h5>
           <p>{contents[0].description}</p>
+        </div>
+        <div className="likecnt">
+          <p className="feed-user-likecnt" onClick={goToComment}>
+            댓글 {tempPost.comCnt}개 모두 보기
+          </p>
         </div>
       </div>
     </div>
