@@ -48,8 +48,11 @@ const DetailPage = (props) => {
   const isPostLike = () => {
     console.log("좋아요");
 
-    if (PostData.like == false) {
-      onSetLike(true);
+    let newPostData = Object.assign({}, PostData);
+
+    if (PostData.like === false) {
+      newPostData.like = true;
+      dispatch(setPostData(newPostData));
 
       axios({
         method: "post",
@@ -66,7 +69,8 @@ const DetailPage = (props) => {
           console.error(error);
         });
     } else {
-      onSetLike(false);
+      newPostData.like = false;
+      dispatch(setPostData(newPostData));
 
       axios({
         method: "delete",

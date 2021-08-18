@@ -31,6 +31,7 @@ const CommentPage = () => {
       url: "https://i5d104.p.ssafy.io/api/post/" + user.id + "/" + postid,
     })
       .then((response) => {
+        console.log(response);
         setPostData(...response.data.data);
       })
       .catch((error) => {
