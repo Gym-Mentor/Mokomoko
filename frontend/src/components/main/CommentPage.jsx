@@ -38,7 +38,6 @@ const CommentPage = () => {
         console.error(error);
       });
   };
-  useEffect(() => {}, [PostData.comments]);
   const submitComment = () => {
     //댓글 작성 함수
     axios({
@@ -100,7 +99,7 @@ const CommentPage = () => {
 
   useEffect(() => {
     return () => {};
-  }, [PostData]);
+  }, [PostData.comments]);
 
   return (
     <div className="comments-wrapper">
