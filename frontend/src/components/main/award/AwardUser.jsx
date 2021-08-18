@@ -103,26 +103,29 @@ const AwardUser = () => {
             <Slider ref={slider} {...settings}>
               <div className="awardUserItem">
                 <div className="award-user-profilepic">
-                  {userList.map((list, index) => (
+                  {/* {userList.map((list, index) => (
                     <div key={index} className="round-user">
                       <img src={list.image} alt="" />
                     </div>
-                  ))}
+                  ))} */}
+                  <div className="round-user">
+                    <img src={userList[0].image} alt="" />
+                  </div>
 
-                  {/* <div className="round-user">
+                  <div className="round-user">
                     <img src={userList[1].image} alt="" />
                   </div>
                   <div className="round-user">
                     <img src={userList[2].image} alt="" />
-                  </div> */}
+                  </div>
                 </div>
                 <div className="award-usernick">
-                  {userList.map((list, index) => (
+                  {/* {userList.map((list, index) => (
                     <div key={index} className="award-user-nick">
                       <span>{list.nickname}</span>
                     </div>
-                  ))}
-                  {/* <div className="award-user-nick">
+                  ))} */}
+                  <div className="award-user-nick">
                     <span>{userList[0].nickname}</span>
                   </div>
                   <div className="award-user-nick">
@@ -130,32 +133,58 @@ const AwardUser = () => {
                   </div>
                   <div className="award-user-nick">
                     <span>{userList[2].nickname}</span>
-                  </div> */}
+                  </div>
                 </div>
               </div>
 
-              {/* <div>
-                <div className="round-user">
-                  <img src={userList[3].image} alt="" />
+              <div className="awardUserItem">
+                <div className="award-user-profilepic">
+                  <div className="round-user">
+                    <img src={userList[3].image} alt="" />
+                  </div>
+                  <div className="round-user">
+                    <img src={userList[4].image} alt="" />
+                  </div>
+                  <div className="round-user">
+                    <img src={userList[5].image} alt="" />
+                  </div>
                 </div>
-                <div className="round-user">
-                  <img src={userList[4].image} alt="" />
+                <div className="award-usernick">
+                  <div className="award-user-nick">
+                    <span>{userList[3].nickname}</span>
+                  </div>
+                  <div className="award-user-nick">
+                    <span>{userList[4].nickname}</span>
+                  </div>
+                  <div className="award-user-nick">
+                    <span>{userList[5].nickname}</span>
+                  </div>
                 </div>
-                <div className="round-user">
-                  <img src={userList[5].image} alt="" />
+              </div>
+              <div className="awardUserItem">
+                <div className="award-user-profilepic">
+                  <div className="round-user">
+                    <img src={userList[6].image} alt="" />
+                  </div>
+                  <div className="round-user">
+                    <img src={userList[7].image} alt="" />
+                  </div>
+                  <div className="round-user">
+                    <img src={userList[8].image} alt="" />
+                  </div>
                 </div>
-              </div> */}
-              {/* <div>
-                <div className="round-user">
-                  <img src={userList[6].image} alt="" />
+                <div className="award-usernick">
+                  <div className="award-user-nick">
+                    <span>{userList[6].nickname}</span>
+                  </div>
+                  <div className="award-user-nick">
+                    <span>{userList[7].nickname}</span>
+                  </div>
+                  <div className="award-user-nick">
+                    <span>{userList[8].nickname}</span>
+                  </div>
                 </div>
-                <div className="round-user">
-                  <img src={userList[7].image} alt="" />
-                </div>
-                <div className="round-user">
-                  <img src={userList[8].image} alt="" />
-                </div>
-              </div> */}
+              </div>
             </Slider>
           </div>
         </div>
