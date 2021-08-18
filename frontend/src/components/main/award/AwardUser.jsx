@@ -22,8 +22,11 @@ const AwardUser = () => {
       method: "get",
     }).then((res) => {
       console.log(res.data);
+      setUserList(res.data.users);
     });
   });
+
+  console.log(userList);
 
   const playSlider = () => {
     setSliderPlay(true);
