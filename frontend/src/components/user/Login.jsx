@@ -92,27 +92,29 @@ const Login = ({ history }) => {
 
   const onReissue = () => {
     console.log("리이슈 들어옴");
-    console.log(users.user.token.accessToken);
-    console.log(users.data.token.refreshToken);
+    console.log("기존 토큰", users.user.accessToken);
+
+    console.log("기존 리프레쉬", users.user.refreshToken);
 
     axios({
       method: "post",
       url: "https://i5d104.p.ssafy.io/api/auth/reissue",
       data: {
         // email: email,
-        accessToken: users.token.accessToken,
-        refreshToken: users.token.refreshToken,
+        accessToken: users.user.accessToken,
+        refreshToken: users.user.refreshToken,
       },
     })
       .then((response) => {
         let access = response.data.data.token.accessToken;
         const { accessToken } = access;
-        console.log("기존 토큰", access);
+
+        let user = response.data.data.user;
+        user = { ...user, ...response.data.data.token };
+
+        onSetUserInfo(user);
 
         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-        let user = response.data.data.user;
-        user = { ...user, ...response.data.data.relationResponse };
-        user = { ...user, ...response.data.data.token };
 
         access = response.data.data.token.accessToken;
         console.log("업데이트 후", access);
@@ -120,7 +122,7 @@ const Login = ({ history }) => {
         console.log("시간", response.data.data.token.accessTokenExpiresIn - new Date().getTime());
         setTimeout(
           onReissue,
-          response.data.data.token.accessTokenExpiresIn - new Date().getTime() - 60000
+          response.data.data.token.accessTokenExpiresIn - new Date().getTime() - 1789809
         );
       })
       .catch((error) => {

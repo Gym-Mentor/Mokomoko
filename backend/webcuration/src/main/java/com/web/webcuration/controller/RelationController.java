@@ -1,13 +1,12 @@
 package com.web.webcuration.controller;
 
-import com.web.webcuration.Entity.Relation;
+import com.web.webcuration.dto.request.RelationRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.RelationService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,18 +21,12 @@ public class RelationController {
     private final RelationService relationService;
 
     @PostMapping()
-    public ResponseEntity<BaseResponse> createRelation(@RequestBody Relation relation) {
-        return ResponseEntity.ok(relationService.createRelation(relation));
-    }
-
-    // 팔로우 -> 차단
-    @PutMapping()
-    public ResponseEntity<BaseResponse> updateRelation(@RequestBody Relation relation) {
-        return ResponseEntity.ok(relationService.updateRelation(relation));
+    public ResponseEntity<BaseResponse> createRelation(@RequestBody RelationRequest relationRequest) {
+        return ResponseEntity.ok(relationService.createRelation(relationRequest));
     }
 
     @DeleteMapping()
-    public ResponseEntity<BaseResponse> deleteRelation(@RequestBody Relation relation) {
-        return ResponseEntity.ok(relationService.deleteRelation(relation));
+    public ResponseEntity<BaseResponse> deleteRelation(@RequestBody RelationRequest relationRequest) {
+        return ResponseEntity.ok(relationService.deleteRelation(relationRequest));
     }
 }

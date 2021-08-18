@@ -5,11 +5,12 @@ import java.util.List;
 
 import com.web.webcuration.Entity.ConfirmationToken;
 import com.web.webcuration.Entity.RefreshToken;
-import com.web.webcuration.Entity.Relation;
 import com.web.webcuration.Entity.User;
 import com.web.webcuration.dto.TokenDto;
+import com.web.webcuration.dto.UserRelationInfo;
 import com.web.webcuration.dto.request.AuthMailCode;
 import com.web.webcuration.dto.request.FeedRequest;
+import com.web.webcuration.dto.request.RelationRequest;
 import com.web.webcuration.dto.request.SNSRequest;
 import com.web.webcuration.dto.request.TokenRequest;
 import com.web.webcuration.dto.request.UserRequest;
@@ -50,8 +51,8 @@ public class AuthServiceImpl implements AuthService {
 
         User userInfo = userRequest.toUser(passwordEncoder);
         User newUser = userService.createUser(userInfo);
-        relationService
-                .createRelation(Relation.builder().send(newUser.getId()).receive(newUser.getId()).state(true).build());
+        relationService.createRelation(
+                RelationRequest.builder().send(newUser.getId()).receive(newUser.getId()).state(true).build());
         return BaseResponse.builder().status("200").msg("success").data(newUser).build();
     }
 
@@ -81,10 +82,13 @@ public class AuthServiceImpl implements AuthService {
         if (refreshTokenService.findBytokenKey(authentication.getName()).isPresent()) {
             refreshTokenService.deleteBytokenKey(authentication.getName());
         }
+        // 5. 토큰 발급
         refreshTokenService.creatRefreshToken(refreshToken);
+        UserRelationInfo userRelationInfo = relationService.getCountUserRelation(loginUser.getId(), loginUser.getId());
+        loginUser.setFollower(userRelationInfo.getFollwer());
+        loginUser.setFollowing(userRelationInfo.getFollwing());
         List<MainFeedResponse> mainFeed = postService
                 .getMainFeed(FeedRequest.builder().userid(loginUser.getId()).postid(0L).build());
-        // 5. 토큰 발급
         return BaseResponse.builder().status("200").msg("success")
                 .data(LoginUserResponse.builder().user(loginUser).token(tokenDto).mainFeed(mainFeed).build()).build();
 
@@ -185,7 +189,7 @@ public class AuthServiceImpl implements AuthService {
         if (newSnsUser == null) {
             newSnsUser = userService.createUser(snsUser);
             relationService.createRelation(
-                    Relation.builder().send(newSnsUser.getId()).receive(newSnsUser.getId()).state(true).build());
+                    RelationRequest.builder().send(newSnsUser.getId()).receive(newSnsUser.getId()).state(true).build());
         }
         return login(new UserRequest(newSnsUser.getEmail(), newSnsUser.getEmail()));
     }
