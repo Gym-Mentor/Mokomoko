@@ -70,6 +70,7 @@ const Login = ({ history }) => {
         // setTimeout(onReissue, JWT_EXPIRY_TIME);
         console.log(res.data.data.token.accessToken);
         console.log(res.data.data.token.refreshToken);
+        console.log("만료기간", res.data.data.token.accessTokenExpiresIn);
         history.push("/main/feed");
       })
       // .then(onLoginSuccess, history.push("/main/feed"))
@@ -97,49 +98,57 @@ const Login = ({ history }) => {
       });
   };
 
-  // const onReissue = () => {
-  //   const data = {
-  //     accessToken,
-  //     refreshToken,
-  //   };
-  //   console.log(data);
-  //   axios
-  //     .post("https://i5d104.p.ssafy.io/api/auth/reissue", data)
-  //     .then(onLoginSuccess)
-  //     .catch((error) => {
-  //       console.log(error);
-  //       if (error === 401) {
-  //         history.push("/account/login");
-  //       }
-  //     });
+  const onReissue = () => {
+    //   const data = {
+    //     accessToken,
+    //     refreshToken,
+    //   };
+    //   console.log(data);
+    //   axios
+    //     .post("https://i5d104.p.ssafy.io/api/auth/reissue", data)
+    //     .then(onLoginSuccess)
+    //     .catch((error) => {
+    //       console.log(error);
+    //       if (error === 401) {
+    //         history.push("/account/login");
+    //       }
+    //     });
 
-  // axios({
-  //   method: "post",
-  //   url: "http://i5d104.p.ssafy.io:8080/auth/reissue",
-  //   data: {
-  //     // email: email,
-  //     accessToken: accessToken,
-  //     refreshToken: refreshToken,
-  //   },
-  // })
-  //   .then((response) => {
-  //     const { accessToken, refreshToken } = response.data;
-  //     setAccessToken(accessToken);
-  //     setRefreshToken(refreshToken);
-  //     axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+    axios({
+      method: "post",
+      url: "http://i5d104.p.ssafy.io:8080/auth/reissue",
+      data: {
+        // email: email,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+      },
+    })
+      .then((response) => {
+        let access = response.data.token.accessToken;
 
-  //     setTimeout(onReissue, JWT_EXPIRY_TIME);
-  //   })
-  //   .catch((error) => {
-  //     console.log(JSON.stringify(error));
-  //     if (error === 401) {
-  //       window.location.reload();
-  //     }
-  //     alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
-  //     setEmail("");
-  //     setPassword("");
-  //   });
-  // };
+        const { accessToken } = access;
+        console.log("기존 토큰", access);
+
+        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+        access = response.data.token.accessToken;
+        console.log("업데이트 후", access);
+        console.log("시간", response.data.token.accessTokenExpiresIn - new Date().getTime());
+        setTimeout(
+          onReissue,
+          response.data.token.accessTokenExpiresIn - new Date().getTime() - 60000
+        );
+      })
+      .catch((error) => {
+        console.log(JSON.stringify(error));
+        if (error === 401) {
+          window.location.reload();
+        }
+        alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
+        setEmail("");
+        setPassword("");
+      });
+  };
 
   // const onLoginSuccess = (res) => {
   //   const { accessToken, refreshToken } = res.data;
