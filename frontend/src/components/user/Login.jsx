@@ -92,7 +92,8 @@ const Login = ({ history }) => {
 
   const onReissue = () => {
     console.log("리이슈 들어옴");
-    console.log(users.token.accessToken);
+    console.log(users.data.token.accessToken);
+    console.log(users.token);
     console.log(users.data.token.refreshToken);
 
     axios({
