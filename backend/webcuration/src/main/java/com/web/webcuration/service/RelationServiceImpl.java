@@ -24,13 +24,16 @@ public class RelationServiceImpl implements RelationService {
 
     @Override
     public BaseResponse createRelation(Relation relation) {
-        return BaseResponse.builder().status("200").msg("success").data(relationRepository.save(relation)).build();
+        relationRepository.save(relation);
+        return BaseResponse.builder().status("200").msg("success")
+                .data(relationQueryRepository.getCountUserRelation(relation.getSend(), relation.getReceive())).build();
     }
 
     @Override
     public BaseResponse deleteRelation(Relation relation) {
         relationRepository.delete(relationQueryRepository.findBySendAndReceive(relation));
-        return BaseResponse.builder().status("200").msg("success").build();
+        return BaseResponse.builder().status("200").msg("success")
+                .data(relationQueryRepository.getCountUserRelation(relation.getSend(), relation.getReceive())).build();
     }
 
     @Override
@@ -55,8 +58,8 @@ public class RelationServiceImpl implements RelationService {
     }
 
     @Override
-    public UserRelationInfo getCountUserRelation(Long userid) {
-        return relationQueryRepository.getCountUserRelation(userid);
+    public UserRelationInfo getCountUserRelation(Long send, Long userid) {
+        return relationQueryRepository.getCountUserRelation(send, userid);
     }
 
     @Override

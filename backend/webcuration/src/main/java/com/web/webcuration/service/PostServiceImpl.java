@@ -47,7 +47,7 @@ public class PostServiceImpl implements PostService {
 
     // 유저의 모든 게시글 출력
     @Override
-    public BaseResponse readUserPosts(String email) {
+    public BaseResponse readUserPosts(Long loginUserid, String email) {
         Long userid = userService.getUserInfo(email).getId();
         List<Post> posts = postQueryRepository.FindByUserPostOrderby(userid);
         List<UserPostInfo> userPostResponse = new ArrayList<>();
@@ -56,7 +56,7 @@ public class PostServiceImpl implements PostService {
             userPostResponse.add(UserPostInfo.builder().post(post)
                     .image(contentService.FindByPostidOrderby(post.getId()).getImage()).build());
         }
-        UserRelationInfo relationInfo = relationService.getCountUserRelation(userid);
+        UserRelationInfo relationInfo = relationService.getCountUserRelation(loginUserid, userid);
         UserPostResponse postResponse = UserPostResponse.builder().postInfo(userPostResponse).relationInfo(relationInfo)
                 .build();
         return BaseResponse.builder().status("200").msg("success").data(postResponse).build();
