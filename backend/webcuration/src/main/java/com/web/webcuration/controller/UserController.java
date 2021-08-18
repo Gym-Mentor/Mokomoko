@@ -14,6 +14,7 @@ import com.web.webcuration.service.UserService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,6 +58,18 @@ public class UserController {
     @PutMapping("/name")
     public ResponseEntity<BaseResponse> updateUser(@RequestBody NickNameRequest nicknameRequest) {
         return ResponseEntity.ok(userService.setNickname(nicknameRequest));
+    }
+
+    @GetMapping("/follower/{userid}")
+    public ResponseEntity<BaseResponse> getFollowerList(Long userid) {
+        List<Long> followerList = relationService.getFollowerListByUserid(userid);
+        return ResponseEntity.ok(userService.getRelationToUser(followerList));
+    }
+
+    @GetMapping("/follow/{userid}")
+    public ResponseEntity<BaseResponse> getFollowingList(Long userid) {
+        List<Long> followList = relationService.getFollowListByUserid(userid);
+        return ResponseEntity.ok(userService.getRelationToUser(followList));
     }
 
 }
