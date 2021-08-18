@@ -1,6 +1,8 @@
 package com.web.webcuration.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.web.webcuration.Entity.Provide;
@@ -11,6 +13,8 @@ import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.repository.UserQueryRepository;
 import com.web.webcuration.repository.UserRepository;
+import com.web.webcuration.textMatcher.KoreanTextMatch;
+import com.web.webcuration.textMatcher.KoreanTextMatcher;
 import com.web.webcuration.utils.FileUtils;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -120,6 +124,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(User newUser) {
         return userRepository.save(newUser);
+    }
+
+    // 유저 검색
+    @Override
+    public List<String> getSearchNickname(String text) {
+        List<String> AllNickname = userQueryRepository.getAllNickName();
+        List<String> searchWord = new ArrayList<>();
+        KoreanTextMatcher matcher = new KoreanTextMatcher(text);
+        for (String nickname : AllNickname) {
+            KoreanTextMatch match = matcher.match(nickname);
+            if (match.success()) {
+                searchWord.add(nickname);
+                if (searchWord.size() == 5) {
+                    break;
+                }
+            }
+        }
+        return searchWord;
     }
 
 }

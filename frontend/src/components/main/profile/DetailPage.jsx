@@ -15,35 +15,31 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { setLike, setPost } from "../../../modules/Post";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
-const Detail = (props) => {
+const DetailPage = (props) => {
+  const location = useLocation();
+  console.log(location.data);
   const history = useHistory();
+  // 출력할 데이터
+  const [postData, setPostData] = useState(location.data);
+  console.log(postData);
 
   const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
   var word = transcript.split(" ");
 
-  const { user, userImage, userName, post, tags, content, contentImage, like, comments } =
-    useSelector((state) => ({
-      user: state.userInfo.user,
-      userImage: state.Post.userImage,
-      userName: state.Post.userName,
-      post: state.Post.post,
-      tags: state.Post.tags,
-      content: state.Post.content,
-      contentImage: state.Post.contentImage,
-      like: state.Post.like,
-      comments: state.Post.comments,
-    }));
+  const { user } = useSelector((state) => ({
+    user: state.userInfo.user,
+  }));
 
-  const [likeNumber, setLikeNumber] = useState(post.likeCnt);
+  const [likeNumber, setLikeNumber] = useState(postData.post.likeCnt);
   useEffect(() => {
     // checking();
     return () => {
       checking();
     };
-  }, [transcript, likeNumber, post]);
+  }, [transcript, likeNumber, postData.post]);
 
   const dispatch = useDispatch();
   const onSetLike = (like) => dispatch(setLike(like));
@@ -54,7 +50,7 @@ const Detail = (props) => {
   const isPostLike = () => {
     console.log("좋아요");
 
-    if (like == false) {
+    if (postData.like == false) {
       onSetLike(true);
 
       axios({
@@ -62,7 +58,7 @@ const Detail = (props) => {
         url: "https://i5d104.p.ssafy.io/api/likes",
         data: {
           userid: user.id,
-          postid: post.id,
+          postid: postData.post.id,
         },
       })
         .then((response) => {
@@ -79,7 +75,7 @@ const Detail = (props) => {
         url: "https://i5d104.p.ssafy.io/api/likes",
         data: {
           userid: user.id,
-          postid: post.id,
+          postid: postData.post.id,
         },
       })
         .then((response) => {
@@ -103,7 +99,7 @@ const Detail = (props) => {
 
   const showNextImage = () => {
     console.log("다음 이미지 보여주기");
-    if (scrollState === contentImage.length - 1) {
+    if (scrollState === postData.contentImage.length - 1) {
       setScrollState(0);
     } else {
       setScrollState(scrollState + 1);
@@ -149,18 +145,18 @@ const Detail = (props) => {
           {" "}
           <div className="mobile-detail-userInfo">
             <Avatar className="mobile-detail-avatar" />
-            <span className="mobile-detail-username">{userName}</span>
+            <span className="mobile-detail-username">{postData.userName}</span>
           </div>
           <div className="mobile-detail-img">
             {/* <img src={item.img} alt="image" /> */}
-            <img className="mobile-detail-img" src={contentImage[scrollState]} />
+            <img className="mobile-detail-img" src={postData.contents[scrollState].image} />
             <div className="mobile-image-next" onClick={showNextImage}>
               <NavigateNextIcon fontSize="large" />
             </div>
           </div>
           <div className="mobile-detail-things">
             <div className="mobile-detail-like" onClick={isPostLike}>
-              {like ? (
+              {postData.like ? (
                 <FavoriteIcon fontSize="large" />
               ) : (
                 <FavoriteBorderOutlinedIcon fontSize="large" />
@@ -179,12 +175,12 @@ const Detail = (props) => {
           </div>
           <div className="mobile-detail-likecnt">
             <p className="mobile-detail-user-likecnt">
-              좋아요 {likeNumber == null ? post.likeCnt : likeNumber}
+              좋아요 {likeNumber == null ? postData.post.likeCnt : likeNumber}
             </p>
           </div>
           <div className="mobile-detail-bottom">
-            <h5 className="mobile-detail-desc-username">{userName}</h5>
-            {content.map((item, index) => {
+            <h5 className="mobile-detail-desc-username">{postData.userName}</h5>
+            {postData.content.map((item, index) => {
               return <span key={index}> {item.description}</span>;
             })}
           </div>
@@ -195,7 +191,7 @@ const Detail = (props) => {
           <div className="dt-details-content">
             <div className="dt-details-content2">
               <div className="dt-img-section">
-                <img src={contentImage[scrollState]} />
+                <img src={postData.contents[scrollState].image} />
                 <div className="dt-image-next" onClick={showNextImage}>
                   <NavigateNextIcon fontSize="large" />
                 </div>
@@ -204,13 +200,13 @@ const Detail = (props) => {
                 <div className="dt-right-header">
                   <div className="dt-detail-userInfo">
                     <Avatar className="dt-detail-avatar" />
-                    <span className="dt-detail-username">{userName}</span>
+                    <span className="dt-detail-username">{postData.userName}</span>
                   </div>
                 </div>
                 <div className="dt-right-content">
                   <div className="dt-right-content-desc">
                     <div className="content-description">
-                      {content.map((item, index) => {
+                      {postData.content.map((item, index) => {
                         return <span key={index}> {item.description}</span>;
                       })}
                     </div>
@@ -220,7 +216,7 @@ const Detail = (props) => {
                 <div className="dt-right-footer">
                   <div className="dt-right-footer-btn-section">
                     <div className="dt-detail-like" onClick={isPostLike}>
-                      {like ? (
+                      {postData.like ? (
                         <FavoriteIcon fontSize="large" />
                       ) : (
                         <FavoriteBorderOutlinedIcon fontSize="large" />
@@ -239,7 +235,7 @@ const Detail = (props) => {
                   </div>
                   <div className="dt-right-footer-likecnt">
                     <a href="#">
-                      <b>좋아요 {likeNumber == null ? post.likeCnt : likeNumber}</b>
+                      <b>좋아요 {likeNumber == null ? postData.post.likeCnt : likeNumber}</b>
                     </a>
                   </div>
                   <div className="dt-right-footer-upload-date">2일전</div>
@@ -255,7 +251,7 @@ const Detail = (props) => {
           </div>
         </div>
         링크
-        {tags.map((item, index) => {
+        {postData.tags.map((item, index) => {
           return (
             <div key={index} onClick={(e) => goToShop(e, `${item.url}`)}>
               {item.name}
@@ -267,4 +263,4 @@ const Detail = (props) => {
   );
 };
 
-export default Detail;
+export default DetailPage;

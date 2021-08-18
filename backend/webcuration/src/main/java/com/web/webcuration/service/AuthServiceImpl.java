@@ -78,7 +78,9 @@ public class AuthServiceImpl implements AuthService {
         // 4. RefreshToken 저장
         RefreshToken refreshToken = RefreshToken.builder().tokenKey(authentication.getName())
                 .tokenValue(tokenDto.getRefreshToken()).build();
-
+        if (refreshTokenService.findBytokenKey(authentication.getName()).isPresent()) {
+            refreshTokenService.deleteBytokenKey(authentication.getName());
+        }
         refreshTokenService.creatRefreshToken(refreshToken);
         List<MainFeedResponse> mainFeed = postService
                 .getMainFeed(FeedRequest.builder().userid(loginUser.getId()).postid(0L).build());
@@ -118,6 +120,7 @@ public class AuthServiceImpl implements AuthService {
 
         // 4. Refresh Token 일치하는지 검사
         if (!refreshToken.getTokenValue().equals(tokenRequest.getRefreshToken())) {
+            refreshTokenService.deleteBytokenKey(authentication.getName());
             throw new RuntimeException("토큰의 유저 정보가 일치하지 않습니다.");
         }
 
