@@ -25,7 +25,7 @@ const AwardUser = () => {
         console.log("data", data);
 
         console.log("data.users", data.data.users);
-        setUserList(data);
+        setUserList(data.data.users);
       })
       .catch((error) => {
         console.log(error);
