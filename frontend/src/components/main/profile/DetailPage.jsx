@@ -16,7 +16,7 @@ import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognitio
 import { setLike, setPost } from "../../../modules/Post";
 import axios from "axios";
 import { useHistory, useLocation } from "react-router-dom";
-import { setPostData } from "../../modules/PostData";
+import { setPostData } from "../../../modules/PostData";
 const DetailPage = (props) => {
   const history = useHistory();
   // 출력할 데이터
