@@ -99,7 +99,7 @@ const DetailPage = (props) => {
 
   const showNextImage = () => {
     console.log("다음 이미지 보여주기");
-    if (scrollState === postData.contentImage.length - 1) {
+    if (scrollState === postData.contents.length) {
       setScrollState(0);
     } else {
       setScrollState(scrollState + 1);
@@ -180,7 +180,7 @@ const DetailPage = (props) => {
           </div>
           <div className="mobile-detail-bottom">
             <h5 className="mobile-detail-desc-username">{postData.userName}</h5>
-            {postData.content.map((item, index) => {
+            {postData.contents.map((item, index) => {
               return <span key={index}> {item.description}</span>;
             })}
           </div>
@@ -206,7 +206,7 @@ const DetailPage = (props) => {
                 <div className="dt-right-content">
                   <div className="dt-right-content-desc">
                     <div className="content-description">
-                      {postData.content.map((item, index) => {
+                      {postData.contents.map((item, index) => {
                         return <span key={index}> {item.description}</span>;
                       })}
                     </div>
