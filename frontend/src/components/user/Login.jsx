@@ -16,7 +16,7 @@ const Login = ({ history }) => {
   const [refreshToken, setRefreshToken] = useState("");
 
   //userSelector로 리덕스 스토어의 상태 조회하기
-  const { user } = useSelector((state) => ({
+  const users = useSelector((state) => ({
     user: state.userInfo.user,
   }));
 
@@ -75,7 +75,7 @@ const Login = ({ history }) => {
         console.log(res.data.data.token.accessToken);
         console.log(res.data.data.token.refreshToken);
         console.log("만료기간", res.data.data.token.accessTokenExpiresIn);
-        console.log(user);
+        console.log(users);
         history.push("/main/feed");
       })
       .catch((error) => {
@@ -92,16 +92,16 @@ const Login = ({ history }) => {
 
   const onReissue = () => {
     console.log("리이슈 들어옴");
-    console.log(user.token.accessToken);
-    console.log(user.token.refreshToken);
+    console.log(users.token.accessToken);
+    console.log(users.data.token.refreshToken);
 
     axios({
       method: "post",
       url: "https://i5d104.p.ssafy.io/api/auth/reissue",
       data: {
         // email: email,
-        accessToken: user.token.accessToken,
-        refreshToken: user.token.refreshToken,
+        accessToken: users.token.accessToken,
+        refreshToken: users.token.refreshToken,
       },
     })
       .then((response) => {
