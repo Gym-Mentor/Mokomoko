@@ -26,4 +26,8 @@ public interface UserService {
     User createUser(User newUser);
 
     List<String> getSearchNickname(String text);
+
+    void changeUserFollowing(Long userid, Long number);
+
+    void changeUserFollower(Long userid, Long number);
 }

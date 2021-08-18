@@ -55,6 +55,12 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
+    @Column(name = "follow")
+    private Long following;
+
+    @Column(name = "follower")
+    private Long follower;
+
     public String getAuthority() {
         return this.authority.name();
     }
@@ -62,6 +68,8 @@ public class User {
     @PrePersist
     public void prePersist() {
         this.createdate = LocalDateTime.now();
+        this.follower = this.follower == null ? 0 : this.follower;
+        this.following = this.following == null ? 0 : this.following;
         // 로컬
         // this.image = this.image == null ? "C:\\Users\\Master\\Desktop\\img" :
         // this.image;
