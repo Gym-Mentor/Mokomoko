@@ -1,0 +1,21 @@
+package com.web.webcuration.service;
+
+import java.util.List;
+
+import com.web.webcuration.Entity.Scrap;
+import com.web.webcuration.dto.request.ScrapRequest;
+import com.web.webcuration.dto.response.BaseResponse;
+
+public interface ScrapService {
+
+    BaseResponse addScrap(ScrapRequest scrapRequest);
+
+    BaseResponse deleteScrap(Long scrapid);
+
+    BaseResponse deleteAllScrapByUserid(Long userid);
+
+    BaseResponse deleteAllScrapByPostid(List<Long> postids);
+
+    List<Scrap> getScrapByUserid(Long userid);
+
+}
