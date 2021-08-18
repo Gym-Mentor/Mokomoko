@@ -70,7 +70,7 @@ const Login = ({ history }) => {
         console.log("뺀시간", res.data.data.token.accessTokenExpiresIn - new Date().getTime());
         setTimeout(
           onReissue,
-          res.data.data.token.accessTokenExpiresIn - new Date().getTime() - 60000
+          res.data.data.token.accessTokenExpiresIn - new Date().getTime() - 1789809
         );
         console.log(res.data.data.token.accessToken);
         console.log(res.data.data.token.refreshToken);
