@@ -144,4 +144,30 @@ public class UserServiceImpl implements UserService {
         return searchWord;
     }
 
+    @Override
+    public void changeUserFollowing(Long userid, Long number) {
+        Optional<User> previousUser = userRepository.findById(userid);
+        if (previousUser.isPresent()) {
+            User user = previousUser.get();
+            Long changeFollow = user.getFollowing() + number;
+            user.setFollowing(changeFollow);
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("해당 유저가 없습니다.");
+        }
+    }
+
+    @Override
+    public void changeUserFollower(Long userid, Long number) {
+        Optional<User> previousUser = userRepository.findById(userid);
+        if (previousUser.isPresent()) {
+            User user = previousUser.get();
+            Long changeFollower = user.getFollower() + number;
+            user.setFollower(changeFollower);
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("해당 유저가 없습니다.");
+        }
+    }
+
 }
