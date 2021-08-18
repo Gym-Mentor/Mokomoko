@@ -22,7 +22,7 @@ const EmailBtnModal = (props, history) => {
 
   const onClickCheck = () => {
     axios({
-      url: "http://i5d104.p.ssafy.io:8080/auth/mails",
+      url: "https://i5d104.p.ssafy.io/api/auth/mails",
       method: "post",
       data: {
         code: code,
@@ -66,7 +66,7 @@ const EmailBtnModal = (props, history) => {
 
   const mailResend = () => {
     axios({
-      url: "http://i5d104.p.ssafy.io:8080/auth/mails/" + props.email,
+      url: "https://i5d104.p.ssafy.io/api/auth/mails/" + props.email,
       method: "get",
     }).then((res) => {
       console.log(res);

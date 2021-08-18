@@ -56,6 +56,11 @@ const initialState = {
       follow: [],
       block: [],
     },
+    token: {
+      accessToken: null,
+      refreshToken: null,
+      accessTokenExpiresIn: 0,
+    },
   },
 };
 
