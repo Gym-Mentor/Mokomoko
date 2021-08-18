@@ -159,12 +159,7 @@ const CommentPage = () => {
 
   useEffect(() => {
     PostData.comments.map((item,index) =>{
-      if(item.childComment!=null){
-        item.childComment.map((com,idx) =>{
-          console.log(com);
-        })
-      }
-
+      
     })
     return () => {};
   }, [PostData.comments]);
