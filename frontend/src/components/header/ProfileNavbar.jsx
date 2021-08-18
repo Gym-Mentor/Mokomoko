@@ -25,7 +25,7 @@ const ProfileHambar = () => {
     //백엔드 통신
     axios({
       method: "post",
-      url: "http://i5d104.p.ssafy.io:8080/auth/logout",
+      url: "https://i5d104.p.ssafy.io/api/auth/logout",
       data: {
         email: user.email,
       },

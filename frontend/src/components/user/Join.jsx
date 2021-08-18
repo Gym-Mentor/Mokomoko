@@ -41,7 +41,7 @@ const Join = ({ props, history }) => {
 
   const onClickJoin = () => {
     axios({
-      url: "http://i5d104.p.ssafy.io:8080/auth/signup",
+      url: "https://i5d104.p.ssafy.io/api/auth/signup",
       method: "post",
       data: {
         email: email,
@@ -96,7 +96,7 @@ const Join = ({ props, history }) => {
     setValidationCnt(validationCnt + 1);
     if (!isCheck) {
       axios({
-        url: "http://i5d104.p.ssafy.io:8080/auth/mails/" + email,
+        url: "https://i5d104.p.ssafy.io/api/auth/mails/" + email,
         method: "get",
       }).then((res) => {});
     }
