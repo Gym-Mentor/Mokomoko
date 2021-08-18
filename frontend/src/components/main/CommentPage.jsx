@@ -118,10 +118,6 @@ const CommentPage = () => {
   };
 
   const submitRecomment = (e, index) => {
-    console.log("대댓글 전송");
-    console.log(index);
-    console.log(PostData.id);
-
     axios({
       method: "post",
       url: "https://i5d104.p.ssafy.io/api/child",
@@ -133,7 +129,10 @@ const CommentPage = () => {
       },
     })
       .then((response) => {
-        console.log("답글 성공", response);
+        setIsRecomment(false);
+        setRecomment("");
+        setWhichRecomment(null);
+        updateInfo();
       })
       .catch((error) => {
         console.error("답글 에러", error);
@@ -155,97 +154,16 @@ const CommentPage = () => {
         .catch((error) => {
           console.error(error);
         });
-      // .then((response) => {
-      //   updateInfo();
-      // })
-      // .catch((error) => {
-      //   console.error(error);
-      // });
     }
   };
 
   useEffect(() => {
+    PostData.comments.map((item,index) =>{
+      
+    })
     return () => {};
   }, [PostData.comments]);
 
-  //   return (
-  //     <div className="comments-wrapper">
-  //       <ContentHeader title="댓글" />
-  //       <div className="type-comment">
-  //         {/* body-comment는 댓글 페이지의 헤더부분 제외한 전반적인 영역 담당 */}
-  //         <div className="comment-type-container">
-  //           {/* container1, 2 는 댓글 작성자의 입력폼 */}
-  //           <div className="comment-type-container2">
-  //             <div className="comment-avatar-container">
-  //               <Avatar id="comment-avatar" className="post-avatar" src={PostData.userImage} />
-  //             </div>
-  //             <textarea
-  //               type="textarea"
-  //               id="comment-ipt"
-  //               name="commenttext"
-  //               placeholder="댓글 달기..."
-  //               value={writeComment}
-  //               onChange={onChangeWriteComment}
-  //             ></textarea>
-  //             <button type="submit" className="comment-btn" onClick={submitComment}>
-  //               <CheckCircleIcon id="submit-icon" />
-  //             </button>
-  //             {/* </div> */}
-  //           </div>
-  //         </div>
-  //       </div>
-
-  //       <div className="user-comment">
-  //         <ul className="comment-list">
-  //           {PostData.comments &&
-  //             PostData.comments.map((item, index) => {
-  //               return (
-  //                 <li className="comment-list-detail" key={index}>
-  //                   <div className="usr-comment-userInfo">
-  //                     <Avatar id="usr-comment-avatar" className="post-avatar" src={item.image} />
-  //                     <p className="usr-comment-username">{item.name}</p>
-  //                     <span className="usr-comment-desc">{item.description}</span>
-  //                     <input type="text" value={item.description}></input>
-  //                   </div>
-  //                   <div className="usr-comment-like">
-  //                     <FavoriteBorderIcon id="comment-like" />
-  //                   </div>
-  //                   <div className="usr-comment-footer">
-  //                     <div className="comment-likecnt-cont">
-  //                       <a href="#" id="comment-likecnt">
-  //                         <p id="comment-likecnt-desc">좋아요 30개</p>
-  //                       </a>
-  //                     </div>
-  //                     <div className="comment-footer-recomment-cont">
-  //                       <div className="comment-footer-re">
-  //                         <button id="recomment-btn" onClick={childComment}>
-  //                           <p id="recomment">답글 달기</p>
-  //                         </button>
-  //                         {user.nickname == item.name ? (
-  //                           <button id="modify-btn" onClick={modifyComments}>
-  //                             <p id="modify">수정</p>
-  //                           </button>
-  //                         ) : (
-  //                           ""
-  //                         )}
-  //                         {user.nickname == item.name ? (
-  //                           <button id="delete-btn" onClick={(e) => deleteComments(e, `${item.id}`)}>
-  //                             <p id="delete">삭제</p>
-  //                           </button>
-  //                         ) : (
-  //                           ""
-  //                         )}
-  //                       </div>
-  //                     </div>
-  //                   </div>
-  //                 </li>
-  //               );
-  //             })}
-  //         </ul>
-  //       </div>
-  //     </div>
-  //   );
-  // };
   return (
     <div className="comments-wrapper">
       <ContentHeader title="댓글" />
@@ -333,7 +251,7 @@ const CommentPage = () => {
                     </div>
                   </div>
 
-                  {/*답글 띄우기 */}
+                  {/*답글 작성 띄우기 */}
                   {isRecomment && whichRecomment == index ? (
                     <div className="usr-recomment">
                       <div className="user-recomment-arrow">
@@ -352,7 +270,7 @@ const CommentPage = () => {
                           type="submit"
                           className="comment-btn"
                           onClick={(e) => {
-                            submitRecomment(e, `${item.index}`);
+                            submitRecomment(e, `${item.id}`);
                           }}
                         >
                           <CheckCircleIcon />
@@ -362,6 +280,27 @@ const CommentPage = () => {
                   ) : (
                     ""
                   )}
+
+
+                  {/* 답글 목록 */}
+                  <ul className="recomment-list">
+                    {item.childComment != null?
+                    <div>
+                      {item.childComment.map((child,idx) =>{
+                        return(
+                          <li className="recomment-list-detail" key={idx}>
+                          <div className="usr-recomment-userInfo">
+                            <Avatar id="usr-recomment-avatar" className="post-avatar" src={child.image} />
+                            <p className="usr-recomment-username">{child.name}</p>
+                            <span className="usr-recomment-commentname"><b>@{item.name}</b></span>
+                            <span className="usr-recomment-desc">{child.description}</span>
+                          </div>
+                        </li>
+                        );
+                      })}
+                    </div>
+                    :""}
+                  </ul>
                 </li>
               );
             })}

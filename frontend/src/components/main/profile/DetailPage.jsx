@@ -32,6 +32,7 @@ const DetailPage = (props) => {
   const { PostData } = useSelector((state) => state.PostData);
   console.log(PostData);
   const [likeNumber, setLikeNumber] = useState(PostData.post.likeCnt);
+  const [bookmark, setBookmark] = useState(PostData.scrap);
   useEffect(() => {
     // checking();
     return () => {
@@ -42,7 +43,6 @@ const DetailPage = (props) => {
   const dispatch = useDispatch();
   const onSetLike = (like) => dispatch(setLike(like));
 
-  const [bookmark, setBookmark] = useState(false);
   const [scrollState, setScrollState] = useState(Number(0));
 
   const isPostLike = () => {
@@ -90,7 +90,45 @@ const DetailPage = (props) => {
   };
 
   const isBookmark = () => {
-    setBookmark(!bookmark);
+
+    let newPostData = Object.assign({}, PostData);
+
+    if(PostData.scrap == false){
+      PostData.scrap = true;
+      dispatch(setPostData(newPostData));
+      //스크랩 저장
+      axios({
+        method:'post',
+        url:'https://i5d104.p.ssafy.io/api/scrap',
+        data:{
+          "postid": PostData.post.id,
+          "userid": user.id,
+        }
+      })
+      .then((response) =>{
+        console.log("스크랩 성공")
+      })
+      .catch((error) =>{
+        console.error(error)
+      })
+    }else{
+      PostData.scrap = false;
+      dispatch(setPostData(newPostData));
+      axios({
+        method:'delete',
+        url:'https://i5d104.p.ssafy.io/api/scrap',
+        data:{
+          "postid":PostData.post.id,
+          "userid":user.id,
+        }
+      })
+      .then((response) =>{
+        console.log("스크랩 취소 성공")
+      })
+      .catch((error) =>{
+        console.error(error)
+      })
+    }
   };
 
   const goToShop = (e, shoppingUrl) => {
@@ -177,7 +215,7 @@ const DetailPage = (props) => {
               <ChatBubbleOutlinedIcon fontSize="large" />
             </div>
             <div className="mobile-detail-scrap" onClick={isBookmark}>
-              {bookmark ? (
+              {PostData.scrap ? (
                 <BookmarkIcon fontSize="large" />
               ) : (
                 <BookmarkBorderOutlinedIcon fontSize="large" />
@@ -209,7 +247,7 @@ const DetailPage = (props) => {
               </div>
               <div className="dt-right-section">
                 <div className="dt-right-header">
-                  <div className="dt-detail-userInfo">
+                  <div className="dt-detail-userInfo" onClick={showUserPage}>
                     <Avatar className="dt-detail-avatar" />
                     <span className="dt-detail-username">{PostData.userName}</span>
                   </div>
@@ -237,7 +275,7 @@ const DetailPage = (props) => {
                       <ChatBubbleOutlinedIcon fontSize="large" />
                     </div>
                     <div className="dt-detail-scrap" onClick={isBookmark}>
-                      {bookmark ? (
+                      {PostData.scrap ? (
                         <BookmarkIcon fontSize="large" />
                       ) : (
                         <BookmarkBorderOutlinedIcon fontSize="large" />
