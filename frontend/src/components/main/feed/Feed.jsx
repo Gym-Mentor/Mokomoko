@@ -63,15 +63,11 @@ const Feed = ({ history }) => {
     setLoading(false);
   }, [page]);
   return (
-    <div className="feed-wrapper">
-      <Row>
-        <Col></Col>
-        <Col className="main-col">
-          <div className="feed-header">
-            <Cheader title="피드" />
-          </div>
-
-          <div id="feed-contents" className={page === 0 && loading ? "loading" : ""}>
+    <div className="explore-wrapper">
+      <div className="explore-row">
+        <div className="explore-col">
+          <Cheader title="피드" />
+          <div id="explore" className={page === 0 && loading ? "loading" : ""}>
             <List list={list} />
             {postCheck ? (
               <FetchMore loading={page !== 0 && loading} setPage={setPage} page={page} />
@@ -79,9 +75,8 @@ const Feed = ({ history }) => {
               <div>데이터 없음</div>
             )}
           </div>
-        </Col>
-        <Col></Col>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 };
