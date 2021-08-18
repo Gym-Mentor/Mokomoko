@@ -16,7 +16,7 @@ const Login = ({ history }) => {
   const [refreshToken, setRefreshToken] = useState("");
 
   //userSelector로 리덕스 스토어의 상태 조회하기
-  const { users } = useSelector((state) => ({
+  const users = useSelector((state) => ({
     user: state.userInfo.user,
   }));
 
@@ -90,7 +90,7 @@ const Login = ({ history }) => {
       });
   };
 
-  const onReissue = () => {
+  const onReissue = (users) => {
     console.log("리이슈 들어옴");
     console.log(users.token.accessToken);
     console.log(users.token.refreshToken);
