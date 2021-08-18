@@ -103,18 +103,26 @@ const AwardUser = () => {
             <Slider ref={slider} {...settings}>
               <div className="awardUserItem">
                 <div className="award-user-profilepic">
-                  <div className="round-user">
-                    <img src={userList[0].image} alt="" />
-                  </div>
-                  <div className="round-user">
+                  {userList.map((list, index) => (
+                    <div key={index} className="round-user">
+                      <img src={list.image} alt="" />
+                    </div>
+                  ))}
+
+                  {/* <div className="round-user">
                     <img src={userList[1].image} alt="" />
                   </div>
                   <div className="round-user">
                     <img src={userList[2].image} alt="" />
-                  </div>
+                  </div> */}
                 </div>
                 <div className="award-usernick">
-                  <div className="award-user-nick">
+                  {userList.map((list, index) => (
+                    <div key={index} className="award-user-nick">
+                      <span>{list.nickname}</span>
+                    </div>
+                  ))}
+                  {/* <div className="award-user-nick">
                     <span>{userList[0].nickname}</span>
                   </div>
                   <div className="award-user-nick">
@@ -122,11 +130,11 @@ const AwardUser = () => {
                   </div>
                   <div className="award-user-nick">
                     <span>{userList[2].nickname}</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
-              <div>
+              {/* <div>
                 <div className="round-user">
                   <img src={userList[3].image} alt="" />
                 </div>
@@ -136,8 +144,8 @@ const AwardUser = () => {
                 <div className="round-user">
                   <img src={userList[5].image} alt="" />
                 </div>
-              </div>
-              <div>
+              </div> */}
+              {/* <div>
                 <div className="round-user">
                   <img src={userList[6].image} alt="" />
                 </div>
@@ -147,7 +155,7 @@ const AwardUser = () => {
                 <div className="round-user">
                   <img src={userList[8].image} alt="" />
                 </div>
-              </div>
+              </div> */}
             </Slider>
           </div>
         </div>
