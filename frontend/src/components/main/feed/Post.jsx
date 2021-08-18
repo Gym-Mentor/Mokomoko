@@ -11,6 +11,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import axios from "axios";
 import { setPostData } from "../../../modules/PostData";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import { Carousel } from "react-bootstrap";
 const Post = ({ contents, image, like, nickname, post }) => {
   // 출력할 데이터
   const dispatch = useDispatch();
@@ -127,13 +128,20 @@ const Post = ({ contents, image, like, nickname, post }) => {
             <p className="upload-date">{post.createdate}</p>
           </div>
         </div>
-        <div className="post-image" onClick={showDetail}>
-          {/* <img src={image} alt="image" /> */}
+        {/* <div className="post-image" onClick={showDetail}>
           <img src={contents[scrollState].image} alt="image" />
           <div className="post-image-next" onClick={showNextImage}>
             <NavigateNextIcon fontSize="large" />
           </div>
-        </div>
+        </div> */}
+
+        <Carousel>
+          {tempPost.contents.map((item, index) => (
+            <Carousel.Item>
+              <img className="d-block w-100" src={item.image} />
+            </Carousel.Item>
+          ))}
+        </Carousel>
 
         <div className="post-things">
           <div className="post-like" onClick={isPostLike}>
