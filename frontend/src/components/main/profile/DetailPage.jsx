@@ -21,8 +21,10 @@ const DetailPage = (props) => {
   const location = useLocation();
   console.log(location.data);
   const history = useHistory();
-  const { postData, setPostData } = useState(location.data);
+  const [postData, setPostData] = useState(location.data);
+  const [postDatao, setPostDatao] = useState({ ...location.data });
   console.log(postData);
+  console.log(postDatao);
   const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
   var word = transcript.split(" ");
