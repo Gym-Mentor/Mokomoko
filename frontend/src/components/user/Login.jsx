@@ -25,6 +25,8 @@ const Login = ({ history }) => {
 
   const onSetUserInfo = (userInfo) => dispatch(setUserInfo(userInfo));
 
+  useEffect(() => {}, [onSetUserInfo]);
+
   // 이메일 이벤트
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -56,8 +58,8 @@ const Login = ({ history }) => {
         user = { ...user, ...res.data.data.relationResponse };
         user = { ...user, ...res.data.data.token };
         // const { accessToken, refreshToken } = res.data;
-        setAccessToken(res.data.data.token.accessToken);
-        setRefreshToken(res.data.data.token.refreshToken);
+        // setAccessToken(res.data.data.token.accessToken);
+        // setRefreshToken(res.data.data.token.refreshToken);
         console.log("유저정보 ", user);
         console.log("res.data", res.data);
         console.log("res.data.data", res.data.data);
