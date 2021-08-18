@@ -1,7 +1,7 @@
 const SET_POSTDATA = "Post/SET_POSTDATA";
 
 //데이터베이스에서 글 목록 불러온 후 setting
-export const setUserImage = (PostData) => ({
+export const setPostData = (PostData) => ({
   type: SET_POSTDATA,
   PostData,
 });
