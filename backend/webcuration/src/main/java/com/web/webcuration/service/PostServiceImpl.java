@@ -81,9 +81,9 @@ public class PostServiceImpl implements PostService {
             // Scrap 유무
             boolean scrap = scrapService.checkScrapPost(userid, postid);
             return BaseResponse.builder().status("200").msg("success")
-                    .data(PostResponse.builder().userName(user.getNickname()).userImage(user.getImage())
-                            .contents(contents).tags(tags).post(post.get()).like(like).scrap(scrap).comments(comments)
-                            .build())
+                    .data(PostResponse.builder().userid(user.getId()).userName(user.getNickname())
+                            .userImage(user.getImage()).contents(contents).tags(tags).post(post.get()).like(like)
+                            .scrap(scrap).comments(comments).build())
                     .build();
         } else {
             throw new RuntimeException("해당하는 게시글이 없습니다.");
@@ -166,8 +166,8 @@ public class PostServiceImpl implements PostService {
             List<Contents> contents = contentService.findAllByPostidOrderBy(post.getId());
             boolean like = likeService
                     .readLike(LikeRequest.builder().postid(post.getId()).userid(post.getUserid()).build());
-            mainFeedResponses.add(MainFeedResponse.builder().image(user.getImage()).nickname(user.getNickname())
-                    .post(post).contents(contents).like(like).build());
+            mainFeedResponses.add(MainFeedResponse.builder().userid(user.getId()).image(user.getImage())
+                    .nickname(user.getNickname()).post(post).contents(contents).like(like).build());
         }
         return mainFeedResponses;
     }

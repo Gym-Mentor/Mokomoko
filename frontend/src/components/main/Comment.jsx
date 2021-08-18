@@ -138,7 +138,7 @@ const Comment = () => {
         //작성한 댓글 서버에 보내기 userid,postid,description
         axios({
             method: "put",
-            url: "http://i5d104.p.ssafy.io/api/comment",
+            url: "https://i5d104.p.ssafy.io/api/comment",
             data: {
               "id": item.id,
               "description": modifyComment,
@@ -171,7 +171,7 @@ const Comment = () => {
 
         axios({
           method:'post',
-          url:'http://i5d104.p.ssafy.io/api/child',
+          url:'https://i5d104.p.ssafy.io/api/child',
           data:{
             "id": user.id,
             "commentid":index,

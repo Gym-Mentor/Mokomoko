@@ -14,6 +14,8 @@ import lombok.Setter;
 @Builder
 public class MainFeedResponse {
 
+    private Long userid;
+
     private String nickname;
 
     private String image;
