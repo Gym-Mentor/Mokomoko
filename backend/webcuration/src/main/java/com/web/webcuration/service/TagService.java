@@ -12,4 +12,6 @@ public interface TagService {
     List<Tag> findPostInTag(Long postid);
 
     void deleteTag(Long postid);
+
+    List<String> getSearchTag(String text);
 }

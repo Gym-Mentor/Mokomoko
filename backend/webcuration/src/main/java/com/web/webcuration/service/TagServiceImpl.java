@@ -8,7 +8,10 @@ import com.web.webcuration.Entity.Tag;
 import com.web.webcuration.Entity.TagManage;
 import com.web.webcuration.dto.TagDto;
 import com.web.webcuration.repository.TagManageRepository;
+import com.web.webcuration.repository.TagQueryRepository;
 import com.web.webcuration.repository.TagRepository;
+import com.web.webcuration.textMatcher.KoreanTextMatch;
+import com.web.webcuration.textMatcher.KoreanTextMatcher;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +22,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TagServiceImpl implements TagService {
 
-    private final TagRepository tagRepository;
     private final TagManageRepository tagManageRepository;
+    private final TagRepository tagRepository;
+    private final TagQueryRepository tagQueryRepository;
 
     @Override
     public List<Tag> saveTag(List<TagDto> reqTags, Long postid) {
@@ -73,6 +77,23 @@ public class TagServiceImpl implements TagService {
         }
         tagRepository.deleteAll(tags);
         tagManageRepository.deleteAll(tagManages);
+    }
+
+    @Override
+    public List<String> getSearchTag(String text) {
+        List<String> allTagName = tagQueryRepository.getAllTagName();
+        List<String> searchWord = new ArrayList<>();
+        KoreanTextMatcher matcher = new KoreanTextMatcher(text);
+        for (String tagName : allTagName) {
+            KoreanTextMatch match = matcher.match(tagName);
+            if (match.success()) {
+                searchWord.add(tagName);
+                if (searchWord.size() == 5) {
+                    break;
+                }
+            }
+        }
+        return searchWord;
     }
 
 }
