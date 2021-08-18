@@ -9,6 +9,7 @@
 // 이렇게 하면 다른 모듈과 액션 이름이 중복되는 것을 방지 할 수 있습니다.
 
 const SET_USERINFO = "userInfo/SET_DETAIL";
+const SET_ANOTHERUSERINFO = 'userInfo/SET_ANOTHERUSERINFO';
 const GET_USERINFO = "userInfo/GET_USERINFO";
 const MODIFY_USERINFO_NICKNAME = "userInfo/MODIFY_USERINFO_NICKNAME";
 const MODIFY_USERINFO_IMAGE = "userInfo/MODIFY_USERINFO_IMAGE";
@@ -20,6 +21,11 @@ const MODIFY_USERINFO_INTRODUCE = "userInfo/MODIFY_USERINFO_INTRODUCE";
 export const setUserInfo = (user) => ({
   type: SET_USERINFO,
   user,
+});
+
+export const setAnotherUserInfo = (anotherUser) => ({
+  type: SET_ANOTHERUSERINFO,
+  anotherUser,
 });
 
 export const getUserInfo = () => ({
@@ -62,6 +68,21 @@ const initialState = {
       accessTokenExpiresIn: 0,
     },
   },
+  anotherUser :{
+    authority: null,
+    createdate: null,
+    email: null,
+    id: null,
+    image: "/profileImg/user_image.png",
+    introduce: null,
+    nickname: null,
+    password: null,
+    provide: null,
+    relationResponse: {
+      follow: [],
+      block: [],
+    }
+  }
 };
 
 /* 리듀서 선언 */
@@ -73,6 +94,11 @@ export default function userInfo(state = initialState, action) {
         ...state,
         user: action.user,
       };
+    case SET_ANOTHERUSERINFO:
+      return{
+        ...state,
+        anotherUser : action.anotherUser,
+      }
     case MODIFY_USERINFO_NICKNAME:
       return {
         ...state,

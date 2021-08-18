@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setIndex } from "../../../modules/MainNav";
 import Post from "./Post";
-import List from "../explore/List";
+import FeedList from "./FeedList";
 import FetchMore from "../explore/FetchMore";
 import { Container, Row, Col } from "react-bootstrap";
 import Cheader from "../../header/Cheader";
@@ -45,16 +45,14 @@ const Feed = ({ history }) => {
     })
       .then((result) => {
         console.log(result);
-        console.log(result.data.mainFeed);
         console.log(result.data.data);
-        console.log(result.data);
         let newList = Object.assign([], list);
         console.log(newList);
-        newList.push(...result.data.mainFeed);
+        newList.push(...result.data.data);
         setList(newList);
         console.log(newList);
-        if (result.data.mainFeed.length > 0) {
-          setPostid(result.data.mainFeed[result.data.mainFeed.length - 1].post.id);
+        if (result.data.data.length > 0) {
+          setPostid(result.data.data[result.data.data.length - 1].post.id);
         } else {
           setPostCheck(false);
         }
@@ -70,7 +68,7 @@ const Feed = ({ history }) => {
         <div className="explore-col">
           <Cheader title="피드" />
           <div id="explore" className={page === 0 && loading ? "loading" : ""}>
-            <List list={list} />
+            <FeedList list={list} />
             {postCheck ? (
               <FetchMore loading={page !== 0 && loading} setPage={setPage} page={page} />
             ) : (
