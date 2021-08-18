@@ -3,8 +3,8 @@ import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutline
 import ChatBubbleOutlinedIcon from "@material-ui/icons/ChatBubbleOutlined";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import React from "react";
-import "../../css/main/Post.css";
-import testImg from "../../img/logo-back.png";
+import "../../../css/main/Post.css";
+import testImg from "../../../img/logo-back.png";
 
 const Post = (profilePhoto, image, username, description, timestamp) => {
   return (
