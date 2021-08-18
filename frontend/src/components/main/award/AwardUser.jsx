@@ -44,7 +44,7 @@ const AwardUser = (props) => {
     })
       .then((response) => {
         console.log(response);
-        setOtherUser({ ...response.data.data });
+        dispatch(setOtherUser({ ...response.data.data }));
       })
       .catch((error) => {
         console.error(error);
