@@ -130,7 +130,7 @@ const Post = ({ contents, image, like, nickname, post }) => {
         <div className="post-image" onClick={showDetail}>
           {/* <img src={image} alt="image" /> */}
           <img src={contents[scrollState].image} alt="image" />
-          <div className="mobile-image-next" onClick={showNextImage}>
+          <div className="post-image-next" onClick={showNextImage}>
             <NavigateNextIcon fontSize="large" />
           </div>
         </div>
