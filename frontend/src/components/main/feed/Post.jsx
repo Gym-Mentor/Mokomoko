@@ -9,21 +9,65 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import axios from "axios";
+import { setPostData } from "../../../modules/PostData";
+
 const Post = ({ contents, image, like, nickname, post }) => {
   // 출력할 데이터
   const dispatch = useDispatch();
+  let history = useHistory();
   // 출력할 데이터
   const { user } = useSelector((state) => ({
     user: state.userInfo.user,
   }));
   const [islike, setIsLike] = useState(like);
   const [tempPost, setTempPost] = useState(post);
-  // 좋아요 누르기
-  // 좋아요는 따로 state 저장
+  const { PostData } = useSelector((state) => state.PostData);
+
   // 댓글은 페이지 이동
   // 사진 누르면 상세페이지 이동
   // 프로필 누르면 상세 프로필 이동
   // 스크랩 누르면 스크랩 적용
+
+  // 댓글 누르면 이동
+  const goToComment = () => {
+    //받아온 postid 통해서 GET 으로 정보 얻어오기
+    axios({
+      url: "https://i5d104.p.ssafy.io/api/post/" + user.id + "/" + post.id,
+      method: "get",
+    })
+      .then((response) => {
+        console.log(response);
+        dispatch(setPostData(response.data.data));
+        history.push({
+          pathname: `/main/p/commentPage/${post.id}`,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // 사진 누르면 이동
+  const showDetail = () => {
+    console.log(post.id);
+    //받아온 postid 통해서 GET 으로 정보 얻어오기
+    axios({
+      url: "https://i5d104.p.ssafy.io/api/post/" + user.id + "/" + post.id,
+      method: "get",
+    })
+      .then((response) => {
+        console.log(response);
+        dispatch(setPostData(response.data.data));
+        history.push({
+          pathname: `detailPresenter/${post.id}`,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // 좋아요
   const isPostLike = () => {
     if (islike === false) {
       setIsLike(!islike);
@@ -75,7 +119,7 @@ const Post = ({ contents, image, like, nickname, post }) => {
             <p className="upload-date">{post.createdate}</p>
           </div>
         </div>
-        <div className="post-image">
+        <div className="post-image" onClick={showDetail}>
           {/* <img src={image} alt="image" /> */}
           <img src={contents[0].image} alt="image" />
         </div>
@@ -87,9 +131,8 @@ const Post = ({ contents, image, like, nickname, post }) => {
             ) : (
               <FavoriteBorderOutlinedIcon fontSize="large" />
             )}
-            <FavoriteBorderOutlinedIcon fontSize="large" />
           </div>
-          <div className="post-comment">
+          <div className="post-comment" onClick={goToComment}>
             <ChatBubbleOutlinedIcon fontSize="large" />
           </div>
           <div className="post-scrap">
