@@ -54,4 +54,8 @@ public class PostQueryRepository {
         posts = jpaQueryFactory.select(qPost).from(qPost).where(qPost.userid.eq(userid)).fetch();
         return posts;
     }
+
+    public List<Post> getRankPost() {
+        return jpaQueryFactory.selectFrom(qPost).orderBy(qPost.likeCnt.desc(), qPost.createdate.asc()).limit(9).fetch();
+    }
 }

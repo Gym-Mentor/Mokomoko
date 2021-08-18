@@ -96,4 +96,8 @@ public class TagServiceImpl implements TagService {
         return searchWord;
     }
 
+    @Override
+    public List<Tag> getRankTags() {
+        return tagQueryRepository.getRankTags();
+    }
 }

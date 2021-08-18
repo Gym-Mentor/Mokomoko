@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.webcuration.Entity.QTag;
+import com.web.webcuration.Entity.Tag;
 
 import org.springframework.stereotype.Repository;
 
@@ -22,5 +23,9 @@ public class TagQueryRepository {
         AllTagName = jpaQueryFactory.select(qTag.name).from(qTag).where(qTag.name.isNotNull()).orderBy(qTag.name.asc())
                 .fetch();
         return AllTagName;
+    }
+
+    public List<Tag> getRankTags() {
+        return jpaQueryFactory.select(qTag).from(qTag).orderBy(qTag.count.desc()).limit(9).fetch();
     }
 }
