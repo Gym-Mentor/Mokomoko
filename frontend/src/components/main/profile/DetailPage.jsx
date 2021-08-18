@@ -15,11 +15,14 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { setLike, setPost } from "../../../modules/Post";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
-const Detail = (props) => {
+const DetailPage = (props) => {
+  const location = useLocation();
+  console.log(location.data);
   const history = useHistory();
-
+  const { postData, setPostData } = useState({ ...location.data });
+  console.log(postData);
   const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
   var word = transcript.split(" ");
@@ -267,4 +270,4 @@ const Detail = (props) => {
   );
 };
 
-export default Detail;
+export default DetailPage;

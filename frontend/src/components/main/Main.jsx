@@ -8,12 +8,14 @@ import NicknameSetting from "../user/NicknameSetting";
 import Explore from "../main/explore/Explore";
 import Profile from "../main/profile/Profile";
 import Detail from "../main/profile/Detail";
+import DetailPage from "../main/profile/DetailPage";
 import Select from "../main/write/Select";
 import Food from "../main/write/Food";
 import FoodImageText from "./write/FoodImageText";
 import FoodRecipeText from "./write/FoodRecipeText";
 import FoodRecipeSubmit from "./write/FoodRecipeSubmit";
 import DetailPresenter from "./DetailPresenter";
+import DetailPresenterCopy from "./DetailPresenterCopy";
 import DeveloperInfo from "../header/profileSidebar/DeveloperInfo";
 import UserInfoModify from "../header/profileSidebar/UserInfoModify";
 import UserBlock from "../header/profileSidebar/UserBlock";
@@ -33,6 +35,7 @@ const Main = () => {
         <Route path="/main/explore" component={Explore} />
         <Route path="/main/profile" component={Profile} />
         <Route path="/main/detail/:index" component={Detail} />
+        <Route path="/main/detail/:index" component={DetailPage} />
         <Route path="/main/select" component={Select} />
         <Route path="/main/writeFood" component={Food} />
         <Route path="/main/writeFoodImageText" component={FoodImageText} />
@@ -40,6 +43,7 @@ const Main = () => {
         <Route path="/main/writeFoodRecipeSubmit" component={FoodRecipeSubmit} />
         <Route path="/main/p/comment/:index" component={Comment} />
         <Route path="/main/testt/:index" component={DetailPresenter} />
+        <Route path="/main/detail/:index" component={DetailPresenterCopy} />
         <Route path="/main/award" component={AwardMain} />
 
         {/*profile side bar */}
