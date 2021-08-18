@@ -99,7 +99,7 @@ const DetailPage = (props) => {
 
   const showNextImage = () => {
     console.log("다음 이미지 보여주기");
-    if (scrollState === postData.contents.length) {
+    if (scrollState === postData.contents.length - 1) {
       setScrollState(0);
     } else {
       setScrollState(scrollState + 1);
@@ -113,7 +113,10 @@ const DetailPage = (props) => {
     var url = window.location.href.split("/");
     console.log(url[5]);
 
-    history.push(`/main/p/comment/${url[5]}`);
+    history.push({
+      pathname: `/main/p/commentPage/${url[5]}`,
+      data: { ...postData },
+    });
   };
 
   const checking = () => {
