@@ -15,7 +15,7 @@ const CommentPage = () => {
     user: state.userInfo.user,
   }));
   const { PostData } = useSelector((state) => state.PostData);
-
+  const [tempData, setTempData] = useState();
   const [writeComment, setWriteComment] = useState(null);
 
   const onChangeWriteComment = (e) => {
@@ -31,13 +31,17 @@ const CommentPage = () => {
       url: "https://i5d104.p.ssafy.io/api/post/" + user.id + "/" + postid,
     })
       .then((response) => {
-        setPostData(...response.data.data);
+        console.log(response);
+        setTempData({ ...response.data.data });
+        console.log(tempData);
       })
       .catch((error) => {
         console.error(error);
       });
   };
-
+  useEffect(() => {
+    setPostData(tempData);
+  }, [tempData]);
   const submitComment = () => {
     //댓글 작성 함수
     axios({
@@ -99,7 +103,7 @@ const CommentPage = () => {
 
   useEffect(() => {
     return () => {};
-  }, [PostData.comments]);
+  }, [PostData]);
 
   return (
     <div className="comments-wrapper">
