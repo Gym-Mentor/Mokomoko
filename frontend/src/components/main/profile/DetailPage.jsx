@@ -28,7 +28,7 @@ const DetailPage = (props) => {
   // 출력할 데이터
   const { user, PostData } = useSelector((state) => ({
     user: state.userInfo.user,
-    PostData: state.PostData,
+    PostData: { ...state.PostData },
   }));
   console.log(PostData);
   const [likeNumber, setLikeNumber] = useState(PostData.post.likeCnt);

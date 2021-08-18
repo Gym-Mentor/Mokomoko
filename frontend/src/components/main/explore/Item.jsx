@@ -9,7 +9,7 @@ const Item = ({ image, post }) => {
   const dispatch = useDispatch();
   const { user, PostData } = useSelector((state) => ({
     user: state.userInfo.user,
-    PostData: state.PostData,
+    PostData: { ...state.PostData },
   }));
   let history = useHistory();
   const showDetail = () => {

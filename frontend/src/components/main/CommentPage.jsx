@@ -13,7 +13,7 @@ const CommentPage = () => {
   // 출력할 데이터
   const { user, PostData } = useSelector((state) => ({
     user: state.userInfo.user,
-    PostData: state.PostData,
+    PostData: { ...state.PostData },
   }));
 
   const [writeComment, setWriteComment] = useState(null);
