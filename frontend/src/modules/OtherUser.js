@@ -16,7 +16,7 @@ export default function OtherUser(state = initialState, action) {
     case SET_OTHERUSER:
       return {
         ...state,
-        ...action.OtherUser,
+        OtherUser: { ...action.OtherUser },
       };
 
     default:
