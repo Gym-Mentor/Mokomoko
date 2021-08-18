@@ -7,6 +7,8 @@ import "../../../css/main/feed/Post.css";
 import testImg from "../../../img/logo-back.png";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import axios from "axios";
 const Post = ({ contents, image, like, nickname, post }) => {
   // 출력할 데이터
   const dispatch = useDispatch();
@@ -15,55 +17,54 @@ const Post = ({ contents, image, like, nickname, post }) => {
     user: state.userInfo.user,
   }));
   const [islike, setIsLike] = useState(like);
+  const [tempPost, setTempPost] = useState(post);
   // 좋아요 누르기
   // 좋아요는 따로 state 저장
   // 댓글은 페이지 이동
   // 사진 누르면 상세페이지 이동
   // 프로필 누르면 상세 프로필 이동
   // 스크랩 누르면 스크랩 적용
-  // const isPostLike = () => {
-  //   console.log("좋아요");
+  const isPostLike = () => {
+    if (islike === false) {
+      setIsLike(!islike);
 
-  //   let newPostData = Object.assign({}, PostData);
+      axios({
+        method: "post",
+        url: "https://i5d104.p.ssafy.io/api/likes",
+        data: {
+          userid: user.id,
+          postid: post.id,
+        },
+      })
+        .then((response) => {
+          let newTempPost = Object.assign({}, tempPost);
+          newTempPost.likeCnt = response.data.data;
+          setTempPost(newTempPost);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      setIsLike(!islike);
 
-  //   if (PostData.like === false) {
-  //     newPostData.like = true;
-  //     dispatch(setPostData(newPostData));
-
-  //     axios({
-  //       method: "post",
-  //       url: "https://i5d104.p.ssafy.io/api/likes",
-  //       data: {
-  //         userid: user.id,
-  //         postid: PostData.post.id,
-  //       },
-  //     })
-  //       .then((response) => {
-  //         setLikeNumber(response.data.data);
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //       });
-  //   } else {
-  //     newPostData.like = false;
-  //     dispatch(setPostData(newPostData));
-
-  //     axios({
-  //       method: "delete",
-  //       url: "https://i5d104.p.ssafy.io/api/likes",
-  //       data: {
-  //         userid: user.id,
-  //         postid: PostData.post.id,
-  //       },
-  //     })
-  //       .then((response) => {
-  //         setLikeNumber(response.data.data);
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //       });
-  //   }
-  // };
+      axios({
+        method: "delete",
+        url: "https://i5d104.p.ssafy.io/api/likes",
+        data: {
+          userid: user.id,
+          postid: post.id,
+        },
+      })
+        .then((response) => {
+          let newTempPost = Object.assign({}, tempPost);
+          newTempPost.likeCnt = response.data.data;
+          setTempPost(newTempPost);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
   return (
     <div className="post">
       <div className="post-content">
@@ -80,12 +81,12 @@ const Post = ({ contents, image, like, nickname, post }) => {
         </div>
 
         <div className="post-things">
-          <div className="post-like">
-            {/* {PostData.like ? ( onClick={isPostLike}
+          <div className="post-like" onClick={isPostLike}>
+            {islike ? (
               <FavoriteIcon fontSize="large" />
             ) : (
               <FavoriteBorderOutlinedIcon fontSize="large" />
-            )} */}
+            )}
             <FavoriteBorderOutlinedIcon fontSize="large" />
           </div>
           <div className="post-comment">
@@ -96,7 +97,7 @@ const Post = ({ contents, image, like, nickname, post }) => {
           </div>
         </div>
         <div className="likecnt">
-          <p className="feed-user-likecnt">좋아요 {post.likeCnt}개</p>
+          <p className="feed-user-likecnt">좋아요 {tempPost.likeCnt}개</p>
         </div>
         <div className="post-bottom">
           <h5 className="post-desc-username">{nickname} </h5>
