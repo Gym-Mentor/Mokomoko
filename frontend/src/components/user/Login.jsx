@@ -121,7 +121,7 @@ const Login = ({ history }) => {
 
     axios({
       method: "post",
-      url: "http://i5d104.p.ssafy.io:8080/auth/reissue",
+      url: "https://i5d104.p.ssafy.io/api/auth/reissue",
       data: {
         // email: email,
         accessToken: accessToken,
