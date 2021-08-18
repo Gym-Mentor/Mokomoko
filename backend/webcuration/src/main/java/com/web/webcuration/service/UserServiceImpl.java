@@ -175,4 +175,14 @@ public class UserServiceImpl implements UserService {
         return userQueryRepository.getRankUsers();
     }
 
+    @Override
+    public BaseResponse getRelationToUser(List<Long> relationList) {
+        if (relationList == null) {
+            List<User> data = new ArrayList<>();
+            return BaseResponse.builder().status("200").msg("success").data(data).build();
+        } else {
+            return BaseResponse.builder().status("200").msg("success")
+                    .data(userQueryRepository.getListToUser(relationList)).build();
+        }
+    }
 }

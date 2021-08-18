@@ -44,4 +44,8 @@ public class UserQueryRepository {
         return jpaQueryFactory.selectFrom(qUser).orderBy(qUser.follower.desc(), qUser.createdate.asc()).limit(9)
                 .fetch();
     }
+
+    public List<User> getListToUser(List<Long> relationList) {
+        return jpaQueryFactory.selectFrom(qUser).where(qUser.id.in(relationList)).fetch();
+    }
 }

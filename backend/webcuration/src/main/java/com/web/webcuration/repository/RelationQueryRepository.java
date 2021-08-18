@@ -62,4 +62,15 @@ public class RelationQueryRepository {
         return relations;
     }
 
+    public List<Long> getFollowListByUserid(Long userid) {
+        List<Long> followList = jpaQueryFactory.select(qRelation.receive).from(qRelation)
+                .where(qRelation.send.eq(userid)).fetch();
+        return followList;
+    }
+
+    public List<Long> getFollowerListByUserid(Long userid) {
+        List<Long> followerList = jpaQueryFactory.select(qRelation.send).from(qRelation)
+                .where(qRelation.receive.eq(userid)).fetch();
+        return followerList;
+    }
 }
