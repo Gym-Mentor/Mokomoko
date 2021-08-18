@@ -5,11 +5,11 @@ const Item = ({ image, post }) => {
   const { user } = useSelector((state) => ({
     user: state.userInfo.user,
   }));
-  const showDetail = (e, postid) => {
-    e.preventDefault();
+  const showDetail = () => {
+    console.log(post.id);
     //받아온 postid 통해서 GET 으로 정보 얻어오기
     axios({
-      url: "https://i5d104.p.ssafy.io/api/post/" + user.id + "/" + postid,
+      url: "https://i5d104.p.ssafy.io/api/post/" + user.id + "/" + post.id,
       method: "get",
     })
       .then((response) => {
@@ -27,7 +27,7 @@ const Item = ({ image, post }) => {
   return (
     <div className="element-media-border">
       {/* {isImage ? ( */}
-      <img className="element-media-content" src={image} onClick={(post) => showDetail(post.id)} />
+      <img className="element-media-content" src={image} onClick={showDetail} />
 
       {/* ) : (
         <video className="element-media-content" src={url}></video>
