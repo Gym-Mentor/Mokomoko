@@ -104,8 +104,8 @@ const Login = ({ history }) => {
 
   const onReissue = () => {
     console.log("리이슈 들어옴");
-    console.log(user.data.token.accessToken);
-    console.log(user.data.token.refreshToken);
+    console.log(user.token.accessToken);
+    console.log(user.token.refreshToken);
     //   const data = {
     //     accessToken,
     //     refreshToken,
@@ -126,8 +126,8 @@ const Login = ({ history }) => {
       url: "https://i5d104.p.ssafy.io/api/auth/reissue",
       data: {
         // email: email,
-        accessToken: user.data.token.accessToken,
-        refreshToken: user.data.token.refreshToken,
+        accessToken: user.token.accessToken,
+        refreshToken: user.token.refreshToken,
       },
     })
       .then((response) => {
