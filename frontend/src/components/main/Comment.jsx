@@ -44,6 +44,8 @@ const Comment = () => {
   const onSetComments = (comments) => dispatch(setComments(comments));
 
   const [writeComment, setWriteComment] = useState(null);
+  const [isModify,setIsModify] = useState(false);
+  const [modifyComment,setModifyComment] = useState(null);
 
   const onChangeWriteComment = (e) => {
     setWriteComment(e.target.value);
@@ -130,9 +132,37 @@ const Comment = () => {
     setWriteComment("");
   };
 
-  const modifyComments = () => {
+  const showModify = (e,description) => {
     console.log("수정");
+    setModifyComment(description);
+    setIsModify(!isModify);
   };
+
+  const onChangeModifyComment = (e)=>{
+    setModifyComment(e.target.value);
+  }
+
+  const modifyComments = () =>{
+    //작성한 댓글 서버에 보내기
+    //userid,postid,description
+    axios({
+      method:"put",
+      url:"http://i5d104.p.ssafy.io/api/comment",
+      data:{
+        "userid" : user.id,
+        "postid" : post.id,
+        "description" : modifyComment
+      }
+    })
+    .then((response) =>{
+      console.log("성공",response);
+      updateInfo();
+    })
+    .catch((error) =>{
+      console.error(error);
+    })
+
+  }
 
   const childComment = () =>{
     console.log("답글 달기");
@@ -202,8 +232,12 @@ const Comment = () => {
                   <div className="usr-comment-userInfo">
                     <Avatar id="usr-comment-avatar" className="post-avatar" src={item.image} />
                     <p className="usr-comment-username">{item.name}</p>
-                    <span className="usr-comment-desc">{item.description}</span>
-                    <input type="text" value={item.description}></input>
+                    {isModify == false 
+                    ?<span className="usr-comment-desc">{item.description}</span>
+                    :<input className="usr-comment-desc"type="text" value={modifyComment} onChange={onChangeModifyComment}></input>
+                   }
+                   {isModify == true?<button onClick={modifyComments}>수정</button>:""}
+
                   </div>
                   <div className="usr-comment-like">
                     <FavoriteBorderIcon id="comment-like" />
@@ -220,7 +254,7 @@ const Comment = () => {
                           <p id="recomment">답글 달기</p>
                         </button>
                         {user.nickname == item.name ? (
-                          <button id="modify-btn" onClick={modifyComments}>
+                          <button id="modify-btn" onClick={(e) =>showModify(e,`${item.description}`)}>
                             <p id="modify">수정</p>
                           </button>
                         ) : (
