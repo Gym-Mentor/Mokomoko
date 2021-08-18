@@ -2,8 +2,8 @@ import React from "react";
 
 import MainNav from "./MainNav";
 
-import Feed from "../main/Feed";
-import Post from "../main/Post";
+import Feed from "../main/feed/Feed";
+import Post from "../main/feed/Post";
 import NicknameSetting from "../user/NicknameSetting";
 import Explore from "../main/explore/Explore";
 import Profile from "../main/profile/Profile";
