@@ -35,7 +35,7 @@ export default function App() {
     setLoading(true);
     axios({
       method: "post",
-      url: "http://i5d104.p.ssafy.io:8080/post/explore/",
+      url: "https://i5d104.p.ssafy.io/api/post/explore/",
       data: {
         postid: postid,
         userid: user.id,

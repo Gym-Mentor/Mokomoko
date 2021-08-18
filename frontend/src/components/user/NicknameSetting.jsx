@@ -60,7 +60,7 @@ const NicknameSetting = ({ history }) => {
     // 백엔드 통신
     axios({
       method: "put",
-      url: "http://i5d104.p.ssafy.io:8080/user/name",
+      url: "https://i5d104.p.ssafy.io/api/user/name",
       data: user,
       contentType: "application/json; charset=utf-8",
     })

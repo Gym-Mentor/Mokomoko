@@ -61,7 +61,7 @@ const UpdatePW = (props, { history }) => {
 
   const onClickUpdate = () => {
     axios({
-      url: "http://i5d104.p.ssafy.io:8080/user/passwords",
+      url: "https://i5d104.p.ssafy.io/api/user/passwords",
       method: "put",
       data: {
         email: email,
