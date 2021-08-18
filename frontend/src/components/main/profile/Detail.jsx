@@ -19,8 +19,7 @@ import { useHistory, useLocation } from "react-router-dom";
 
 const Detail = (props) => {
   const location = useLocation();
-  console.log(location.props);
-  console.log(location.props.data);
+  console.log(location.data);
   const history = useHistory();
 
   const { transcript, listening, resetTranscript, browserSupportsSpeechRecognition } =
