@@ -75,21 +75,9 @@ const Login = ({ history }) => {
         console.log(res.data.data.token.accessToken);
         console.log(res.data.data.token.refreshToken);
         console.log("만료기간", res.data.data.token.accessTokenExpiresIn);
+        console.log(user);
         history.push("/main/feed");
       })
-      // .then(onLoginSuccess, history.push("/main/feed"))
-      // .then((response) => {
-      //   let user = response.data.data.user;
-      //   user = { ...user, ...response.data.data.relationResponse };
-      //   const { accessToken, refreshToken } = response.data;
-      //   setAccessToken(accessToken);
-      //   setRefreshToken(refreshToken);
-      //   console.log("유저정보 ", user);
-      //   onSetUserInfo(user);
-      //   axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-
-      //   // setTimeout(onReissue, JWT_EXPIRY_TIME); // 토큰 만료 전에 토큰 연장해주게,
-      // })
       .catch((error) => {
         // console.log(error);
         console.log(error);
@@ -106,20 +94,6 @@ const Login = ({ history }) => {
     console.log("리이슈 들어옴");
     console.log(user.token.accessToken);
     console.log(user.token.refreshToken);
-    //   const data = {
-    //     accessToken,
-    //     refreshToken,
-    //   };
-    //   console.log(data);
-    //   axios
-    //     .post("https://i5d104.p.ssafy.io/api/auth/reissue", data)
-    //     .then(onLoginSuccess)
-    //     .catch((error) => {
-    //       console.log(error);
-    //       if (error === 401) {
-    //         history.push("/account/login");
-    //       }
-    //     });
 
     axios({
       method: "post",
@@ -132,7 +106,6 @@ const Login = ({ history }) => {
     })
       .then((response) => {
         let access = response.data.data.token.accessToken;
-
         const { accessToken } = access;
         console.log("기존 토큰", access);
 
@@ -160,17 +133,6 @@ const Login = ({ history }) => {
         setPassword("");
       });
   };
-
-  // const onLoginSuccess = (res) => {
-  //   const { accessToken, refreshToken } = res.data;
-
-  //   setAccessToken(accessToken);
-  //   setRefreshToken(refreshToken);
-
-  //   axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-
-  //   setTimeout(onReissue, JWT_EXPIRY_TIME - 60000);
-  // };
 
   //이메일 유효성 검사
   const isEmail = (email) => {
