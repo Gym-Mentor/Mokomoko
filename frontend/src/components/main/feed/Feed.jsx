@@ -37,7 +37,7 @@ const Feed = ({ history }) => {
     setLoading(true);
     axios({
       method: "post",
-      url: "https://i5d104.p.ssafy.io/api/post/explore/",
+      url: "https://i5d104.p.ssafy.io/api/post/main/",
       data: {
         postid: postid,
         userid: user.id,
@@ -45,14 +45,16 @@ const Feed = ({ history }) => {
     })
       .then((result) => {
         console.log(result);
+        console.log(result.data.mainFeed);
         console.log(result.data.data);
+        console.log(result.data);
         let newList = Object.assign([], list);
         console.log(newList);
-        newList.push(...result.data.data);
+        newList.push(...result.data.mainFeed);
         setList(newList);
         console.log(newList);
-        if (result.data.data.length > 0) {
-          setPostid(result.data.data[result.data.data.length - 1].post.id);
+        if (result.data.mainFeed.length > 0) {
+          setPostid(result.data.mainFeed[result.data.mainFeed.length - 1].post.id);
         } else {
           setPostCheck(false);
         }
