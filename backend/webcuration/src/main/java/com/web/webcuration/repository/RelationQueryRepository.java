@@ -7,6 +7,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.webcuration.Entity.QRelation;
 import com.web.webcuration.Entity.Relation;
 import com.web.webcuration.dto.UserRelationInfo;
+import com.web.webcuration.dto.request.RelationRequest;
 
 import org.springframework.stereotype.Repository;
 
@@ -19,9 +20,9 @@ public class RelationQueryRepository {
     private final JPAQueryFactory jpaQueryFactory;
     private final QRelation qRelation = QRelation.relation;
 
-    public Relation findBySendAndReceive(Relation relation) {
-        Relation findRelation = jpaQueryFactory.select(qRelation).from(qRelation)
-                .where(qRelation.send.eq(relation.getSend()).and(qRelation.receive.eq(relation.getReceive())))
+    public Relation findBySendAndReceive(RelationRequest relationRequest) {
+        Relation findRelation = jpaQueryFactory.select(qRelation).from(qRelation).where(
+                qRelation.send.eq(relationRequest.getSend()).and(qRelation.receive.eq(relationRequest.getReceive())))
                 .fetchOne();
         return findRelation;
     }
@@ -35,23 +36,22 @@ public class RelationQueryRepository {
 
     // 팔로우, 팔로워 수 가져오기
     public UserRelationInfo getCountUserRelation(Long send, Long userid) {
-        Long follwer = jpaQueryFactory.selectFrom(qRelation)
-                .where(qRelation.state.eq(true).and(qRelation.receive.eq(userid))).fetchCount() - 1;
+        Long follwing = jpaQueryFactory.selectFrom(qRelation)
+                .where(qRelation.state.eq(true).and(qRelation.send.eq(userid))).fetchCount() - 1;
 
-        List<Relation> follwingRelations = jpaQueryFactory.selectFrom(qRelation)
-                .where(qRelation.state.eq(true).and(qRelation.send.eq(userid))).fetch();
-        Long follwing = 0L;
+        List<Relation> follwerRelations = jpaQueryFactory.selectFrom(qRelation)
+                .where(qRelation.state.eq(true).and(qRelation.receive.eq(userid))).fetch();
+        Long follwer = 0L;
         boolean isFollow = false;
-        if (follwingRelations != null) {
-            follwing = Long.valueOf(follwingRelations.size());
-            for (Relation relation : follwingRelations) {
+        if (follwerRelations != null) {
+            follwer = Long.valueOf(follwerRelations.size() - 1);
+            for (Relation relation : follwerRelations) {
                 if (relation.getSend() == send) {
                     isFollow = true;
                     break;
                 }
             }
         }
-
         return UserRelationInfo.builder().follwer(follwer).follwing(follwing).isFollow(isFollow).build();
     }
 
