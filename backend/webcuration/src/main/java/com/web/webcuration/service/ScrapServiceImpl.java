@@ -56,4 +56,9 @@ public class ScrapServiceImpl implements ScrapService {
         return findByUseridScraps == null ? new ArrayList<>() : findByUseridScraps;
     }
 
+    @Override
+    public boolean checkScrapPost(Long userid, Long postid) {
+        return scrapQueryRepository.findByUseridAndPostid(userid, postid);
+    }
+
 }

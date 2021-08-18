@@ -29,4 +29,10 @@ public class ScrapQueryRepository {
         return jpaQueryFactory.selectFrom(qScrap).where(qScrap.postid.in(postids)).fetch();
     }
 
+    public boolean findByUseridAndPostid(Long userid, Long postid) {
+        Long row = jpaQueryFactory.selectFrom(qScrap).where(qScrap.userid.eq(userid).and(qScrap.postid.eq(postid)))
+                .fetchCount();
+        return row == 1 ? true : false;
+    }
+
 }
