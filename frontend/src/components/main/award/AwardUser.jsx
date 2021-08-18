@@ -48,10 +48,16 @@ const AwardUser = (props) => {
                       <img src={list.image} alt="" />
                     </div>
                   ))} */}
-                  <div className="round-user">{/* <img src={props[0].image} alt="" /> */}</div>
+                  <div className="round-user">
+                    <img src={props.userList[0].image} alt="" />
+                  </div>
 
-                  <div className="round-user">{/* <img src={props[1].image} alt="" /> */}</div>
-                  <div className="round-user">{/* <img src={props[2].image} alt="" /> */}</div>
+                  <div className="round-user">
+                    <img src={props.userList[1].image} alt="" />
+                  </div>
+                  <div className="round-user">
+                    <img src={props.userList[2].image} alt="" />
+                  </div>
                 </div>
                 <div className="award-usernick">
                   {/* {userList.map((list, index) => (
@@ -59,34 +65,64 @@ const AwardUser = (props) => {
                       <span>{list.nickname}</span>
                     </div>
                   ))} */}
-                  <div className="award-user-nick">{/* <span>{props[0].nickname}</span> */}</div>
-                  <div className="award-user-nick">{/* <span>{props[1].nickname}</span> */}</div>
-                  <div className="award-user-nick">{/* <span>{props[2].nickname}</span> */}</div>
+                  <div className="award-user-nick">
+                    <span>{props.userList[0].nickname}</span>
+                  </div>
+                  <div className="award-user-nick">
+                    <span>{props.userList[1].nickname}</span>
+                  </div>
+                  <div className="award-user-nick">
+                    <span>{props.userList[2].nickname}</span>
+                  </div>
                 </div>
               </div>
 
               <div className="awardUserItem">
                 <div className="award-user-profilepic">
-                  <div className="round-user">{/* <img src={props[3].image} alt="" /> */}</div>
-                  <div className="round-user">{/* <img src={props[4].image} alt="" /> */}</div>
-                  <div className="round-user">{/* <img src={props[5].image} alt="" /> */}</div>
+                  <div className="round-user">
+                    <img src={props.userList[3].image} alt="" />
+                  </div>
+                  <div className="round-user">
+                    <img src={props.userList[4].image} alt="" />
+                  </div>
+                  <div className="round-user">
+                    <img src={props.userList[5].image} alt="" />
+                  </div>
                 </div>
                 <div className="award-usernick">
-                  <div className="award-user-nick">{/* <span>{props[3].nickname}</span> */}</div>
-                  <div className="award-user-nick">{/* <span>{props[4].nickname}</span> */}</div>
-                  <div className="award-user-nick">{/* <span>{props[5].nickname}</span> */}</div>
+                  <div className="award-user-nick">
+                    <span>{props.userList[3].nickname}</span>
+                  </div>
+                  <div className="award-user-nick">
+                    <span>{props.userList[4].nickname}</span>
+                  </div>
+                  <div className="award-user-nick">
+                    <span>{props.userList[5].nickname}</span>
+                  </div>
                 </div>
               </div>
               <div className="awardUserItem">
                 <div className="award-user-profilepic">
-                  <div className="round-user">{/* <img src={props[6].image} alt="" /> */}</div>
-                  <div className="round-user">{/* <img src={props[7].image} alt="" /> */}</div>
-                  <div className="round-user">{/* <img src={props[8].image} alt="" /> */}</div>
+                  <div className="round-user">
+                    <img src={props.userList[6].image} alt="" />
+                  </div>
+                  <div className="round-user">
+                    <img src={props.userList[7].image} alt="" />
+                  </div>
+                  <div className="round-user">
+                    <img src={props.userList[8].image} alt="" />
+                  </div>
                 </div>
                 <div className="award-usernick">
-                  <div className="award-user-nick">{/* <span>{props[6].nickname}</span> */}</div>
-                  <div className="award-user-nick">{/* <span>{props[7].nickname}</span> */}</div>
-                  <div className="award-user-nick">{/* <span>{props[8].nickname}</span> */}</div>
+                  <div className="award-user-nick">
+                    <span>{props.userList[6].nickname}</span>
+                  </div>
+                  <div className="award-user-nick">
+                    <span>{props.userList[7].nickname}</span>
+                  </div>
+                  <div className="award-user-nick">
+                    <span>{props.userList[8].nickname}</span>
+                  </div>
                 </div>
               </div>
             </Slider>
