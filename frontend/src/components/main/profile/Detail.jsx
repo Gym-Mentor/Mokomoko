@@ -13,7 +13,7 @@ import { Col, Form, Row } from "react-bootstrap";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
-import { setLike } from "../../../modules/Post";
+import { setLike, setPost } from "../../../modules/Post";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 

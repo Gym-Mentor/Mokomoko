@@ -78,6 +78,28 @@ const Comment = () => {
       })
       .catch((error) => {
         console.error(error);
+      })
+      .then((response) => {
+        onSetUserImage(response.data.data.userImage);
+        onSetUserName(response.data.data.userName);
+        onSetPost(response.data.data.post);
+        onSetTags(response.data.data.tags);
+        onSetContent(response.data.data.contents);
+        onSetLike(response.data.data.like);
+        onSetComments(response.data.data.comments);
+
+        var contentImage = new Array();
+        var content_box = response.data.data.contents;
+
+        for (var i = 0; i < content_box.length; i++) {
+          contentImage.push(content_box[i].image);
+        }
+
+        //이미지 여러장 처리 위해 사용
+        onSetContentImage(contentImage);
+      })
+      .catch((error) => {
+        console.error(error);
       });
   };
 
@@ -92,6 +114,12 @@ const Comment = () => {
         description: writeComment,
       },
     })
+      .then((response) => {
+        updateInfo();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
       .then((response) => {
         updateInfo();
       })
@@ -115,6 +143,12 @@ const Comment = () => {
         method: "delete",
         url: "https://i5d104.p.ssafy.io/api/comment/" + commentid,
       })
+        .then((response) => {
+          updateInfo();
+        })
+        .catch((error) => {
+          console.error(error);
+        })
         .then((response) => {
           updateInfo();
         })

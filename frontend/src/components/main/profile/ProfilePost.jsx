@@ -57,7 +57,9 @@ const ProfilePost = () => {
         //loading 상태 true로 바꾸기
         setLoading(true);
 
-        const response = await axios.get("https://i5d104.p.ssafy.io/api/post/user/" + user.email);
+        const response = await axios.get(
+          "https://i5d104.p.ssafy.io/api/post/user/" + user.id + "/" + user.email
+        );
 
         console.log(response.data.data);
         setPostList(response.data.data.postInfo);
