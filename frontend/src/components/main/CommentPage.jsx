@@ -11,10 +11,10 @@ import { setPostData } from "../../modules/PostData";
 
 const CommentPage = () => {
   // 출력할 데이터
-  const { user, PostData } = useSelector((state) => ({
+  const { user } = useSelector((state) => ({
     user: state.userInfo.user,
-    PostData: { ...state.PostData },
   }));
+  const { PostData } = useSelector((state) => state.PostData);
 
   const [writeComment, setWriteComment] = useState(null);
 
