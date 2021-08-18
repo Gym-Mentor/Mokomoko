@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { useSelector, useDispatch, useHistory } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 const Item = ({ image, post }) => {
   const { user } = useSelector((state) => ({
     user: state.userInfo.user,
