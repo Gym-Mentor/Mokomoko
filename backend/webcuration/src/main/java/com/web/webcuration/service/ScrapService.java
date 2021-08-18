@@ -18,4 +18,6 @@ public interface ScrapService {
 
     List<Scrap> getScrapByUserid(Long userid);
 
+    boolean checkScrapPost(Long userid, Long postid);
+
 }
