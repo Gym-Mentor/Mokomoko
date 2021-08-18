@@ -23,6 +23,7 @@ import { Route } from "react-router-dom";
 import Dictaphone from "./DictaPhone";
 import AwardMain from "./award/AwardMain";
 import Comment from "./Comment";
+import CommentPage from "./CommentPage";
 
 // 메인 네비게이션 있는 컴포넌트들
 const Main = () => {
@@ -42,6 +43,7 @@ const Main = () => {
         <Route path="/main/writeFoodRecipeText" component={FoodRecipeText} />
         <Route path="/main/writeFoodRecipeSubmit" component={FoodRecipeSubmit} />
         <Route path="/main/p/comment/:index" component={Comment} />
+        <Route path="/main/p/commentPage/:index" component={CommentPage} />
         <Route path="/main/testt/:index" component={DetailPresenter} />
         <Route path="/main/detailPresenter/:index" component={DetailPresenterCopy} />
         <Route path="/main/award" component={AwardMain} />
