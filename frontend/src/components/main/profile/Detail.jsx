@@ -37,12 +37,13 @@ const Detail = (props) => {
       comments: state.Post.comments,
     }));
 
+    const [likeNumber,setLikeNumber] = useState(post.likeCnt);
   useEffect(() => {
     // checking();
     return () => {
       checking();
     };
-  }, [transcript]);
+  }, [transcript,likeNumber,post]);
 
   const dispatch = useDispatch();
   const onSetLike = (like) => dispatch(setLike(like));
@@ -65,7 +66,7 @@ const Detail = (props) => {
         },
       })
         .then((response) => {
-          console.log(response);
+            setLikeNumber(response.data.data);      
         })
         .catch((error) => {
           console.error(error);
@@ -82,7 +83,7 @@ const Detail = (props) => {
         },
       })
         .then((response) => {
-          console.log(response);
+            setLikeNumber(response.data.data);      
         })
         .catch((error) => {
           console.error(error);
@@ -177,7 +178,7 @@ const Detail = (props) => {
             </div>
           </div>
           <div className="mobile-detail-likecnt">
-            <p className="mobile-detail-user-likecnt">좋아요 {post.likeCnt}</p>
+            <p className="mobile-detail-user-likecnt">좋아요 {likeNumber == null ? post.likeCnt:likeNumber}</p>
           </div>
           <div className="mobile-detail-bottom">
             <h5 className="mobile-detail-desc-username">{userName}</h5>
@@ -236,7 +237,7 @@ const Detail = (props) => {
                   </div>
                   <div className="dt-right-footer-likecnt">
                     <a href="#">
-                      <b>좋아요 {post.likeCnt}</b>
+                      <b>좋아요 {likeNumber == null ? post.likeCnt:likeNumber}</b>
                     </a>
                   </div>
                   <div className="dt-right-footer-upload-date">2일전</div>

@@ -1,6 +1,7 @@
 package com.web.webcuration.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.web.webcuration.Entity.User;
 import com.web.webcuration.dto.request.NickNameRequest;
@@ -23,4 +24,6 @@ public interface UserService {
     BaseResponse setNickname(NickNameRequest nicknameRequest);
 
     User createUser(User newUser);
+
+    List<String> getSearchNickname(String text);
 }

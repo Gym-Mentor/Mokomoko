@@ -1,5 +1,8 @@
 package com.web.webcuration.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.webcuration.Entity.QUser;
 
@@ -28,4 +31,12 @@ public class UserQueryRepository {
             return false;
         }
     }
+
+    public List<String> getAllNickName() {
+        List<String> AllNickname = new ArrayList<>();
+        AllNickname = jpaQueryFactory.select(qUser.nickname).from(qUser).where(qUser.nickname.isNotNull())
+                .orderBy(qUser.nickname.asc()).fetch();
+        return AllNickname;
+    }
+
 }

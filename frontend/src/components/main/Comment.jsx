@@ -134,6 +134,10 @@ const Comment = () => {
     console.log("수정");
   };
 
+  const childComment = () =>{
+    console.log("답글 달기");
+  }
+
   const deleteComments = (e, commentid) => {
     e.preventDefault();
     var isDelete = window.confirm("삭제하시겠습니까?");
@@ -199,6 +203,7 @@ const Comment = () => {
                     <Avatar id="usr-comment-avatar" className="post-avatar" src={item.image} />
                     <p className="usr-comment-username">{item.name}</p>
                     <span className="usr-comment-desc">{item.description}</span>
+                    <input type="text" value={item.description}></input>
                   </div>
                   <div className="usr-comment-like">
                     <FavoriteBorderIcon id="comment-like" />
@@ -211,7 +216,7 @@ const Comment = () => {
                     </div>
                     <div className="comment-footer-recomment-cont">
                       <div className="comment-footer-re">
-                        <button id="recomment-btn">
+                        <button id="recomment-btn" onClick={childComment}>
                           <p id="recomment">답글 달기</p>
                         </button>
                         {user.nickname == item.name ? (
