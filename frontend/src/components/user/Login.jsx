@@ -68,8 +68,8 @@ const Login = ({ history }) => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
         // setTimeout(onReissue, JWT_EXPIRY_TIME);
-        console.log(res.data.data.user.accessToken);
-        console.log(res.data.data.user.refreshToken);
+        console.log(res.data.data.token.accessToken);
+        console.log(res.data.data.token.refreshToken);
         history.push("/main/feed");
       })
       // .then(onLoginSuccess, history.push("/main/feed"))
