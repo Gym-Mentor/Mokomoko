@@ -14,4 +14,6 @@ public interface TagService {
     void deleteTag(Long postid);
 
     List<String> getSearchTag(String text);
+
+    List<Tag> getRankTags();
 }

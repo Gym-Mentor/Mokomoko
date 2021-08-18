@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.webcuration.Entity.QUser;
+import com.web.webcuration.Entity.User;
 
 import org.springframework.stereotype.Repository;
 
@@ -39,4 +40,8 @@ public class UserQueryRepository {
         return AllNickname;
     }
 
+    public List<User> getRankUsers() {
+        return jpaQueryFactory.selectFrom(qUser).orderBy(qUser.follower.desc(), qUser.createdate.asc()).limit(9)
+                .fetch();
+    }
 }
