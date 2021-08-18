@@ -1,16 +1,20 @@
 import axios from "axios";
 import React, { Component, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useHistory } from "react-redux";
 import Slider from "react-slick";
 import "../../../css/award/AwardUser.css";
-
+import { setOtherUser } from "../../../modules/OtherUser";
 // import 'slick-carousel/slick/slick-theme.css'; 슬라이더 구현시 참고한 사이트
 // https://velog.io/@cookncoding/React-slick%EC%97%90-styled-components-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0
 
 const AwardUser = (props) => {
+  const dispatch = useDispatch();
   const [sliderPlay, setSliderPlay] = useState(false);
   const [sliderPause, setSliderPause] = useState(false);
-
+  const { user } = useSelector((state) => ({
+    user: state.userInfo.user,
+  }));
+  const { OtherUser } = useSelector((state) => state.OtherUser);
   console.log("props awardUser : ", props);
 
   const playSlider = () => {
@@ -34,7 +38,17 @@ const AwardUser = (props) => {
     autoplaySpeed: 4000,
   };
   const showUserPage = (email) => {
-    console.log(email);
+    axios({
+      method: "get",
+      url: `https://i5d104.p.ssafy.io/api/post/user/${user.id}/${email}`,
+    })
+      .then((response) => {
+        console.log(response);
+        setOtherUser({ ...response.data.data });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   return (
     <div>

@@ -2,7 +2,7 @@
   .row {
     width: 100%;
   }
-  .post.slick-list {
+  .post .slick-list {
     overflow: hidden;
     margin: 0;
     padding: 0;
@@ -13,7 +13,7 @@
   .row {
     width: 768px;
   }
-  .post.slick-list {
+  .post .slick-list {
     overflow: hidden;
     margin: 0;
     padding: 0;
