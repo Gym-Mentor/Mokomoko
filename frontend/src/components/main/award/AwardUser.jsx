@@ -1,4 +1,6 @@
-import React, { Component, useRef, useState } from "react";
+import axios from "axios";
+import React, { Component, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import "../../../css/award/AwardUser.css";
 
@@ -8,6 +10,20 @@ import "../../../css/award/AwardUser.css";
 const AwardUser = () => {
   const [sliderPlay, setSliderPlay] = useState(false);
   const [sliderPause, setSliderPause] = useState(false);
+  const [userList, setUserList] = useState([]);
+
+  const user = useSelector((state) => state.userInfo.user);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    axios({
+      url: "https://i5d104.p.ssafy.io/api/rank",
+      method: "get",
+    }).then((res) => {
+      console.log(res.data);
+    });
+  });
 
   const playSlider = () => {
     setSliderPlay(true);
@@ -30,8 +46,7 @@ const AwardUser = () => {
     autoplaySpeed: 4000,
   };
 
-  //   const slideSettings = {...settings, autoplay}
-  const test_user = [
+  const award_user = [
     //9개 가져온다는 가정하에
     {
       id: "test1",
@@ -80,48 +95,48 @@ const AwardUser = () => {
               <div className="awardUserItem">
                 <div className="award-user-profilepic">
                   <div className="round-user">
-                    <img src={test_user[0].img} alt="" />
+                    <img src={award_user[0].img} alt="" />
                   </div>
                   <div className="round-user">
-                    <img src={test_user[1].img} alt="" />
+                    <img src={award_user[1].img} alt="" />
                   </div>
                   <div className="round-user">
-                    <img src={test_user[2].img} alt="" />
+                    <img src={award_user[2].img} alt="" />
                   </div>
                 </div>
                 <div className="award-usernick">
                   <div className="award-user-nick">
-                    <span>{test_user[0].id}</span>
+                    <span>{award_user[0].id}</span>
                   </div>
                   <div className="award-user-nick">
-                    <span>{test_user[0].id}</span>
+                    <span>{award_user[0].id}</span>
                   </div>
                   <div className="award-user-nick">
-                    <span>{test_user[0].id}</span>
+                    <span>{award_user[0].id}</span>
                   </div>
                 </div>
               </div>
 
               <div>
                 <div className="round-user">
-                  <img src={test_user[3].img} alt="" />
+                  <img src={award_user[3].img} alt="" />
                 </div>
                 <div className="round-user">
-                  <img src={test_user[4].img} alt="" />
+                  <img src={award_user[4].img} alt="" />
                 </div>
                 <div className="round-user">
-                  <img src={test_user[5].img} alt="" />
+                  <img src={award_user[5].img} alt="" />
                 </div>
               </div>
               <div>
                 <div className="round-user">
-                  <img src={test_user[6].img} alt="" />
+                  <img src={award_user[6].img} alt="" />
                 </div>
                 <div className="round-user">
-                  <img src={test_user[7].img} alt="" />
+                  <img src={award_user[7].img} alt="" />
                 </div>
                 <div className="round-user">
-                  <img src={test_user[8].img} alt="" />
+                  <img src={award_user[8].img} alt="" />
                 </div>
               </div>
             </Slider>

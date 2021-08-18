@@ -25,6 +25,7 @@ const Login = ({ history }) => {
 
   const onSetUserInfo = (userInfo) => dispatch(setUserInfo(userInfo));
 
+  useEffect(() => {});
   // 이메일 이벤트
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
