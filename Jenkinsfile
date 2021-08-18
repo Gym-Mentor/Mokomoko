@@ -45,7 +45,7 @@ pipeline {
                 sh 'docker images -f "dangling=true" -q | xargs -r docker rmi'     
                 // docker container 실행     
                 sh 'docker run -d --name frontend -v /home/ubuntu/img:/home/img -v /home/ubuntu/key:/home/key --network mokomoko -p 80:80 -p 443:443 frontend:latest'     
-                sh 'docker run -d --name backend -v /home/ubuntu/img:/home/img --network mokomoko -p 8080:8080 backend:latest'    
+                sh 'docker run -d --name backend -v /home/ubuntu/img:/home/img --network mokomoko backend:latest'    
             }   
         }  
     } 
