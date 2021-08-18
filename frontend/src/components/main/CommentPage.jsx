@@ -32,16 +32,13 @@ const CommentPage = () => {
     })
       .then((response) => {
         console.log(response);
-        setTempData({ ...response.data.data });
-        console.log(tempData);
+        setPostData(response.data.data);
       })
       .catch((error) => {
         console.error(error);
       });
   };
-  useEffect(() => {
-    setPostData(tempData);
-  }, [tempData]);
+  useEffect(() => {}, [PostData.comments]);
   const submitComment = () => {
     //댓글 작성 함수
     axios({
