@@ -51,26 +51,28 @@ const Login = ({ history }) => {
         password: password,
       },
     })
-      // .then((res) => {
-      //   let user = res.data.data.user;
-      //   user = { ...user, ...res.data.data.relationResponse };
-      //   const { accessToken, refreshToken } = res.data;
-      //   setAccessToken(accessToken);
-      //   setRefreshToken(refreshToken);
-      //   console.log("유저정보 ", user);
-      //   console.log("res.data", res.data);
-      //   console.log("res.data.data", res.data.data);
+      .then((res) => {
+        let user = res.data.data.user;
+        user = { ...user, ...res.data.data.relationResponse };
+        user = { ...user, ...res.data.data.token };
+        const { accessToken, refreshToken } = res.data;
+        setAccessToken(accessToken);
+        setRefreshToken(refreshToken);
+        console.log("유저정보 ", user);
+        console.log("res.data", res.data);
+        console.log("res.data.data", res.data.data);
 
-      //   onSetUserInfo(user);
-      //   //로그인 하고 localStorage 저장
-      //   // localStorage.setItem("accessToken", user);
-      //   axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+        onSetUserInfo(user);
+        //로그인 하고 localStorage 저장
+        // localStorage.setItem("accessToken", user);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
-      //   setTimeout(onReissue, JWT_EXPIRY_TIME);
-      //   console.log(accessToken);
-      //   history.push("/main/feed");
-      // })
-      .then(onLoginSuccess, history.push("/main/feed"))
+        // setTimeout(onReissue, JWT_EXPIRY_TIME);
+        console.log(res.data.data.user.accessToken);
+        console.log(res.data.data.user.refreshToken);
+        history.push("/main/feed");
+      })
+      // .then(onLoginSuccess, history.push("/main/feed"))
       // .then((response) => {
       //   let user = response.data.data.user;
       //   user = { ...user, ...response.data.data.relationResponse };
@@ -95,59 +97,60 @@ const Login = ({ history }) => {
       });
   };
 
-  const onReissue = () => {
-    const data = {
-      accessToken,
-      refreshToken,
-    };
-    console.log(data);
-    axios
-      .post("https://i5d104.p.ssafy.io/api/auth/reissue", data)
-      .then(onLoginSuccess)
-      .catch((error) => {
-        console.log(error);
-        if (error === 401) {
-          history.push("/account/login");
-        }
-      });
-    // axios({
-    //   method: "post",
-    //   url: "http://i5d104.p.ssafy.io:8080/auth/reissue",
-    //   data: {
-    //     // email: email,
-    //     accessToken: accessToken,
-    //     refreshToken: refreshToken,
-    //   },
-    // })
-    //   .then((response) => {
-    //     const { accessToken, refreshToken } = response.data;
-    //     setAccessToken(accessToken);
-    //     setRefreshToken(refreshToken);
-    //     axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+  // const onReissue = () => {
+  //   const data = {
+  //     accessToken,
+  //     refreshToken,
+  //   };
+  //   console.log(data);
+  //   axios
+  //     .post("https://i5d104.p.ssafy.io/api/auth/reissue", data)
+  //     .then(onLoginSuccess)
+  //     .catch((error) => {
+  //       console.log(error);
+  //       if (error === 401) {
+  //         history.push("/account/login");
+  //       }
+  //     });
 
-    //     setTimeout(onReissue, JWT_EXPIRY_TIME);
-    //   })
-    //   .catch((error) => {
-    //     console.log(JSON.stringify(error));
-    //     if (error === 401) {
-    //       window.location.reload();
-    //     }
-    //     alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
-    //     setEmail("");
-    //     setPassword("");
-    //   });
-  };
+  // axios({
+  //   method: "post",
+  //   url: "http://i5d104.p.ssafy.io:8080/auth/reissue",
+  //   data: {
+  //     // email: email,
+  //     accessToken: accessToken,
+  //     refreshToken: refreshToken,
+  //   },
+  // })
+  //   .then((response) => {
+  //     const { accessToken, refreshToken } = response.data;
+  //     setAccessToken(accessToken);
+  //     setRefreshToken(refreshToken);
+  //     axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
-  const onLoginSuccess = (res) => {
-    const { accessToken, refreshToken } = res.data;
+  //     setTimeout(onReissue, JWT_EXPIRY_TIME);
+  //   })
+  //   .catch((error) => {
+  //     console.log(JSON.stringify(error));
+  //     if (error === 401) {
+  //       window.location.reload();
+  //     }
+  //     alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
+  //     setEmail("");
+  //     setPassword("");
+  //   });
+  // };
 
-    setAccessToken(accessToken);
-    //   setRefreshToken(refreshToken);
+  // const onLoginSuccess = (res) => {
+  //   const { accessToken, refreshToken } = res.data;
 
-    axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+  //   setAccessToken(accessToken);
+  //   setRefreshToken(refreshToken);
 
-    setTimeout(onReissue, JWT_EXPIRY_TIME - 60000);
-  };
+  //   axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
+  //   setTimeout(onReissue, JWT_EXPIRY_TIME - 60000);
+  // };
 
   //이메일 유효성 검사
   const isEmail = (email) => {
