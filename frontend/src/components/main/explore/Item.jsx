@@ -8,7 +8,7 @@ const Item = ({ image, post }) => {
   const showDetail = (postid) => {
     //받아온 postid 통해서 GET 으로 정보 얻어오기
     axios({
-      url: "http://i5d104.p.ssafy.io:8080/post/" + user.id + "/" + postid,
+      url: "https://i5d104.p.ssafy.io/api/post/" + user.id + "/" + postid,
       method: "get",
     })
       .then((response) => {
