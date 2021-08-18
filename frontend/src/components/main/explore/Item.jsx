@@ -26,7 +26,7 @@ const Item = ({ image, post }) => {
   return (
     <div className="element-media-border">
       {/* {isImage ? ( */}
-      <img className="element-media-content" src={image} onClick={(post) => showDetail(post.id)} />
+      <img className="element-media-content" src={image} onClick={() => showDetail(post.id)} />
 
       {/* ) : (
         <video className="element-media-content" src={url}></video>
