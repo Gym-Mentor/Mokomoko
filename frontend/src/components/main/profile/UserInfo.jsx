@@ -43,6 +43,9 @@ const UserInfo = () => {
                         <div className="userInfo-nickname">
                             <span>{user.nickname}</span>
                         </div>
+                        <div className="userInfo-introduce">
+                            <span>{user.introduce}</span>
+                        </div>
 
                         <div className="userFriend">
                             <div className="userFriend follow" onClick={showFollowModal}>
@@ -50,7 +53,7 @@ const UserInfo = () => {
                                     <b>팔로우</b>
                                 </p>
                                 <div>
-                                    10명
+                                    {user.following}
                                 </div>
                             </div>
 
@@ -61,7 +64,7 @@ const UserInfo = () => {
                                     <b>팔로워</b>
                                 </p>
                                 <div>
-                                    10명
+                                    {user.follower}
                                 </div>
                             </div>
                             {isFollower && <FollowerModal showFollowerModal={showFollowerModal}/>}
