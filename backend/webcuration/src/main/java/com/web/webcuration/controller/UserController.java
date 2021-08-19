@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,21 +63,21 @@ public class UserController {
         return ResponseEntity.ok(userService.setNickname(nicknameRequest));
     }
 
-    @GetMapping("/follower")
+    @PostMapping("/follower")
     public ResponseEntity<BaseResponse> getFollowerList(@RequestBody UserRelationRequest reqUser) {
         List<Long> followerList = relationService.getRelationListByUserid("Follwer", reqUser.getSelectid());
         HashMap<Long, String> states = relationService.getMeAndSelecterRelation(followerList, reqUser.getUserid());
         return ResponseEntity.ok(userService.getRelationToUser(states));
     }
 
-    @GetMapping("/follow")
+    @PostMapping("/follow")
     public ResponseEntity<BaseResponse> getFollowingList(@RequestBody UserRelationRequest reqUser) {
         List<Long> followList = relationService.getRelationListByUserid("Follow", reqUser.getSelectid());
         HashMap<Long, String> states = relationService.getMeAndSelecterRelation(followList, reqUser.getUserid());
         return ResponseEntity.ok(userService.getRelationToUser(states));
     }
 
-    @GetMapping("/block")
+    @PostMapping("/block")
     public ResponseEntity<BaseResponse> getBlockList(@RequestBody UserRelationRequest reqUser) {
         List<Long> blockList = relationService.getRelationListByUserid("Block", reqUser.getSelectid());
         HashMap<Long, String> states = relationService.getMeAndSelecterRelation(blockList, reqUser.getUserid());
