@@ -10,16 +10,16 @@ const ExploreHeader = () => {
     const [results, setResults] = useState("");
     const [updateField, setUpdateField] = useState("");
     const [keyword, setKeyword] = useState("");
-    const [nicknameInfo, setNicknameInfo] = useState([]);
-    const [tagInfo, setTagInfo] = useState([]);
+    const [nicknameInfo, setNicknameInfo] = useState(null);
+    const [tagInfo, setTagInfo] = useState(null);
 
     useEffect(() => {
         console.log(keyword);
         const fetchList = async () => {
             try {
                 if (keyword === "") {
-                    setNicknameInfo([]);
-                    setTagInfo([]);
+                    setNicknameInfo(null);
+                    setTagInfo(null);
                 } else {
 
                     const userResponse = await axios.get(
@@ -65,10 +65,10 @@ const ExploreHeader = () => {
               <div className="search-list-header">사용자 정보</div>
               <hr />
                 <div className="nickname-info">
-                  {nicknameInfo.length ==0 ?"사용자 정보가 없습니다.":""}
+                  {nicknameInfo ==null ?"사용자 정보가 없습니다.":""}
                     {
                         nicknameInfo && nicknameInfo.map((item, index) => {
-                            return (<div key={index}>{item}</div>);
+                            return (<div key={index}>{item.name}</div>);
                         })
                     }
                 </div>
@@ -76,7 +76,7 @@ const ExploreHeader = () => {
                 <div className="search-list-header">태그 정보</div>
                 <div className="tag-info">       
                   <hr />
-                  {tagInfo.length ==0?"태그 정보가 없습니다.":""}
+                  {tagInfo ==null?"태그 정보가 없습니다.":""}
                   {
                     tagInfo && tagInfo.map((item,index) =>{
                       return(
