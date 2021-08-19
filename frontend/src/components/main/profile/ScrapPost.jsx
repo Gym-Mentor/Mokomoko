@@ -33,13 +33,11 @@ const ScrapPost = () => {
         //loading 상태 true로 바꾸기
         setLoading(true);
 
-        const response = await axios.get(
-          "https://i5d104.p.ssafy.io/api/post/user/" + user.id + "/" + user.id
-        );
+        const response = await axios.get("https://i5d104.p.ssafy.io/api/scrap/" + user.id);
 
         console.log(response);
         console.log(response.data.data);
-        setPostList(response.data.data.postInfo);
+        setPostList(response.data.data);
       } catch (e) {
         setError(e);
       }
@@ -54,7 +52,7 @@ const ScrapPost = () => {
     setIsDetail((prev) => !prev);
 
     console.log(postid);
-    //받아온 postid 통해서 GET 으로 정보 얻어오기
+    //받아온 scrapid 통해서 GET 으로 정보 얻어오기
     axios({
       url: "https://i5d104.p.ssafy.io/api/post/" + user.id + "/" + postid,
       method: "get",

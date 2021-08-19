@@ -5,6 +5,9 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { setPostData } from "../../../modules/PostData";
 import { setOtherUser } from "../../../modules/OtherUser";
+import { Tab, Tabs } from "react-bootstrap";
+import AppsIcon from "@material-ui/icons/Apps";
+import BookmarkIcon from "@material-ui/icons/Bookmark";
 const OtherUserPost = () => {
   const [isDetail, setIsDetail] = useState(false);
   const [postList, setPostList] = useState(null);
@@ -76,20 +79,30 @@ const OtherUserPost = () => {
 
   return (
     <div>
-      <div className="userPost">
-        {OtherUser.postInfo &&
-          OtherUser.postInfo.map((item, index) => {
-            return (
-              <div
-                key={index}
-                className="postGrid"
-                onClick={(e) => showDetail(e, `${item.post.id}`)}
-              >
-                <img className="postImg" src={item.image} />
-              </div>
-            );
-          })}
-      </div>
+      <Tabs
+        defaultActiveKey="내 게시물"
+        transition={false}
+        id="noanim-tab-example"
+        className="mb-3"
+      >
+        <Tab eventKey="내 게시물" title={<AppsIcon id="grid-icon" fontSize="large" />}>
+          <div className="userPost">
+            {OtherUser.postInfo &&
+              OtherUser.postInfo.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className="postGrid"
+                    onClick={(e) => showDetail(e, `${item.post.id}`)}
+                  >
+                    <img className="postImg" src={item.image} />
+                  </div>
+                );
+              })}
+          </div>
+        </Tab>
+        <Tab eventKey="스크랩" title={<BookmarkIcon fontSize="large" />} disabled></Tab>
+      </Tabs>
     </div>
   );
 };
