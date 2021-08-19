@@ -84,6 +84,23 @@ const ExploreHeader = () => {
 
     const showTagResult = (e,tagName) =>{
       console.log("태그 보여줄 거",tagName);
+
+      axios({
+        method:'post',
+        url:'https://i5d104.p.ssafy.io/api/search/result',
+        data:{
+          userid:user.id,
+          text : tagName
+        }
+      }).then((response) =>{
+        console.log(response.data.data);
+        history.push({
+          pathname:`/main/explore/result`,
+          state:{postList:response.data.data}
+        })
+      }).catch((error)=>{
+        console.log(error);
+      })
     }
 
     return (
