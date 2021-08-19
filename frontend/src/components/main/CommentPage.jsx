@@ -159,7 +159,7 @@ const CommentPage = () => {
 
   useEffect(() => {
     PostData.comments.map((item,index) =>{
-      
+
     })
     return () => {};
   }, [PostData.comments]);
@@ -173,7 +173,7 @@ const CommentPage = () => {
           {/* container1, 2 는 댓글 작성자의 입력폼 */}
           <div className="comment-type-container2">
             <div className="comment-avatar-container">
-              <Avatar id="comment-avatar" className="post-avatar" src={PostData.userImage} />
+              <Avatar id="comment-avatar" className="post-avatar" src={user.image} />
             </div>
             <textarea
               type="textarea"
