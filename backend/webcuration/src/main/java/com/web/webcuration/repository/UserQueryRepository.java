@@ -20,6 +20,7 @@ public class UserQueryRepository {
     private QUser qUser = QUser.user;
 
     public boolean DuplicateCheckName(Long userid, String nickname) {
+        System.out.println(userid + " " + nickname);
         Long findNicknameId = jpaQueryFactory.select(qUser.id).from(qUser).where(qUser.nickname.eq(nickname))
                 .fetchOne();
         if (findNicknameId == null || findNicknameId == userid) {
@@ -30,8 +31,8 @@ public class UserQueryRepository {
     }
 
     public boolean DuplicateCheckName(String nickname) {
-        Long count = jpaQueryFactory.select(qUser.nickname).from(qUser).where(qUser.nickname.eq(nickname)).fetchCount();
-        return count > 0 ? false : true;
+        Long count = jpaQueryFactory.selectFrom(qUser).where(qUser.nickname.eq(nickname)).fetchCount();
+        return count > 0 ? true : false;
     }
 
     public List<User> getUserOrderBy(List<Long> block) {
