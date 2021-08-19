@@ -10,13 +10,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class SearchRequest {
 
-    // 유저 : true, 태그 : false
-    private boolean type;
+    private Long userid;
 
     private String text;
 }

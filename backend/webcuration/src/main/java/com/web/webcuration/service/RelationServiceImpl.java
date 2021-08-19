@@ -65,8 +65,8 @@ public class RelationServiceImpl implements RelationService {
         if (findRelation != null) {
             if (findRelation.isState()) {
                 // 팔로우 관계
-                userService.changeUserFollower(relationRequest.getSend(), -1L);
-                userService.changeUserFollowing(relationRequest.getReceive(), -1L);
+                userService.changeUserFollowing(relationRequest.getSend(), -1L);
+                userService.changeUserFollower(relationRequest.getReceive(), -1L);
             }
             relationRepository.delete(relationQueryRepository.findBySendAndReceive(relationRequest));
         } else {

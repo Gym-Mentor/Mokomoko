@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import com.web.webcuration.Entity.Provide;
 import com.web.webcuration.Entity.User;
-import com.web.webcuration.dto.SerarchUserInfo;
+import com.web.webcuration.dto.SearchUserInfo;
 import com.web.webcuration.dto.request.NickNameRequest;
 import com.web.webcuration.dto.request.ProfileRequest;
 import com.web.webcuration.dto.request.UserRequest;
@@ -24,9 +24,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -130,15 +132,15 @@ public class UserServiceImpl implements UserService {
 
     // 유저 검색
     @Override
-    public List<SerarchUserInfo> getSearchNickname(String text) {
-        List<User> UserOrderBy = userQueryRepository.getUserOrderBy();
-        List<SerarchUserInfo> searchUser = new ArrayList<>();
+    public List<SearchUserInfo> getSearchNickname(List<Long> block, String text) {
+        List<User> UserOrderBy = userQueryRepository.getUserOrderBy(block);
+        List<SearchUserInfo> searchUser = new ArrayList<>();
         KoreanTextMatcher matcher = new KoreanTextMatcher(text);
         for (User user : UserOrderBy) {
             KoreanTextMatch match = matcher.match(user.getNickname());
             if (match.success()) {
-                searchUser.add(SerarchUserInfo.builder().id(user.getId()).image(user.getImage())
-                        .name(user.getNickname()).build());
+                searchUser.add(SearchUserInfo.builder().id(user.getId()).image(user.getImage()).name(user.getNickname())
+                        .build());
                 if (searchUser.size() == 5) {
                     break;
                 }
@@ -175,13 +177,14 @@ public class UserServiceImpl implements UserService {
 
     // 랭킹 인원 가져오기
     @Override
-    public List<User> getRankUsers() {
-        return userQueryRepository.getRankUsers();
+    public List<User> getRankUsers(List<Long> block) {
+        return userQueryRepository.getRankUsers(block);
     }
 
     // 팔로우, 팔로워 유저 정보 확인
     @Override
     public BaseResponse getRelationToUser(List<Long> relationList) {
+        log.info("{}", "관계 : " + relationList);
         if (relationList == null) {
             List<User> data = new ArrayList<>();
             return BaseResponse.builder().status("200").msg("success").data(data).build();

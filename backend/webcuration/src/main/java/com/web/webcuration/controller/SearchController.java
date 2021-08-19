@@ -5,8 +5,8 @@ import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.SearchService;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,14 +19,14 @@ public class SearchController {
 
     private final SearchService searchService;
 
-    @GetMapping()
-    public ResponseEntity<BaseResponse> getSearchWord(SearchRequest searchRequest) {
+    @PostMapping("")
+    public ResponseEntity<BaseResponse> getSearchWord(@RequestBody SearchRequest searchRequest) {
         return ResponseEntity.ok(searchService.getSearchWord(searchRequest));
     }
 
-    @GetMapping("/{word}")
-    public ResponseEntity<BaseResponse> getResultSearch(@PathVariable String word) {
-        return ResponseEntity.ok(null);
+    @PostMapping("/result")
+    public ResponseEntity<BaseResponse> getSearchResult(@RequestBody SearchRequest searchRequest) {
+        return ResponseEntity.ok(searchService.getSearchResult(searchRequest));
     }
 
 }

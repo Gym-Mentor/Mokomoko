@@ -55,7 +55,7 @@ const DetailPage = (props) => {
         url: "https://i5d104.p.ssafy.io/api/likes",
         data: {
           userid: user.id,
-          postid: PostData.post.id,
+          objectid: PostData.post.id,
         },
       })
         .then((response) => {
@@ -73,7 +73,7 @@ const DetailPage = (props) => {
         url: "https://i5d104.p.ssafy.io/api/likes",
         data: {
           userid: user.id,
-          postid: PostData.post.id,
+          objectid: PostData.post.id,
         },
       })
         .then((response) => {
@@ -86,44 +86,43 @@ const DetailPage = (props) => {
   };
 
   const isBookmark = () => {
-
     let newPostData = Object.assign({}, PostData);
 
-    if(PostData.scrap == false){
-      PostData.scrap = true;
+    if (PostData.scrap === false) {
+      newPostData.scrap = !newPostData.scrap;
       dispatch(setPostData(newPostData));
       //스크랩 저장
       axios({
-        method:'post',
-        url:'https://i5d104.p.ssafy.io/api/scrap',
-        data:{
-          "postid": PostData.post.id,
-          "userid": user.id,
-        }
+        method: "post",
+        url: "https://i5d104.p.ssafy.io/api/scrap",
+        data: {
+          postid: PostData.post.id,
+          userid: user.id,
+        },
       })
-      .then((response) =>{
-        console.log("스크랩 성공")
-      })
-      .catch((error) =>{
-        console.error(error)
-      })
-    }else{
-      PostData.scrap = false;
+        .then((response) => {
+          console.log("스크랩 성공");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      newPostData.scrap = !newPostData.scrap;
       dispatch(setPostData(newPostData));
       axios({
-        method:'delete',
-        url:'https://i5d104.p.ssafy.io/api/scrap',
-        data:{
-          "postid":PostData.post.id,
-          "userid":user.id,
-        }
+        method: "delete",
+        url: "https://i5d104.p.ssafy.io/api/scrap",
+        data: {
+          postid: PostData.post.id,
+          userid: user.id,
+        },
       })
-      .then((response) =>{
-        console.log("스크랩 취소 성공")
-      })
-      .catch((error) =>{
-        console.error(error)
-      })
+        .then((response) => {
+          console.log("스크랩 취소 성공");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   };
 
@@ -298,7 +297,11 @@ const DetailPage = (props) => {
         {/* {PostData.tags.length>0?<div className="purchase-link-div">구매링크</div>:""} */}
         {PostData.tags.map((item, index) => {
           return (
-            <div key={index} className="purchase-link-div" onClick={(e) => goToShop(e, `${item.url}`)}>
+            <div
+              key={index}
+              className="purchase-link-div"
+              onClick={(e) => goToShop(e, `${item.url}`)}
+            >
               {item.name}
             </div>
           );

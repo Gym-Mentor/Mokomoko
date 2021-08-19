@@ -55,11 +55,16 @@ public class PostQueryRepository {
         return posts;
     }
 
-    public List<Post> getRankPost() {
-        return jpaQueryFactory.selectFrom(qPost).orderBy(qPost.likeCnt.desc(), qPost.createdate.asc()).limit(9).fetch();
+    public List<Post> getRankPost(List<Long> block) {
+        return jpaQueryFactory.selectFrom(qPost).where(qPost.userid.notIn(block))
+                .orderBy(qPost.likeCnt.desc(), qPost.createdate.asc()).limit(9).fetch();
     }
 
     public Long getPostCountByUserid(Long userid) {
         return jpaQueryFactory.selectFrom(qPost).where(qPost.userid.eq(userid)).fetchCount();
+    }
+
+    public List<Post> getAllPostByPostids(List<Long> block, List<Long> postid) {
+        return jpaQueryFactory.selectFrom(qPost).where(qPost.id.in(postid).and(qPost.userid.notIn(block))).fetch();
     }
 }

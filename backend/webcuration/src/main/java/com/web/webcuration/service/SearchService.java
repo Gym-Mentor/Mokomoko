@@ -6,4 +6,6 @@ import com.web.webcuration.dto.response.BaseResponse;
 public interface SearchService {
 
     BaseResponse getSearchWord(SearchRequest searchRequest);
+
+    BaseResponse getSearchResult(SearchRequest searchRequest);
 }

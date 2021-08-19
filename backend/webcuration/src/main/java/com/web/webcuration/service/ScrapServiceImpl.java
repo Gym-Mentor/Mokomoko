@@ -32,9 +32,15 @@ public class ScrapServiceImpl implements ScrapService {
     }
 
     @Override
-    public BaseResponse deleteScrap(Long scrapid) {
-        scrapRepository.deleteById(scrapid);
-        return BaseResponse.builder().status("200").msg("success").build();
+    public BaseResponse deleteScrap(ScrapRequest scrapRequest) {
+        Scrap findScrap = scrapQueryRepository.findScrapByUseridAndPostid(scrapRequest.getUserid(),
+                scrapRequest.getPostid());
+        if (findScrap != null) {
+            scrapRepository.delete(findScrap);
+            return BaseResponse.builder().status("200").msg("success").build();
+        } else {
+            throw new RuntimeException("삭제하려는 스크랩이 없습니다.");
+        }
     }
 
     @Override

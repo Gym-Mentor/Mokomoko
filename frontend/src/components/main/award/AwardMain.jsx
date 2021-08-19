@@ -12,10 +12,12 @@ const AwardMain = () => {
   const [userList, setUserList] = useState();
   const [tagList, setTagList] = useState();
   const [postList, setPostList] = useState();
-
+  const { user } = useSelector((state) => ({
+    user: state.userInfo.user,
+  }));
   useEffect(() => {
     axios({
-      url: "https://i5d104.p.ssafy.io/api/rank",
+      url: "https://i5d104.p.ssafy.io/api/rank/" + user.id,
       method: "get",
     })
       .then(({ data }) => {

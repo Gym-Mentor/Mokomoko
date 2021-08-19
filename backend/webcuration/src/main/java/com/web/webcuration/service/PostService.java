@@ -32,9 +32,12 @@ public interface PostService {
 
     List<Long> deleteByUserid(Long userid);
 
-    List<UserPostInfo> getRankPosts();
+    List<UserPostInfo> getRankPosts(List<Long> block);
 
     BaseResponse getScrapPost(List<Scrap> scraps);
 
     Long getPostCountByUserid(Long userid);
+
+    List<UserPostInfo> getAllPostByPostid(List<Long> block, List<Long> postids);
+
 }

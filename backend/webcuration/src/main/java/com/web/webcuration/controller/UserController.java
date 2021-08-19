@@ -61,15 +61,21 @@ public class UserController {
     }
 
     @GetMapping("/follower/{userid}")
-    public ResponseEntity<BaseResponse> getFollowerList(Long userid) {
+    public ResponseEntity<BaseResponse> getFollowerList(@PathVariable("userid") Long userid) {
         List<Long> followerList = relationService.getFollowerListByUserid(userid);
         return ResponseEntity.ok(userService.getRelationToUser(followerList));
     }
 
     @GetMapping("/follow/{userid}")
-    public ResponseEntity<BaseResponse> getFollowingList(Long userid) {
+    public ResponseEntity<BaseResponse> getFollowingList(@PathVariable("userid") Long userid) {
         List<Long> followList = relationService.getFollowListByUserid(userid);
         return ResponseEntity.ok(userService.getRelationToUser(followList));
+    }
+
+    @GetMapping("/block/{userid}")
+    public ResponseEntity<BaseResponse> getBlockList(@PathVariable("userid") Long userid) {
+        List<Long> blockList = relationService.getUserRelation(userid).getBlock();
+        return ResponseEntity.ok(userService.getRelationToUser(blockList));
     }
 
 }
