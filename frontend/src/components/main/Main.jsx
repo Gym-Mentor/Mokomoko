@@ -24,6 +24,7 @@ import Dictaphone from "./DictaPhone";
 import AwardMain from "./award/AwardMain";
 import Comment from "./Comment";
 import CommentPage from "./CommentPage";
+import AnotherUserProfile from "./profile/AnotherUserProfile";
 
 // 메인 네비게이션 있는 컴포넌트들
 const Main = () => {
@@ -47,6 +48,7 @@ const Main = () => {
         <Route path="/main/testt/:index" component={DetailPresenter} />
         <Route path="/main/detailPresenter/:index" component={DetailPresenterCopy} />
         <Route path="/main/award" component={AwardMain} />
+        <Route path="/main/anotherProfile" component={AnotherUserProfile} />
 
         {/*profile side bar */}
         <Route path="/main/developers/info" component={DeveloperInfo}></Route>
