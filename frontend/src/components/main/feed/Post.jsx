@@ -286,7 +286,7 @@ const Post = ({ contents, image, like, scrap, nickname, post, userid }) => {
           <p className="feed-user-likecnt">좋아요 {tempPost.likeCnt}개</p>
         </div>
         <div className="post-bottom">
-          <p>{contents[0].description}</p>
+          <p className="mobile-detail-descs">{contents[0].description}</p>
         </div>
 
         <div className="likecnt">

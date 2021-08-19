@@ -251,8 +251,9 @@ const DetailPage = (props) => {
             </p>
           </div>
           <div className="mobile-detail-bottom">
-            <h5 className="mobile-detail-desc-username">{PostData.userName}</h5>
-            {PostData.contents[scrollState].description}
+            <p className="mobile-detail-desc-username">{PostData.userName}</p>
+            <p className="mobile-detail-descs">{PostData.contents[scrollState].description}</p>
+
             {/* {PostData.contents.map((item, index) => {
               return <span key={index}> {item.description}</span>;
             })} */}
