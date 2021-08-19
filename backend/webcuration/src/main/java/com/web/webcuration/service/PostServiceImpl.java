@@ -34,9 +34,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PostServiceImpl implements PostService {
 
     private final TagService tagService;
@@ -164,6 +166,8 @@ public class PostServiceImpl implements PostService {
     public MainFeedResponse getMainFeed(FeedRequest feedRequest) {
         List<Long> follow = relationService.getUserRelation(feedRequest.getUserid()).getFollow();
         List<Post> posts = postQueryRepository.getMainFeed(follow, feedRequest.getPostid());
+        log.info("{}",
+                "follow : " + follow + " post : " + postQueryRepository.findAllByUserid(feedRequest.getUserid()));
         if (follow.size() == 1 && postQueryRepository.findAllByUserid(feedRequest.getUserid()).size() == 0L) {
             List<Long> block = relationService.getRelationListByUserid("Block", feedRequest.getUserid());
             List<UserRelationListResponse> randomUsers = userService.getRandomUserInfo(block, feedRequest.getUserid());
@@ -191,7 +195,7 @@ public class PostServiceImpl implements PostService {
         if (previousPost.isPresent()) {
             Post post = previousPost.get();
             Long changeCommentCnt = post.getComCnt() + number;
-            post.setLikeCnt(changeCommentCnt);
+            post.setComCnt(changeCommentCnt);
             postRepository.save(post);
             return BaseResponse.builder().status("200").msg("success").data(changeCommentCnt).build();
         } else {
