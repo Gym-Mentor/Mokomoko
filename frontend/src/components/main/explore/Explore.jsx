@@ -7,6 +7,7 @@ import ExploreHeader from "./ExploreHeader";
 import "../../../css/main/explore/Explore.css";
 
 import axios from "axios";
+import ExHeader from "../../header/ExHeader";
 export default function App() {
   // 현재 로그인된 사용자의 정보 받아오기
   const { user } = useSelector((state) => ({ user: state.userInfo.user }));
@@ -59,7 +60,7 @@ export default function App() {
     <div className="explore-wrapper">
       <div className="explore-row">
         <div className="explore-col">
-          <ExploreHeader />
+          <ExHeader />
           <div id="explore" className={page === 0 && loading ? "loading" : ""}>
             <List list={list} />
             {postCheck ? (
