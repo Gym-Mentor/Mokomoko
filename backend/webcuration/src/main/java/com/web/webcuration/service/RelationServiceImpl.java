@@ -1,6 +1,7 @@
 package com.web.webcuration.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.web.webcuration.Entity.Relation;
@@ -15,11 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class RelationServiceImpl implements RelationService {
 
     private final UserService userService;
@@ -31,7 +30,6 @@ public class RelationServiceImpl implements RelationService {
     public BaseResponse createRelation(RelationRequest relationRequest) {
         Relation findRelation = relationQueryRepository.findBySendAndReceive(relationRequest);
         if (relationRequest.getSend() != relationRequest.getReceive()) {
-            log.info("{}", "관계 " + relationRequest);
             if (findRelation != null) {
                 if (!relationRequest.isState()) {
                     // 팔로우 -> 차단
@@ -103,14 +101,15 @@ public class RelationServiceImpl implements RelationService {
         relationRepository.deleteAll(deleteRelation);
     }
 
+    // 해당 userid의 follw, follower, block userid select
     @Override
-    public List<Long> getFollowListByUserid(Long userid) {
-        return relationQueryRepository.getFollowListByUserid(userid);
+    public List<Long> getRelationListByUserid(String type, Long userid) {
+        return relationQueryRepository.getRelationListByUserid(type, userid);
     }
 
     @Override
-    public List<Long> getFollowerListByUserid(Long userid) {
-        return relationQueryRepository.getFollowerListByUserid(userid);
+    public HashMap<Long, String> getMeAndSelecterRelation(List<Long> relationList, Long userid) {
+        return relationQueryRepository.getMeAndSelecterRelation(relationList, userid);
     }
 
 }

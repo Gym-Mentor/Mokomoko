@@ -24,7 +24,7 @@ public interface PostService {
 
     BaseResponse getExplorePost(FeedRequest feedRequest);
 
-    List<MainFeedResponse> getMainFeed(FeedRequest feedRequest);
+    MainFeedResponse getMainFeed(FeedRequest feedRequest);
 
     BaseResponse changePostCommentCnt(Long postid, Long number);
 

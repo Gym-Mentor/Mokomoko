@@ -24,6 +24,11 @@ const CommentPage = () => {
   const [isRecomment, setIsRecomment] = useState(false);
   const [whichRecomment, setWhichRecomment] = useState(null); //대댓글 몇번 째 인지
   const [recomment, setRecomment] = useState("");
+
+  const [recommentIsModify,setRecommentIsModify] = useState(false); //대댓글 수정 여부
+  const [whichRecommentModify,setWhichRecommentModify] = useState(null); //수정하는 대댓글 몇번째
+  const [modifyRecomment,setModifyRecomment] = useState(null); //대댓글 수정내용 저장
+
   const onChangeWriteComment = (e) => {
     setWriteComment(e.target.value);
   };
@@ -157,12 +162,69 @@ const CommentPage = () => {
     }
   };
 
-  useEffect(() => {
-    PostData.comments.map((item,index) =>{
-      
+  const showReModify = (e,description,index) =>{
+    e.preventDefault();
+    console.log(description);
+    console.log(index);
+
+    setModifyRecomment(description);
+    setRecommentIsModify(!recommentIsModify);
+    setWhichRecommentModify(index);
+    console.log(whichRecommentModify);
+  }
+
+  const onChangeModifyRecomment = (e) =>{
+    setModifyRecomment(e.target.value);
+  }
+
+  const deleteRecomments = (e,recommentid) =>{
+
+    e.preventDefault();
+    var isDelete = window.confirm("삭제하시겠습니까?");
+
+    if (isDelete == true) {
+      axios({
+        method: "delete",
+        url: "https://i5d104.p.ssafy.io/api/child/" + recommentid,
+      })
+        .then((response) => {
+          updateInfo();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+
+  }
+
+
+  const modifyRecomments = (e,recommentid) =>{
+    e.preventDefault();
+    console.log(recommentid);
+
+    axios({
+      method: "put",
+      url: "https://i5d104.p.ssafy.io/api/child",
+      data: {
+        id: recommentid,
+        description: modifyRecomment,
+      },
     })
+      .then((response) => {
+        console.log("성공", response);
+        setIsModify(false);
+        setWhichRecommentModify(null);
+        updateInfo();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  useEffect(() => {
+
     return () => {};
-  }, [PostData.comments]);
+  }, [PostData.comments,whichRecomment]);
 
   return (
     <div className="comments-wrapper">
@@ -173,7 +235,7 @@ const CommentPage = () => {
           {/* container1, 2 는 댓글 작성자의 입력폼 */}
           <div className="comment-type-container2">
             <div className="comment-avatar-container">
-              <Avatar id="comment-avatar" className="post-avatar" src={PostData.userImage} />
+              <Avatar id="comment-avatar" className="post-avatar" src={user.image} />
             </div>
             <textarea
               type="textarea"
@@ -220,11 +282,6 @@ const CommentPage = () => {
                     <FavoriteBorderIcon id="comment-like" />
                   </div>
                   <div className="usr-comment-footer">
-                    <div className="comment-likecnt-cont">
-                      <a href="#" id="comment-likecnt">
-                        <p id="comment-likecnt-desc">좋아요 30개</p>
-                      </a>
-                    </div>
                     <div className="comment-footer-recomment-cont">
                       <div className="comment-footer-re">
                         <button id="recomment-btn" onClick={(e) => showChildComment(e, `${index}`)}>
@@ -293,8 +350,41 @@ const CommentPage = () => {
                             <Avatar id="usr-recomment-avatar" className="post-avatar" src={child.image} />
                             <p className="usr-recomment-username">{child.name}</p>
                             <span className="usr-recomment-commentname"><b>@{item.name}</b></span>
-                            <span className="usr-recomment-desc">{child.description}</span>
+                            {/* 수정 부분 */}
+                            {recommentIsModify && whichRecommentModify == child.id ?(
+                             <input className="usr-recomment-desc"
+                              type="text"
+                              value={modifyRecomment}
+                              onChange={onChangeModifyRecomment}
+                             /> 
+                            )
+                            :(
+                              <span className="usr-recomment-desc">{child.description}</span>
+                            )
+                            }
+                            {recommentIsModify && whichRecommentModify == child.id ?(
+                              <button onClick = {(e) => modifyRecomments(e,`${child.id}`)}>수정</button>
+                            ):""}
                           </div>
+                          <div className="usr-comment-like">
+                    <FavoriteBorderIcon id="comment-like" />
+                  </div>
+                  <div className="usr-comment-footer">
+                    <div className="comment-footer-recomment-cont">
+                      <div className="comment-footer-re">
+                        {user.nickname == child.name ? (
+                                  <button id="re-modify-btn" onClick={(e) =>showReModify(e,`${child.description}`,`${child.id}`)}>
+                                    <p id="reModify">수정</p>
+                                  </button>
+                                ):""}
+                                {user.nickname == child.name ?(
+                                  <button id="re-delete-btn" onClick={(e)=> deleteRecomments(e,`${child.id}`)}>
+                                    <p id="reDelete">삭제</p>
+                                  </button>
+                                ):""}
+                      </div>
+                    </div>
+                  </div>
                         </li>
                         );
                       })}

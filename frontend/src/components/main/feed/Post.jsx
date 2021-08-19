@@ -12,7 +12,10 @@ import axios from "axios";
 import { setPostData } from "../../../modules/PostData";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Slider from "react-slick";
-const Post = ({ contents, image, like, nickname, post }) => {
+import { setOtherUser } from "../../../modules/OtherUser";
+import BookmarkIcon from "@material-ui/icons/Bookmark";
+
+const Post = ({ contents, image, like, scrap, nickname, post, userid }) => {
   // 출력할 데이터
   const dispatch = useDispatch();
   let history = useHistory();
@@ -21,9 +24,11 @@ const Post = ({ contents, image, like, nickname, post }) => {
     user: state.userInfo.user,
   }));
   const [islike, setIsLike] = useState(like);
+  const [isScrap, setIsScrap] = useState(scrap);
   const [tempPost, setTempPost] = useState(post);
   const { PostData } = useSelector((state) => state.PostData);
   const [scrollState, setScrollState] = useState(Number(0));
+  const [index, setIndex] = useState(0);
   const slider = useRef();
   const settings = {
     dots: true,
@@ -79,6 +84,24 @@ const Post = ({ contents, image, like, nickname, post }) => {
       });
   };
 
+  // 상세프로필 이동
+  const showUserPage = (id) => {
+    axios({
+      method: "get",
+      url: `https://i5d104.p.ssafy.io/api/post/user/${user.id}/${id}`,
+    })
+      .then((response) => {
+        console.log(response);
+        dispatch(setOtherUser({ ...response.data.data }));
+        // 다른 사용자 프로필로 이동하기
+        history.push({
+          pathname: `/main/profile`,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   // 좋아요
   const isPostLike = () => {
     if (islike === false) {
@@ -121,21 +144,63 @@ const Post = ({ contents, image, like, nickname, post }) => {
         });
     }
   };
-  const showNextImage = () => {
-    console.log("다음 이미지 보여주기");
-    if (scrollState === tempPost.contents.length - 1) {
-      setScrollState(0);
+
+  // 스크랩
+  const isBookmark = () => {
+    if (isScrap === false) {
+      setIsScrap(!isScrap);
+      //스크랩 저장
+      axios({
+        method: "post",
+        url: "https://i5d104.p.ssafy.io/api/scrap",
+        data: {
+          postid: post.id,
+          userid: user.id,
+        },
+      })
+        .then((response) => {
+          console.log("스크랩 성공");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     } else {
-      setScrollState(scrollState + 1);
+      setIsScrap(!isScrap);
+      axios({
+        method: "delete",
+        url: "https://i5d104.p.ssafy.io/api/scrap",
+        data: {
+          postid: post.id,
+          userid: user.id,
+        },
+      })
+        .then((response) => {
+          console.log("스크랩 취소 성공");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
+  };
+  // const showNextImage = () => {
+  //   console.log("다음 이미지 보여주기");
+  //   if (scrollState === tempPost.contents.length - 1) {
+  //     setScrollState(0);
+  //   } else {
+  //     setScrollState(scrollState + 1);
+  //   }
+  // };
+  const nowIndex = (e) => {
+    console.log(e.target);
+    // setIndex(e.target.index);
   };
   return (
     <div className="post">
       <div className="post-content">
         <div className="post-header">
-          <Avatar className="post-avatar" src={image} />
+          <Avatar className="post-avatar" src={image} onClick={() => showUserPage(userid)} />
           <div className="post-info">
-            <h3>{nickname}</h3>
+            <h3 onClick={() => showUserPage(userid)}>{nickname}</h3>
             <p className="upload-date">{post.createdate}</p>
           </div>
         </div>
@@ -146,9 +211,9 @@ const Post = ({ contents, image, like, nickname, post }) => {
           </div>
         </div> */}
 
-        <Slider ref={slider} {...settings}>
+        <Slider ref={slider} {...settings} afterChange={nowIndex}>
           {contents.map((item, index) => (
-            <img className="d-block w-100" src={item.image} />
+            <img className="d-block w-100" src={item.image} onClick={showDetail} />
           ))}
         </Slider>
 
@@ -163,8 +228,12 @@ const Post = ({ contents, image, like, nickname, post }) => {
           <div className="post-comment" onClick={goToComment}>
             <ChatBubbleOutlinedIcon fontSize="large" />
           </div>
-          <div className="post-scrap">
-            <BookmarkBorderOutlinedIcon fontSize="large" />
+          <div className="post-scrap" onClick={isBookmark}>
+            {isScrap ? (
+              <BookmarkIcon fontSize="large" />
+            ) : (
+              <BookmarkBorderOutlinedIcon fontSize="large" />
+            )}
           </div>
         </div>
         <div className="likecnt">
@@ -172,8 +241,9 @@ const Post = ({ contents, image, like, nickname, post }) => {
         </div>
         <div className="post-bottom">
           <h5 className="post-desc-username">{nickname} </h5>
-          <p>{contents[0].description}</p>
+          <p className="d-block w-100">{contents[index].description}</p>
         </div>
+
         <div className="likecnt">
           <p className="feed-user-likecnt" onClick={goToComment}>
             댓글 {tempPost.comCnt}개 모두 보기

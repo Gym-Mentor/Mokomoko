@@ -1,6 +1,7 @@
 package com.web.webcuration.repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -41,12 +42,12 @@ public class UserQueryRepository {
     }
 
     public List<User> getRankUsers(List<Long> block) {
-        return jpaQueryFactory.selectFrom(qUser).where(qUser.id.notIn(block))
+        return jpaQueryFactory.selectFrom(qUser).where(qUser.id.notIn(block).and(qUser.nickname.isNotNull()))
                 .orderBy(qUser.follower.desc(), qUser.createdate.asc()).limit(9).fetch();
     }
 
-    public List<User> getListToUser(List<Long> relationList) {
-        return jpaQueryFactory.selectFrom(qUser).where(qUser.id.in(relationList)).fetch();
+    public List<User> getListToUser(HashMap<Long, String> states) {
+        return jpaQueryFactory.selectFrom(qUser).where(qUser.id.in(states.keySet())).fetch();
     }
 
     public List<User> getOtherUser(Long userid) {

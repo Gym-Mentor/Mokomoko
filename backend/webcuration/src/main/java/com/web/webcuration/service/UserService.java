@@ -1,6 +1,7 @@
 package com.web.webcuration.service;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import com.web.webcuration.Entity.User;
@@ -34,7 +35,7 @@ public interface UserService {
 
     List<User> getRankUsers(List<Long> block);
 
-    BaseResponse getRelationToUser(List<Long> relationList);
+    BaseResponse getRelationToUser(HashMap<Long, String> states);
 
     List<User> getRandomUserInfo(Long userid);
 

@@ -13,6 +13,7 @@ import com.web.webcuration.Entity.Post;
 import com.web.webcuration.Entity.Scrap;
 import com.web.webcuration.Entity.Tag;
 import com.web.webcuration.Entity.User;
+import com.web.webcuration.dto.MainFeedDto;
 import com.web.webcuration.dto.UserPostInfo;
 import com.web.webcuration.dto.UserRelationInfo;
 import com.web.webcuration.dto.request.FeedRequest;
@@ -159,19 +160,27 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<MainFeedResponse> getMainFeed(FeedRequest feedRequest) {
+    public MainFeedResponse getMainFeed(FeedRequest feedRequest) {
         List<Long> follow = relationService.getUserRelation(feedRequest.getUserid()).getFollow();
         List<Post> posts = postQueryRepository.getMainFeed(follow, feedRequest.getPostid());
-        List<MainFeedResponse> mainFeedResponses = new ArrayList<>();
-        for (Post post : posts) {
-            User user = userService.getUserInfo(post.getUserid());
-            List<Contents> contents = contentService.findAllByPostidOrderBy(post.getId());
-            boolean like = likeService
-                    .readLike(LikeRequest.builder().userid(post.getUserid()).objectid(post.getId()).build());
-            mainFeedResponses.add(MainFeedResponse.builder().userid(user.getId()).image(user.getImage())
-                    .nickname(user.getNickname()).post(post).contents(contents).like(like).build());
+        if (follow.size() == 1 && postQueryRepository.findAllByUserid(feedRequest.getUserid()).size() == 0L) {
+            List<User> randomUsers = userService.getRandomUserInfo(feedRequest.getUserid());
+            return MainFeedResponse.builder().type(false).randomUsers(randomUsers).build();
+        } else {
+            List<MainFeedDto> mainFeedDtos = new ArrayList<>();
+            if (posts != null) {
+                for (Post post : posts) {
+                    User user = userService.getUserInfo(post.getUserid());
+                    List<Contents> contents = contentService.findAllByPostidOrderBy(post.getId());
+                    boolean like = likeService
+                            .readLike(LikeRequest.builder().userid(post.getUserid()).objectid(post.getId()).build());
+                    boolean scrap = scrapService.checkScrapPost(user.getId(), post.getId());
+                    mainFeedDtos.add(MainFeedDto.builder().userid(user.getId()).nickname(user.getNickname())
+                            .image(user.getImage()).post(post).contents(contents).like(like).scrap(scrap).build());
+                }
+            }
+            return MainFeedResponse.builder().type(true).mainFeedDto(mainFeedDtos).build();
         }
-        return mainFeedResponses;
     }
 
     @Override
@@ -207,22 +216,30 @@ public class PostServiceImpl implements PostService {
     public List<Long> deleteByUserid(Long userid) {
         List<Post> deletePost = postRepository.findAllByUserid(userid);
         List<Long> postids = new ArrayList<>();
-        for (Post post : deletePost) {
-            deletePost(post.getId());
-            likeService.deleteLikeByPostid(post.getId());
-            postids.add(post.getId());
+        if (deletePost != null) {
+            for (Post post : deletePost) {
+                deletePost(post.getId());
+                likeService.deleteLikeByPostid(post.getId());
+                postids.add(post.getId());
+            }
         }
         List<Likes> deleteByUserid = likeService.deleteLikeByUserid(userid);
-        for (Likes like : deleteByUserid) {
-            changePostLikeCnt(like.getPostid(), -1L);
+        if (deleteByUserid != null) {
+            for (Likes like : deleteByUserid) {
+                changePostLikeCnt(like.getPostid(), -1L);
+            }
         }
         List<Comment> deleteComment = commentService.deleteCommentByPostid(postids);
-        for (Comment comment : deleteComment) {
-            changePostCommentCnt(comment.getPostid(), -1L);
+        if (deleteComment != null) {
+            for (Comment comment : deleteComment) {
+                changePostCommentCnt(comment.getPostid(), -1L);
+            }
         }
         List<ChildComment> deleteChildComment = childCommentService.deleteChildCommentByPostid(postids);
-        for (ChildComment childComment : deleteChildComment) {
-            changePostCommentCnt(childComment.getPostid(), -1L);
+        if (deleteChildComment != null) {
+            for (ChildComment childComment : deleteChildComment) {
+                changePostCommentCnt(childComment.getPostid(), -1L);
+            }
         }
         return postids;
     }

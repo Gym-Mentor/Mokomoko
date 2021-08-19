@@ -1,7 +1,6 @@
 package com.web.webcuration.service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import com.web.webcuration.Entity.ConfirmationToken;
 import com.web.webcuration.Entity.RefreshToken;
@@ -9,15 +8,12 @@ import com.web.webcuration.Entity.User;
 import com.web.webcuration.dto.TokenDto;
 import com.web.webcuration.dto.UserRelationInfo;
 import com.web.webcuration.dto.request.AuthMailCode;
-import com.web.webcuration.dto.request.FeedRequest;
 import com.web.webcuration.dto.request.RelationRequest;
 import com.web.webcuration.dto.request.SNSRequest;
 import com.web.webcuration.dto.request.TokenRequest;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.dto.response.LoginUserResponse;
-import com.web.webcuration.dto.response.MainFeedResponse;
-import com.web.webcuration.dto.response.NoFollowingUserResponse;
 import com.web.webcuration.jwt.TokenProvider;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,7 +32,6 @@ public class AuthServiceImpl implements AuthService {
     private final UserService userService;
     private final RelationService relationService;
     private final RefreshTokenService refreshTokenService;
-    private final PostService postService;
     private final TokenProvider tokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
@@ -86,19 +81,8 @@ public class AuthServiceImpl implements AuthService {
         UserRelationInfo userRelationInfo = relationService.getCountUserRelation(loginUser.getId(), loginUser.getId());
         loginUser.setFollower(userRelationInfo.getFollower());
         loginUser.setFollowing(userRelationInfo.getFollowing());
-        if (loginUser.getFollowing() == 0L && postService.getPostCountByUserid(loginUser.getId()) == 0L) {
-            List<User> otherUsers = userService.getRandomUserInfo(loginUser.getId());
-            return BaseResponse.builder().status("200").msg("success").data(
-                    NoFollowingUserResponse.builder().user(loginUser).token(tokenDto).otherUsers(otherUsers).build())
-                    .build();
-        } else {
-            List<MainFeedResponse> mainFeed = postService
-                    .getMainFeed(FeedRequest.builder().userid(loginUser.getId()).postid(0L).build());
-            return BaseResponse.builder().status("200").msg("success")
-                    .data(LoginUserResponse.builder().user(loginUser).token(tokenDto).mainFeed(mainFeed).build())
-                    .build();
-        }
-
+        return BaseResponse.builder().status("200").msg("success")
+                .data(LoginUserResponse.builder().user(loginUser).token(tokenDto).build()).build();
     }
 
     @Override
