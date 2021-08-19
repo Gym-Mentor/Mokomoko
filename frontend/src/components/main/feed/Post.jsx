@@ -253,7 +253,7 @@ const Post = ({ contents, image, like, scrap, nickname, post, userid }) => {
 
         <Slider ref={slider} {...settings} afterChange={nowIndex}>
           {contents.map((item, index) =>
-            item.image.charAt(item.image.length - 1) === 4 ? (
+            item.image.charAt(item.image.length - 1) == 4 ? (
               <video className="d-block w-100" src={item.image} onClick={showDetail} />
             ) : (
               <img className="d-block w-100" src={item.image} onClick={showDetail} />
