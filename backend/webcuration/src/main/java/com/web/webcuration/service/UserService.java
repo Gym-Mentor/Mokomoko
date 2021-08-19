@@ -35,4 +35,6 @@ public interface UserService {
     List<User> getRankUsers();
 
     BaseResponse getRelationToUser(List<Long> relationList);
+
+    List<User> getRandomUserInfo(Long userid);
 }

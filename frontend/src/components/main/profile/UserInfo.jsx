@@ -12,7 +12,8 @@ import BlockModal from "./BlockModal";
 
 const UserInfo = () => {
   const { user } = useSelector((state) => ({ user: state.userInfo.user }));
-
+  const { OtherUser } = useSelector((state) => state.OtherUser);
+  const { PostData } = useSelector((state) => state.PostData);
   const dispatch = useDispatch();
 
   const [userInfo, SetUesrInfo] = useState(user);
@@ -20,7 +21,6 @@ const UserInfo = () => {
   const [isFollow, setIsFollow] = useState(false);
   const [isFollower, setIsFollower] = useState(false);
   const [modalShow, setModalShow] = useState(false);
-
   const modifyProfileHandler = () => {
     window.alert("프로필 편집 화면으로 이동");
   };
@@ -45,28 +45,37 @@ const UserInfo = () => {
                 className="userImg-img"
                 alt="my-image"
                 // src={user.image != null ? user.image : `${userImg}`}
-                src={userImg}
+                src={OtherUser.user.id === user.id ? user.image : OtherUser.user.image}
               />
             </div>
             <div className="userInfo-nickname">
-              <span>{user.nickname}nickname</span>
+              <span>{OtherUser.user.id === user.id ? user.nickname : OtherUser.user.nickname}</span>
               {/* 자기 계정일 경우 아래의 태그 및 모달을 띄우지 않음  */}
-              <HiIcons.HiOutlineDotsHorizontal id="block-icon" onClick={showBlockModal} />
+              {OtherUser.user.id === user.id ? (
+                ""
+              ) : (
+                <HiIcons.HiOutlineDotsHorizontal id="block-icon" onClick={showBlockModal} />
+              )}
               {modalShow && <BlockModal showBlockModal={showBlockModal} />}
             </div>
 
             {/* 자기 계정일 경우 userInfo-follow 안보이게 하고 userInfo-modify 보이게
             타인의 계정일 경우 userInfo-modify 안보이게 하고 userInfo-follow 보이게 */}
-            <div className="userInfo-modify">
-              <button className="userInfo-modify-btn" onClick={modifyProfileHandler}>
-                프로필 편집
-              </button>
-            </div>
-            <div className="userInfo-follow">
-              <button className="userInfo-modify-btn">팔로우</button>
-            </div>
+            {OtherUser.user.id === user.id ? (
+              <div className="userInfo-modify">
+                <button className="userInfo-modify-btn" onClick={modifyProfileHandler}>
+                  프로필 편집
+                </button>
+              </div>
+            ) : (
+              <div className="userInfo-follow">
+                <button className="userInfo-modify-btn">팔로우</button>
+              </div>
+            )}
             <div className="userInfo-introduce">
-              <span className>{user.introduce}introintrointrointrointro</span>
+              <span className>
+                {OtherUser.user.id === user.id ? user.introduce : OtherUser.user.introduce}
+              </span>
             </div>
 
             <div className="userFriend">
@@ -75,13 +84,17 @@ const UserInfo = () => {
                 <p className="uf-title">
                   <b>게시물</b>
                 </p>
-                <div className="uf-numb">3</div>
+                <div className="uf-numb">
+                  {OtherUser.user.id === user.id ? PostData.post.length : OtherUser.postInfo.length}
+                </div>
               </div>
               <div className="userFriend follow" onClick={showFollowModal}>
                 <p className="uf-title">
                   <b>팔로우</b>
                 </p>
-                <div className="uf-numb">{user.following}3</div>
+                <div className="uf-numb">
+                  {OtherUser.user.id === user.id ? user.following : OtherUser.user.following}
+                </div>
               </div>
 
               {isFollow && <FollowModal showFollowModal={showFollowModal} />}
@@ -90,7 +103,9 @@ const UserInfo = () => {
                 <p className="uf-title">
                   <b>팔로워</b>
                 </p>
-                <div className="uf-numb">{user.follower}6</div>
+                <div className="uf-numb">
+                  {OtherUser.user.id === user.id ? user.follower : OtherUser.user.follower}
+                </div>
               </div>
               {isFollower && <FollowerModal showFollowerModal={showFollowerModal} />}
             </div>
