@@ -39,7 +39,7 @@ const UserInfo = () => {
         setLoading(true);
 
         const response = await axios.get(
-          "https://i5d104.p.ssafy.io/api/post/user/" + user.id + "/" + user.id
+          "https://i5d104.p.ssafy.io/api/post/user/" + user.id + "/" + OtherUser.user.id
         );
 
         console.log(response);
@@ -209,7 +209,8 @@ const UserInfo = () => {
                   <b>팔로워</b>
                 </p>
                 <div className="uf-numb">
-                  {OtherUser.user.id === user.id ? user.follower : OtherUser.relationInfo.follower}
+                  {OtherUser.relationInfo.follower}
+                  {/* {OtherUser.user.id === user.id ? user.follower : OtherUser.relationInfo.follower} */}
                 </div>
               </div>
               {isFollower && (
@@ -221,9 +222,10 @@ const UserInfo = () => {
                   <b>팔로우</b>
                 </p>
                 <div className="uf-numb">
-                  {OtherUser.user.id === user.id
+                  {/* {OtherUser.user.id === user.id
                     ? user.following
-                    : OtherUser.relationInfo.following}
+                    : OtherUser.relationInfo.following} */}
+                  {OtherUser.relationInfo.following}
                 </div>
               </div>
               {isFollow && <FollowModal showFollowModal={showFollowModal} userId={user.id} />}
