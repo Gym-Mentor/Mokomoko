@@ -33,8 +33,8 @@ public class ScrapController {
     }
 
     @DeleteMapping("/{scrapid}")
-    public ResponseEntity<BaseResponse> deleteScrap(@PathVariable Long scrapid) {
-        return ResponseEntity.ok(scrapService.deleteScrap(scrapid));
+    public ResponseEntity<BaseResponse> deleteScrap(@RequestBody ScrapRequest scrapRequest) {
+        return ResponseEntity.ok(scrapService.deleteScrap(scrapRequest));
     }
 
     @GetMapping("/{userid}")
