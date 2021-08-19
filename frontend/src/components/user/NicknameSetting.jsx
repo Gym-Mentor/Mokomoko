@@ -36,7 +36,7 @@ const NicknameSetting = ({ history }) => {
     // 숫자, 알파벳 대소문자, . , _ 이외 문자일 경우 false
     // console.log("ok");
 
-    const nicknameRegex = /^[a-zA-Z0-9._]{3,15}$/;
+    const nicknameRegex = /^[가-힣a-zA-Z0-9._]{3,15}$/;
 
     // console.log(nicknameRegex.test(nickname));
 
