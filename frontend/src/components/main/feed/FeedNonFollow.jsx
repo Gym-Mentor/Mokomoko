@@ -1,8 +1,15 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import "../../../css/main/feed/FeedNonFollow.css";
 import FeedNonFollowList from "./FeedNonFollowList";
 
 const FeedNonFollow = () => {
+  useEffect(() => {
+    axios({
+      // url: ,
+      // method: ,
+    });
+  });
   return (
     <>
       <div className="non-background" />
