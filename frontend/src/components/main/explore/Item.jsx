@@ -38,7 +38,13 @@ const Item = ({ image, post }) => {
   return (
     <div className="element-media-border">
       {/* {isImage ? ( */}
-      <img className="element-media-content" src={image} onClick={showDetail} />
+      {image.charAt(image.length - 1) == 4 ? (
+        <video className="element-media-content">
+          <source src={image} type="video/mp4" />
+        </video>
+      ) : (
+        <img className="element-media-content" src={image} onClick={showDetail} />
+      )}
 
       {/* ) : (
         <video className="element-media-content" src={url}></video>
