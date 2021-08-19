@@ -27,9 +27,7 @@ const AnotherUserProfile = () => {
       <div className="profile-row">
         <div className="profile-col">
           <Header />
-          <div className="profile">
-            <AnotherUserInfo />
-          </div>
+          <div className="profile">{/* <AnotherUserInfo /> */}</div>
           <ProfilePost />
         </div>
       </div>

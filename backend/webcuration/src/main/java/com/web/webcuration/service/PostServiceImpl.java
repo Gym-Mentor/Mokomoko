@@ -50,18 +50,18 @@ public class PostServiceImpl implements PostService {
 
     // 유저의 모든 게시글 출력
     @Override
-    public BaseResponse readUserPosts(Long loginUserid, String email) {
-        Long userid = userService.getUserInfo(email).getId();
-        List<Post> posts = postQueryRepository.FindByUserPostOrderby(userid);
+    public BaseResponse readUserPosts(Long loginUserid, Long selectUserid) {
+        User selectUser = userService.getUserInfo(selectUserid);
+        List<Post> posts = postQueryRepository.FindByUserPostOrderby(selectUserid);
         List<UserPostInfo> userPostResponse = new ArrayList<>();
         for (Post post : posts) {
             // 썸네일 사진을 어떻게 전해 주는가?..
             userPostResponse.add(UserPostInfo.builder().post(post)
                     .image(contentService.FindByPostidOrderby(post.getId()).getImage()).build());
         }
-        UserRelationInfo relationInfo = relationService.getCountUserRelation(loginUserid, userid);
-        UserPostResponse postResponse = UserPostResponse.builder().postInfo(userPostResponse).relationInfo(relationInfo)
-                .build();
+        UserRelationInfo relationInfo = relationService.getCountUserRelation(loginUserid, selectUserid);
+        UserPostResponse postResponse = UserPostResponse.builder().user(selectUser).postInfo(userPostResponse)
+                .relationInfo(relationInfo).build();
         return BaseResponse.builder().status("200").msg("success").data(postResponse).build();
     }
 
@@ -75,7 +75,7 @@ public class PostServiceImpl implements PostService {
             User user = userService.getUserInfo(post.get().getUserid());
             List<Contents> contents = contentService.findAllByPostidOrderBy(postid);
             List<Tag> tags = tagService.findPostInTag(postid);
-            boolean like = likeService.readLike(LikeRequest.builder().postid(postid).userid(userid).build());
+            boolean like = likeService.readLike(LikeRequest.builder().userid(userid).objectid(postid).build());
             // comment도 같이 줘야됨
             List<CommentResponse> comments = commentService.getPostComment(postid);
             // Scrap 유무
@@ -135,7 +135,7 @@ public class PostServiceImpl implements PostService {
                     : null;
             // like
             boolean like = likeService
-                    .readLike(LikeRequest.builder().postid(changePost.getPostid()).userid(user.getId()).build());
+                    .readLike(LikeRequest.builder().userid(user.getId()).objectid(changePost.getPostid()).build());
             return BaseResponse
                     .builder().status("200").status("success").data(PostResponse.builder().userName(user.getNickname())
                             .userImage(user.getImage()).contents(contents).tags(tags).post(post).like(like).build())
@@ -165,7 +165,7 @@ public class PostServiceImpl implements PostService {
             User user = userService.getUserInfo(post.getUserid());
             List<Contents> contents = contentService.findAllByPostidOrderBy(post.getId());
             boolean like = likeService
-                    .readLike(LikeRequest.builder().postid(post.getId()).userid(post.getUserid()).build());
+                    .readLike(LikeRequest.builder().userid(post.getUserid()).objectid(post.getId()).build());
             mainFeedResponses.add(MainFeedResponse.builder().userid(user.getId()).image(user.getImage())
                     .nickname(user.getNickname()).post(post).contents(contents).like(like).build());
         }

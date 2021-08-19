@@ -3,20 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import "../../../css/main/profile/ProfilePost.css";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-import {
-  setContent,
-  setContentImage,
-  setPost,
-  setTags,
-  setUserImage,
-  setUserName,
-  setLike,
-  setComments,
-} from "../../../modules/Post";
-
 import { setPostData } from "../../../modules/PostData";
-
-const ProfilePost = () => {
+import { setOtherUser } from "../../../modules/OtherUser";
+const ScrapPost = () => {
   const [isDetail, setIsDetail] = useState(false);
   const [postList, setPostList] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -24,16 +13,16 @@ const ProfilePost = () => {
 
   const history = useHistory();
 
-  const { user, userImage, userName, post, tags, content, contentImage, like, comments } =
-    useSelector((state) => ({
-      user: state.userInfo.user,
-    }));
-
+  const { user } = useSelector((state) => ({
+    user: state.userInfo.user,
+  }));
+  const { OtherUser } = useSelector((state) => state.OtherUser);
   const { PostData } = useSelector((state) => state.PostData);
 
   //useDispatch 사용해서 리덕스 스토어의 dispatch를 함수에서 사용할 수 있도록 해준다.
   const dispatch = useDispatch();
 
+  // 스크랩한 목록 불러오기
   useEffect(() => {
     const fetchPostList = async () => {
       try {
@@ -62,17 +51,6 @@ const ProfilePost = () => {
 
   const showDetail = (e, postid) => {
     e.preventDefault();
-
-    //redux초기화
-    // onSetUserImage("");
-    // onSetUserName("");
-    // onSetPost({});
-    // onSetTags([]);
-    // onSetContent([]);
-    // onSetContentImage([]);
-    // onSetLike(false);
-    // onSetComments([]);
-
     setIsDetail((prev) => !prev);
 
     console.log(postid);
@@ -82,29 +60,6 @@ const ProfilePost = () => {
       method: "get",
     })
       .then((response) => {
-        console.log(response);
-
-        // onSetUserImage(response.data.data.userImage);
-        // onSetUserName(response.data.data.userName);
-        // onSetPost(response.data.data.post);
-        // onSetTags(response.data.data.tags);
-        // onSetContent(response.data.data.contents);
-        // onSetLike(response.data.data.like);
-        // onSetComments(response.data.data.comments);
-
-        console.log(response.data.data.comments);
-
-        // var contentImage = new Array();
-        // var content_box = response.data.data.contents;
-
-        // for (var i = 0; i < content_box.length; i++) {
-        //   contentImage.push(content_box[i].image);
-        // }
-
-        // //이미지 여러장 처리 위해 사용
-        // onSetContentImage(contentImage);
-
-        console.log(response);
         dispatch(setPostData(response.data.data));
         history.push({
           pathname: `detailPresenter/${postid}`,
@@ -139,4 +94,4 @@ const ProfilePost = () => {
   );
 };
 
-export default ProfilePost;
+export default ScrapPost;

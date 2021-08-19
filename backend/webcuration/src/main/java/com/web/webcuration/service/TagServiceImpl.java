@@ -33,7 +33,8 @@ public class TagServiceImpl implements TagService {
         for (TagDto tag : reqTags) {
             Optional<Tag> findTag = tagRepository.findByName(tag.getTitle());
             if (findTag.isPresent()) {
-                resTags.add(tag.toTag(findTag.get().getCount() + 1));
+                findTag.get().setCount(findTag.get().getCount() + 1);
+                resTags.add(findTag.get());
             } else {
                 resTags.add(tag.toTag(1));
             }

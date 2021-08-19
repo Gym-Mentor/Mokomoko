@@ -28,9 +28,12 @@ public class CommentResponse {
 
     private List<ChildCommentResponse> childComment;
 
-    public static CommentResponse of(User user, Comment comment, List<ChildCommentResponse> childCommentResponses) {
+    private boolean like;
+
+    public static CommentResponse of(User user, Comment comment, List<ChildCommentResponse> childCommentResponses,
+            boolean like) {
         return CommentResponse.builder().childComment(childCommentResponses).image(user.getImage())
                 .name(user.getNickname()).description(comment.getDescription()).createdate(comment.getCreatedate())
-                .id(comment.getId()).build();
+                .id(comment.getId()).like(like).build();
     }
 }

@@ -9,8 +9,10 @@ import java.util.Map;
 import com.web.webcuration.Entity.ChildComment;
 import com.web.webcuration.Entity.Comment;
 import com.web.webcuration.Entity.User;
+import com.web.webcuration.dto.request.LikeRequest;
 import com.web.webcuration.dto.response.ChildCommentResponse;
 import com.web.webcuration.dto.response.CommentResponse;
+import com.web.webcuration.service.LikeCommentService;
 import com.web.webcuration.service.UserService;
 
 import org.springframework.stereotype.Component;
@@ -22,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class CommentUtils {
 
     private final UserService userService;
+    private final LikeCommentService likeCommentService;
 
     public Map<Long, List<ChildCommentResponse>> childCommentToResponse(List<ChildComment> childComments) {
         Map<Long, List<ChildCommentResponse>> childResponseMap = new HashMap<>();
@@ -61,7 +64,9 @@ public class CommentUtils {
                 user = userMap.get(comment.getUserid());
             }
             if (user != null) {
-                commentResponses.add(CommentResponse.of(user, comment, childResponseMap.get(comment.getId())));
+                boolean like = likeCommentService
+                        .readLike(LikeRequest.builder().userid(user.getId()).objectid(comment.getId()).build());
+                commentResponses.add(CommentResponse.of(user, comment, childResponseMap.get(comment.getId()), like));
             } else {
                 new RuntimeException("해당 유저가 없습니다.");
             }

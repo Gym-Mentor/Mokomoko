@@ -11,7 +11,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Setter
 @Getter
@@ -19,16 +18,15 @@ import lombok.ToString;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-public class Scrap {
+public class LikeComment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "postid")
-    private Long postid;
-
     @Column(name = "userid")
     private Long userid;
+
+    @Column(name = "commentid")
+    private Long commentid;
 }

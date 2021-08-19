@@ -2,6 +2,10 @@ import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import {setUserInfo} from "../../../modules/userInfo";
 import "../../../css/main/explore/ExploreHeader.css";
+import SearchIcon from '@material-ui/icons/Search';
+
+
+
 const ExploreHeader = () => {
     const [results, setResults] = useState("");
     const [updateField, setUpdateField] = useState("");
@@ -50,18 +54,29 @@ const ExploreHeader = () => {
     return (
         <> < div className = "search-form" >
             <div className="search-box">
-            <input id="search-ipt" type="text" value={keyword} onChange={onChangeKeyword}/>
-            <div id="ospan">
-              <h1>사용자 정보</h1>
+            {/* <input id="search-ipt" type="text" value={keyword} onChange={onChangeKeyword}/> */}
+            {/* <div className="ospan"></div> */}
+            <div>
+              <SearchIcon/>
+            <input className="search-keyword" type="text" value={keyword} onChange={onChangeKeyword} placeholder="검색어를 입력해주세요"/>
+            </div>
+            {keyword !="" ?
+            <div className="search-list">
+              <div className="search-list-header">사용자 정보</div>
+              <hr />
                 <div className="nickname-info">
+                  {nicknameInfo.length ==0 ?"사용자 정보가 없습니다.":""}
                     {
                         nicknameInfo && nicknameInfo.map((item, index) => {
                             return (<div key={index}>{item}</div>);
                         })
                     }
                 </div>
-                <div className="tag-info">
-                  <h1>태그 정보</h1>
+                <hr />
+                <div className="search-list-header">태그 정보</div>
+                <div className="tag-info">       
+                  <hr />
+                  {tagInfo.length ==0?"태그 정보가 없습니다.":""}
                   {
                     tagInfo && tagInfo.map((item,index) =>{
                       return(
@@ -72,6 +87,8 @@ const ExploreHeader = () => {
                 </div>
 
             </div>
+            :""}
+            
 
         </div>
     </div>
