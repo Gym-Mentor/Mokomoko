@@ -11,11 +11,9 @@ import com.web.webcuration.Entity.User;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @RequiredArgsConstructor
-@Slf4j
 public class UserQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
