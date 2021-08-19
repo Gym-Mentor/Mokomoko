@@ -11,7 +11,7 @@ import FollowerModal from "./FollowerModal";
 import "../../../css/main/profile/UserInfo.css";
 import BlockModal from "./BlockModal";
 import { setOtherUser } from "../../../modules/OtherUser";
-
+import { setUserInfo } from "../../../modules/userInfo";
 const UserInfo = () => {
   const { user } = useSelector((state) => ({ user: state.userInfo.user }));
   const { OtherUser } = useSelector((state) => state.OtherUser);
@@ -85,18 +85,25 @@ const UserInfo = () => {
       },
     })
       .then((response) => {
+        let newUser = Object.assign({}, user);
+        let check = OtherUser.relationInfo.follow;
         let newOtherUser = Object.assign({}, OtherUser);
         newOtherUser.relationInfo = response.data.data;
-        console.log(response.data.data);
-        console.log(newOtherUser.relationInfo);
         dispatch(setOtherUser(newOtherUser));
         if (!flag) {
           alert(OtherUser.user.nickname + "님을 차단했습니다.");
+          if (check) {
+            newUser.follower--;
+            dispatch(setUserInfo(newUser));
+          }
           history.push({
             pathname: "/main/feed",
           });
         } else {
           alert(OtherUser.user.nickname + "님을 팔로우했습니다.");
+
+          newUser.follower++;
+          dispatch(setUserInfo(newUser));
         }
       })
       .catch((error) => {
@@ -120,12 +127,13 @@ const UserInfo = () => {
       .then((response) => {
         let newOtherUser = Object.assign({}, OtherUser);
         newOtherUser.relationInfo = response.data.data;
-        console.log(response.data.data);
-        console.log(newOtherUser.relationInfo);
         dispatch(setOtherUser(newOtherUser));
         if (!flag) {
           alert(OtherUser.user.nickname + "님을 차단해제 했습니다.");
         } else {
+          let newUser = Object.assign({}, user);
+          newUser.follower--;
+          dispatch(setUserInfo(newUser));
           alert(OtherUser.user.nickname + "님을 팔로우해제 했습니다.");
         }
       })
