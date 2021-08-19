@@ -42,7 +42,7 @@ public class UserQueryRepository {
     }
 
     public List<User> getRankUsers(List<Long> block) {
-        return jpaQueryFactory.selectFrom(qUser).where(qUser.id.notIn(block))
+        return jpaQueryFactory.selectFrom(qUser).where(qUser.id.notIn(block).and(qUser.nickname.isNotNull()))
                 .orderBy(qUser.follower.desc(), qUser.createdate.asc()).limit(9).fetch();
     }
 
