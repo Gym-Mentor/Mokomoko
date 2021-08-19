@@ -20,14 +20,9 @@ public class UserQueryRepository {
     private QUser qUser = QUser.user;
 
     public boolean DuplicateCheckName(Long userid, String nickname) {
-        String previousNickname = jpaQueryFactory.select(qUser.nickname).from(qUser).where(qUser.id.eq(userid))
-                .fetchFirst();
-        if (previousNickname == null || previousNickname.equals(nickname)) {
-            return true;
-        }
-        Long countChangeNickname = jpaQueryFactory.select(qUser.nickname).from(qUser).where(qUser.nickname.eq(nickname))
-                .fetchCount();
-        if (countChangeNickname == 0) {
+        Long findNicknameId = jpaQueryFactory.select(qUser.id).from(qUser).where(qUser.nickname.eq(nickname))
+                .fetchOne();
+        if (findNicknameId == null || findNicknameId == userid) {
             return true;
         } else {
             return false;
