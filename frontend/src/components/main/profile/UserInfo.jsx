@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserInfo } from "../../../modules/userInfo";
 import { testImg } from "../../../img/user_image.png";
 import * as HiIcons from "react-icons/hi";
-
+import axios from "axios";
 import userImg from "../../../img/user_image.png";
 import FollowModal from "./FollowModal";
 import FollowerModal from "./FollowerModal";
@@ -21,6 +21,39 @@ const UserInfo = () => {
   const [isFollow, setIsFollow] = useState(false);
   const [isFollower, setIsFollower] = useState(false);
   const [modalShow, setModalShow] = useState(false);
+  const [isDetail, setIsDetail] = useState(false);
+  const [postList, setPostList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    const fetchPostList = async () => {
+      try {
+        //요청 시작 시  error와 postList 초기화
+        setError(null);
+        setPostList([]);
+
+        //loading 상태 true로 바꾸기
+        setLoading(true);
+
+        const response = await axios.get(
+          "https://i5d104.p.ssafy.io/api/post/user/" + user.id + "/" + user.id
+        );
+
+        console.log(response);
+        console.log(response.data.data);
+        setPostList(response.data.data.postInfo);
+      } catch (e) {
+        setError(e);
+      }
+
+      setLoading(false);
+    };
+    fetchPostList();
+  }, []);
+  useEffect(() => {
+    return () => {};
+  }, [postList]);
+
   const modifyProfileHandler = () => {
     window.alert("프로필 편집 화면으로 이동");
   };
@@ -85,7 +118,7 @@ const UserInfo = () => {
                   <b>게시물</b>
                 </p>
                 <div className="uf-numb">
-                  {OtherUser.user.id === user.id ? PostData.post.length : OtherUser.postInfo.length}
+                  {OtherUser.user.id === user.id ? postList.length : OtherUser.postInfo.length}
                 </div>
               </div>
               <div className="userFriend follow" onClick={showFollowModal}>
