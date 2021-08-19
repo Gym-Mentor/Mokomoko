@@ -15,7 +15,7 @@ const Header = () => {
         <div className="header-col">
           <Navbar className="header-navbar">
             <Container className="logo">
-              <Navbar.Brand href="/account/login">
+              <Navbar.Brand href="/main/feed">
                 <span id="profile-header-name">mokomoko</span>
                 {/* <img id="logo-img" src={logoImg} /> */}
               </Navbar.Brand>
