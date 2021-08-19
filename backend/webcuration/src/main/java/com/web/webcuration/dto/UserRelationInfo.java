@@ -11,7 +11,7 @@ public class UserRelationInfo {
 
     private boolean isFollow;
 
-    private Long follwer;
+    private Long follower;
 
-    private Long follwing;
+    private Long following;
 }

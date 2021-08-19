@@ -52,7 +52,7 @@ public class RelationQueryRepository {
                 }
             }
         }
-        return UserRelationInfo.builder().follwer(follwer).follwing(follwing).isFollow(isFollow).build();
+        return UserRelationInfo.builder().follower(follwer).following(follwing).isFollow(isFollow).build();
     }
 
     public List<Relation> findAllbyUserid(Long userid) {
