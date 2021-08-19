@@ -10,7 +10,7 @@ public interface ScrapService {
 
     BaseResponse addScrap(ScrapRequest scrapRequest);
 
-    BaseResponse deleteScrap(Long scrapid);
+    BaseResponse deleteScrap(ScrapRequest scrapRequest);
 
     BaseResponse deleteAllScrapByUserid(Long userid);
 
