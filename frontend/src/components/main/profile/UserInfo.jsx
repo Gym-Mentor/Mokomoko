@@ -54,7 +54,7 @@ const UserInfo = () => {
   }, []);
   useEffect(() => {
     return () => {};
-  }, [postList]);
+  }, [postList, OtherUser]);
   let history = useHistory();
   const modifyProfileHandler = () => {
     history.push({
@@ -86,7 +86,9 @@ const UserInfo = () => {
     })
       .then((response) => {
         let newOtherUser = Object.assign({}, OtherUser);
-        newOtherUser.relationInfo = { ...response.data.data };
+        newOtherUser.relationInfo = response.data.data;
+        console.log(response.data.data);
+        console.log(newOtherUser.relationInfo);
         dispatch(setOtherUser(newOtherUser));
         if (!flag) {
           alert(OtherUser.user.nickname + "님을 차단했습니다.");
@@ -117,7 +119,9 @@ const UserInfo = () => {
     })
       .then((response) => {
         let newOtherUser = Object.assign({}, OtherUser);
-        newOtherUser.relationInfo = { ...response.data.data };
+        newOtherUser.relationInfo = response.data.data;
+        console.log(response.data.data);
+        console.log(newOtherUser.relationInfo);
         dispatch(setOtherUser(newOtherUser));
         if (!flag) {
           alert(OtherUser.user.nickname + "님을 차단해제 했습니다.");
@@ -195,7 +199,7 @@ const UserInfo = () => {
                   <b>팔로우</b>
                 </p>
                 <div className="uf-numb">
-                  {OtherUser.user.id === user.id ? user.following : OtherUser.user.following}
+                  {OtherUser.user.id === user.id ? user.following : OtherUser.relationInfo.follwing}
                 </div>
               </div>
 
@@ -206,7 +210,7 @@ const UserInfo = () => {
                   <b>팔로워</b>
                 </p>
                 <div className="uf-numb">
-                  {OtherUser.user.id === user.id ? user.follower : OtherUser.user.follower}
+                  {OtherUser.user.id === user.id ? user.follower : OtherUser.relationInfo.follwer}
                 </div>
               </div>
               {isFollower && <FollowerModal showFollowerModal={showFollowerModal} />}
