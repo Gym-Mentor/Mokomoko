@@ -26,7 +26,14 @@ const MainNav = () => {
   };
   const onClickProfile = () => {
     let newOtherUser = Object.assign({}, OtherUser);
-    newOtherUser.user.id = user.id;
+    if (newOtherUser === {}) {
+      newOtherUser = { user: "" };
+      newOtherUser.user = { id: "" };
+      newOtherUser.user.id = user.id;
+    } else {
+      newOtherUser.user.id = user.id;
+    }
+
     console.log(newOtherUser);
     console.log(user);
     dispatch(setOtherUser(newOtherUser));
