@@ -42,9 +42,6 @@ public class Post {
     @Column(name = "userid")
     private Long userid;
 
-    @Column(name = "prelike")
-    private Long prelike;
-
     @Column(name = "likeType")
     private boolean likeType;
 
@@ -55,7 +52,6 @@ public class Post {
     public void prePersist() {
         this.likeCnt = this.likeCnt == null ? 0 : this.likeCnt;
         this.comCnt = this.comCnt == null ? 0 : this.comCnt;
-        this.prelike = this.prelike == null ? 0 : this.prelike;
         this.createdate = this.createdate == null ? LocalDateTime.now() : this.createdate;
     }
 }

@@ -1,8 +1,5 @@
 package com.web.webcuration.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.web.webcuration.dto.request.SearchRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 
@@ -19,15 +16,15 @@ public class SerarchServiceImpl implements SearchService {
 
     @Override
     public BaseResponse getSearchWord(SearchRequest searchRequest) {
-        List<String> searchWord = new ArrayList<>();
         if (searchRequest.isType()) {
             // 유저 검색
-            searchWord = userService.getSearchNickname(searchRequest.getText());
+            return BaseResponse.builder().status("200").msg("success")
+                    .data(userService.getSearchNickname(searchRequest.getText())).build();
         } else {
             // 태그 검색
-            searchWord = tagService.getSearchTag(searchRequest.getText());
+            return BaseResponse.builder().status("200").msg("success")
+                    .data(tagService.getSearchTag(searchRequest.getText())).build();
         }
-        return BaseResponse.builder().status("200").msg("success").data(searchWord).build();
     }
 
 }
