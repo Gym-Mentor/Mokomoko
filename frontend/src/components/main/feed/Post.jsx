@@ -195,10 +195,8 @@ const Post = ({ contents, image, like, scrap, nickname, post, userid }) => {
     // setIndex(e.target.index);
   };
 
-
   const addTime = (date) => {
-
-    //시간 변환 함수 
+    //시간 변환 함수
 
     const splitDate = date.split("T");
     //["2021-08-18", "12:20:40.304974"]
@@ -214,27 +212,26 @@ const Post = ({ contents, image, like, scrap, nickname, post, userid }) => {
     var hour = splitDate2[0];
     var min = splitDate2[1];
 
-    var newDate = year+"-"+month+"-"+day+" "+hour+":"+min;
+    var newDate = year + "-" + month + "-" + day + " " + hour + ":" + min;
 
     var finishDate = new Date(newDate);
     // console.log(finishDate);
-    finishDate.setHours(finishDate.getDate()+8)
+    finishDate.setHours(finishDate.getDate() + 8);
 
     var today = finishDate;
 
     var year = today.getFullYear();
-    var month = ('0' + (today.getMonth() + 1)).slice(-2);
-    var day = ('0' + today.getDate()).slice(-2);
+    var month = ("0" + (today.getMonth() + 1)).slice(-2);
+    var day = ("0" + today.getDate()).slice(-2);
 
-    var dateString = year + '-' + month  + '-' + day;
+    var dateString = year + "-" + month + "-" + day;
 
-    var hours = ('0' + today.getHours()).slice(-2); 
-    var minutes = ('0' + today.getMinutes()).slice(-2);
+    var hours = ("0" + today.getHours()).slice(-2);
+    var minutes = ("0" + today.getMinutes()).slice(-2);
 
+    var dateString = year + "-" + month + "-" + day + " " + hours + ":" + minutes;
 
-    var dateString = year + '-' + month  + '-' + day +" "+ hours + ':' + minutes;
-
-    return dateString
+    return dateString;
   };
 
   return (
@@ -255,9 +252,13 @@ const Post = ({ contents, image, like, scrap, nickname, post, userid }) => {
         </div> */}
 
         <Slider ref={slider} {...settings} afterChange={nowIndex}>
-          {contents.map((item, index) => (
-            <img className="d-block w-100" src={item.image} onClick={showDetail} />
-          ))}
+          {contents.map((item, index) =>
+            item.image.charAt(item.image.length - 1) === 4 ? (
+              <video className="d-block w-100" src={item.image} onClick={showDetail} />
+            ) : (
+              <img className="d-block w-100" src={item.image} onClick={showDetail} />
+            )
+          )}
         </Slider>
 
         <div className="post-things">

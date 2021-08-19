@@ -12,6 +12,10 @@
     object-fit: contain;
     height: 380px;
   }
+  .post-content video {
+    object-fit: contain;
+    height: 380px;
+  }
 }
 @media screen and (min-width: 768px) {
   .row {
@@ -24,6 +28,10 @@
     height: 500px;
   }
   .post-content img {
+    object-fit: contain;
+    height: 500px;
+  }
+  .post-content video {
     object-fit: contain;
     height: 500px;
   }
