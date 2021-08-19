@@ -202,7 +202,11 @@ const DetailPage = (props) => {
         <div className="mobile-detail-contents-wrapper">
           {" "}
           <div className="mobile-detail-userInfo">
-            <Avatar className="mobile-detail-avatar" onClick={showUserPage} />
+            <Avatar
+              className="mobile-detail-avatar"
+              onClick={showUserPage}
+              src={PostData.userImage}
+            />
             <span className="mobile-detail-username" onClick={showUserPage}>
               {PostData.userName}
             </span>
@@ -212,7 +216,7 @@ const DetailPage = (props) => {
             {PostData.contents[scrollState].image.charAt(
               PostData.contents[scrollState].image.length - 1
             ) == 4 ? (
-              <video className="mobile-detail-img" controls>
+              <video className="mobile-detail-img" controls autoPlay muted>
                 <source src={PostData.contents[scrollState].image} type="video/mp4" />
               </video>
             ) : (
@@ -259,7 +263,15 @@ const DetailPage = (props) => {
           <div className="dt-details-content">
             <div className="dt-details-content2">
               <div className="dt-img-section">
-                <img src={PostData.contents[scrollState].image} />
+                {PostData.contents[scrollState].image.charAt(
+                  PostData.contents[scrollState].image.length - 1
+                ) == 4 ? (
+                  <video className="dt-detail-img" controls autoPlay muted>
+                    <source src={PostData.contents[scrollState].image} type="video/mp4" />
+                  </video>
+                ) : (
+                  <img className="dt-detail-img" src={PostData.contents[scrollState].image} />
+                )}
                 <div className="dt-image-next" onClick={showNextImage}>
                   <NavigateNextIcon fontSize="large" />
                 </div>
@@ -267,7 +279,11 @@ const DetailPage = (props) => {
               <div className="dt-right-section">
                 <div className="dt-right-header">
                   <div className="dt-detail-userInfo">
-                    <Avatar className="dt-detail-avatar" onClick={showUserPage} />
+                    <Avatar
+                      className="dt-detail-avatar"
+                      onClick={showUserPage}
+                      src={PostData.userImage}
+                    />
                     <span className="dt-detail-username" onClick={showUserPage}>
                       {PostData.userName}
                     </span>
