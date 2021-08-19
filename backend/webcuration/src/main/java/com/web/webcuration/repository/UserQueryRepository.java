@@ -33,11 +33,11 @@ public class UserQueryRepository {
         }
     }
 
-    public List<String> getAllNickName() {
-        List<String> AllNickname = new ArrayList<>();
-        AllNickname = jpaQueryFactory.select(qUser.nickname).from(qUser).where(qUser.nickname.isNotNull())
-                .orderBy(qUser.nickname.asc()).fetch();
-        return AllNickname;
+    public List<User> getUserOrderBy() {
+        List<User> UserOrderBy = new ArrayList<>();
+        UserOrderBy = jpaQueryFactory.selectFrom(qUser).where(qUser.nickname.isNotNull()).orderBy(qUser.nickname.asc())
+                .fetch();
+        return UserOrderBy;
     }
 
     public List<User> getRankUsers() {

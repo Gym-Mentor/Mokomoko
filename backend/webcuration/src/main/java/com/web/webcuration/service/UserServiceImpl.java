@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import com.web.webcuration.Entity.Provide;
 import com.web.webcuration.Entity.User;
+import com.web.webcuration.dto.SerarchUserInfo;
 import com.web.webcuration.dto.request.NickNameRequest;
 import com.web.webcuration.dto.request.ProfileRequest;
 import com.web.webcuration.dto.request.UserRequest;
@@ -128,20 +129,21 @@ public class UserServiceImpl implements UserService {
 
     // 유저 검색
     @Override
-    public List<String> getSearchNickname(String text) {
-        List<String> AllNickname = userQueryRepository.getAllNickName();
-        List<String> searchWord = new ArrayList<>();
+    public List<SerarchUserInfo> getSearchNickname(String text) {
+        List<User> UserOrderBy = userQueryRepository.getUserOrderBy();
+        List<SerarchUserInfo> searchUser = new ArrayList<>();
         KoreanTextMatcher matcher = new KoreanTextMatcher(text);
-        for (String nickname : AllNickname) {
-            KoreanTextMatch match = matcher.match(nickname);
+        for (User user : UserOrderBy) {
+            KoreanTextMatch match = matcher.match(user.getNickname());
             if (match.success()) {
-                searchWord.add(nickname);
-                if (searchWord.size() == 5) {
+                searchUser.add(SerarchUserInfo.builder().id(user.getId()).image(user.getImage())
+                        .name(user.getNickname()).build());
+                if (searchUser.size() == 5) {
                     break;
                 }
             }
         }
-        return searchWord;
+        return searchUser;
     }
 
     @Override
@@ -170,11 +172,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    // 랭킹 인원 가져오기
     @Override
     public List<User> getRankUsers() {
         return userQueryRepository.getRankUsers();
     }
 
+    // 팔로우, 팔로워 유저 정보 확인
     @Override
     public BaseResponse getRelationToUser(List<Long> relationList) {
         if (relationList == null) {

@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ScrapServiceImpl implements ScrapService {
 
     private final ScrapRepository scrapRepository;
@@ -24,6 +26,7 @@ public class ScrapServiceImpl implements ScrapService {
     @Override
     public BaseResponse addScrap(ScrapRequest scrapRequest) {
         Scrap newScrap = Scrap.builder().postid(scrapRequest.getPostid()).userid(scrapRequest.getUserid()).build();
+        log.info("{}", "scrap : " + newScrap);
         scrapRepository.save(newScrap);
         return BaseResponse.builder().status("200").msg("success").build();
     }

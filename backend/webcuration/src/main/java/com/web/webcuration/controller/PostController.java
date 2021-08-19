@@ -32,10 +32,10 @@ public class PostController {
         return ResponseEntity.ok(postService.createPost(post));
     }
 
-    @GetMapping("/user/{userid}/{email}")
+    @GetMapping("/user/{userid}/{selectUserid}")
     public ResponseEntity<BaseResponse> readUserPosts(@PathVariable("userid") Long userid,
-            @PathVariable("email") String email) {
-        return ResponseEntity.ok(postService.readUserPosts(userid, email));
+            @PathVariable("selectUserid") Long selectUserid) {
+        return ResponseEntity.ok(postService.readUserPosts(userid, selectUserid));
     }
 
     @GetMapping("/{userid}/{postid}")
