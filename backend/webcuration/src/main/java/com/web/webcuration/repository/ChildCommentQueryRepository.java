@@ -21,7 +21,7 @@ public class ChildCommentQueryRepository {
     public List<ChildComment> getPostChildComment(Long postid) {
         List<ChildComment> childComments = new ArrayList<>();
         childComments = jpaQueryFactory.select(qChildComment).from(qChildComment).where(qChildComment.postid.eq(postid))
-                .orderBy(qChildComment.createdate.desc()).fetch();
+                .orderBy(qChildComment.createdate.asc()).fetch();
         return childComments;
     }
 
