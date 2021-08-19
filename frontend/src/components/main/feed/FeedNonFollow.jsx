@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import "../../../css/main/feed/FeedNonFollow.css";
-import FollowerProfile from "../profile/FollowerProfile";
-
+import FeedNonFollowList from "./FeedNonFollowList";
 const FeedNonFollow = (list) => {
   return (
     <>
@@ -13,7 +12,7 @@ const FeedNonFollow = (list) => {
         </div>
         <hr className="follower-hr" />
         {list.map((item, i) => (
-          <FollowerProfile {...item} key={`item_${i}`} />
+          <FeedNonFollowList {...item} key={`item_${i}`} />
         ))}
       </div>
     </>
