@@ -9,6 +9,7 @@ import Cheader from "../../header/Cheader";
 import axios from "axios";
 import "../../../css/main/explore/Explore.css";
 import FeedNonFollow from "./FeedNonFollow";
+import Loading from "../../util/Loading";
 const Feed = ({ history }) => {
   const { activeNav, user } = useSelector((state) => ({
     activeNav: state.activeNav,
@@ -82,7 +83,7 @@ const Feed = ({ history }) => {
       <div className="explore-row">
         <div className="explore-col">
           <Cheader title="피드" />
-          <div id="explore" className={page === 0 && loading ? "loading" : ""}>
+          <div id="explore" className={page === 0 && loading ? <Loading /> : ""}>
             {list && <FeedList list={list} />}
             {postCheck ? (
               <FetchMore loading={page !== 0 && loading} setPage={setPage} page={page} />

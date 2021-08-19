@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import Loading from "../../util/Loading";
 
 const FetchMore = ({ loading, setPage, page }) => {
   const fetchMoreTrigger = useRef(null);
@@ -17,7 +18,7 @@ const FetchMore = ({ loading, setPage, page }) => {
     };
   }, []);
 
-  return <div id="fetchMore" className={loading ? "loading" : ""} ref={fetchMoreTrigger} />;
+  return <div id="fetchMore" className={loading ? <Loading /> : ""} ref={fetchMoreTrigger} />;
 };
 
 export default FetchMore;

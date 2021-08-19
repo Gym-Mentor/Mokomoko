@@ -8,6 +8,7 @@ import "../../../css/main/explore/Explore.css";
 
 import axios from "axios";
 import ExHeader from "../../header/ExHeader";
+import Loading from "../../util/Loading";
 export default function App() {
   // 현재 로그인된 사용자의 정보 받아오기
   const { user } = useSelector((state) => ({ user: state.userInfo.user }));
@@ -61,7 +62,7 @@ export default function App() {
       <div className="explore-row">
         <div className="explore-col">
           <ExHeader />
-          <div id="explore" className={page === 0 && loading ? "loading" : ""}>
+          <div id="explore" className={page === 0 && loading ? <Loading /> : ""}>
             <List list={list} />
             {postCheck ? (
               <FetchMore loading={page !== 0 && loading} setPage={setPage} page={page} />

@@ -16,6 +16,7 @@ import {
 
 import { setPostData } from "../../../modules/PostData";
 import PostNone from "./PostNone";
+import Loading from "../../util/Loading";
 
 const ProfilePost = () => {
   const [isDetail, setIsDetail] = useState(false);
@@ -121,7 +122,12 @@ const ProfilePost = () => {
       });
   };
 
-  if (loading) return <div>로딩중..</div>;
+  if (loading)
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   if (error) return <div>에러가 발생했습니다</div>;
   if (!none) return <PostNone />;
 
