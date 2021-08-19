@@ -1,5 +1,6 @@
 package com.web.webcuration.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.web.webcuration.dto.UserRelationInfo;
@@ -19,7 +20,7 @@ public interface RelationService {
 
     void deleteRelationByUserid(Long userid);
 
-    List<Long> getFollowListByUserid(Long userid);
+    List<Long> getRelationListByUserid(String type, Long userid);
 
-    List<Long> getFollowerListByUserid(Long userid);
+    HashMap<Long, String> getMeAndSelecterRelation(List<Long> relationList, Long userid);
 }
