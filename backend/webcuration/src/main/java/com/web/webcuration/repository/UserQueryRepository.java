@@ -51,8 +51,8 @@ public class UserQueryRepository {
     }
 
     public List<User> getOtherUser(List<Long> block, Long userid) {
-        List<User> otherUser = jpaQueryFactory.selectFrom(qUser).where(qUser.id.ne(userid).and(qUser.id.notIn(block)))
-                .fetch();
+        List<User> otherUser = jpaQueryFactory.selectFrom(qUser)
+                .where(qUser.id.ne(userid).and(qUser.id.notIn(block)).and(qUser.nickname.isNotNull())).fetch();
         return otherUser == null ? new ArrayList<>() : otherUser;
     }
 }
