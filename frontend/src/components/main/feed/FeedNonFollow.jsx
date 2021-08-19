@@ -11,9 +11,9 @@ const FeedNonFollow = (list) => {
           <p>사용자 추천</p>
         </div>
         <hr className="follower-hr" />
-        {list.map((item, i) => (
-          <FeedNonFollowList {...item} key={`item_${i}`} />
-        ))}
+        {list.length > 0
+          ? list.map((item, i) => <FeedNonFollowList {...item} key={`item_${i}`} />)
+          : ""}
       </div>
     </>
   );
