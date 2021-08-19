@@ -2,7 +2,6 @@ package com.web.webcuration.dto.response;
 
 import java.util.List;
 
-import com.web.webcuration.Entity.User;
 import com.web.webcuration.dto.MainFeedDto;
 
 import lombok.Builder;
@@ -18,5 +17,5 @@ public class MainFeedResponse {
 
     private List<MainFeedDto> mainFeedDto;
 
-    private List<User> randomUsers;
+    private List<UserRelationListResponse> randomUsers;
 }
