@@ -1,0 +1,44 @@
+.follower-profile-wrapper {
+  width: 100%;
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.follow-profile-btn {
+  width: 60px;
+  height: 30px;
+  /* border: 1px solid #dbdbdb; */
+  border-radius: 3px;
+  color: white;
+  background-color: #ff5a5f;
+  font-size: 14px;
+  font-weight: bold;
+  /* float: right; */
+}
+.follower-profile-list {
+  width: 90%;
+  /* display: flex; */
+  display: inline-block;
+  margin-left: 10px;
+}
+.follower-profile-img {
+  float: left;
+  /* display: inline-block; */
+}
+.follow-avatar {
+  transform: scale(0.7);
+}
+.follow-profile-nickname {
+  /* display: inline-block; */
+  margin-top: 5px;
+  margin-left: 5px;
+  float: left;
+}
+.follow-nickname {
+  font-weight: bold;
+  font-size: 14px;
+}
+.follow-profile-f {
+  margin-top: 5px;
+  margin-right: 15px;
+}
