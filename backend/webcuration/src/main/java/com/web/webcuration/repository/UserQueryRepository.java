@@ -20,7 +20,6 @@ public class UserQueryRepository {
     private QUser qUser = QUser.user;
 
     public boolean DuplicateCheckName(Long userid, String nickname) {
-        System.out.println(userid + " " + nickname);
         Long findNicknameId = jpaQueryFactory.select(qUser.id).from(qUser).where(qUser.nickname.eq(nickname))
                 .fetchOne();
         if (findNicknameId == null || findNicknameId == userid) {
