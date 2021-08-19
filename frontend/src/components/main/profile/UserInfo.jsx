@@ -93,7 +93,7 @@ const UserInfo = () => {
         if (!flag) {
           alert(OtherUser.user.nickname + "님을 차단했습니다.");
           if (check) {
-            newUser.follower--;
+            newUser.following--;
             dispatch(setUserInfo(newUser));
           }
           history.push({
@@ -102,7 +102,7 @@ const UserInfo = () => {
         } else {
           alert(OtherUser.user.nickname + "님을 팔로우했습니다.");
 
-          newUser.follower++;
+          newUser.following++;
           dispatch(setUserInfo(newUser));
         }
       })
@@ -132,7 +132,7 @@ const UserInfo = () => {
           alert(OtherUser.user.nickname + "님을 차단해제 했습니다.");
         } else {
           let newUser = Object.assign({}, user);
-          newUser.follower--;
+          newUser.following--;
           dispatch(setUserInfo(newUser));
           alert(OtherUser.user.nickname + "님을 팔로우해제 했습니다.");
         }
