@@ -41,7 +41,17 @@ const UserInfo = () => {
         const response = await axios.get(
           "https://i5d104.p.ssafy.io/api/post/user/" + user.id + "/" + OtherUser.user.id
         );
-
+        if (user.id == OtherUser.user.id) {
+          let newUser = Object.assign({}, user);
+          newUser.follower = response.data.data.relationInfo.follower;
+          newUser.following = response.data.data.relationInfo.following;
+          dispatch(setUserInfo(newUser));
+        } else {
+          let newOtherUser = Object.assign({}, OtherUser);
+          newOtherUser.user.follower = response.data.data.relationInfo.follower;
+          newOtherUser.user.following = response.data.data.relationInfo.following;
+          dispatch(setOtherUser(newOtherUser));
+        }
         console.log(response);
         console.log(response.data.data);
         setPostList(response.data.data.postInfo);
