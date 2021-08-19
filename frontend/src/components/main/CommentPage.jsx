@@ -221,6 +221,47 @@ const CommentPage = () => {
       });
   }
 
+  const addTime = (date) => {
+
+    //시간 변환 함수 
+
+    const splitDate = date.split("T");
+    //["2021-08-18", "12:20:40.304974"]
+
+    const splitDate2 = splitDate[1].split(":");
+    // ["12", "20", "40.304974"]
+
+    const splitDate3 = splitDate[0].split("-");
+    //[2021, 08, 18]
+    var year = splitDate3[0];
+    var month = splitDate3[1];
+    var day = splitDate3[2];
+    var hour = splitDate2[0];
+    var min = splitDate2[1];
+
+    var newDate = year+"-"+month+"-"+day+" "+hour+":"+min;
+
+    var finishDate = new Date(newDate);
+    // console.log(finishDate);
+    finishDate.setHours(finishDate.getDate()+8)
+
+    var today = finishDate;
+
+    var year = today.getFullYear();
+    var month = ('0' + (today.getMonth() + 1)).slice(-2);
+    var day = ('0' + today.getDate()).slice(-2);
+
+    var dateString = year + '-' + month  + '-' + day;
+
+    var hours = ('0' + today.getHours()).slice(-2); 
+    var minutes = ('0' + today.getMinutes()).slice(-2);
+
+
+    var dateString = year + '-' + month  + '-' + day +" "+ hours + ':' + minutes;
+
+    return dateString
+  };
+
   useEffect(() => {
 
     return () => {};
@@ -255,6 +296,7 @@ const CommentPage = () => {
 
       <div className="user-comment">
         <ul className="comment-list">
+          {/* 댓글 목록 */}
           {PostData.comments &&
             PostData.comments.map((item, index) => {
               return (
@@ -277,9 +319,6 @@ const CommentPage = () => {
                     ) : (
                       ""
                     )}
-                  </div>
-                  <div className="usr-comment-like">
-                    <FavoriteBorderIcon id="comment-like" />
                   </div>
                   <div className="usr-comment-footer">
                     <div className="comment-footer-recomment-cont">
@@ -304,6 +343,9 @@ const CommentPage = () => {
                         ) : (
                           ""
                         )}
+                                                        <button id="comment-createdate-btn">
+                                <p id="commentDate">{addTime(item.createdate)}</p>
+                                </button>
                       </div>
                     </div>
                   </div>
@@ -349,7 +391,7 @@ const CommentPage = () => {
                           <div className="usr-recomment-userInfo">
                             <Avatar id="usr-recomment-avatar" className="post-avatar" src={child.image} />
                             <p className="usr-recomment-username">{child.name}</p>
-                            <span className="usr-recomment-commentname"><b>@{item.name}</b></span>
+                            <span className="usr-recomment-commentname"></span>
                             {/* 수정 부분 */}
                             {recommentIsModify && whichRecommentModify == child.id ?(
                              <input className="usr-recomment-desc"
@@ -366,9 +408,6 @@ const CommentPage = () => {
                               <button onClick = {(e) => modifyRecomments(e,`${child.id}`)}>수정</button>
                             ):""}
                           </div>
-                          <div className="usr-comment-like">
-                    <FavoriteBorderIcon id="comment-like" />
-                  </div>
                   <div className="usr-comment-footer">
                     <div className="comment-footer-recomment-cont">
                       <div className="comment-footer-re">
@@ -382,6 +421,9 @@ const CommentPage = () => {
                                     <p id="reDelete">삭제</p>
                                   </button>
                                 ):""}
+                                <button id="re-createdate-btn">
+                                <p id="reDate">{addTime(child.createdate)}</p>
+                                </button>
                       </div>
                     </div>
                   </div>

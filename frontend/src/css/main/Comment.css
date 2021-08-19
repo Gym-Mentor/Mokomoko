@@ -307,3 +307,24 @@
   background-color: transparent;
   margin-left: 5px;
 }
+
+#re-createdate-btn{
+  background-color: transparent;
+  margin-left: 5px;
+}
+
+#comment-createdate-btn{
+  background-color: transparent;
+  margin-left: 5px;
+}
+#commentDate{
+  font-size: 13px;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+#reDate{
+  font-size: 13px;
+  background-color: transparent;
+  font-weight: bold;
+}

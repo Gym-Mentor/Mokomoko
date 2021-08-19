@@ -8,6 +8,7 @@ import com.web.webcuration.service.ScrapService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class ScrapController {
     }
 
     @GetMapping("/{userid}")
-    public ResponseEntity<BaseResponse> getScrapByUserid(Long userid) {
+    public ResponseEntity<BaseResponse> getScrapByUserid(@PathVariable Long userid) {
         return ResponseEntity.ok(postService.getScrapPost(scrapService.getScrapByUserid(userid)));
     }
 }
