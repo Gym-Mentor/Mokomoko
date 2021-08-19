@@ -11,6 +11,7 @@ import { setUserInfo } from "../../../modules/userInfo";
 const FollowerProfile = (item) => {
   const { user } = useSelector((state) => ({ user: state.userInfo.user }));
   console.log(user);
+  console.log(item);
   const dispatch = useDispatch();
   // 팔로우하기, 차단하기
   const MakeRelation = (flag) => {
@@ -87,10 +88,10 @@ const FollowerProfile = (item) => {
       <div className="follower-profile-wrapper">
         <div className="follower-profile-list">
           <div className="follower-profile-img">
-            <Avatar className="follow-avatar" src={item.image} />
+            <Avatar className="follow-avatar" src={item.user.image} />
           </div>
           <div className="follow-profile-nickname">
-            <span className="follow-nickname">{item.nickname}</span>
+            <span className="follow-nickname">{item.user.nickname}</span>
           </div>
         </div>{" "}
         <div className="follow-profile-f">

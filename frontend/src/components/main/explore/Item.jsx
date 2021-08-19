@@ -21,7 +21,6 @@ const Item = ({ image, post }) => {
       method: "get",
     })
       .then((response) => {
-        console.log(response);
         dispatch(setPostData(response.data.data));
         history.push({
           pathname: `detailPresenter/${post.id}`,
