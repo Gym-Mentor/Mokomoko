@@ -14,6 +14,7 @@ const Feed = ({ history }) => {
     activeNav: state.activeNav,
     user: state.userInfo.user,
   }));
+  const [isFollow, setIsFollow] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -73,6 +74,9 @@ const Feed = ({ history }) => {
   // useEffect(() => {
   //   return () => {};
   // }, [list]);
+  const showFollowModal = () => {
+    setIsFollow((prev) => !prev);
+  };
   return (
     <div className="explore-wrapper">
       <div className="explore-row">
@@ -83,7 +87,9 @@ const Feed = ({ history }) => {
             {postCheck ? (
               <FetchMore loading={page !== 0 && loading} setPage={setPage} page={page} />
             ) : !data.type ? (
-              <FeedNonFollow list={data.randomUsers} />
+              isFollow && (
+                <FeedNonFollow showFollowModal={showFollowModal} list={data.randomUsers} />
+              )
             ) : (
               ""
             )}

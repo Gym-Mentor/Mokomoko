@@ -2,18 +2,17 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../../../css/main/feed/FeedNonFollow.css";
 import FeedNonFollowList from "./FeedNonFollowList";
-const FeedNonFollow = (list) => {
-  console.log(list);
+const FeedNonFollow = (props) => {
   return (
     <>
-      <div className="non-background" />
+      <div className="non-background" onClick={props.showFollowModal} />
       <div className="non-followList">
         <div className="follower-title">
           <p>사용자 추천</p>
         </div>
         <hr className="follower-hr" />
-        {list.list.length > 0
-          ? list.list.map((item, i) => <FeedNonFollowList {...item} key={`item_${i}`} />)
+        {props.list.length > 0
+          ? props.list.map((item, i) => <FeedNonFollowList {...item} key={`item_${i}`} />)
           : ""}
       </div>
     </>
