@@ -39,12 +39,12 @@ public class LikeController {
         return ResponseEntity.ok(postService.changePostLikeCnt(reqLike.getObjectid(), -1L));
     }
 
-    @PostMapping()
+    @PostMapping("/comment")
     public ResponseEntity<BaseResponse> createCommentLike(@RequestBody LikeRequest reqLike) {
         return ResponseEntity.ok(likeCommentService.addLikeComment(reqLike));
     }
 
-    @PostMapping()
+    @DeleteMapping("/comment")
     public ResponseEntity<BaseResponse> deleteCommentLike(@RequestBody LikeRequest reqLike) {
         return ResponseEntity.ok(likeCommentService.deleteLikeComment(reqLike));
     }
