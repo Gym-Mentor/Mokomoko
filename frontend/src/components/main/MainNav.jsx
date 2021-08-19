@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { setIndex } from "../../modules/MainNav";
 import { useSelector, useDispatch } from "react-redux";
 import "../../css/main/MainNav.css";
-import { setOtherUser } from "../../../modules/OtherUser";
+import { setOtherUser } from "../../modules/OtherUser";
 const MainNav = () => {
   // activeNav는 현재 선택된 네비게이션 아이템(값)을 저장한다
   // 1이면 첫 번째 네비게이션, 2이면 두 번째 ... 5이면 다섯 번째
