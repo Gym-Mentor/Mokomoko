@@ -11,7 +11,7 @@
     width: 100%;
     margin-bottom: 50px;
   }
-  .foprofileod-col {
+  .profile-col {
   }
 }
 
@@ -28,3 +28,6 @@
 /* .profile{
     margin-top: 90px;
 } */
+.profile-col .nav-link {
+  width: 50%;
+}

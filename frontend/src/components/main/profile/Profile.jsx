@@ -7,11 +7,15 @@ import UserInfo from "./UserInfo";
 import "../../../css/main/profile/Profile.css";
 import ProfilePostContainer from "../../../container/ProfilePostContainer";
 import ProfilePost from "./ProfilePost";
+import MyProfileContainer from "./MyProfileContainer";
 
 const Profile = () => {
   //userSelector로 리덕스 스토어의 상태 조회하기
   const { activeNav } = useSelector((state) => ({ activeNav: state.activeNav }));
-
+  const { user } = useSelector((state) => ({
+    user: state.userInfo.user,
+  }));
+  const { OtherUser } = useSelector((state) => state.OtherUser);
   const dispatch = useDispatch();
 
   const onSetIndex = (activeNav) => dispatch(setIndex(activeNav));
@@ -30,7 +34,9 @@ const Profile = () => {
             <UserInfo />
           </div>
           {/* <ProfilePostContainer/> */}
-          <ProfilePost />
+          {/* <ProfilePost /> */}
+          {/* {user.id===OtherUser.} */}
+          <MyProfileContainer />
         </div>
       </div>
     </div>
