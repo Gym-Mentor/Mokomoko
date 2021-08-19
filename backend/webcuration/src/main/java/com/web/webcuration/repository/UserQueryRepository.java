@@ -30,8 +30,8 @@ public class UserQueryRepository {
     }
 
     public boolean DuplicateCheckName(String nickname) {
-        Long count = jpaQueryFactory.select(qUser.nickname).from(qUser).where(qUser.nickname.eq(nickname)).fetchCount();
-        return count > 0 ? false : true;
+        Long count = jpaQueryFactory.selectFrom(qUser).where(qUser.nickname.eq(nickname)).fetchCount();
+        return count > 0 ? true : false;
     }
 
     public List<User> getUserOrderBy(List<Long> block) {

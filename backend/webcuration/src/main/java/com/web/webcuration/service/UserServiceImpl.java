@@ -204,14 +204,10 @@ public class UserServiceImpl implements UserService {
         int otherUserSize = otherUsers.size();
         Collections.shuffle(otherUsers);
         List<UserRelationListResponse> randomOtherUsers = new ArrayList<>();
-        if (otherUserSize <= 10) {
-            return randomOtherUsers;
-        } else {
-            for (int i = 0; i < 10; i++) {
-                randomOtherUsers.add(UserRelationListResponse.builder().user(otherUsers.get(i)).state("no").build());
-            }
-            return randomOtherUsers;
+        for (int i = 0; i < (otherUserSize <= 10 ? otherUserSize : 10); i++) {
+            randomOtherUsers.add(UserRelationListResponse.builder().user(otherUsers.get(i)).state("no").build());
         }
+        return randomOtherUsers;
     }
 
     @Override
