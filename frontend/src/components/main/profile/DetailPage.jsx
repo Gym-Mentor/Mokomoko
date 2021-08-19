@@ -167,7 +167,6 @@ const DetailPage = (props) => {
   };
 
   const showUserPage = () => {
-
     axios({
       method: "get",
       url: `https://i5d104.p.ssafy.io/api/post/user/${user.id}/${PostData.userid}`,
@@ -203,14 +202,26 @@ const DetailPage = (props) => {
         <div className="mobile-detail-contents-wrapper">
           {" "}
           <div className="mobile-detail-userInfo">
-            <Avatar className="mobile-detail-avatar" onClick={showUserPage} />
+            <Avatar
+              className="mobile-detail-avatar"
+              onClick={showUserPage}
+              src={PostData.userImage}
+            />
             <span className="mobile-detail-username" onClick={showUserPage}>
               {PostData.userName}
             </span>
           </div>
           <div className="mobile-detail-img">
             {/* <img src={item.img} alt="image" /> */}
-            <img className="mobile-detail-img" src={PostData.contents[scrollState].image} />
+            {PostData.contents[scrollState].image.charAt(
+              PostData.contents[scrollState].image.length - 1
+            ) == 4 ? (
+              <video className="mobile-detail-img" controls autoPlay muted>
+                <source src={PostData.contents[scrollState].image} type="video/mp4" />
+              </video>
+            ) : (
+              <img className="mobile-detail-img" src={PostData.contents[scrollState].image} />
+            )}
             <div className="mobile-image-next" onClick={showNextImage}>
               <NavigateNextIcon fontSize="large" />
             </div>
@@ -241,9 +252,10 @@ const DetailPage = (props) => {
           </div>
           <div className="mobile-detail-bottom">
             <h5 className="mobile-detail-desc-username">{PostData.userName}</h5>
-            {PostData.contents.map((item, index) => {
+            {PostData.contents[scrollState].description}
+            {/* {PostData.contents.map((item, index) => {
               return <span key={index}> {item.description}</span>;
-            })}
+            })} */}
           </div>
         </div>
         {/* 큰화면  */}{" "}
@@ -252,24 +264,39 @@ const DetailPage = (props) => {
           <div className="dt-details-content">
             <div className="dt-details-content2">
               <div className="dt-img-section">
-                <img src={PostData.contents[scrollState].image} />
+                {PostData.contents[scrollState].image.charAt(
+                  PostData.contents[scrollState].image.length - 1
+                ) == 4 ? (
+                  <video className="dt-detail-img" controls autoPlay muted>
+                    <source src={PostData.contents[scrollState].image} type="video/mp4" />
+                  </video>
+                ) : (
+                  <img className="dt-detail-img" src={PostData.contents[scrollState].image} />
+                )}
                 <div className="dt-image-next" onClick={showNextImage}>
                   <NavigateNextIcon fontSize="large" />
                 </div>
               </div>
               <div className="dt-right-section">
                 <div className="dt-right-header">
-                  <div className="dt-detail-userInfo" >
-                    <Avatar className="dt-detail-avatar"  onClick={showUserPage}/>
-                    <span className="dt-detail-username" onClick={showUserPage}>{PostData.userName}</span>
+                  <div className="dt-detail-userInfo">
+                    <Avatar
+                      className="dt-detail-avatar"
+                      onClick={showUserPage}
+                      src={PostData.userImage}
+                    />
+                    <span className="dt-detail-username" onClick={showUserPage}>
+                      {PostData.userName}
+                    </span>
                   </div>
                 </div>
                 <div className="dt-right-content">
                   <div className="dt-right-content-desc">
                     <div className="content-description">
-                      {PostData.contents.map((item, index) => {
+                    {PostData.contents[scrollState].description}
+                      {/* {PostData.contents.map((item, index) => {
                         return <span key={index}> {item.description}</span>;
-                      })}
+                      })} */}
                     </div>
                   </div>
                   <div className="dt-right-content-comment"></div>
