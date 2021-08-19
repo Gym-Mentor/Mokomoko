@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.web.webcuration.Entity.Comment;
 import com.web.webcuration.Entity.Contents;
 import com.web.webcuration.Entity.Likes;
 import com.web.webcuration.Entity.Post;
@@ -117,7 +118,7 @@ public class PostServiceImpl implements PostService {
         postRepository.deleteById(postid);
 
         List<Long> commentids = commentService.findCommentidByPostid(postid);
-        Long cnt = childCommentService.deleteChildCOmmentByCommentids(commentids);
+        Long cnt = childCommentService.deleteChildCommentByCommentids(commentids);
         changePostCommentCnt(postid, -cnt);
         return BaseResponse.builder().status("200").status("success").build();
     }
@@ -235,6 +236,13 @@ public class PostServiceImpl implements PostService {
             for (Likes like : deleteByUserid) {
                 changePostLikeCnt(like.getPostid(), -1L);
             }
+        }
+        List<Comment> comments = commentService.findCommentByUserid(userid);
+        for (Comment comment : comments) {
+            Long postid = commentService.getCommentPostid(comment.getId());
+            commentService.deleteComment(comment.getId());
+            Long cnt = childCommentService.getChildCommentByCommentid(comment.getId());
+            changePostCommentCnt(postid, -(cnt + 1L));
         }
         return postids;
     }

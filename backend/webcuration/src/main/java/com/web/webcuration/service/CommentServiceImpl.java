@@ -82,4 +82,10 @@ public class CommentServiceImpl implements CommentService {
         return commentids;
     }
 
+    @Override
+    public List<Comment> findCommentByUserid(Long userid) {
+        List<Comment> commentids = commentQueryRepository.findCommentidByUserid(userid);
+        return commentids;
+    }
+
 }

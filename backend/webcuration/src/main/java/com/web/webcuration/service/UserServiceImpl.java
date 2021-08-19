@@ -213,4 +213,9 @@ public class UserServiceImpl implements UserService {
             return randomOtherUsers;
         }
     }
+
+    @Override
+    public boolean CheckNickname(String nickname) {
+        return userQueryRepository.DuplicateCheckName(nickname);
+    }
 }
