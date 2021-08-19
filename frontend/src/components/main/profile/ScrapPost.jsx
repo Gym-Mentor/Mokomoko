@@ -32,6 +32,7 @@ const ScrapPost = () => {
 
         //loading 상태 true로 바꾸기
         setLoading(true);
+        console.log(user.id);
 
         const response = await axios.get("https://i5d104.p.ssafy.io/api/scrap/" + user.id);
 
