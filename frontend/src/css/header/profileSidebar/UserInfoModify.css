@@ -6,7 +6,7 @@
 
 /* width가 768보다 작으면 가로길이에 맞게 width 조정 */
 @media only screen and (max-width: 768px) {
-  .food-row {
+  .userModify-row {
     width: 100%;
     margin-bottom: 50px;
   }
@@ -16,7 +16,7 @@
 
 /* width가 768보다 크면 가로길이를 768px로 고정 */
 @media only screen and (min-width: 768px) {
-  .food-row {
+  .userModify-row {
     width: 768px;
     margin-bottom: 50px;
   }
@@ -24,22 +24,14 @@
   }
 }
 
-.userModify-header {
-  /* display: inline-block; */
-  width: max-content;
-  margin-bottom: 20px;
-  float: left;
-}
-
 .userModify-header.back {
   float: left;
 }
-
-.userModify-header.title {
-  margin-left: 10px;
-  font-size: 20px;
+.main {
+  margin-top: 50px;
+  justify-content: center;
+  align-items: center;
 }
-
 .userModify.userImg {
   width: 150px;
   height: 150px;
@@ -50,16 +42,19 @@
 
 .userModify.img {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   object-fit: cover;
   margin-left: 1px;
 }
 
 .userImg.input {
-  height: 20%;
-  width: 100%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  display: inline-block;
+  justify-content: center;
+  margin-left: 15px;
+  /* height: 20%; */
+  width: 30%;
+  /* margin-top: 20px; */
+  /* margin-bottom: 20px; */
 }
 .userImg.input label {
   display: inline-block;
@@ -70,13 +65,35 @@
 }
 .user-profile-remove {
   display: inline-block;
+  width: 30%;
+  justify-content: center;
   color: #ff5a5f;
   font-size: inherit;
   vertical-align: middle;
-  margin-bottom: 20px;
+  /* margin-bottom: 15px; */
 }
 .user-profile-remove-click {
   cursor: pointer;
+}
+.userModify-title {
+  margin-top: 10px;
+  margin-right: 15px;
+}
+.userModify-desc {
+  margin-top: 10px;
+  margin-right: 23px;
+}
+.nick-modify {
+  display: flex;
+  justify-content: center;
+}
+.img-modify {
+  display: flex;
+  justify-content: center;
+}
+.desc-modify {
+  display: flex;
+  justify-content: center;
 }
 .userImg.input input[type="file"] {
   /* 파일 필드 숨기기 */
@@ -92,7 +109,20 @@
 
 .user-nickname-input {
   float: left;
-  width: 200px;
+  width: 250px;
+  height: 40px;
+  margin: 3px auto;
+  padding: 0 10px;
+  display: block;
+  background-color: #fafafa;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.user-desc-input {
+  float: left;
+  width: 250px;
   height: 40px;
   margin: 3px auto;
   padding: 0 10px;
@@ -107,6 +137,7 @@
   float: right;
   cursor: pointer;
   margin-top: 10px;
+  margin-right: 15px;
 }
 .remove-user-click {
   cursor: pointer;
@@ -117,10 +148,13 @@
 }
 
 .apply-button {
-  margin-top: 10px;
-  float: right;
+  /* display: flex; */
+  margin-top: 50px;
+  justify-content: center;
+  /* float: right; */
   width: 100%;
   margin-bottom: 40px;
+  /* margin-left: 30%; */
 }
 
 .apply-button button {

@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { setContent, setInitValue } from "../../../modules/Food";
+import "../../../css/main/write/FoodHeader.css";
 import axios from "axios";
 // 헤더 컴포넌트
 const FoodHeader = (props) => {

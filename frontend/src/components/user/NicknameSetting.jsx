@@ -100,7 +100,7 @@ const NicknameSetting = ({ history }) => {
               >
                 {nicknameValidation
                   ? "사용 가능한 닉네임입니다."
-                  : "사용할 수 없는 닉네임입니다. (2글자 이상의 한글 또는 영어로 해주세요)"}
+                  : "사용할 수 없는 닉네임입니다. (2글자 이상의 한글 또는 알파벳)"}
               </div>
             </div>
             <div className="nickname-submit">
