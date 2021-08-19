@@ -4,9 +4,10 @@ import { setIndex } from "../../../modules/MainNav";
 import Header from "../../../components/header/Header";
 import UserInfo from "./UserInfo";
 
-import "../../../css/main/profile/Profile.css";
+import "../../../css/main/profile/AnotherProfile.css";
 import ProfilePostContainer from "../../../container/ProfilePostContainer";
 import ProfilePost from "./ProfilePost";
+import AnotherUserInfo from "./AnotherUserInfo";
 
 const AnotherUserProfile = () => {
   //userSelector로 리덕스 스토어의 상태 조회하기

@@ -72,7 +72,7 @@ const Feed = ({ history }) => {
             {postCheck ? (
               <FetchMore loading={page !== 0 && loading} setPage={setPage} page={page} />
             ) : (
-              <div>데이터 없음</div>
+              <span className="no-data-msg">불러올 데이터가 없어요 :) </span>
             )}
           </div>
         </div>
