@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/scrap")
-@Slf4j
 public class ScrapController {
 
     private final ScrapService scrapService;
@@ -27,11 +25,10 @@ public class ScrapController {
 
     @PostMapping()
     public ResponseEntity<BaseResponse> addScrap(@RequestBody ScrapRequest scrapRequest) {
-        log.info("{}", "스크랩 : " + scrapRequest);
         return ResponseEntity.ok(scrapService.addScrap(scrapRequest));
     }
 
-    @DeleteMapping("/{scrapid}")
+    @DeleteMapping()
     public ResponseEntity<BaseResponse> deleteScrap(@RequestBody ScrapRequest scrapRequest) {
         return ResponseEntity.ok(scrapService.deleteScrap(scrapRequest));
     }

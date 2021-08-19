@@ -20,7 +20,7 @@ const Feed = ({ history }) => {
   const onSetIndex = (activeNav) => dispatch(setIndex(activeNav));
 
   const [page, setPage] = useState(0);
-  const [list, setList] = useState([]);
+  const [list, setList] = useState({});
   const [loading, setLoading] = useState(false);
   const [postid, setPostid] = useState(0);
   const [postCheck, setPostCheck] = useState(true);
@@ -47,13 +47,13 @@ const Feed = ({ history }) => {
       .then((result) => {
         console.log(result);
         console.log(result.data.data);
-        let newList = Object.assign([], list);
+        let newList = Object.assign({}, list);
         console.log(newList);
-        newList.push(...result.data.data);
+        newList = { ...result.data.data };
         setList(newList);
         console.log(newList);
-        if (result.data.data.length > 0) {
-          setPostid(result.data.data[result.data.data.length - 1].post.id);
+        if (result.data.data.mainFeedDto.length > 0) {
+          setPostid(result.data.data.mainFeedDto[result.data.data.mainFeedDto.length - 1].post.id);
         } else {
           setPostCheck(false);
         }
@@ -70,11 +70,11 @@ const Feed = ({ history }) => {
         <div className="explore-col">
           <Cheader title="피드" />
           <div id="explore" className={page === 0 && loading ? "loading" : ""}>
-            <FeedList list={list} />
+            <FeedList list={list.mainFeedDto} />
             {postCheck ? (
               <FetchMore loading={page !== 0 && loading} setPage={setPage} page={page} />
             ) : (
-              <FeedNonFollow />
+              <FeedNonFollow list={list.randomUsers} />
             )}
           </div>
         </div>
