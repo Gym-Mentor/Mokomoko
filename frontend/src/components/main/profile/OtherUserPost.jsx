@@ -8,6 +8,7 @@ import { setOtherUser } from "../../../modules/OtherUser";
 import { Tab, Tabs } from "react-bootstrap";
 import AppsIcon from "@material-ui/icons/Apps";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
+import Loading from "../../util/Loading";
 const OtherUserPost = () => {
   const [isDetail, setIsDetail] = useState(false);
   const [postList, setPostList] = useState(null);
@@ -73,7 +74,12 @@ const OtherUserPost = () => {
       });
   };
 
-  if (loading) return <div>로딩중..</div>;
+  if (loading)
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   if (error) return <div>에러가 발생했습니다</div>;
   // if(postList.length == 0) return <div>글을 작성해주세요</div>
 

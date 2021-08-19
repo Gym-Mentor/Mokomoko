@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { setPostData } from "../../../modules/PostData";
 import { setOtherUser } from "../../../modules/OtherUser";
+import Loading from "../../util/Loading";
 const ScrapPost = () => {
   const [isDetail, setIsDetail] = useState(false);
   const [postList, setPostList] = useState(null);
@@ -69,7 +70,12 @@ const ScrapPost = () => {
       });
   };
 
-  if (loading) return <div>로딩중..</div>;
+  if (loading)
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   if (error) return <div>에러가 발생했습니다</div>;
   // if(postList.length == 0) return <div>글을 작성해주세요</div>
 

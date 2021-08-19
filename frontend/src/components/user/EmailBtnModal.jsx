@@ -5,6 +5,7 @@ import { Modal, ModalFooter } from "react-bootstrap";
 import axios from "axios";
 import "../../css/user/EmailBtnModal.css";
 import { useEffect } from "react";
+import Loading from "../util/Loading";
 
 const EmailBtnModal = (props, history) => {
   const [code, setCode] = useState("");
@@ -97,7 +98,12 @@ const EmailBtnModal = (props, history) => {
     console.log(code);
   }, [code, btnColorState, codeValidation, isChecked]);
 
-  if (loading) return <div>로딩중..</div>;
+  if (loading)
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
 
   if (okay) return <p className="okay-msg">인증이 완료되었습니다.</p>;
 

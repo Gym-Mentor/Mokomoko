@@ -8,7 +8,7 @@
     padding: 0;
     height: 380px;
   }
-  .post-content img {
+  .dt-detail-img {
     object-fit: contain;
     height: 380px;
   }
@@ -27,7 +27,7 @@
     padding: 0;
     height: 500px;
   }
-  .post-content img {
+  .dt-detail-img {
     object-fit: contain;
     height: 500px;
   }
@@ -138,6 +138,7 @@
 .post-desc-username {
   margin-right: 10px;
   margin-left: 5px;
+  font-size: 14px;
 }
 .feed-header {
   /* display: block; */

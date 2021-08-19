@@ -27,10 +27,13 @@
 
 .profile {
   background-color: white;
+  height: 100%;
 }
 .profile-col .nav-link {
   width: 50%;
 }
 .profile-contents-grid {
   margin-top: -67px;
+}
+.post-desc-detail {
 }
