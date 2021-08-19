@@ -1,23 +1,12 @@
 import React from "react";
-import { Avatar } from "@material-ui/core";
-import testImg from "../../../img/user_image.png";
-
-const BlockUserList = () => {
+import BlockUserItem from "./BlockUserItem";
+const BlockUserList = ({ list, onRemoveUser }) => {
   return (
-    <div>
-      <div className="follower-profile-wrapper">
-        <div className="follower-profile-list">
-          <div className="follower-profile-img">
-            <Avatar className="follow-avatar" src={testImg} />
-          </div>
-          <div className="follow-profile-nickname">
-            <span className="follow-nickname">abcde</span>
-          </div>
-        </div>{" "}
-        <div className="follow-profile-f">
-          <button className="follow-profile-btn">차단 해제</button>
-        </div>
-      </div>
+    <div className="follow-list">
+      {list.map((item, i) => (
+        <BlockUserItem {...item} key={`item_${i}`} onRemoveUser={() => onRemoveUser()} />
+      ))}
+      {list.length === 0 ? <div className="follower-title">사용자 목록이 없습니다.</div> : ""}
     </div>
   );
 };
