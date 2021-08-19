@@ -25,9 +25,9 @@
   }
 }
 
-/* .profile{
-    margin-top: 90px;
-} */
+.profile {
+  background-color: white;
+}
 .profile-col .nav-link {
   width: 50%;
 }

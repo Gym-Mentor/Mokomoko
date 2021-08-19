@@ -1,8 +1,9 @@
 import React from "react";
 import { FiCamera } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../../../css/main/profile/PostNone.css";
-const PostNone = ({ history }) => {
+const PostNone = () => {
+  const history = useHistory();
   const writeHandler = () => {
     history.push("/main/select");
   };
