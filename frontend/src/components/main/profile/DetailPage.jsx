@@ -212,11 +212,9 @@ const DetailPage = (props) => {
             {PostData.contents[scrollState].image.charAt(
               PostData.contents[scrollState].image.length - 1
             ) == 4 ? (
-              <video
-                className="mobile-detail-img"
-                src={PostData.contents[scrollState].image}
-                controls
-              />
+              <video className="mobile-detail-img" controls>
+                <source src={PostData.contents[scrollState].image} type="video/mp4" />
+              </video>
             ) : (
               <img className="mobile-detail-img" src={PostData.contents[scrollState].image} />
             )}
