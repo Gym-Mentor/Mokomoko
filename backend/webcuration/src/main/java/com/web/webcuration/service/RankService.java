@@ -4,5 +4,5 @@ import com.web.webcuration.dto.response.BaseResponse;
 
 public interface RankService {
 
-    BaseResponse getRankList();
+    BaseResponse getRankList(Long userid);
 }

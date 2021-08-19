@@ -17,11 +17,13 @@ public class SerarchServiceImpl implements SearchService {
     private final UserService userService;
     private final TagService tagService;
     private final PostService postService;
+    private final RelationService relationService;
 
     @Override
-    public BaseResponse getSearchWord(String text) {
+    public BaseResponse getSearchWord(Long userid, String text) {
         // 유저 검색
-        List<SearchUserInfo> users = userService.getSearchNickname(text);
+        List<Long> blockUserid = relationService.getUserRelation(userid).getBlock();
+        List<SearchUserInfo> users = userService.getSearchNickname(blockUserid, text);
         // 태그 검색
         List<String> tags = tagService.getSearchTag(text);
         return BaseResponse.builder().status("200").msg("success")
@@ -29,10 +31,11 @@ public class SerarchServiceImpl implements SearchService {
     }
 
     @Override
-    public BaseResponse getSearchResult(String word) {
+    public BaseResponse getSearchResult(Long userid, String word) {
+        List<Long> blockUserid = relationService.getUserRelation(userid).getBlock();
         List<Long> postids = tagService.getPostidByTagName(word);
-
-        return null;
+        return BaseResponse.builder().status("200").msg("success")
+                .data(postService.getAllPostByPostid(blockUserid, postids)).build();
     }
 
 }

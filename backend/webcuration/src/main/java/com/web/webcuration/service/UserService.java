@@ -26,15 +26,16 @@ public interface UserService {
 
     User createUser(User newUser);
 
-    List<SearchUserInfo> getSearchNickname(String text);
+    List<SearchUserInfo> getSearchNickname(List<Long> block, String text);
 
     void changeUserFollowing(Long userid, Long number);
 
     void changeUserFollower(Long userid, Long number);
 
-    List<User> getRankUsers();
+    List<User> getRankUsers(List<Long> block);
 
     BaseResponse getRelationToUser(List<Long> relationList);
 
     List<User> getRandomUserInfo(Long userid);
+
 }

@@ -33,16 +33,16 @@ public class UserQueryRepository {
         }
     }
 
-    public List<User> getUserOrderBy() {
+    public List<User> getUserOrderBy(List<Long> block) {
         List<User> UserOrderBy = new ArrayList<>();
-        UserOrderBy = jpaQueryFactory.selectFrom(qUser).where(qUser.nickname.isNotNull()).orderBy(qUser.nickname.asc())
-                .fetch();
+        UserOrderBy = jpaQueryFactory.selectFrom(qUser).where(qUser.nickname.isNotNull().and(qUser.id.notIn(block)))
+                .orderBy(qUser.nickname.asc()).fetch();
         return UserOrderBy;
     }
 
-    public List<User> getRankUsers() {
-        return jpaQueryFactory.selectFrom(qUser).orderBy(qUser.follower.desc(), qUser.createdate.asc()).limit(9)
-                .fetch();
+    public List<User> getRankUsers(List<Long> block) {
+        return jpaQueryFactory.selectFrom(qUser).where(qUser.id.notIn(block))
+                .orderBy(qUser.follower.desc(), qUser.createdate.asc()).limit(9).fetch();
     }
 
     public List<User> getListToUser(List<Long> relationList) {

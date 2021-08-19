@@ -4,7 +4,7 @@ import com.web.webcuration.dto.response.BaseResponse;
 
 public interface SearchService {
 
-    BaseResponse getSearchWord(String text);
+    BaseResponse getSearchWord(Long userid, String text);
 
-    BaseResponse getSearchResult(String word);
+    BaseResponse getSearchResult(Long userid, String word);
 }
