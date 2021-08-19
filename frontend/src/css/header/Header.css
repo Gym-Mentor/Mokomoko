@@ -48,13 +48,6 @@
   font-family: Wemakeprice-SemiBold;
   background-color: transparent;
 }
-.VscBell {
-  width: 30px;
-  height: 30px;
-  background-color: transparent;
-  padding-bottom: 11px;
-  margin-bottom: -6px;
-}
 .logo {
   background-color: transparent;
   margin-bottom: 20px;
@@ -73,7 +66,7 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  padding-right: 40px;
+  padding-right: 60px;
   font-family: Wemakeprice-SemiBold;
   background-color: transparent;
 }
