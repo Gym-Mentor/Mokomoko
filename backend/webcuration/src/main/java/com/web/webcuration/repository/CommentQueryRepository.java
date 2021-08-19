@@ -37,4 +37,8 @@ public class CommentQueryRepository {
         return findCommentids == null ? new ArrayList<>() : findCommentids;
     }
 
+    public List<Comment> findCommentidByUserid(Long userid) {
+        List<Comment> findCommentids = jpaQueryFactory.selectFrom(qComment).where(qComment.userid.eq(userid)).fetch();
+        return findCommentids == null ? new ArrayList<>() : findCommentids;
+    }
 }
