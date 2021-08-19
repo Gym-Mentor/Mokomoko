@@ -185,6 +185,42 @@
 .reuser-comment {
   margin-top: 15px;
 }
+
+.user-recomment-input{
+  float: left;
+  width: 90%;
+  position: relative;
+}
+
+.user-recomment-footer{
+
+}
+
+.recoment-like-cont{
+  margin-right: 10px;
+
+}
+
+.recomment-likecnt{
+
+  text-decoration: none;
+}
+
+.recomment-footer-re{
+
+}
+
+.re-modify-btn{
+  background-color: transparent;
+  margin-left: 5px;
+}
+
+.re-delete-btn{
+  background-color: transparent;
+  margin-left: 5px;
+}
+
+
 .recomment-list {
   list-style: none;
   display: flex;
@@ -248,4 +284,26 @@
 .comment-footer-recomment-cont {
   display: inline-block;
   margin-left: 15px;
+}
+
+#reModify{
+  font-size: 13px;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+#reDelete{
+  font-size: 13px;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+#re-modify-btn{
+  background-color: transparent;
+  margin-left: 5px;
+}
+
+#re-delete-btn{
+  background-color: transparent;
+  margin-left: 5px;
 }
