@@ -255,4 +255,9 @@ public class PostServiceImpl implements PostService {
         return BaseResponse.builder().status("200").msg("success").data(scrapResponses).build();
     }
 
+    @Override
+    public Long getPostCountByUserid(Long userid) {
+        return postQueryRepository.getPostCountByUserid(userid);
+    }
+
 }

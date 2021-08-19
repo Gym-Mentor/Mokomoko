@@ -35,4 +35,6 @@ public interface PostService {
     List<UserPostInfo> getRankPosts();
 
     BaseResponse getScrapPost(List<Scrap> scraps);
+
+    Long getPostCountByUserid(Long userid);
 }

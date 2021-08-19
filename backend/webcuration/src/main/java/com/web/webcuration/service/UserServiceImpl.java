@@ -2,6 +2,7 @@ package com.web.webcuration.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserService {
         if (user.isPresent()) {
             return user.get();
         } else {
-            return null;
+            throw new RuntimeException("해당 유저가 없습니다.");
         }
     }
 
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
         if (user.isPresent()) {
             return user.get();
         } else {
-            return null;
+            throw new RuntimeException("해당 유저가 없습니다.");
         }
     }
 
@@ -187,6 +188,22 @@ public class UserServiceImpl implements UserService {
         } else {
             return BaseResponse.builder().status("200").msg("success")
                     .data(userQueryRepository.getListToUser(relationList)).build();
+        }
+    }
+
+    @Override
+    public List<User> getRandomUserInfo(Long userid) {
+        List<User> otherUsers = userQueryRepository.getOtherUser(userid);
+        int otherUserSize = otherUsers.size();
+        Collections.shuffle(otherUsers);
+        List<User> randomOtherUsers = new ArrayList<>();
+        if (otherUserSize <= 10) {
+            return otherUsers;
+        } else {
+            for (int i = 0; i < 10; i++) {
+                randomOtherUsers.add(otherUsers.get(i));
+            }
+            return randomOtherUsers;
         }
     }
 }
