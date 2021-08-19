@@ -209,7 +209,7 @@ const UserInfo = () => {
                   <b>팔로워</b>
                 </p>
                 <div className="uf-numb">
-                  {OtherUser.user.id === user.id ? user.follower : OtherUser.user.follower}
+                  {OtherUser.user.id === user.id ? user.follower : OtherUser.relationInfo.follower}
                 </div>
               </div>
               {isFollower && (
@@ -221,7 +221,9 @@ const UserInfo = () => {
                   <b>팔로우</b>
                 </p>
                 <div className="uf-numb">
-                  {OtherUser.user.id === user.id ? user.following : OtherUser.user.following}
+                  {OtherUser.user.id === user.id
+                    ? user.following
+                    : OtherUser.relationInfo.following}
                 </div>
               </div>
               {isFollow && <FollowModal showFollowModal={showFollowModal} userId={user.id} />}
