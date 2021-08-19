@@ -17,6 +17,7 @@ import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.dto.response.LoginUserResponse;
 import com.web.webcuration.dto.response.MainFeedResponse;
+import com.web.webcuration.dto.response.NoFollowingUserResponse;
 import com.web.webcuration.jwt.TokenProvider;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -85,10 +86,18 @@ public class AuthServiceImpl implements AuthService {
         UserRelationInfo userRelationInfo = relationService.getCountUserRelation(loginUser.getId(), loginUser.getId());
         loginUser.setFollower(userRelationInfo.getFollwer());
         loginUser.setFollowing(userRelationInfo.getFollwing());
-        List<MainFeedResponse> mainFeed = postService
-                .getMainFeed(FeedRequest.builder().userid(loginUser.getId()).postid(0L).build());
-        return BaseResponse.builder().status("200").msg("success")
-                .data(LoginUserResponse.builder().user(loginUser).token(tokenDto).mainFeed(mainFeed).build()).build();
+        if (loginUser.getFollowing() == 0L && postService.getPostCountByUserid(loginUser.getId()) == 0L) {
+            List<User> otherUsers = userService.getRandomUserInfo(loginUser.getId());
+            return BaseResponse.builder().status("200").msg("success").data(
+                    NoFollowingUserResponse.builder().user(loginUser).token(tokenDto).otherUsers(otherUsers).build())
+                    .build();
+        } else {
+            List<MainFeedResponse> mainFeed = postService
+                    .getMainFeed(FeedRequest.builder().userid(loginUser.getId()).postid(0L).build());
+            return BaseResponse.builder().status("200").msg("success")
+                    .data(LoginUserResponse.builder().user(loginUser).token(tokenDto).mainFeed(mainFeed).build())
+                    .build();
+        }
 
     }
 

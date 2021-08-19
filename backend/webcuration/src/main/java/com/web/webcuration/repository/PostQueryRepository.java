@@ -58,4 +58,8 @@ public class PostQueryRepository {
     public List<Post> getRankPost() {
         return jpaQueryFactory.selectFrom(qPost).orderBy(qPost.likeCnt.desc(), qPost.createdate.asc()).limit(9).fetch();
     }
+
+    public Long getPostCountByUserid(Long userid) {
+        return jpaQueryFactory.selectFrom(qPost).where(qPost.userid.eq(userid)).fetchCount();
+    }
 }

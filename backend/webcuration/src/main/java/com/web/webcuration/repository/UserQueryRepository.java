@@ -48,4 +48,9 @@ public class UserQueryRepository {
     public List<User> getListToUser(List<Long> relationList) {
         return jpaQueryFactory.selectFrom(qUser).where(qUser.id.in(relationList)).fetch();
     }
+
+    public List<User> getOtherUser(Long userid) {
+        List<User> otherUser = jpaQueryFactory.selectFrom(qUser).where(qUser.id.ne(userid)).fetch();
+        return otherUser == null ? new ArrayList<>() : otherUser;
+    }
 }
