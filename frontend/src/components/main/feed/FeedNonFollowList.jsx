@@ -1,6 +1,6 @@
 import { Avatar } from "@material-ui/core";
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../../../css/main/profile/FollowProfile.css";
 import testImg from "../../../img/user_image.png";
@@ -10,6 +10,7 @@ import { setUserInfo } from "../../../modules/userInfo";
 // item.id를 받아서 /api
 const FollowerProfile = (item) => {
   const { user } = useSelector((state) => ({ user: state.userInfo.user }));
+  const [state, setState] = useState(item.state);
   console.log(user);
   const dispatch = useDispatch();
   // 팔로우하기, 차단하기
@@ -44,6 +45,7 @@ const FollowerProfile = (item) => {
         alert(item.user.nickname + "님을 팔로우했습니다.");
         newUser.following++;
         dispatch(setUserInfo(newUser));
+        setState("yes");
         // }
       })
       .catch((error) => {
@@ -75,6 +77,7 @@ const FollowerProfile = (item) => {
           newUser.following--;
           dispatch(setUserInfo(newUser));
           alert(item.user.nickname + "님을 팔로우해제 했습니다.");
+          setState("no");
         }
       })
       .catch((error) => {
@@ -94,11 +97,11 @@ const FollowerProfile = (item) => {
           </div>
         </div>{" "}
         <div className="follow-profile-f">
-          {item.state === "yes" ? (
+          {state === "yes" ? (
             <button className="follow-profile-btn" onClick={() => RemoveRelation(true)}>
               팔로우 해제
             </button>
-          ) : item.state === "no" ? (
+          ) : state === "no" ? (
             <button className="follow-profile-btn" onClick={() => MakeRelation(true)}>
               팔로우
             </button>
