@@ -31,4 +31,10 @@ public class CommentQueryRepository {
         return deleteComments;
     }
 
+    public List<Long> findCommentidByPostid(Long postid) {
+        List<Long> findCommentids = jpaQueryFactory.select(qComment.id).from(qComment).where(qComment.postid.eq(postid))
+                .fetch();
+        return findCommentids == null ? new ArrayList<>() : findCommentids;
+    }
+
 }

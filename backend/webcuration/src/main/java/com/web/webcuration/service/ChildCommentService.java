@@ -21,4 +21,6 @@ public interface ChildCommentService {
     List<ChildComment> deleteChildCommentByPostid(List<Long> postid);
 
     Long getChildCommentByCommentid(Long commentid);
+
+    Long deleteChildCOmmentByCommentids(List<Long> commentids);
 }
