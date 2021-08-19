@@ -1,3 +1,45 @@
 .none-cam-wrap {
-  border: 1px solid black;
+  width: 100%;
+
+  /* border: 1px solid black; */
+}
+#fi-cam {
+  /* border: 1px solid black; */
+  transform: scale(3);
+  color: black;
+  margin-top: -3px;
+
+  /* border-radius: 50px; */
+}
+.non-cam-w {
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border: 1px solid #dbdbdb;
+  border-radius: 50px;
+  background-color: transparent;
+}
+.share-msg {
+  margin-top: 20px;
+}
+.sharem {
+  font-size: 30px;
+  font-weight: 300;
+  color: #726f6f;
+}
+.sharem-msg {
+  font-size: 15px;
+  color: black;
+}
+.share-a {
+  margin-top: 10px;
+  text-decoration: none;
+}
+#gotowrite {
+  text-decoration: none;
+}
+.share-to-msg {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ff5a5f;
 }

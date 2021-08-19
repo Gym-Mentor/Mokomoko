@@ -32,7 +32,9 @@ const MyProfileContainer = () => {
             <AppsIcon id={"grid-icon-" + (mySelected ? "onColor" : "offColor")} fontSize="large" />
           }
         >
-          <ProfilePost />
+          <div className="post-gridds">
+            <ProfilePost />
+          </div>
         </Tab>
         <Tab
           eventKey={2}
