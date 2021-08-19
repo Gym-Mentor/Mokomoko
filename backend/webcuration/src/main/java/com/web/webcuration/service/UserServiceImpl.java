@@ -191,23 +191,24 @@ public class UserServiceImpl implements UserService {
             List<User> relationUser = userQueryRepository.getListToUser(states);
             List<UserRelationListResponse> userRelationListResponses = new ArrayList<>();
             for (User user : relationUser) {
-                UserRelationListResponse.builder().user(user).state(states.get(user.getId())).build();
+                userRelationListResponses
+                        .add(UserRelationListResponse.builder().user(user).state(states.get(user.getId())).build());
             }
             return BaseResponse.builder().status("200").msg("success").data(userRelationListResponses).build();
         }
     }
 
     @Override
-    public List<User> getRandomUserInfo(Long userid) {
-        List<User> otherUsers = userQueryRepository.getOtherUser(userid);
+    public List<UserRelationListResponse> getRandomUserInfo(List<Long> block, Long userid) {
+        List<User> otherUsers = userQueryRepository.getOtherUser(block, userid);
         int otherUserSize = otherUsers.size();
         Collections.shuffle(otherUsers);
-        List<User> randomOtherUsers = new ArrayList<>();
+        List<UserRelationListResponse> randomOtherUsers = new ArrayList<>();
         if (otherUserSize <= 10) {
-            return otherUsers;
+            return randomOtherUsers;
         } else {
             for (int i = 0; i < 10; i++) {
-                randomOtherUsers.add(otherUsers.get(i));
+                randomOtherUsers.add(UserRelationListResponse.builder().user(otherUsers.get(i)).state("no").build());
             }
             return randomOtherUsers;
         }

@@ -14,11 +14,9 @@ import com.web.webcuration.dto.request.RelationRequest;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @RequiredArgsConstructor
-@Slf4j
 public class RelationQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
@@ -68,17 +66,16 @@ public class RelationQueryRepository {
 
     public HashMap<Long, String> getMeAndSelecterRelation(List<Long> relationList, Long userid) {
         HashMap<Long, String> states = new HashMap<>();
-        log.info("{}", relationList);
         for (Long listid : relationList) {
-            states.put(listid, "NO");
+            states.put(listid, "no");
         }
         List<Tuple> findResult = jpaQueryFactory.select(qRelation.state, qRelation.receive).from(qRelation)
                 .where(qRelation.send.eq(userid).and(qRelation.receive.in(relationList))).fetch();
         for (Tuple tuple : findResult) {
             if (tuple.get(0, Boolean.class)) {
-                states.put(tuple.get(1, Long.class), "YES");
+                states.put(tuple.get(1, Long.class), "yes");
             } else {
-                states.put(tuple.get(1, Long.class), "BLOCK");
+                states.put(tuple.get(1, Long.class), "block");
             }
         }
         return states;
@@ -88,12 +85,14 @@ public class RelationQueryRepository {
         List<Long> relationList = null;
         switch (type) {
             case "Follow":
-                relationList = jpaQueryFactory.select(qRelation.receive).from(qRelation)
-                        .where(qRelation.send.eq(userid).and(qRelation.receive.ne(userid))).fetch();
+                relationList = jpaQueryFactory.select(qRelation.receive).from(qRelation).where(
+                        qRelation.send.eq(userid).and(qRelation.receive.ne(userid)).and(qRelation.state.eq(true)))
+                        .fetch();
                 break;
             case "Follower":
-                relationList = jpaQueryFactory.select(qRelation.send).from(qRelation)
-                        .where(qRelation.receive.eq(userid).and(qRelation.send.ne(userid))).fetch();
+                relationList = jpaQueryFactory.select(qRelation.send).from(qRelation).where(
+                        qRelation.receive.eq(userid).and(qRelation.send.ne(userid)).and(qRelation.state.eq(true)))
+                        .fetch();
                 break;
             case "Block":
                 relationList = jpaQueryFactory.select(qRelation.receive).from(qRelation)
