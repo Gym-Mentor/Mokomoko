@@ -214,3 +214,10 @@
   font-size: 15px;
   margin-bottom: 2px;
 }
+.no-data-msg {
+  margin-top: 20px;
+  font-size: 13px;
+  font-family: "Wemakeprice-SemiBold";
+  color: #808080;
+  padding-bottom: 10px;
+}
