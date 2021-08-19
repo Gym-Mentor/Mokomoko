@@ -88,8 +88,8 @@ const DetailPage = (props) => {
   const isBookmark = () => {
     let newPostData = Object.assign({}, PostData);
 
-    if (PostData.scrap == false) {
-      PostData.scrap = true;
+    if (PostData.scrap === false) {
+      newPostData.scrap = !newPostData.scrap;
       dispatch(setPostData(newPostData));
       //스크랩 저장
       axios({
@@ -107,7 +107,7 @@ const DetailPage = (props) => {
           console.error(error);
         });
     } else {
-      PostData.scrap = false;
+      newPostData.scrap = !newPostData.scrap;
       dispatch(setPostData(newPostData));
       axios({
         method: "delete",

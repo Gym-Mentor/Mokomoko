@@ -89,7 +89,7 @@ const Post = ({ contents, image, like, nickname, post }) => {
         url: "https://i5d104.p.ssafy.io/api/likes",
         data: {
           userid: user.id,
-          postid: post.id,
+          objectid: post.id,
         },
       })
         .then((response) => {
@@ -108,7 +108,7 @@ const Post = ({ contents, image, like, nickname, post }) => {
         url: "https://i5d104.p.ssafy.io/api/likes",
         data: {
           userid: user.id,
-          postid: post.id,
+          objectid: post.id,
         },
       })
         .then((response) => {
