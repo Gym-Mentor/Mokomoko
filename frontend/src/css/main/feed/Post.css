@@ -50,10 +50,12 @@
 }
 .post-avatar {
   margin-right: 10px;
+  cursor: pointer;
 }
 .post-info > h3 {
   margin-top: 8px;
   font-size: medium;
+  cursor: pointer;
 }
 .upload-date {
   font-size: small;
