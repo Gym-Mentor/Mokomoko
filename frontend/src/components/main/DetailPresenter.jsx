@@ -13,7 +13,7 @@ const DetailPresenter = () => {
       <Row id="detail-presenter-row">
         <ContentHeader title="사진" />
         <Col></Col>
-        <Col md={6} className="detail-col">
+        <Col md={8} className="detail-col">
           <div className="details">
             <Detail />
           </div>

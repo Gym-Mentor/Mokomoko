@@ -29,6 +29,11 @@ public class UserQueryRepository {
         }
     }
 
+    public boolean DuplicateCheckName(String nickname) {
+        Long count = jpaQueryFactory.selectFrom(qUser).where(qUser.nickname.eq(nickname)).fetchCount();
+        return count > 0 ? true : false;
+    }
+
     public List<User> getUserOrderBy(List<Long> block) {
         List<User> UserOrderBy = new ArrayList<>();
         UserOrderBy = jpaQueryFactory.selectFrom(qUser).where(qUser.nickname.isNotNull().and(qUser.id.notIn(block)))

@@ -178,6 +178,10 @@ public class AuthServiceImpl implements AuthService {
         User snsUser = snsRequest.SNStoUser(passwordEncoder);
         User newSnsUser = userService.getUserInfo(snsUser.getEmail());
         if (newSnsUser == null) {
+            // 닉네임이 있으면
+            if (userService.CheckNickname(snsUser.getNickname())) {
+                snsUser.setNickname(null);
+            }
             newSnsUser = userService.createUser(snsUser);
             relationService.createRelation(
                     RelationRequest.builder().send(newSnsUser.getId()).receive(newSnsUser.getId()).state(true).build());

@@ -40,4 +40,6 @@ public interface UserService {
 
     List<UserRelationListResponse> getRandomUserInfo(List<Long> block, Long userid);
 
+    boolean CheckNickname(String nickname);
+
 }

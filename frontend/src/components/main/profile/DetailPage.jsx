@@ -321,35 +321,38 @@ const DetailPage = (props) => {
                       )}
                     </div>
                   </div>
+                  <div className="dt-tags">
+                    {PostData.tags.map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className="purchase-link-div"
+                          onClick={(e) => goToShop(e, `${item.url}`)}
+                        >
+                          {item.name}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <br />
                   <div className="dt-right-footer-likecnt">
                     <a href="#">
                       <b>좋아요 {likeNumber == null ? PostData.post.likeCnt : likeNumber}</b>
                     </a>
                   </div>
                   <div className="dt-right-footer-upload-date">2일전</div>
-                  <div className="dt-right-footer-upload-comment">
+                  {/* <div className="dt-right-footer-upload-comment">
                     <input id="footer-comments" type="text" placeholder="댓글 입력..." />
                     <button id="footer-btn" type="submit">
                       게시
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
           </div>
         </div>
         {/* {PostData.tags.length>0?<div className="purchase-link-div">구매링크</div>:""} */}
-        {PostData.tags.map((item, index) => {
-          return (
-            <div
-              key={index}
-              className="purchase-link-div"
-              onClick={(e) => goToShop(e, `${item.url}`)}
-            >
-              {item.name}
-            </div>
-          );
-        })}
       </div>
     </>
   );

@@ -56,6 +56,7 @@ const Login = ({ history }) => {
         let user = res.data.data.user;
         user = { ...user, ...res.data.data.relationResponse };
         user = { ...user, ...res.data.data.token };
+
         // const { accessToken, refreshToken } = res.data;
         setAccessToken(res.data.data.token.accessToken);
         setRefreshToken(res.data.data.token.refreshToken);
@@ -82,12 +83,12 @@ const Login = ({ history }) => {
       .catch((error) => {
         // console.log(error);
         console.log(error);
-        // if (error === 401) {
-        //   window.location.reload();
-        // }
-        // alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
-        // setEmail("");
-        // setPassword("");
+        if (error === 401) {
+          window.location.reload();
+        }
+        alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
+        setEmail("");
+        setPassword("");
       });
   };
 

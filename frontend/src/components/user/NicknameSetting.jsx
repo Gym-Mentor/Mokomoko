@@ -36,7 +36,7 @@ const NicknameSetting = ({ history }) => {
     // 숫자, 알파벳 대소문자, . , _ 이외 문자일 경우 false
     // console.log("ok");
 
-    const nicknameRegex = /^[가-힣a-zA-Z0-9._]{3,15}$/;
+    const nicknameRegex = /^[가-힣a-zA-Z0-9._]{2,15}$/;
 
     // console.log(nicknameRegex.test(nickname));
 
@@ -98,7 +98,9 @@ const NicknameSetting = ({ history }) => {
               <div
                 className={"nickname-validation-" + (nicknameValidation ? "onColor" : "offColor")}
               >
-                {nicknameValidation ? "사용 가능한 닉네임입니다." : "사용할 수 없는 닉네임입니다."}
+                {nicknameValidation
+                  ? "사용 가능한 닉네임입니다."
+                  : "사용할 수 없는 닉네임입니다. (2글자 이상의 한글 또는 영어로 해주세요)"}
               </div>
             </div>
             <div className="nickname-submit">

@@ -120,9 +120,9 @@ const Detail = (props) => {
     history.push(`/main/p/comment/${url[5]}`);
   };
 
-  const goToUserPage = () =>{
-      history.push("/main/profile");
-  }
+  const goToUserPage = () => {
+    history.push("/main/profile");
+  };
 
   const checking = () => {
     console.log("체크", word[word.length - 1]);
@@ -132,6 +132,44 @@ const Detail = (props) => {
     //  else if (word[word.length - 1] === "이전") {
     //   prevButton();
     // }
+  };
+  const addTime = (date) => {
+    //시간 변환 함수
+
+    const splitDate = date.split("T");
+    //["2021-08-18", "12:20:40.304974"]
+
+    const splitDate2 = splitDate[1].split(":");
+    // ["12", "20", "40.304974"]
+
+    const splitDate3 = splitDate[0].split("-");
+    //[2021, 08, 18]
+    var year = splitDate3[0];
+    var month = splitDate3[1];
+    var day = splitDate3[2];
+    var hour = splitDate2[0];
+    var min = splitDate2[1];
+
+    var newDate = year + "-" + month + "-" + day + " " + hour + ":" + min;
+
+    var finishDate = new Date(newDate);
+    // console.log(finishDate);
+    finishDate.setHours(finishDate.getDate() + 8);
+
+    var today = finishDate;
+
+    var year = today.getFullYear();
+    var month = ("0" + (today.getMonth() + 1)).slice(-2);
+    var day = ("0" + today.getDate()).slice(-2);
+
+    var dateString = year + "-" + month + "-" + day;
+
+    var hours = ("0" + today.getHours()).slice(-2);
+    var minutes = ("0" + today.getMinutes()).slice(-2);
+
+    var dateString = year + "-" + month + "-" + day + " " + hours + ":" + minutes;
+
+    return dateString;
   };
 
   if (!browserSupportsSpeechRecognition) {
@@ -247,12 +285,12 @@ const Detail = (props) => {
                     </a>
                   </div>
                   <div className="dt-right-footer-upload-date">2일전</div>
-                  <div className="dt-right-footer-upload-comment">
+                  {/* <div className="dt-right-footer-upload-comment">
                     <input id="footer-comments" type="text" placeholder="댓글 입력..." />
                     <button id="footer-btn" type="submit">
                       게시
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
