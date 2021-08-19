@@ -70,7 +70,7 @@ public class RelationQueryRepository {
 
     public List<Long> getFollowerListByUserid(Long userid) {
         List<Long> followerList = jpaQueryFactory.select(qRelation.send).from(qRelation)
-                .where(qRelation.receive.eq(userid).and(qRelation.receive.ne(userid))).fetch();
+                .where(qRelation.receive.eq(userid).and(qRelation.send.ne(userid))).fetch();
         return followerList;
     }
 }
