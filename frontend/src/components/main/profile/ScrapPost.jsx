@@ -34,7 +34,7 @@ const ScrapPost = () => {
         setLoading(true);
 
         const response = await axios.get(
-          "https://i5d104.p.ssafy.io/api/post/user/" + user.id + "/" + user.email
+          "https://i5d104.p.ssafy.io/api/post/user/" + user.id + "/" + user.id
         );
 
         console.log(response);

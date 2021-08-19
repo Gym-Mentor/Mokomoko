@@ -14,7 +14,7 @@ import {
   setComments,
 } from "../../../modules/Post";
 
-import {setPostData} from "../../../modules/PostData";
+import { setPostData } from "../../../modules/PostData";
 
 const ProfilePost = () => {
   const [isDetail, setIsDetail] = useState(false);
@@ -29,11 +29,10 @@ const ProfilePost = () => {
       user: state.userInfo.user,
     }));
 
-    const { PostData } = useSelector((state) => state.PostData);
+  const { PostData } = useSelector((state) => state.PostData);
 
   //useDispatch 사용해서 리덕스 스토어의 dispatch를 함수에서 사용할 수 있도록 해준다.
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     const fetchPostList = async () => {
@@ -46,7 +45,7 @@ const ProfilePost = () => {
         setLoading(true);
 
         const response = await axios.get(
-          "https://i5d104.p.ssafy.io/api/post/user/" + user.id + "/" + user.email
+          "https://i5d104.p.ssafy.io/api/post/user/" + user.id + "/" + user.id
         );
 
         console.log(response);
@@ -110,7 +109,6 @@ const ProfilePost = () => {
         history.push({
           pathname: `detailPresenter/${postid}`,
         });
-
       })
       .catch((error) => {
         console.log(error);

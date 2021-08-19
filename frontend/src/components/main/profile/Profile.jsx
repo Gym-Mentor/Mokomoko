@@ -8,6 +8,7 @@ import "../../../css/main/profile/Profile.css";
 import ProfilePostContainer from "../../../container/ProfilePostContainer";
 import ProfilePost from "./ProfilePost";
 import MyProfileContainer from "./MyProfileContainer";
+import OtherUserPost from "./OtherUserPost";
 
 const Profile = () => {
   //userSelector로 리덕스 스토어의 상태 조회하기
@@ -35,8 +36,7 @@ const Profile = () => {
           </div>
           {/* <ProfilePostContainer/> */}
           {/* <ProfilePost /> */}
-          {/* {user.id===OtherUser.} */}
-          <MyProfileContainer />
+          {user.id === OtherUser.user.id ? <MyProfileContainer /> : <OtherUserPost />}
         </div>
       </div>
     </div>
