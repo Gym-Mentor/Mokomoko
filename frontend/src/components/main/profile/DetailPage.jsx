@@ -252,9 +252,10 @@ const DetailPage = (props) => {
           </div>
           <div className="mobile-detail-bottom">
             <h5 className="mobile-detail-desc-username">{PostData.userName}</h5>
-            {PostData.contents.map((item, index) => {
+            {PostData.contents[scrollState].description}
+            {/* {PostData.contents.map((item, index) => {
               return <span key={index}> {item.description}</span>;
-            })}
+            })} */}
           </div>
         </div>
         {/* 큰화면  */}{" "}
@@ -292,9 +293,10 @@ const DetailPage = (props) => {
                 <div className="dt-right-content">
                   <div className="dt-right-content-desc">
                     <div className="content-description">
-                      {PostData.contents.map((item, index) => {
+                    {PostData.contents[scrollState].description}
+                      {/* {PostData.contents.map((item, index) => {
                         return <span key={index}> {item.description}</span>;
-                      })}
+                      })} */}
                     </div>
                   </div>
                   <div className="dt-right-content-comment"></div>
