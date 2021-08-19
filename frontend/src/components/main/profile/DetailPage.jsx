@@ -167,7 +167,6 @@ const DetailPage = (props) => {
   };
 
   const showUserPage = () => {
-
     axios({
       method: "get",
       url: `https://i5d104.p.ssafy.io/api/post/user/${user.id}/${PostData.userid}`,
@@ -210,7 +209,13 @@ const DetailPage = (props) => {
           </div>
           <div className="mobile-detail-img">
             {/* <img src={item.img} alt="image" /> */}
-            <img className="mobile-detail-img" src={PostData.contents[scrollState].image} />
+            {PostData.contents[scrollState].image.charAt(
+              PostData.contents[scrollState].image.length - 1
+            ) == 4 ? (
+              <video className="mobile-detail-img" src={PostData.contents[scrollState].image} />
+            ) : (
+              <img className="mobile-detail-img" src={PostData.contents[scrollState].image} />
+            )}
             <div className="mobile-image-next" onClick={showNextImage}>
               <NavigateNextIcon fontSize="large" />
             </div>
@@ -259,9 +264,11 @@ const DetailPage = (props) => {
               </div>
               <div className="dt-right-section">
                 <div className="dt-right-header">
-                  <div className="dt-detail-userInfo" >
-                    <Avatar className="dt-detail-avatar"  onClick={showUserPage}/>
-                    <span className="dt-detail-username" onClick={showUserPage}>{PostData.userName}</span>
+                  <div className="dt-detail-userInfo">
+                    <Avatar className="dt-detail-avatar" onClick={showUserPage} />
+                    <span className="dt-detail-username" onClick={showUserPage}>
+                      {PostData.userName}
+                    </span>
                   </div>
                 </div>
                 <div className="dt-right-content">
