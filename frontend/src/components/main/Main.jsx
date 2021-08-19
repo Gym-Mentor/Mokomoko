@@ -25,6 +25,7 @@ import AwardMain from "./award/AwardMain";
 import Comment from "./Comment";
 import CommentPage from "./CommentPage";
 import AnotherUserProfile from "./profile/AnotherUserProfile";
+import ExploreTagResult from "./explore/ExploreTagResult";
 
 // 메인 네비게이션 있는 컴포넌트들
 const Main = () => {
@@ -34,7 +35,8 @@ const Main = () => {
         <Route path="/main/feed" component={Feed} />
         <Route path="/main/post" component={Post} />
         <Route path="/main/settingNick" component={NicknameSetting} />
-        <Route path="/main/explore" component={Explore} />
+        <Route path="/main/explore" component={Explore} exact/>
+        <Route path="/main/explore/result" component={ExploreTagResult}/>
         <Route path="/main/profile" component={Profile} />
         <Route path="/main/detail/:index" component={Detail} />
         <Route path="/main/detail/:index" component={DetailPage} />
