@@ -95,7 +95,7 @@ const ExploreHeader = () => {
       }).then((response) =>{
         console.log(response.data.data);
         history.push({
-          pathname:`/main/explore/result`,
+          pathname:`/main/exploreresult`,
           state:{postList:response.data.data}
         })
       }).catch((error)=>{

@@ -35,8 +35,8 @@ const Main = () => {
         <Route path="/main/feed" component={Feed} />
         <Route path="/main/post" component={Post} />
         <Route path="/main/settingNick" component={NicknameSetting} />
-        <Route path="/main/explore" component={Explore} exact/>
-        <Route path="/main/explore/result" component={ExploreTagResult}/>
+        <Route path="/main/explore" component={Explore} />
+        <Route path="/main/exploreresult" component={ExploreTagResult}/>
         <Route path="/main/profile" component={Profile} />
         <Route path="/main/detail/:index" component={Detail} />
         <Route path="/main/detail/:index" component={DetailPage} />
