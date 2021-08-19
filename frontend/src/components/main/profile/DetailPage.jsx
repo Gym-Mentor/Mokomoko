@@ -167,11 +167,10 @@ const DetailPage = (props) => {
   };
 
   const showUserPage = () => {
-    console.log("사용자 페이지 전송");
 
     axios({
       method: "get",
-      url: `https://i5d104.p.ssafy.io/api/post/user/${user.id}/${PostData.post.id}`,
+      url: `https://i5d104.p.ssafy.io/api/post/user/${user.id}/${PostData.userid}`,
     })
       .then((response) => {
         console.log(response);
