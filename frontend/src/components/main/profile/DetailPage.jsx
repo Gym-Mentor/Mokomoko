@@ -9,7 +9,7 @@ import BookmarkIcon from "@material-ui/icons/Bookmark";
 import BookmarkBorderOutlinedIcon from "@material-ui/icons/BookmarkBorderOutlined";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
-import { setLike, setPost } from "../../../modules/Post";
+import Post, { setLike, setPost } from "../../../modules/Post";
 import axios from "axios";
 import { useHistory, useLocation } from "react-router-dom";
 import { setPostData } from "../../../modules/PostData";
@@ -184,6 +184,47 @@ const DetailPage = (props) => {
       });
   };
 
+  const addTime = (date) => {
+    //시간 변환 함수
+
+    const splitDate = date.split("T");
+    //["2021-08-18", "12:20:40.304974"]
+
+    const splitDate2 = splitDate[1].split(":");
+    // ["12", "20", "40.304974"]
+
+    const splitDate3 = splitDate[0].split("-");
+    //[2021, 08, 18]
+    var year = splitDate3[0];
+    var month = splitDate3[1];
+    var day = splitDate3[2];
+    var hour = splitDate2[0];
+    var min = splitDate2[1];
+
+    var newDate = year + "-" + month + "-" + day + " " + hour + ":" + min;
+
+    var finishDate = new Date(newDate);
+    // console.log(finishDate);
+    finishDate.setHours(finishDate.getDate() + 8);
+
+    var today = finishDate;
+
+    var year = today.getFullYear();
+    var month = ("0" + (today.getMonth() + 1)).slice(-2);
+    var day = ("0" + today.getDate()).slice(-2);
+
+    var dateString = year + "-" + month + "-" + day;
+
+    var hours = ("0" + today.getHours()).slice(-2);
+    var minutes = ("0" + today.getMinutes()).slice(-2);
+
+    var dateString = year + "-" + month + "-" + day + " " + hours + ":" + minutes;
+
+    return dateString;
+  };
+
+
+
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
   } else {
@@ -249,6 +290,14 @@ const DetailPage = (props) => {
             <p className="mobile-detail-user-likecnt">
               좋아요 {likeNumber == null ? PostData.post.likeCnt : likeNumber}
             </p>
+          </div>
+          <div className="mobile-detail-createdate">
+            <p className="mobile-detail-createdate">
+                {addTime(`${PostData.post.createdate}`)}
+            </p>
+          </div>
+          <div className="mobile-detail-createtime">
+            <p className="mobiler-detail-createtime">{PostData.createdate}</p>
           </div>
           <div className="mobile-detail-bottom">
             <p className="mobile-detail-desc-username">{PostData.userName}</p>
@@ -341,7 +390,11 @@ const DetailPage = (props) => {
                       <b>좋아요 {likeNumber == null ? PostData.post.likeCnt : likeNumber}</b>
                     </a>
                   </div>
-                  <div className="dt-right-footer-upload-date">2일전</div>
+                  <div className="mobile-detail-createdate">
+                    <p className="mobile-detail-createdate">
+                      {addTime(`${PostData.post.createdate}`)}
+                    </p>
+                  </div>
                   {/* <div className="dt-right-footer-upload-comment">
                     <input id="footer-comments" type="text" placeholder="댓글 입력..." />
                     <button id="footer-btn" type="submit">

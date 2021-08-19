@@ -39,7 +39,7 @@ const UserInfo = () => {
         setLoading(true);
 
         const response = await axios.get(
-          "https://i5d104.p.ssafy.io/api/post/user/" + user.id + "/" + user.id
+          "https://i5d104.p.ssafy.io/api/post/user/" + user.id + "/" + OtherUser.user.id
         );
 
         console.log(response);
