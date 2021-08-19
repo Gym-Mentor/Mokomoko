@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { withRouter } from "react-router-dom";
 import "../../../css/header/profileSidebar/UserInfoModify.css";
 import axios from "axios";
+import Cheader from "../Cheader";
 
 // 프로필 이미지 바꾸기, 사용자 정보 바꾸기 백엔드 완성되면 직접해보기
 // 탐색 페이지 완성하기 (백엔드랑 연결하기)
@@ -166,12 +167,11 @@ const UserInfoModify = (props) => {
     <div className="userModify-wrapper">
       <div className="userModify-row">
         <div className="userModify-col">
-          <div className="userModify-header">
-            <div className="userModify-header back" onClick={goBack}>
+          {/* <div className="userModify-header back" onClick={goBack}>
               <IoIosArrowBack />
             </div>
-            <div className="userModify-header title">사용자 정보 수정</div>
-          </div>
+            <div className="userModify-header title">사용자 정보 수정</div> */}
+          <Cheader title="사용자 정보 수정" />
 
           <div className="userModify main">
             <div className="userModify userImg">
@@ -182,43 +182,50 @@ const UserInfoModify = (props) => {
                 }
               ></img>
             </div>
-            <div className="userImg input">
-              <label htmlFor="img-file">
-                <FontAwesomeIcon icon="images" />
-                <span>프로필 사진 변경</span>
-              </label>
-              <input
-                type="file"
-                id="img-file"
-                multiple="multiple"
-                accept="image/jpg,image/png,image/jpeg,image/gif"
-                onChange={handleImageUpload}
-              />
-            </div>
-            <div className="user-profile-remove">
-              <label htmlFor="img-fil" onClick={handleImageRemove}>
-                <FontAwesomeIcon icon="images" />
-                <span className="user-profile-remove-click">프로필 사진 삭제</span>
-              </label>
-            </div>
-            <div className="userModify-title">닉네임</div>
-            <div className="userName">
-              <input
-                className="user-nickname-input"
-                type="text"
-                value={userInfo.nickname}
-                onChange={onNicknameChange}
-              />
+            <div className="img-modify">
+              <div className="userImg input">
+                <label htmlFor="img-file">
+                  <FontAwesomeIcon icon="images" />
+                  <span>프로필 사진 변경</span>
+                </label>
+                <input
+                  type="file"
+                  id="img-file"
+                  multiple="multiple"
+                  accept="image/jpg,image/png,image/jpeg,image/gif"
+                  onChange={handleImageUpload}
+                />
+              </div>
+              <div className="user-profile-remove">
+                <label htmlFor="img-fil" onClick={handleImageRemove}>
+                  <FontAwesomeIcon icon="images" />
+                  <span className="user-profile-remove-click">프로필 사진 삭제</span>
+                </label>
+              </div>
             </div>
 
-            <div className="userModify-title">소개</div>
-            <div className="userName">
-              <input
-                className="user-nickname-input"
-                type="text"
-                value={userInfo.introduce}
-                onChange={onIntroduceChange}
-              />
+            <div className="nick-modify">
+              <div className="userModify-title">닉네임</div>
+              <div className="userName">
+                <input
+                  className="user-nickname-input"
+                  type="text"
+                  value={userInfo.nickname}
+                  onChange={onNicknameChange}
+                />
+              </div>
+            </div>
+
+            <div className="desc-modify">
+              <div className="userModify-desc">소 개</div>
+              <div className="userName">
+                <input
+                  className="user-nickname-input"
+                  type="text"
+                  value={userInfo.introduce}
+                  onChange={onIntroduceChange}
+                />
+              </div>
             </div>
 
             <div className="remove-user" onClick={removeUser}>
