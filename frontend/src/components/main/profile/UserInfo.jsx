@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { getUserInfo } from "../../../modules/userInfo";
 import { testImg } from "../../../img/user_image.png";
 import * as HiIcons from "react-icons/hi";
@@ -9,6 +10,7 @@ import FollowModal from "./FollowModal";
 import FollowerModal from "./FollowerModal";
 import "../../../css/main/profile/UserInfo.css";
 import BlockModal from "./BlockModal";
+import { setOtherUser } from "../../../modules/OtherUser";
 
 const UserInfo = () => {
   const { user } = useSelector((state) => ({ user: state.userInfo.user }));
@@ -53,9 +55,11 @@ const UserInfo = () => {
   useEffect(() => {
     return () => {};
   }, [postList]);
-
+  let history = useHistory();
   const modifyProfileHandler = () => {
-    window.alert("프로필 편집 화면으로 이동");
+    history.push({
+      pathname: "/main/account/userInfo/modify",
+    });
   };
   const showFollowModal = () => {
     setIsFollow((prev) => !prev);
@@ -67,7 +71,64 @@ const UserInfo = () => {
   const showBlockModal = () => {
     setModalShow((prev) => !prev);
   };
+  // 팔로우하기, 차단하기
+  const MakeRelation = (flag) => {
+    // flag가 true면 팔로우
+    // flag가 false면 차단
+    axios({
+      method: "post",
+      url: "https://i5d104.p.ssafy.io/api/relation",
+      data: {
+        send: user.id,
+        receive: OtherUser.user.id,
+        state: flag,
+      },
+    })
+      .then((response) => {
+        let newOtherUser = Object.assign({}, OtherUser);
+        newOtherUser.relationInfo = { ...response.data.data };
+        dispatch(setOtherUser(newOtherUser));
+        if (!flag) {
+          alert(OtherUser.user.nickname + "님을 차단했습니다.");
+          history.push({
+            pathname: "/main/feed",
+          });
+        } else {
+          alert(OtherUser.user.nickname + "님을 팔로우했습니다.");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
+  // 팔로우해제, 차단풀기
+  const RemoveRelation = (flag) => {
+    // flag가 true면 팔로우해제
+    // flag가 false면 차단해제
+    axios({
+      method: "delete",
+      url: "https://i5d104.p.ssafy.io/api/relation",
+      data: {
+        send: user.id,
+        receive: OtherUser.user.id,
+        state: flag,
+      },
+    })
+      .then((response) => {
+        let newOtherUser = Object.assign({}, OtherUser);
+        newOtherUser.relationInfo = { ...response.data.data };
+        dispatch(setOtherUser(newOtherUser));
+        if (!flag) {
+          alert(OtherUser.user.nickname + "님을 차단해제 했습니다.");
+        } else {
+          alert(OtherUser.user.nickname + "님을 팔로우해제 했습니다.");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     <div className="userInfo-wrapper">
       <div className="userInfo-row">
@@ -100,9 +161,17 @@ const UserInfo = () => {
                   프로필 편집
                 </button>
               </div>
+            ) : OtherUser.relationInfo.follow ? (
+              <div className="userInfo-follow">
+                <button className="userInfo-modify-btn" onClick={() => MakeRelation(true)}>
+                  팔로우
+                </button>
+              </div>
             ) : (
               <div className="userInfo-follow">
-                <button className="userInfo-modify-btn">팔로우</button>
+                <button className="userInfo-modify-btn" onClick={() => RemoveRelation(true)}>
+                  팔로우 해제
+                </button>
               </div>
             )}
             <div className="userInfo-introduce">
