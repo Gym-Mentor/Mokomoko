@@ -21,7 +21,7 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public boolean readLike(LikeRequest reqLike) {
-        Optional<Likes> likes = likeRepository.findByUseridAndPostid(reqLike.getUserid(), reqLike.getPostid());
+        Optional<Likes> likes = likeRepository.findByUseridAndPostid(reqLike.getUserid(), reqLike.getObjectid());
         if (likes.isPresent()) {
             return true;
         } else {
@@ -36,7 +36,7 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public BaseResponse deleteLike(LikeRequest reqLike) {
-        Optional<Likes> findLike = likeRepository.findByUseridAndPostid(reqLike.getUserid(), reqLike.getPostid());
+        Optional<Likes> findLike = likeRepository.findByUseridAndPostid(reqLike.getUserid(), reqLike.getObjectid());
         if (findLike.isPresent()) {
             likeRepository.deleteById(findLike.get().getId());
             return BaseResponse.builder().status("200").msg("success").build();
