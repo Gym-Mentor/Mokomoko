@@ -118,7 +118,7 @@ const ProfilePost = () => {
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다</div>;
-  if (postList.length == 0) return <PostNone />;
+  // if (postList == null || postList.length == 0) return <PostNone />;
 
   return (
     <div>
