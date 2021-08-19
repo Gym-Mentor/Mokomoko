@@ -37,7 +37,15 @@ const Profile = () => {
           </div>
           {/* <ProfilePostContainer/> */}
           {/* <ProfilePost /> */}
-          {user.user.id === OtherUser.user.id ? <MyProfileContainer /> : <OtherUserPost />}
+          {user.user.id === OtherUser.user.id ? (
+            <div className="gridd">
+              <MyProfileContainer />
+            </div>
+          ) : (
+            <div className="gridd">
+              <OtherUserPost />
+            </div>
+          )}
         </div>
       </div>
     </div>

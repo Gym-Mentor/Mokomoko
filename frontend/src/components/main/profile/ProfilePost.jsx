@@ -22,6 +22,7 @@ const ProfilePost = () => {
   const [postList, setPostList] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [none, setNone] = useState(false);
 
   const history = useHistory();
 
@@ -41,6 +42,7 @@ const ProfilePost = () => {
         //요청 시작 시  error와 postList 초기화
         setError(null);
         setPostList(null);
+        setNone(null);
 
         //loading 상태 true로 바꾸기
         setLoading(true);
@@ -52,6 +54,9 @@ const ProfilePost = () => {
         console.log(response);
         console.log(response.data.data);
         setPostList(response.data.data.postInfo);
+        if (response.data.data.postInfo.length !== 0 && response.data.data.postInfo !== null) {
+          setNone(true);
+        }
       } catch (e) {
         setError(e);
       }
@@ -118,7 +123,7 @@ const ProfilePost = () => {
 
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다</div>;
-  // if (postList == null || postList.length == 0) return <PostNone />;
+  if (!none) return <PostNone />;
 
   return (
     <div>
