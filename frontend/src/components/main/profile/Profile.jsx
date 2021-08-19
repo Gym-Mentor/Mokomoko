@@ -26,7 +26,9 @@ const Profile = () => {
     onSetIndex(5);
     return () => {};
   }, []);
-
+  useEffect(() => {
+    return () => {};
+  }, [OtherUser]);
   return (
     <div className="profile-wrapper">
       <div className="profile-row">
