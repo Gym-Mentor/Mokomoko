@@ -22,4 +22,6 @@ public interface CommentService {
     List<Comment> deleteCommentByPostid(List<Long> postid);
 
     List<Long> findCommentidByPostid(Long postid);
+
+    List<Comment> findCommentByUserid(Long userid);
 }

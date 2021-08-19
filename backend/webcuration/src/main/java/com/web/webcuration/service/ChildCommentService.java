@@ -22,5 +22,5 @@ public interface ChildCommentService {
 
     Long getChildCommentByCommentid(Long commentid);
 
-    Long deleteChildCOmmentByCommentids(List<Long> commentids);
+    Long deleteChildCommentByCommentids(List<Long> commentids);
 }
