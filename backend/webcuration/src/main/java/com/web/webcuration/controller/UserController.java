@@ -1,10 +1,12 @@
 package com.web.webcuration.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import com.web.webcuration.dto.request.NickNameRequest;
 import com.web.webcuration.dto.request.ProfileRequest;
+import com.web.webcuration.dto.request.UserRelationRequest;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
 import com.web.webcuration.service.PostService;
@@ -60,22 +62,25 @@ public class UserController {
         return ResponseEntity.ok(userService.setNickname(nicknameRequest));
     }
 
-    @GetMapping("/follower/{userid}")
-    public ResponseEntity<BaseResponse> getFollowerList(@PathVariable("userid") Long userid) {
-        List<Long> followerList = relationService.getFollowerListByUserid(userid);
-        return ResponseEntity.ok(userService.getRelationToUser(followerList));
+    @GetMapping("/follower")
+    public ResponseEntity<BaseResponse> getFollowerList(@RequestBody UserRelationRequest reqUser) {
+        List<Long> followerList = relationService.getRelationListByUserid("Follwer", reqUser.getSelectid());
+        HashMap<Long, String> states = relationService.getMeAndSelecterRelation(followerList, reqUser.getUserid());
+        return ResponseEntity.ok(userService.getRelationToUser(states));
     }
 
-    @GetMapping("/follow/{userid}")
-    public ResponseEntity<BaseResponse> getFollowingList(@PathVariable("userid") Long userid) {
-        List<Long> followList = relationService.getFollowListByUserid(userid);
-        return ResponseEntity.ok(userService.getRelationToUser(followList));
+    @GetMapping("/follow")
+    public ResponseEntity<BaseResponse> getFollowingList(@RequestBody UserRelationRequest reqUser) {
+        List<Long> followList = relationService.getRelationListByUserid("Follow", reqUser.getSelectid());
+        HashMap<Long, String> states = relationService.getMeAndSelecterRelation(followList, reqUser.getUserid());
+        return ResponseEntity.ok(userService.getRelationToUser(states));
     }
 
-    @GetMapping("/block/{userid}")
-    public ResponseEntity<BaseResponse> getBlockList(@PathVariable("userid") Long userid) {
-        List<Long> blockList = relationService.getUserRelation(userid).getBlock();
-        return ResponseEntity.ok(userService.getRelationToUser(blockList));
+    @GetMapping("/block")
+    public ResponseEntity<BaseResponse> getBlockList(@RequestBody UserRelationRequest reqUser) {
+        List<Long> blockList = relationService.getRelationListByUserid("Block", reqUser.getSelectid());
+        HashMap<Long, String> states = relationService.getMeAndSelecterRelation(blockList, reqUser.getUserid());
+        return ResponseEntity.ok(userService.getRelationToUser(states));
     }
 
 }

@@ -3,6 +3,7 @@ package com.web.webcuration.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import com.web.webcuration.dto.request.NickNameRequest;
 import com.web.webcuration.dto.request.ProfileRequest;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
+import com.web.webcuration.dto.response.UserRelationListResponse;
 import com.web.webcuration.repository.UserQueryRepository;
 import com.web.webcuration.repository.UserRepository;
 import com.web.webcuration.textMatcher.KoreanTextMatch;
@@ -24,11 +26,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         if (user.isPresent()) {
             return user.get();
         } else {
-            throw new RuntimeException("해당 유저가 없습니다.");
+            return null;
         }
     }
 
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         if (user.isPresent()) {
             return user.get();
         } else {
-            throw new RuntimeException("해당 유저가 없습니다.");
+            return null;
         }
     }
 
@@ -183,14 +183,17 @@ public class UserServiceImpl implements UserService {
 
     // 팔로우, 팔로워 유저 정보 확인
     @Override
-    public BaseResponse getRelationToUser(List<Long> relationList) {
-        log.info("{}", "관계 : " + relationList);
-        if (relationList == null) {
+    public BaseResponse getRelationToUser(HashMap<Long, String> states) {
+        if (states.size() == 0) {
             List<User> data = new ArrayList<>();
             return BaseResponse.builder().status("200").msg("success").data(data).build();
         } else {
-            return BaseResponse.builder().status("200").msg("success")
-                    .data(userQueryRepository.getListToUser(relationList)).build();
+            List<User> relationUser = userQueryRepository.getListToUser(states);
+            List<UserRelationListResponse> userRelationListResponses = new ArrayList<>();
+            for (User user : relationUser) {
+                UserRelationListResponse.builder().user(user).state(states.get(user.getId())).build();
+            }
+            return BaseResponse.builder().status("200").msg("success").data(userRelationListResponses).build();
         }
     }
 
