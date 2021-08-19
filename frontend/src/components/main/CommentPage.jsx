@@ -278,9 +278,6 @@ const CommentPage = () => {
                       ""
                     )}
                   </div>
-                  <div className="usr-comment-like">
-                    <FavoriteBorderIcon id="comment-like" />
-                  </div>
                   <div className="usr-comment-footer">
                     <div className="comment-footer-recomment-cont">
                       <div className="comment-footer-re">
@@ -349,7 +346,7 @@ const CommentPage = () => {
                           <div className="usr-recomment-userInfo">
                             <Avatar id="usr-recomment-avatar" className="post-avatar" src={child.image} />
                             <p className="usr-recomment-username">{child.name}</p>
-                            <span className="usr-recomment-commentname"><b>@{item.name}</b></span>
+                            <span className="usr-recomment-commentname"></span>
                             {/* 수정 부분 */}
                             {recommentIsModify && whichRecommentModify == child.id ?(
                              <input className="usr-recomment-desc"
@@ -366,9 +363,6 @@ const CommentPage = () => {
                               <button onClick = {(e) => modifyRecomments(e,`${child.id}`)}>수정</button>
                             ):""}
                           </div>
-                          <div className="usr-comment-like">
-                    <FavoriteBorderIcon id="comment-like" />
-                  </div>
                   <div className="usr-comment-footer">
                     <div className="comment-footer-recomment-cont">
                       <div className="comment-footer-re">
