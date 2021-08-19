@@ -38,4 +38,10 @@ public class ChildCommentQueryRepository {
         return childComments;
     }
 
+    public List<ChildComment> findChildCommentByCommentids(List<Long> commentids) {
+        List<ChildComment> childComments = jpaQueryFactory.selectFrom(qChildComment)
+                .where(qChildComment.commentid.in(commentids)).fetch();
+        return childComments;
+    }
+
 }

@@ -76,4 +76,10 @@ public class CommentServiceImpl implements CommentService {
         return deleteComment;
     }
 
+    @Override
+    public List<Long> findCommentidByPostid(Long postid) {
+        List<Long> commentids = commentQueryRepository.findCommentidByPostid(postid);
+        return commentids;
+    }
+
 }

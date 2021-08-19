@@ -73,4 +73,12 @@ public class ChildCommentServiceImpl implements ChildCommentService {
         return Long.valueOf(childComments == null ? 0 : childComments.size());
     }
 
+    @Override
+    public Long deleteChildCOmmentByCommentids(List<Long> commentids) {
+        List<ChildComment> childComments = childCommentQueryRepository.findChildCommentByCommentids(commentids);
+        childCommentRepository.deleteAll(childComments);
+        Long cnt = Long.valueOf(childComments == null ? 0 : childComments.size());
+        return cnt + Long.valueOf(commentids == null ? 0 : commentids.size());
+    }
+
 }
