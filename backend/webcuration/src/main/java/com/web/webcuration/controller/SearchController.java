@@ -19,8 +19,8 @@ public class SearchController {
 
     private final SearchService searchService;
 
-    @GetMapping()
-    public ResponseEntity<BaseResponse> getSearchWord(@RequestParam("userid") Long userid,
+    @GetMapping("/{userid}")
+    public ResponseEntity<BaseResponse> getSearchWord(@PathVariable("userid") Long userid,
             @RequestParam("text") String text) {
         return ResponseEntity.ok(searchService.getSearchWord(userid, text));
     }

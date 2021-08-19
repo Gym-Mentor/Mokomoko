@@ -84,8 +84,8 @@ public class AuthServiceImpl implements AuthService {
         // 5. 토큰 발급
         refreshTokenService.creatRefreshToken(refreshToken);
         UserRelationInfo userRelationInfo = relationService.getCountUserRelation(loginUser.getId(), loginUser.getId());
-        loginUser.setFollower(userRelationInfo.getFollwer());
-        loginUser.setFollowing(userRelationInfo.getFollwing());
+        loginUser.setFollower(userRelationInfo.getFollower());
+        loginUser.setFollowing(userRelationInfo.getFollowing());
         if (loginUser.getFollowing() == 0L && postService.getPostCountByUserid(loginUser.getId()) == 0L) {
             List<User> otherUsers = userService.getRandomUserInfo(loginUser.getId());
             return BaseResponse.builder().status("200").msg("success").data(
