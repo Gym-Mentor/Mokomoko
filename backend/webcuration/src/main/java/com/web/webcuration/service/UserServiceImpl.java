@@ -191,7 +191,8 @@ public class UserServiceImpl implements UserService {
             List<User> relationUser = userQueryRepository.getListToUser(states);
             List<UserRelationListResponse> userRelationListResponses = new ArrayList<>();
             for (User user : relationUser) {
-                UserRelationListResponse.builder().user(user).state(states.get(user.getId())).build();
+                userRelationListResponses
+                        .add(UserRelationListResponse.builder().user(user).state(states.get(user.getId())).build());
             }
             return BaseResponse.builder().status("200").msg("success").data(userRelationListResponses).build();
         }
