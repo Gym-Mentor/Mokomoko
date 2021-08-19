@@ -1,7 +1,5 @@
 package com.web.webcuration.dto.response;
 
-import java.util.List;
-
 import com.web.webcuration.Entity.User;
 import com.web.webcuration.dto.TokenDto;
 
@@ -22,5 +20,4 @@ public class LoginUserResponse {
 
     private TokenDto token;
     private User user;
-    private List<MainFeedResponse> mainFeed;
 }

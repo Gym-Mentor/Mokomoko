@@ -1,8 +1,10 @@
 package com.web.webcuration.repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.webcuration.Entity.QRelation;
 import com.web.webcuration.Entity.Relation;
@@ -12,9 +14,11 @@ import com.web.webcuration.dto.request.RelationRequest;
 import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class RelationQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
@@ -62,15 +66,40 @@ public class RelationQueryRepository {
         return relations;
     }
 
-    public List<Long> getFollowListByUserid(Long userid) {
-        List<Long> followList = jpaQueryFactory.select(qRelation.receive).from(qRelation)
-                .where(qRelation.send.eq(userid).and(qRelation.receive.ne(userid))).fetch();
-        return followList;
+    public HashMap<Long, String> getMeAndSelecterRelation(List<Long> relationList, Long userid) {
+        HashMap<Long, String> states = new HashMap<>();
+        log.info("{}", relationList);
+        for (Long listid : relationList) {
+            states.put(listid, "NO");
+        }
+        List<Tuple> findResult = jpaQueryFactory.select(qRelation.state, qRelation.receive).from(qRelation)
+                .where(qRelation.send.eq(userid).and(qRelation.receive.in(relationList))).fetch();
+        for (Tuple tuple : findResult) {
+            if (tuple.get(0, Boolean.class)) {
+                states.put(tuple.get(1, Long.class), "YES");
+            } else {
+                states.put(tuple.get(1, Long.class), "BLOCK");
+            }
+        }
+        return states;
     }
 
-    public List<Long> getFollowerListByUserid(Long userid) {
-        List<Long> followerList = jpaQueryFactory.select(qRelation.send).from(qRelation)
-                .where(qRelation.receive.eq(userid).and(qRelation.send.ne(userid))).fetch();
-        return followerList;
+    public List<Long> getRelationListByUserid(String type, Long userid) {
+        List<Long> relationList = null;
+        switch (type) {
+            case "Follow":
+                relationList = jpaQueryFactory.select(qRelation.receive).from(qRelation)
+                        .where(qRelation.send.eq(userid).and(qRelation.receive.ne(userid))).fetch();
+                break;
+            case "Follower":
+                relationList = jpaQueryFactory.select(qRelation.send).from(qRelation)
+                        .where(qRelation.receive.eq(userid).and(qRelation.send.ne(userid))).fetch();
+                break;
+            case "Block":
+                relationList = jpaQueryFactory.select(qRelation.receive).from(qRelation)
+                        .where(qRelation.send.eq(userid).and(qRelation.state.eq(false))).fetch();
+                break;
+        }
+        return relationList;
     }
 }
