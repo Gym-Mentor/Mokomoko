@@ -161,7 +161,7 @@ const UserInfo = () => {
                   프로필 편집
                 </button>
               </div>
-            ) : OtherUser.relationInfo.follow ? (
+            ) : !OtherUser.relationInfo.follow ? (
               <div className="userInfo-follow">
                 <button className="userInfo-modify-btn" onClick={() => MakeRelation(true)}>
                   팔로우
