@@ -25,6 +25,7 @@ import com.web.webcuration.dto.response.MainFeedResponse;
 import com.web.webcuration.dto.response.PostResponse;
 import com.web.webcuration.dto.response.ScrapResponse;
 import com.web.webcuration.dto.response.UserPostResponse;
+import com.web.webcuration.dto.response.UserRelationListResponse;
 import com.web.webcuration.repository.PostQueryRepository;
 import com.web.webcuration.repository.PostRepository;
 import com.web.webcuration.utils.FileUtils;
@@ -164,7 +165,8 @@ public class PostServiceImpl implements PostService {
         List<Long> follow = relationService.getUserRelation(feedRequest.getUserid()).getFollow();
         List<Post> posts = postQueryRepository.getMainFeed(follow, feedRequest.getPostid());
         if (follow.size() == 1 && postQueryRepository.findAllByUserid(feedRequest.getUserid()).size() == 0L) {
-            List<User> randomUsers = userService.getRandomUserInfo(feedRequest.getUserid());
+            List<Long> block = relationService.getRelationListByUserid("Block", feedRequest.getUserid());
+            List<UserRelationListResponse> randomUsers = userService.getRandomUserInfo(block, feedRequest.getUserid());
             return MainFeedResponse.builder().type(false).randomUsers(randomUsers).build();
         } else {
             List<MainFeedDto> mainFeedDtos = new ArrayList<>();

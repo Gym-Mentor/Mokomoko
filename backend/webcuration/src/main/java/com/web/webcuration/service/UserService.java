@@ -10,6 +10,7 @@ import com.web.webcuration.dto.request.NickNameRequest;
 import com.web.webcuration.dto.request.ProfileRequest;
 import com.web.webcuration.dto.request.UserRequest;
 import com.web.webcuration.dto.response.BaseResponse;
+import com.web.webcuration.dto.response.UserRelationListResponse;
 
 public interface UserService {
 
@@ -37,6 +38,6 @@ public interface UserService {
 
     BaseResponse getRelationToUser(HashMap<Long, String> states);
 
-    List<User> getRandomUserInfo(Long userid);
+    List<UserRelationListResponse> getRandomUserInfo(List<Long> block, Long userid);
 
 }
