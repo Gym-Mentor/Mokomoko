@@ -81,6 +81,10 @@ const ExploreHeader = () => {
         })
     }
 
+    const showTagResult = (e,tagName) =>{
+      console.log("태그 보여줄 거",tagName);
+    }
+
     return (
         <> < div className = "search-form" >
             <div className="search-box">
@@ -110,7 +114,7 @@ const ExploreHeader = () => {
                   {
                     tagInfo && tagInfo.map((item,index) =>{
                       return(
-                        <div key = {index}>{item}</div>
+                        <div key = {index} onClick={(e) =>showTagResult(e,`${item}`)}>{item}</div>
                       )
                     })
                   }
