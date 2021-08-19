@@ -33,7 +33,7 @@ const BlockModal = ({ showBlockModal }) => {
         if (!flag) {
           alert(OtherUser.user.nickname + "님을 차단했습니다.");
           if (check) {
-            newUser.follower--;
+            newUser.following--;
             dispatch(setUserInfo(newUser));
           }
           history.push({
@@ -42,7 +42,7 @@ const BlockModal = ({ showBlockModal }) => {
         } else {
           alert(OtherUser.user.nickname + "님을 팔로우했습니다.");
 
-          newUser.follower++;
+          newUser.following++;
           dispatch(setUserInfo(newUser));
         }
       })
@@ -54,7 +54,7 @@ const BlockModal = ({ showBlockModal }) => {
     <>
       <div className="background-block" onClick={showBlockModal} />
       <div className="blockList">
-        <button className="block-user-btn" onClick={MakeRelation(false)}>
+        <button className="block-user-btn" onClick={() => MakeRelation(false)}>
           차단하기
         </button>
       </div>
