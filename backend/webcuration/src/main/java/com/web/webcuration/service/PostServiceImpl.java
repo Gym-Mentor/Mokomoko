@@ -149,9 +149,11 @@ public class PostServiceImpl implements PostService {
         List<Long> block = relationService.getUserRelation(feedRequest.getUserid()).getBlock();
         List<Post> explorePosts = postQueryRepository.getExplorePost(block, feedRequest.getPostid());
         List<UserPostInfo> userPostResponse = new ArrayList<>();
-        for (Post post : explorePosts) {
-            userPostResponse.add(UserPostInfo.builder().post(post)
-                    .image(contentService.FindByPostidOrderby(post.getId()).getImage()).build());
+        if (explorePosts != null) {
+            for (Post post : explorePosts) {
+                userPostResponse.add(UserPostInfo.builder().post(post)
+                        .image(contentService.FindByPostidOrderby(post.getId()).getImage()).build());
+            }
         }
         return BaseResponse.builder().status("200").msg("success").data(userPostResponse).build();
     }
@@ -226,10 +228,10 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<UserPostInfo> getRankPosts() {
-        List<Post> posts = postQueryRepository.getRankPost();
+    public List<UserPostInfo> getRankPosts(List<Long> block) {
+        List<Post> posts = postQueryRepository.getRankPost(block);
         if (posts == null) {
-            return null;
+            return new ArrayList<>();
         } else {
             List<UserPostInfo> rankPostInfo = new ArrayList<>();
             for (Post post : posts) {
@@ -260,4 +262,16 @@ public class PostServiceImpl implements PostService {
         return postQueryRepository.getPostCountByUserid(userid);
     }
 
+    @Override
+    public List<UserPostInfo> getAllPostByPostid(List<Long> block, List<Long> postids) {
+        List<Post> AllPost = postQueryRepository.getAllPostByPostids(block, postids);
+        List<UserPostInfo> userPostResponse = new ArrayList<>();
+        if (AllPost != null) {
+            for (Post post : AllPost) {
+                userPostResponse.add(UserPostInfo.builder().post(post)
+                        .image(contentService.FindByPostidOrderby(post.getId()).getImage()).build());
+            }
+        }
+        return userPostResponse;
+    }
 }

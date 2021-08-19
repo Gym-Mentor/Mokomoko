@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class SerarchUserInfo {
+public class SearchUserInfo {
 
     private Long id;
 

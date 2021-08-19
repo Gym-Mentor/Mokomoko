@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.web.webcuration.Entity.User;
-import com.web.webcuration.dto.SerarchUserInfo;
+import com.web.webcuration.dto.SearchUserInfo;
 import com.web.webcuration.dto.request.NickNameRequest;
 import com.web.webcuration.dto.request.ProfileRequest;
 import com.web.webcuration.dto.request.UserRequest;
@@ -26,15 +26,16 @@ public interface UserService {
 
     User createUser(User newUser);
 
-    List<SerarchUserInfo> getSearchNickname(String text);
+    List<SearchUserInfo> getSearchNickname(List<Long> block, String text);
 
     void changeUserFollowing(Long userid, Long number);
 
     void changeUserFollower(Long userid, Long number);
 
-    List<User> getRankUsers();
+    List<User> getRankUsers(List<Long> block);
 
     BaseResponse getRelationToUser(List<Long> relationList);
 
     List<User> getRandomUserInfo(Long userid);
+
 }
