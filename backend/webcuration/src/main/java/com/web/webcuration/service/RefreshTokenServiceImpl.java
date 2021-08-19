@@ -22,7 +22,14 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Override
     public Long deleteBytokenKey(String tokenKey) {
-        return refreshTokenRepository.deleteBytokenKey(tokenKey);
+        Optional<RefreshToken> findToken = refreshTokenRepository.findBytokenKey(tokenKey);
+        if (findToken.isPresent()) {
+            refreshTokenRepository.deleteById(findToken.get().getId());
+            return 1L;
+        } else {
+            return 0L;
+        }
+
     }
 
     @Override

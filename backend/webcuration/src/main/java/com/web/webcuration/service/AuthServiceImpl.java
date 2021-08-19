@@ -79,9 +79,7 @@ public class AuthServiceImpl implements AuthService {
         // 4. RefreshToken 저장
         RefreshToken refreshToken = RefreshToken.builder().tokenKey(authentication.getName())
                 .tokenValue(tokenDto.getRefreshToken()).build();
-        if (refreshTokenService.findBytokenKey(authentication.getName()).isPresent()) {
-            refreshTokenService.deleteBytokenKey(authentication.getName());
-        }
+        refreshTokenService.deleteBytokenKey(authentication.getName());
         // 5. 토큰 발급
         refreshTokenService.creatRefreshToken(refreshToken);
         UserRelationInfo userRelationInfo = relationService.getCountUserRelation(loginUser.getId(), loginUser.getId());
