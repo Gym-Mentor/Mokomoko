@@ -15,7 +15,7 @@ const FollowerModal = ({ showFollowerModal }) => {
   useEffect(() => {
     axios({
       url: "https://i5d104.p.ssafy.io/api/user/follower",
-      method: "get",
+      method: "post",
       data: {
         selectid: OtherUser.user.id,
         userid: user.id,
