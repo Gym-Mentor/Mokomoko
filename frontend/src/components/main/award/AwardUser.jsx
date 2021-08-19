@@ -1,9 +1,10 @@
 import axios from "axios";
-import React, { Component, useEffect, useRef, useState, useHistory } from "react";
+import React, { Component, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import "../../../css/award/AwardUser.css";
 import { setOtherUser } from "../../../modules/OtherUser";
+import { useHistory } from "react-router-dom";
 // import 'slick-carousel/slick/slick-theme.css'; 슬라이더 구현시 참고한 사이트
 // https://velog.io/@cookncoding/React-slick%EC%97%90-styled-components-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0
 
