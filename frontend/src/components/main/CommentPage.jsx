@@ -169,7 +169,8 @@ const CommentPage = () => {
 
     setModifyRecomment(description);
     setRecommentIsModify(!recommentIsModify);
-    setWhichRecomment(index);
+    setWhichRecommentModify(index);
+    console.log(whichRecommentModify);
   }
 
   const onChangeModifyRecomment = (e) =>{
@@ -212,7 +213,7 @@ const CommentPage = () => {
       .then((response) => {
         console.log("성공", response);
         setIsModify(false);
-        setWhichComment(null);
+        setWhichRecommentModify(null);
         updateInfo();
       })
       .catch((error) => {
@@ -223,7 +224,7 @@ const CommentPage = () => {
   useEffect(() => {
 
     return () => {};
-  }, [PostData.comments]);
+  }, [PostData.comments,whichRecomment]);
 
   return (
     <div className="comments-wrapper">
@@ -281,11 +282,6 @@ const CommentPage = () => {
                     <FavoriteBorderIcon id="comment-like" />
                   </div>
                   <div className="usr-comment-footer">
-                    <div className="comment-likecnt-cont">
-                      <a href="#" id="comment-likecnt">
-                        <p id="comment-likecnt-desc">좋아요 30개</p>
-                      </a>
-                    </div>
                     <div className="comment-footer-recomment-cont">
                       <div className="comment-footer-re">
                         <button id="recomment-btn" onClick={(e) => showChildComment(e, `${index}`)}>
@@ -355,7 +351,7 @@ const CommentPage = () => {
                             <p className="usr-recomment-username">{child.name}</p>
                             <span className="usr-recomment-commentname"><b>@{item.name}</b></span>
                             {/* 수정 부분 */}
-                            {recommentIsModify && whichRecommentModify == idx ?(
+                            {recommentIsModify && whichRecommentModify == child.id ?(
                              <input className="usr-recomment-desc"
                               type="text"
                               value={modifyRecomment}
@@ -366,22 +362,18 @@ const CommentPage = () => {
                               <span className="usr-recomment-desc">{child.description}</span>
                             )
                             }
-                            {recommentIsModify && whichRecommentModify == idx ?(
+                            {recommentIsModify && whichRecommentModify == child.id ?(
                               <button onClick = {(e) => modifyRecomments(e,`${child.id}`)}>수정</button>
                             ):""}
                           </div>
-                          <div className="usr-recomment-like">
-                          <FavoriteBorderIcon id="recomment-like" />
-                          </div>
-                          <div className="usr-recomment-footer">
-                            <div className="comment-likecnt-cont">
-                            <a href="#" id="comment-likecnt">
-                            <p id="comment-likecnt-desc">좋아요 30개</p></a>
-                            </div>
-                            <div className="recomment-footer-recomment-cont">
-                              <div className="recomment-footer-re">
-                                {user.nickname == child.name ? (
-                                  <button id="re-modify-btn" onClick={(e) =>showReModify(e,`${child.description}`,`${idx}`)}>
+                          <div className="usr-comment-like">
+                    <FavoriteBorderIcon id="comment-like" />
+                  </div>
+                  <div className="usr-comment-footer">
+                    <div className="comment-footer-recomment-cont">
+                      <div className="comment-footer-re">
+                        {user.nickname == child.name ? (
+                                  <button id="re-modify-btn" onClick={(e) =>showReModify(e,`${child.description}`,`${child.id}`)}>
                                     <p id="reModify">수정</p>
                                   </button>
                                 ):""}
@@ -390,9 +382,9 @@ const CommentPage = () => {
                                     <p id="reDelete">삭제</p>
                                   </button>
                                 ):""}
-                              </div>
-                            </div>
-                          </div>
+                      </div>
+                    </div>
+                  </div>
                         </li>
                         );
                       })}
