@@ -62,4 +62,8 @@ public class PostQueryRepository {
     public Long getPostCountByUserid(Long userid) {
         return jpaQueryFactory.selectFrom(qPost).where(qPost.userid.eq(userid)).fetchCount();
     }
+
+    public List<Post> getAllPostByPostids(List<Long> postid) {
+        return jpaQueryFactory.selectFrom(qPost).where(qPost.id.in(postid)).fetch();
+    }
 }

@@ -16,4 +16,6 @@ public interface TagService {
     List<String> getSearchTag(String text);
 
     List<Tag> getRankTags();
+
+    List<Long> getPostidByTagName(String name);
 }

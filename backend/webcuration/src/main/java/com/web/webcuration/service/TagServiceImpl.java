@@ -101,4 +101,11 @@ public class TagServiceImpl implements TagService {
     public List<Tag> getRankTags() {
         return tagQueryRepository.getRankTags();
     }
+
+    @Override
+    public List<Long> getPostidByTagName(String name) {
+        List<Long> postids = tagQueryRepository.getPostidByTagName(name);
+        return postids == null ? new ArrayList<>() : postids;
+    }
+
 }

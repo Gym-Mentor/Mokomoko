@@ -37,4 +37,7 @@ public interface PostService {
     BaseResponse getScrapPost(List<Scrap> scraps);
 
     Long getPostCountByUserid(Long userid);
+
+    void getAllPostByPostid(List<Long> postids);
+
 }
