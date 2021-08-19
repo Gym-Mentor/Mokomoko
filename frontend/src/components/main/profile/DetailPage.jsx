@@ -13,6 +13,7 @@ import { setLike, setPost } from "../../../modules/Post";
 import axios from "axios";
 import { useHistory, useLocation } from "react-router-dom";
 import { setPostData } from "../../../modules/PostData";
+import { setOtherUser } from "../../../modules/OtherUser";
 const DetailPage = (props) => {
   const history = useHistory();
   // 출력할 데이터
@@ -26,6 +27,7 @@ const DetailPage = (props) => {
     user: state.userInfo.user,
   }));
   const { PostData } = useSelector((state) => state.PostData);
+  const { OtherUser } = useSelector((state) => state.OtherUser);
   console.log(PostData);
   const [likeNumber, setLikeNumber] = useState(PostData.post.likeCnt);
   const [bookmark, setBookmark] = useState(PostData.scrap);
@@ -166,6 +168,22 @@ const DetailPage = (props) => {
 
   const showUserPage = () => {
     console.log("사용자 페이지 전송");
+
+    axios({
+      method: "get",
+      url: `https://i5d104.p.ssafy.io/api/post/user/${user.id}/${PostData.post.id}`,
+    })
+      .then((response) => {
+        console.log(response);
+        dispatch(setOtherUser({ ...response.data.data }));
+        // 다른 사용자 프로필로 이동하기
+        history.push({
+          pathname: `/main/profile`,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   if (!browserSupportsSpeechRecognition) {
@@ -242,9 +260,9 @@ const DetailPage = (props) => {
               </div>
               <div className="dt-right-section">
                 <div className="dt-right-header">
-                  <div className="dt-detail-userInfo" onClick={showUserPage}>
-                    <Avatar className="dt-detail-avatar" />
-                    <span className="dt-detail-username">{PostData.userName}</span>
+                  <div className="dt-detail-userInfo" >
+                    <Avatar className="dt-detail-avatar"  onClick={showUserPage}/>
+                    <span className="dt-detail-username" onClick={showUserPage}>{PostData.userName}</span>
                   </div>
                 </div>
                 <div className="dt-right-content">
