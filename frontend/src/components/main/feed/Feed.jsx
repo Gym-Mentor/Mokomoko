@@ -8,6 +8,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Cheader from "../../header/Cheader";
 import axios from "axios";
 import "../../../css/main/explore/Explore.css";
+import FeedNonFollow from "./FeedNonFollow";
 const Feed = ({ history }) => {
   const { activeNav, user } = useSelector((state) => ({
     activeNav: state.activeNav,
@@ -62,6 +63,7 @@ const Feed = ({ history }) => {
       });
     setLoading(false);
   }, [page]);
+
   return (
     <div className="explore-wrapper">
       <div className="explore-row">
@@ -72,7 +74,7 @@ const Feed = ({ history }) => {
             {postCheck ? (
               <FetchMore loading={page !== 0 && loading} setPage={setPage} page={page} />
             ) : (
-              <span className="no-data-msg">불러올 데이터가 없어요 :) </span>
+              <FeedNonFollow />
             )}
           </div>
         </div>
