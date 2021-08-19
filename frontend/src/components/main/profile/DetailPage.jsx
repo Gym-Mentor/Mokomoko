@@ -293,7 +293,7 @@ const DetailPage = (props) => {
                 <div className="dt-right-content">
                   <div className="dt-right-content-desc">
                     <div className="content-description">
-                    {PostData.contents[scrollState].description}
+                      {PostData.contents[scrollState].description}
                       {/* {PostData.contents.map((item, index) => {
                         return <span key={index}> {item.description}</span>;
                       })} */}

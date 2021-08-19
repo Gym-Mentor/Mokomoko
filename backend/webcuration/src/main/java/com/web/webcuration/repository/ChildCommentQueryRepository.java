@@ -32,4 +32,16 @@ public class ChildCommentQueryRepository {
         return deleteChildComments;
     }
 
+    public List<ChildComment> getChildCommentByCommentid(Long commentid) {
+        List<ChildComment> childComments = jpaQueryFactory.selectFrom(qChildComment)
+                .where(qChildComment.commentid.eq(commentid)).fetch();
+        return childComments;
+    }
+
+    public List<ChildComment> findChildCommentByCommentids(List<Long> commentids) {
+        List<ChildComment> childComments = jpaQueryFactory.selectFrom(qChildComment)
+                .where(qChildComment.commentid.in(commentids)).fetch();
+        return childComments;
+    }
+
 }

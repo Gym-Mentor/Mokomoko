@@ -90,7 +90,13 @@ const ScrapPost = () => {
                 className="postGrid"
                 onClick={(e) => showDetail(e, `${item.post.id}`)}
               >
-                <img className="postImg" src={item.image} />
+                {item.image.charAt(item.image.length - 1) == 4 ? (
+                  <video className="postImg">
+                    <source src={item.image} type="video/mp4" />
+                  </video>
+                ) : (
+                  <img className="postImg" src={item.image} />
+                )}
               </div>
             );
           })}

@@ -7,7 +7,7 @@ const Cheader = (props) => {
     <div className="cheader-wrapper">
       <Navbar className="header-nav">
         <Container className="logo">
-          <Navbar.Brand href="/account/login">
+          <Navbar.Brand href="/main/feed">
             <span id="profile-header-name">mokomoko</span>
             {/* <img id="logo-img" src={logoImg} /> */}
           </Navbar.Brand>
