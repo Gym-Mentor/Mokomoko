@@ -1,15 +1,9 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import "../../../css/main/feed/FeedNonFollow.css";
-import FeedNonFollowList from "./FeedNonFollowList";
+import FollowerProfile from "../profile/FollowerProfile";
 
-const FeedNonFollow = () => {
-  useEffect(() => {
-    axios({
-      // url: ,
-      // method: ,
-    });
-  });
+const FeedNonFollow = (list) => {
   return (
     <>
       <div className="non-background" />
@@ -18,7 +12,9 @@ const FeedNonFollow = () => {
           <p>사용자 추천</p>
         </div>
         <hr className="follower-hr" />
-        <FeedNonFollowList />
+        {list.map((item, i) => (
+          <FollowerProfile {...item} key={`item_${i}`} />
+        ))}
       </div>
     </>
   );

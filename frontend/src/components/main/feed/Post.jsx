@@ -241,7 +241,7 @@ const Post = ({ contents, image, like, scrap, nickname, post, userid }) => {
         </div>
         <div className="post-bottom">
           <h5 className="post-desc-username">{nickname} </h5>
-          <p className="d-block w-100">{contents[index].description}</p>
+          <p>{contents[0].description}</p>
         </div>
 
         <div className="likecnt">
