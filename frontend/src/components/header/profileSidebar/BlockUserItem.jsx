@@ -8,7 +8,7 @@ import { setUserInfo } from "../../../modules/userInfo";
 // 나랑 다른 사용자 정보 받아서 팔로우 했냐 안했냐를 따져서 팔로우버튼 팔로우해제 버튼 이벤트 구현하기
 // 프로필 누르면 그 사용자로 이동하게하는 이벤트
 // item.id를 받아서 /api
-const FollowerProfile = (item) => {
+const BlockUserList = (item) => {
   const { user } = useSelector((state) => ({ user: state.userInfo.user }));
   console.log(user);
   console.log(item);
@@ -70,7 +70,8 @@ const FollowerProfile = (item) => {
         // newOtherUser.relationInfo = response.data.data;
         // dispatch(setOtherUser(newOtherUser));
         if (!flag) {
-          alert(item.nickname + "님을 차단해제 했습니다.");
+          alert(item.user.nickname + "님을 차단해제 했습니다.");
+          item.onRemoveUser();
         } else {
           let newUser = Object.assign({}, user);
           newUser.following--;
@@ -114,4 +115,4 @@ const FollowerProfile = (item) => {
   );
 };
 
-export default FollowerProfile;
+export default BlockUserList;
