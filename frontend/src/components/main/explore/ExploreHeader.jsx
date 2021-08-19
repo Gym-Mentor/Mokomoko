@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
+import { useSelector} from "react-redux";
 import axios from 'axios';
 import {setUserInfo} from "../../../modules/userInfo";
 import "../../../css/main/explore/ExploreHeader.css";
 import SearchIcon from '@material-ui/icons/Search';
+import { setOtherUser } from "../../../modules/OtherUser";
 
 
 
@@ -13,6 +15,15 @@ const ExploreHeader = () => {
     const [nicknameInfo, setNicknameInfo] = useState(null);
     const [tagInfo, setTagInfo] = useState(null);
 
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const { user } = useSelector((state) => ({
+      user: state.userInfo.user,
+    }));
+
+    const { OtherUser } = useSelector((state) => state.OtherUser);
+
     useEffect(() => {
         console.log(keyword);
         const fetchList = async () => {
@@ -22,20 +33,19 @@ const ExploreHeader = () => {
                     setTagInfo(null);
                 } else {
 
-                    const userResponse = await axios.get(
-                        "https://i5d104.p.ssafy.io/api/search?text=" + keyword + "&type=true"
-                    );
+                    const data ={
+                      "text" : keyword,
+                      "userid" : user.id
+                    }
+                    const response= await axios.post(
+                        "https://i5d104.p.ssafy.io/api/search", data);
 
-                    console.log("유저정보", userResponse.data.data);
-                    var nickname_info = userResponse.data.data;
+                    // console.log("유저정보", response.data.data.users);
+                    var nickname_info = response.data.data.users;
                     setNicknameInfo(nickname_info);
 
-                    const tagResponse = await axios.get(
-                        "https://i5d104.p.ssafy.io/api/search?text=" + keyword + "&type=false"
-                    )
-
-                    console.log("태그정보", tagResponse.data.data);
-                    var tag_info = tagResponse.data.data;
+                    // console.log("태그정보", response.data.data.tags);
+                    var tag_info = response.data.data.tags;
                     setTagInfo(tag_info);
 
                 }
@@ -50,6 +60,26 @@ const ExploreHeader = () => {
     const onChangeKeyword = (e) => {
         setKeyword(e.target.value);
     };
+
+    const goToUserPage = (e,anotherUserId) =>{
+      // console.log(user.id);
+      console.log("다른 유저 페이지 이동",anotherUserId);
+
+      axios({
+        method:"get",
+        url:`https://i5d104.p.ssafy.io/api/post/user/${user.id}/${anotherUserId}`,
+      })
+        .then((response) =>{
+          dispatch(setOtherUser({...response.data.data}));
+
+          history.push({
+            pathname :`/main/profile`,
+          })
+        })
+        .catch((error) =>{
+          console.error(error);
+        })
+    }
 
     return (
         <> < div className = "search-form" >
@@ -68,7 +98,7 @@ const ExploreHeader = () => {
                   {nicknameInfo ==null ?"사용자 정보가 없습니다.":""}
                     {
                         nicknameInfo && nicknameInfo.map((item, index) => {
-                            return (<div key={index}>{item.name}</div>);
+                            return (<div key={index} onClick={(e) => goToUserPage(e,`${item.id}`)}>{item.name}</div>);
                         })
                     }
                 </div>
