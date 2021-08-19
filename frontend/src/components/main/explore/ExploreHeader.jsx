@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
-import { useSelector} from "react-redux";
+import { useSelector,useDispatch} from "react-redux";
 import axios from 'axios';
 import {setUserInfo} from "../../../modules/userInfo";
 import "../../../css/main/explore/ExploreHeader.css";
 import SearchIcon from '@material-ui/icons/Search';
 import { setOtherUser } from "../../../modules/OtherUser";
+import { useHistory } from "react-router-dom";
 
 
 
