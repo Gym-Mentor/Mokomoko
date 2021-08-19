@@ -25,6 +25,7 @@ const UserInfo = () => {
   const [postList, setPostList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [followerInfo, setFollowerInfo] = useState([]);
   useEffect(() => {
     const fetchPostList = async () => {
       try {
@@ -121,16 +122,6 @@ const UserInfo = () => {
                   {OtherUser.user.id === user.id ? postList.length : OtherUser.postInfo.length}
                 </div>
               </div>
-              <div className="userFriend follow" onClick={showFollowModal}>
-                <p className="uf-title">
-                  <b>팔로우</b>
-                </p>
-                <div className="uf-numb">
-                  {OtherUser.user.id === user.id ? user.following : OtherUser.user.following}
-                </div>
-              </div>
-
-              {isFollow && <FollowModal showFollowModal={showFollowModal} />}
 
               <div className="userFriend follower" onClick={showFollowerModal}>
                 <p className="uf-title">
@@ -140,7 +131,19 @@ const UserInfo = () => {
                   {OtherUser.user.id === user.id ? user.follower : OtherUser.user.follower}
                 </div>
               </div>
-              {isFollower && <FollowerModal showFollowerModal={showFollowerModal} />}
+              {isFollower && (
+                <FollowerModal showFollowerModal={showFollowerModal} userId={user.id} />
+              )}
+
+              <div className="userFriend follow" onClick={showFollowModal}>
+                <p className="uf-title">
+                  <b>팔로우</b>
+                </p>
+                <div className="uf-numb">
+                  {OtherUser.user.id === user.id ? user.following : OtherUser.user.following}
+                </div>
+              </div>
+              {isFollow && <FollowModal showFollowModal={showFollowModal} userId={user.id} />}
             </div>
           </div>
           <hr className="usrf-hr" />
