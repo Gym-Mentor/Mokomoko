@@ -50,8 +50,9 @@ public class UserQueryRepository {
         return jpaQueryFactory.selectFrom(qUser).where(qUser.id.in(states.keySet())).fetch();
     }
 
-    public List<User> getOtherUser(Long userid) {
-        List<User> otherUser = jpaQueryFactory.selectFrom(qUser).where(qUser.id.ne(userid)).fetch();
+    public List<User> getOtherUser(List<Long> block, Long userid) {
+        List<User> otherUser = jpaQueryFactory.selectFrom(qUser).where(qUser.id.ne(userid).and(qUser.id.notIn(block)))
+                .fetch();
         return otherUser == null ? new ArrayList<>() : otherUser;
     }
 }
