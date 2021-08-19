@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { setIndex } from "../../modules/MainNav";
 import { useSelector, useDispatch } from "react-redux";
 import "../../css/main/MainNav.css";
+import { setOtherUser } from "../../modules/OtherUser";
 const MainNav = () => {
   // activeNav는 현재 선택된 네비게이션 아이템(값)을 저장한다
   // 1이면 첫 번째 네비게이션, 2이면 두 번째 ... 5이면 다섯 번째
@@ -13,9 +14,18 @@ const MainNav = () => {
   const { activeNav } = useSelector((state) => ({
     activeNav: state.MainNav.activeNav,
   }));
+  const { user } = useSelector((state) => ({
+    user: state.userInfo.user,
+  }));
+  const { OtherUser } = useSelector((state) => state.OtherUser);
   //useDispatch 사용해서 리덕스 스토어의 dispatch를 함수에서 사용할 수 있도록 해준다.
   const dispatch = useDispatch();
-  const onClickNavItem = (activeNav) => dispatch(setIndex(activeNav));
+  const onClickNavItem = (activeNav) => {
+    dispatch(setIndex(activeNav));
+    let newOtherUser = Object.assign({}, OtherUser);
+    newOtherUser.user.id = user.id;
+    dispatch(setOtherUser(newOtherUser));
+  };
   return (
     <div className="wrapper">
       <div className="Navs">
