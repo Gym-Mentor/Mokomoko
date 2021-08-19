@@ -15,7 +15,7 @@ const FollowModal = ({ showFollowModal }) => {
   // 팔로워 목록 받기
   useEffect(() => {
     axios({
-      url: "https://i5d104.p.ssafy.io/api/user/follow/",
+      url: "https://i5d104.p.ssafy.io/api/user/follow",
       method: "get",
       data: {
         selectid: OtherUser.user.id,
