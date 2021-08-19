@@ -22,8 +22,13 @@ const MainNav = () => {
   const dispatch = useDispatch();
   const onClickNavItem = (activeNav) => {
     dispatch(setIndex(activeNav));
+    if (activeNav === 5) onClickProfile();
+  };
+  const onClickProfile = () => {
     let newOtherUser = Object.assign({}, OtherUser);
     newOtherUser.user.id = user.id;
+    console.log(newOtherUser);
+    console.log(user);
     dispatch(setOtherUser(newOtherUser));
   };
   return (
