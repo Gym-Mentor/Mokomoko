@@ -110,7 +110,9 @@
 }
 
 .userInfo-nickname span {
-  font-family: IM_Hyemin-Bold;
+  /* font-family: IM_Hyemin-Bold; */
+  font-family: Helvetica, "맑은 고딕", "malgun gothic", "Apple SD Gothic Neo",
+    "Apple SD 산돌고딕 Neo", "Microsoft NeoGothic", "Droid sans", sans-serif;
   font-size: 25px;
 }
 
@@ -156,5 +158,6 @@
   color: #848383;
 }
 #block-icon {
-  margin-left: 10px;
+  margin-left: 12px;
+  margin-bottom: 10px;
 }
