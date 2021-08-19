@@ -260,4 +260,14 @@ public class PostServiceImpl implements PostService {
         return postQueryRepository.getPostCountByUserid(userid);
     }
 
+    @Override
+    public void getAllPostByPostid(List<Long> postids) {
+        List<Post> AllPost = postQueryRepository.getAllPostByPostids(postids);
+        if (AllPost != null) {
+
+        } else {
+
+        }
+    }
+
 }
