@@ -1,7 +1,10 @@
 package com.web.webcuration.service;
 
-import com.web.webcuration.dto.request.SearchRequest;
+import java.util.List;
+
+import com.web.webcuration.dto.SearchUserInfo;
 import com.web.webcuration.dto.response.BaseResponse;
+import com.web.webcuration.dto.response.SearchWordResponse;
 
 import org.springframework.stereotype.Service;
 
@@ -13,18 +16,23 @@ public class SerarchServiceImpl implements SearchService {
 
     private final UserService userService;
     private final TagService tagService;
+    private final PostService postService;
 
     @Override
-    public BaseResponse getSearchWord(SearchRequest searchRequest) {
-        if (searchRequest.isType()) {
-            // 유저 검색
-            return BaseResponse.builder().status("200").msg("success")
-                    .data(userService.getSearchNickname(searchRequest.getText())).build();
-        } else {
-            // 태그 검색
-            return BaseResponse.builder().status("200").msg("success")
-                    .data(tagService.getSearchTag(searchRequest.getText())).build();
-        }
+    public BaseResponse getSearchWord(String text) {
+        // 유저 검색
+        List<SearchUserInfo> users = userService.getSearchNickname(text);
+        // 태그 검색
+        List<String> tags = tagService.getSearchTag(text);
+        return BaseResponse.builder().status("200").msg("success")
+                .data(SearchWordResponse.builder().tags(tags).users(users).build()).build();
+    }
+
+    @Override
+    public BaseResponse getSearchResult(String word) {
+        List<Long> postids = tagService.getPostidByTagName(word);
+
+        return null;
     }
 
 }

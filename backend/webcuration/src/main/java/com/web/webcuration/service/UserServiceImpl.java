@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import com.web.webcuration.Entity.Provide;
 import com.web.webcuration.Entity.User;
-import com.web.webcuration.dto.SerarchUserInfo;
+import com.web.webcuration.dto.SearchUserInfo;
 import com.web.webcuration.dto.request.NickNameRequest;
 import com.web.webcuration.dto.request.ProfileRequest;
 import com.web.webcuration.dto.request.UserRequest;
@@ -130,15 +130,15 @@ public class UserServiceImpl implements UserService {
 
     // 유저 검색
     @Override
-    public List<SerarchUserInfo> getSearchNickname(String text) {
+    public List<SearchUserInfo> getSearchNickname(String text) {
         List<User> UserOrderBy = userQueryRepository.getUserOrderBy();
-        List<SerarchUserInfo> searchUser = new ArrayList<>();
+        List<SearchUserInfo> searchUser = new ArrayList<>();
         KoreanTextMatcher matcher = new KoreanTextMatcher(text);
         for (User user : UserOrderBy) {
             KoreanTextMatch match = matcher.match(user.getNickname());
             if (match.success()) {
-                searchUser.add(SerarchUserInfo.builder().id(user.getId()).image(user.getImage())
-                        .name(user.getNickname()).build());
+                searchUser.add(SearchUserInfo.builder().id(user.getId()).image(user.getImage()).name(user.getNickname())
+                        .build());
                 if (searchUser.size() == 5) {
                     break;
                 }
