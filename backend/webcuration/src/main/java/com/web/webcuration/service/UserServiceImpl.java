@@ -24,9 +24,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -182,6 +184,7 @@ public class UserServiceImpl implements UserService {
     // 팔로우, 팔로워 유저 정보 확인
     @Override
     public BaseResponse getRelationToUser(List<Long> relationList) {
+        log.info("{}", "관계 : " + relationList);
         if (relationList == null) {
             List<User> data = new ArrayList<>();
             return BaseResponse.builder().status("200").msg("success").data(data).build();
