@@ -22,7 +22,7 @@ const BlockUserList = (item) => {
       url: "https://i5d104.p.ssafy.io/api/relation",
       data: {
         send: user.id,
-        receive: item.id,
+        receive: item.user.id,
         state: flag,
       },
     })
@@ -42,7 +42,7 @@ const BlockUserList = (item) => {
         //     pathname: "/main/feed",
         //   });
         // } else {
-        alert(item.nickname + "님을 팔로우했습니다.");
+        alert(item.user.nickname + "님을 팔로우했습니다.");
         newUser.following++;
         dispatch(setUserInfo(newUser));
         // }
@@ -76,7 +76,7 @@ const BlockUserList = (item) => {
           let newUser = Object.assign({}, user);
           newUser.following--;
           dispatch(setUserInfo(newUser));
-          alert(item.nickname + "님을 팔로우해제 했습니다.");
+          alert(item.user.nickname + "님을 팔로우해제 했습니다.");
         }
       })
       .catch((error) => {

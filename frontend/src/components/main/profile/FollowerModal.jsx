@@ -31,10 +31,29 @@ const FollowerModal = ({ showFollowerModal }) => {
         console.log(error);
       });
   }, []);
-
+  const onRemoveUser = () => {
+    axios({
+      url: "https://i5d104.p.ssafy.io/api/user/follower",
+      method: "post",
+      data: {
+        selectid: OtherUser.user.id,
+        userid: user.id,
+      },
+    })
+      .then(({ data }) => {
+        console.log(data);
+        let newList = Object.assign([], userList);
+        newList = data.data;
+        setUserList(newList);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   useEffect(() => {
     return () => {};
   }, [userList]);
+
   return (
     <>
       <div className="background" onClick={showFollowerModal} />
@@ -44,7 +63,7 @@ const FollowerModal = ({ showFollowerModal }) => {
         </div>
         <hr className="follower-hr" />
 
-        <UserList list={userList} />
+        <UserList list={userList} onRemoveUser={() => onRemoveUser()} />
       </div>
     </>
   );
