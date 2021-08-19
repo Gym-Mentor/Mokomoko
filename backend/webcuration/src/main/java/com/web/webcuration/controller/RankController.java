@@ -18,7 +18,7 @@ public class RankController {
     private final RankService rankService;
 
     @GetMapping()
-    public ResponseEntity<BaseResponse> getRankList() {
-        return ResponseEntity.ok(rankService.getRankList());
+    public ResponseEntity<BaseResponse> getRankList(Long userid) {
+        return ResponseEntity.ok(rankService.getRankList(userid));
     }
 }

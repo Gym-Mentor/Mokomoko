@@ -130,8 +130,8 @@ public class UserServiceImpl implements UserService {
 
     // 유저 검색
     @Override
-    public List<SearchUserInfo> getSearchNickname(String text) {
-        List<User> UserOrderBy = userQueryRepository.getUserOrderBy();
+    public List<SearchUserInfo> getSearchNickname(List<Long> block, String text) {
+        List<User> UserOrderBy = userQueryRepository.getUserOrderBy(block);
         List<SearchUserInfo> searchUser = new ArrayList<>();
         KoreanTextMatcher matcher = new KoreanTextMatcher(text);
         for (User user : UserOrderBy) {
@@ -175,8 +175,8 @@ public class UserServiceImpl implements UserService {
 
     // 랭킹 인원 가져오기
     @Override
-    public List<User> getRankUsers() {
-        return userQueryRepository.getRankUsers();
+    public List<User> getRankUsers(List<Long> block) {
+        return userQueryRepository.getRankUsers(block);
     }
 
     // 팔로우, 팔로워 유저 정보 확인
