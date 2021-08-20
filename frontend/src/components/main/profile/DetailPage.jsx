@@ -216,14 +216,13 @@ const DetailPage = (props) => {
     var dateString = year + "-" + month + "-" + day;
 
     var hours = ("0" + today.getHours()).slice(-2);
+
     var minutes = ("0" + today.getMinutes()).slice(-2);
 
     var dateString = year + "-" + month + "-" + day + " " + hours + ":" + minutes;
 
     return dateString;
   };
-
-
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
@@ -288,13 +287,11 @@ const DetailPage = (props) => {
           </div>
           <div className="mobile-detail-likecnt">
             <p className="mobile-detail-user-likecnt">
-              좋아요 {likeNumber == null ? PostData.post.likeCnt : likeNumber}
+              좋아요 {likeNumber == null ? PostData.post.likeCnt : likeNumber}개
             </p>
           </div>
           <div className="mobile-detail-createdate">
-            <p className="mobile-detail-createdate">
-                {addTime(`${PostData.post.createdate}`)}
-            </p>
+            <p className="mobile-detail-createdates">{addTime(`${PostData.post.createdate}`)}</p>
           </div>
           <div className="mobile-detail-createtime">
             <p className="mobiler-detail-createtime">{PostData.createdate}</p>
@@ -387,11 +384,11 @@ const DetailPage = (props) => {
                   <br />
                   <div className="dt-right-footer-likecnt">
                     <a href="#">
-                      <b>좋아요 {likeNumber == null ? PostData.post.likeCnt : likeNumber}</b>
+                      <b>좋아요 {likeNumber == null ? PostData.post.likeCnt : likeNumber}개</b>
                     </a>
                   </div>
-                  <div className="mobile-detail-createdate">
-                    <p className="mobile-detail-createdate">
+                  <div className="dt-detail-createdate">
+                    <p className="dt-detail-createdates">
                       {addTime(`${PostData.post.createdate}`)}
                     </p>
                   </div>
