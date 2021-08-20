@@ -1,0 +1,2 @@
+1). tomcat : 9.0.50, java : 11, 웹서버 : NGINX, IDE : Visual Studio Code 1.59.0, Docker : 20.10.8, mysql  Ver 8.0.26-0ubuntu0.20.04.2 for Linux on x86_64 ((Ubuntu))
+4). 데이터베이스 접속 정보 i5d104.p.ssafy.io:3306 id : root, password : ssafy

@@ -1,0 +1,2 @@
+카카오톡 로그인 : RESTAPIKey : ae3417f23d74a47e083cca850c4ecf08, Redirect URI : http://i5d104.p.ssafy.io/account/kakaoLogin
+네이버 로그인 :  Client ID : nwk_DGz4Rg8qXKe4QUws Client Secret : bp8X07QMzq Callback URL : http://i5d104.p.ssafy.io:80/account/naverLogin
